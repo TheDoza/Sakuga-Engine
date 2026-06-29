@@ -271,7 +271,8 @@ namespace SakugaEngine
         {
             if (!IsActive) return;
 
-            ThrowEscape(GetOpponent(0));
+            if (CurrentGrabbedNodeID >= 0)
+                ThrowEscape(GameManager.Instance.GetActor(CurrentGrabbedNodeID) as SakugaActor);
             if (StanceManager != null) StanceManager.CheckMoves();
 
             if (OnHitstop()) return;
@@ -622,11 +623,11 @@ namespace SakugaEngine
 
             if (GetMaster() != null && GetMaster().Parameters.SuperGauge != null)
                 GetMaster().Parameters.SuperGauge.AddSuperGauge(superGaugeGain);
+            
+            if (Body != null) Body.AddHitBody(target.Body);
 
             foreach(FrameDataEvent hitEvent in StateManager.GetCurrentState().OnHitConfirmEvents)
                 hitEvent.RunEvent(ref actor);
-
-            if (Body != null) Body.AddHitBody(target.Body);
         }
         public void BaseDamage(SakugaActor target, HitboxElement box, Vector2I contact)
         {
@@ -722,7 +723,7 @@ namespace SakugaEngine
             if (target.StateManager.CurrentStateType() == StateType.HIT_REACTION) finalHitstop = (uint)box.ThrowHitstopAfterHit;
             
             CurrentGrabbedNodeID = (int)target.NodeID;
-            target.CurrentGrabbedNodeID = -1;
+            target.CurrentGrabbedNodeID = (int)NodeID;
 
             target.ThrowHit(actor, box, finalHitstop);
             HitConfirm(target, 0, finalHitstop, -1, Vector2I.Zero);
@@ -788,7 +789,7 @@ namespace SakugaEngine
                     "\nStance: "+StanceManager.CurrentStance+
                     "\nCurrent State: "+StateManager.CurrentState+
                     "\nState Name: "+StateManager.GetCurrentState().StateName+
-                    "\nAnimation Name: "+(StateManager.GetCurrentAnimationSettings() == null ? "" : StateManager.GetCurrentAnimationSettings().SourceAnimation)+
+                    "\nAnimation Name: "+(StateManager.GetCurrentAnimationSettings() == null ? "None" : StateManager.GetCurrentAnimationSettings().SourceAnimation)+
                     "\nCurrent Move: "+StanceManager.CurrentMove+
                     "\nBuffered Move: "+StanceManager.BufferedMove+
                     "\nFrame: "+StateManager.CurrentStateFrame+
@@ -805,7 +806,8 @@ namespace SakugaEngine
                     "\nMove Buffer: ("+ StanceManager.MoveBuffer.IsRunning()+") "+StanceManager.MoveBuffer.TimeLeft+
                     "\nBounce: ("+Bounce.TimeLeft+", X:"+BounceXIntensity+", Y:"+BounceYIntensity+")"+
                     "\nCharge Buffers: "+Inputs.hCharge+" | "+Inputs.vCharge+
-                    "\nBlocking: "+BlockStun;
+                    "\nHit Confirmed: "+(Body != null && Body.HitBodies.Count > 0)+
+                    "\nCurrently Grab Actor: "+CurrentGrabbedNodeID;
         }
 
         public void StartBounce(uint bounceTime, int bounceX = 100, int bounceY = 100)
