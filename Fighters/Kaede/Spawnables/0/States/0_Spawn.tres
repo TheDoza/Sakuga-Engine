@@ -3,12 +3,8 @@
 [ext_resource type="Script" uid="uid://bf60srwkccsm8" path="res://Scripts/SakugaEngine/Resources/FighterState.cs" id="1"]
 [ext_resource type="Script" uid="uid://bgwrlqrhqb2a4" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/MoveXAction.cs" id="1_50qk0"]
 [ext_resource type="Resource" uid="uid://c0ekeskyg3mcj" path="res://Fighters/Kaede/Spawnables/0/AnimationData/0_Spawnable_Spawn_AnimationData.tres" id="1_eio7x"]
-[ext_resource type="Script" uid="uid://b8vqwkv52qq3e" path="res://Scripts/SakugaEngine/Resources/AnimationSettings.cs" id="1_lgin2"]
-[ext_resource type="Script" uid="uid://5qrsoteskjym" path="res://Scripts/SakugaEngine/Resources/HitboxState.cs" id="2"]
 [ext_resource type="Script" uid="uid://bw1835rb2hj7y" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/MoveYAction.cs" id="2_y2c1x"]
-[ext_resource type="Script" uid="uid://5you05l2efnd" path="res://Scripts/SakugaEngine/Deprecated/StatePhysics.cs" id="3"]
 [ext_resource type="Script" uid="uid://c7tjt5jdiuhhd" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/SetTimerAction.cs" id="4_eio7x"]
-[ext_resource type="Script" uid="uid://bia88bspuvxd" path="res://Scripts/SakugaEngine/Deprecated/StateTransitionSettings.cs" id="4_esbnr"]
 [ext_resource type="Script" uid="uid://c076jc3huncn2" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/FrameDataEvent.cs" id="4_l8j2y"]
 [ext_resource type="Script" uid="uid://da4kqpf635oin" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/PlayStateAction.cs" id="5_batfk"]
 [ext_resource type="Script" uid="uid://50grsd2r3wl8" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/AtFrameCondition.cs" id="5_l8j2y"]
@@ -81,26 +77,6 @@ Conditions = Array[Object]([SubResource("Resource_qa6p5")])
 Actions = Array[Object]([SubResource("Resource_cvq3s")])
 metadata/_custom_type_script = "uid://c076jc3huncn2"
 
-[sub_resource type="Resource" id="Resource_qjnuj"]
-script = ExtResource("1_lgin2")
-SourceAnimation = "Spawn"
-metadata/_custom_type_script = "uid://b8vqwkv52qq3e"
-
-[sub_resource type="Resource" id="1"]
-script = ExtResource("2")
-
-[sub_resource type="Resource" id="2"]
-script = ExtResource("3")
-UseLateralSpeed = true
-LateralSpeed = 60000
-UseVerticalSpeed = true
-
-[sub_resource type="Resource" id="Resource_k3l4c"]
-script = ExtResource("4_esbnr")
-StateIndex = 1
-Condition = 1
-DistanceArea = Vector2i(0, 99999)
-
 [resource]
 script = ExtResource("1")
 StateName = "Spawn"
@@ -111,12 +87,3 @@ OnTickEvents = Array[Object]([SubResource("Resource_oa32e"), SubResource("Resour
 OnExitEvents = null
 OnHitConfirmEvents = Array[Object]([SubResource("Resource_ib33m")])
 OnHitReactionEvents = null
-Duration = 6
-Loop = true
-stateProperties = null
-statePhysics = [SubResource("2")]
-hitboxStates = [SubResource("1")]
-animationEvents = null
-throwPivot = null
-stateTransitions = Array[Object]([SubResource("Resource_k3l4c")])
-animationSettings = Array[Object]([SubResource("Resource_qjnuj")])

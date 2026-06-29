@@ -2,10 +2,8 @@
 
 [ext_resource type="Script" uid="uid://bf60srwkccsm8" path="res://Scripts/SakugaEngine/Resources/FighterState.cs" id="1_a7nuk"]
 [ext_resource type="Resource" uid="uid://nrtotn1ubgpn" path="res://Fighters/Dummy/AnimationData/3_Dummy_Jump_AnimationData.tres" id="1_sfk2i"]
-[ext_resource type="Script" uid="uid://5you05l2efnd" path="res://Scripts/SakugaEngine/Deprecated/StatePhysics.cs" id="2_46pii"]
 [ext_resource type="Script" uid="uid://da4kqpf635oin" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/PlayStateAction.cs" id="2_j3k7i"]
 [ext_resource type="Script" uid="uid://n7xih8pqfpwo" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/ChangeSideAction.cs" id="2_nn7xt"]
-[ext_resource type="Script" uid="uid://bia88bspuvxd" path="res://Scripts/SakugaEngine/Deprecated/StateTransitionSettings.cs" id="3_5oqrn"]
 [ext_resource type="Script" uid="uid://bho4h38y7suxk" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/StateEndedCondition.cs" id="3_5u5dq"]
 [ext_resource type="Script" uid="uid://bgwrlqrhqb2a4" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/MoveXAction.cs" id="3_cqvd2"]
 [ext_resource type="Script" uid="uid://c076jc3huncn2" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/FrameDataEvent.cs" id="4_uxurl"]
@@ -101,32 +99,6 @@ Conditions = Array[Object]([SubResource("Resource_n45td")])
 Actions = Array[Object]([SubResource("Resource_y4bt6")])
 metadata/_custom_type_script = "uid://c076jc3huncn2"
 
-[sub_resource type="Resource" id="Resource_aim2h"]
-script = ExtResource("2_46pii")
-UseLateralSpeed = true
-UseVerticalSpeed = true
-UseGravity = true
-
-[sub_resource type="Resource" id="Resource_nbfu2"]
-script = ExtResource("2_46pii")
-Frame = 4
-UseLateralSpeed = true
-LateralSpeed = -17000
-UseVerticalSpeed = true
-VerticalSpeed = 65000
-UseGravity = true
-
-[sub_resource type="Resource" id="Resource_8eh53"]
-script = ExtResource("2_46pii")
-Frame = 5
-UseGravity = true
-Gravity = 200000
-
-[sub_resource type="Resource" id="Resource_gult3"]
-script = ExtResource("3_5oqrn")
-StateIndex = 6
-Condition = 16
-
 [resource]
 script = ExtResource("1_a7nuk")
 StateName = "Dummy Jump Back"
@@ -138,12 +110,3 @@ OnTickEvents = Array[Object]([SubResource("Resource_cqvd2"), SubResource("Resour
 OnExitEvents = null
 OnHitConfirmEvents = null
 OnHitReactionEvents = null
-Duration = 40
-TurnState = 0
-stateProperties = null
-statePhysics = Array[Object]([SubResource("Resource_aim2h"), SubResource("Resource_nbfu2"), SubResource("Resource_8eh53")])
-hitboxStates = null
-animationEvents = null
-throwPivot = null
-stateTransitions = Array[Object]([SubResource("Resource_gult3")])
-animationSettings = null

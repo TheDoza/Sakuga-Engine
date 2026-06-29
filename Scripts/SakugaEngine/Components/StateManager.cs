@@ -58,7 +58,7 @@ namespace SakugaEngine
         public FighterState GetState(string name) => _owner.Data.States[GetStateIndex(name)];
         public FighterState GetCurrentState() => _owner.Data.States[CurrentState];
         public StateType CurrentStateType() => GetCurrentState().Type;
-        public bool StateEnded() => CurrentStateFrame >= GetCurrentState().Duration;
+        public bool StateEnded() => CurrentStateFrame >= GetCurrentState().AnimationData.Duration;
         public int GetStateIndex(string name)
         {
             for (int i = 0; i < _owner.Data.States.Length; i++)

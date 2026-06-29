@@ -13,19 +13,6 @@ namespace SakugaEngine.Resources
         [Export] public MoveSettings[] Moves;
         [Export] public int[] HitReactions;
         [Export] public BlockSettings[] BlockReactions;
-
-        [ExportCategory("Blocking")]
-        [Export] public int GroundBlockInitialState = -1;
-        [Export] public int CrouchBlockInitialState = -1;
-        [Export] public int AirBlockInitialState = -1;
-
-        [ExportCategory("Recovery")]
-        [Export] public int GroundForwardRecoveryState = -1;
-        [Export] public int GroundBackwardsRecoveryState = -1;
-        [Export] public int AirForwardRecoveryState = -1;
-        [Export] public int AirBackwardsRecoveryState = -1;
-        [Export] public int OffTheGroundRecoveryState = -1;
-
         [ExportCategory("Throw Escape")]
         [Export] public MotionInputs ThrowEscapeInput;
         [Export] public int GroundThrowEscapeState = -1;

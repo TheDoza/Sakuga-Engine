@@ -54,7 +54,7 @@ namespace SakugaEngine
 
             if (!_owner.Parameters.CompareVariables(GetMove(index).VariablesRequirement)) return false;
             
-            bool AllowedFrameWindow = _owner.StateManager.GetCurrentState().Loop || !_owner.StateManager.GetCurrentState().Loop && _owner.StateManager.CurrentStateFrame < GetMove(index).FrameLimit;
+            bool AllowedFrameWindow = _owner.StateManager.CurrentStateFrame < GetMove(index).FrameLimit;
             if (GetMove(index).FrameLimit > 0 && !AllowedFrameWindow) return false;
             
             return true;

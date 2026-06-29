@@ -150,7 +150,7 @@ namespace SakugaEngine
         public bool IsCrouchState() => Body != null && Body.IsOnGround && StateManager.GetCurrentState().BaseStance == MasterStance.CROUCH;
         public bool IsAirState() => Body != null && (!Body.IsOnGround || Body.IsOnGround && StateManager.GetCurrentState().BaseStance == MasterStance.ON_THE_GROUND);
         public bool IsKO() => Parameters != null && Parameters.Health != null && Parameters.Health.CurrentValue <= 0;
-        public bool IsStunLocked() => OnHitstun() && StateManager.GetCurrentState().AnimationData != null && StateManager.GetCurrentState().AnimationData.HitstunHold >= 0 && Hitstun.TimeLeft >= StateManager.GetCurrentState().AnimationData.Duration - StateManager.GetCurrentState().AnimationData.HitstunHold + 1 && StateManager.CurrentStateFrame >= StateManager.GetCurrentState().AnimationData.HitstunHold;
+        public bool IsStunLocked() => OnHitstun() && StateManager.GetCurrentState().AnimationData != null && StateManager.GetCurrentState().AnimationData.HitstunHold >= 0 && Hitstun.TimeLeft >= StateManager.GetCurrentState().AnimationData.Duration - StateManager.GetCurrentState().AnimationData.HitstunHold && StateManager.CurrentStateFrame >= StateManager.GetCurrentState().AnimationData.HitstunHold;
         public bool CanBlock() => StanceManager != null && StanceManager.GetCurrentStance().BlockReactions != null && StanceManager.GetCurrentStance().BlockReactions.Length > 0;
         public bool IsGrabbed() => HitstunType == HitstunType.GRABBED;
         public bool CanHitstop() => Hitstop != null;

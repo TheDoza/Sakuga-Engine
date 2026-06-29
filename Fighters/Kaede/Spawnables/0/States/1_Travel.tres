@@ -2,10 +2,8 @@
 
 [ext_resource type="Script" uid="uid://bf60srwkccsm8" path="res://Scripts/SakugaEngine/Resources/FighterState.cs" id="1"]
 [ext_resource type="Script" uid="uid://da4kqpf635oin" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/PlayStateAction.cs" id="1_dgmqp"]
-[ext_resource type="Script" uid="uid://b8vqwkv52qq3e" path="res://Scripts/SakugaEngine/Resources/AnimationSettings.cs" id="1_ofr2l"]
 [ext_resource type="Resource" uid="uid://bjx1o62ub0dj8" path="res://Fighters/Kaede/Spawnables/0/AnimationData/1_Spawnable_Travel_AnimationData.tres" id="1_v1wes"]
 [ext_resource type="Script" uid="uid://b2jjrj3gmrwvq" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/CheckTimerCondition.cs" id="2_dgmqp"]
-[ext_resource type="Script" uid="uid://5you05l2efnd" path="res://Scripts/SakugaEngine/Deprecated/StatePhysics.cs" id="2_dulha"]
 [ext_resource type="Script" uid="uid://bho4h38y7suxk" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/StateEndedCondition.cs" id="2_mpvn5"]
 [ext_resource type="Script" uid="uid://c076jc3huncn2" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/FrameDataEvent.cs" id="3_6sxmv"]
 [ext_resource type="Script" uid="uid://b1wnmgsdqaa50" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/GoToFrameActions.cs" id="4_6sxmv"]
@@ -68,17 +66,6 @@ Conditions = Array[Object]([SubResource("Resource_kktyg")])
 Actions = Array[Object]([SubResource("Resource_p4ro7")])
 metadata/_custom_type_script = "uid://c076jc3huncn2"
 
-[sub_resource type="Resource" id="Resource_xe43b"]
-script = ExtResource("1_ofr2l")
-SourceAnimation = "Travel"
-metadata/_custom_type_script = "uid://b8vqwkv52qq3e"
-
-[sub_resource type="Resource" id="Resource_goxqg"]
-script = ExtResource("2_dulha")
-UseLateralSpeed = true
-LateralSpeed = 60000
-UseVerticalSpeed = true
-
 [resource]
 script = ExtResource("1")
 StateName = "Travel"
@@ -89,13 +76,3 @@ OnTickEvents = Array[Object]([SubResource("Resource_1sbss")])
 OnExitEvents = null
 OnHitConfirmEvents = Array[Object]([SubResource("Resource_ib33m")])
 OnHitReactionEvents = null
-Duration = 12
-Loop = true
-LoopFrames = Vector2i(0, 11)
-stateProperties = null
-statePhysics = Array[Object]([SubResource("Resource_goxqg")])
-hitboxStates = null
-animationEvents = null
-throwPivot = null
-stateTransitions = Array[Object]([])
-animationSettings = Array[Object]([SubResource("Resource_xe43b")])

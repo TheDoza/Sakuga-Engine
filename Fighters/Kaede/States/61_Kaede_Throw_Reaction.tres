@@ -1,8 +1,6 @@
 [gd_resource type="Resource" script_class="FighterState" format=3 uid="uid://dlmhufu6n531"]
 
-[ext_resource type="Script" uid="uid://5qrsoteskjym" path="res://Scripts/SakugaEngine/Resources/HitboxState.cs" id="1_2ensi"]
 [ext_resource type="Resource" uid="uid://bn1c72ies0s88" path="res://Fighters/Kaede/AnimationData/65_Kaede_Throw_Reaction_AnimData.tres" id="1_42reb"]
-[ext_resource type="Script" uid="uid://b8vqwkv52qq3e" path="res://Scripts/SakugaEngine/Resources/AnimationSettings.cs" id="1_brj3i"]
 [ext_resource type="Script" uid="uid://bf60srwkccsm8" path="res://Scripts/SakugaEngine/Resources/FighterState.cs" id="2_nvxwc"]
 [ext_resource type="Script" uid="uid://n7xih8pqfpwo" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/ChangeSideAction.cs" id="2_r2t8w"]
 [ext_resource type="Script" uid="uid://bc1nul3va3r43" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/ForcedKnockbackAction.cs" id="2_wpdwb"]
@@ -33,14 +31,6 @@ Conditions = Array[Object]([SubResource("Resource_re5oi")])
 Actions = Array[Object]([SubResource("Resource_6mt35"), SubResource("Resource_r2t8w")])
 metadata/_custom_type_script = "uid://c076jc3huncn2"
 
-[sub_resource type="Resource" id="Resource_42reb"]
-script = ExtResource("1_brj3i")
-SourceAnimation = "Throw_Reaction"
-metadata/_custom_type_script = "uid://b8vqwkv52qq3e"
-
-[sub_resource type="Resource" id="Resource_y6dfi"]
-script = ExtResource("1_2ensi")
-
 [resource]
 script = ExtResource("2_nvxwc")
 StateName = "Throw_Reaction"
@@ -52,12 +42,4 @@ OnTickEvents = Array[Object]([SubResource("Resource_i1a71")])
 OnExitEvents = null
 OnHitConfirmEvents = null
 OnHitReactionEvents = null
-Duration = 30
-stateProperties = null
-statePhysics = null
-hitboxStates = Array[Object]([SubResource("Resource_y6dfi")])
-animationEvents = null
-throwPivot = null
-stateTransitions = null
-animationSettings = Array[Object]([SubResource("Resource_42reb")])
 AIFlags = 32

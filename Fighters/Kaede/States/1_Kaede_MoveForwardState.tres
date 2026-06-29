@@ -1,10 +1,7 @@
 [gd_resource type="Resource" script_class="FighterState" format=3 uid="uid://poi0qgahi6mb"]
 
 [ext_resource type="Script" uid="uid://bf60srwkccsm8" path="res://Scripts/SakugaEngine/Resources/FighterState.cs" id="1"]
-[ext_resource type="Script" uid="uid://5qrsoteskjym" path="res://Scripts/SakugaEngine/Resources/HitboxState.cs" id="1_0wau2"]
-[ext_resource type="Script" uid="uid://b8vqwkv52qq3e" path="res://Scripts/SakugaEngine/Resources/AnimationSettings.cs" id="1_8ox1y"]
 [ext_resource type="Resource" uid="uid://bp8tl7vjac33m" path="res://Fighters/Kaede/AnimationData/1_Kaede_MoveF_AnimData.tres" id="1_mjtro"]
-[ext_resource type="Script" uid="uid://5you05l2efnd" path="res://Scripts/SakugaEngine/Deprecated/StatePhysics.cs" id="2"]
 [ext_resource type="Script" uid="uid://bgwrlqrhqb2a4" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/MoveXAction.cs" id="2_hswqs"]
 [ext_resource type="Script" uid="uid://bw1835rb2hj7y" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/MoveYAction.cs" id="3_3e20p"]
 [ext_resource type="Script" uid="uid://c076jc3huncn2" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/FrameDataEvent.cs" id="4_0go6p"]
@@ -73,20 +70,6 @@ Conditions = Array[Object]([SubResource("Resource_hrtdk")])
 Actions = Array[Object]([SubResource("Resource_7w3ym")])
 metadata/_custom_type_script = "uid://c076jc3huncn2"
 
-[sub_resource type="Resource" id="Resource_mjtro"]
-script = ExtResource("1_8ox1y")
-SourceAnimation = "Walk_Forward"
-metadata/_custom_type_script = "uid://b8vqwkv52qq3e"
-
-[sub_resource type="Resource" id="Resource_5hurg"]
-script = ExtResource("1_0wau2")
-
-[sub_resource type="Resource" id="1"]
-script = ExtResource("2")
-UseLateralSpeed = true
-LateralSpeed = 20000
-UseVerticalSpeed = true
-
 [resource]
 script = ExtResource("1")
 StateName = "Walk_Forward"
@@ -98,14 +81,4 @@ OnTickEvents = Array[Object]([SubResource("Resource_44w3s")])
 OnExitEvents = null
 OnHitConfirmEvents = null
 OnHitReactionEvents = null
-Duration = 30
-Loop = true
-LoopFrames = Vector2i(0, 29)
-stateProperties = null
-statePhysics = [SubResource("1")]
-hitboxStates = Array[Object]([SubResource("Resource_5hurg")])
-animationEvents = null
-throwPivot = null
-stateTransitions = null
-animationSettings = Array[Object]([SubResource("Resource_mjtro")])
 AIFlags = 10

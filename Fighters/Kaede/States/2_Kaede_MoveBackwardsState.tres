@@ -2,9 +2,6 @@
 
 [ext_resource type="Script" uid="uid://bf60srwkccsm8" path="res://Scripts/SakugaEngine/Resources/FighterState.cs" id="1"]
 [ext_resource type="Resource" uid="uid://cmfm4gsfgxt4a" path="res://Fighters/Kaede/AnimationData/2_Kaede_MoveB_AnimData.tres" id="1_0rbn2"]
-[ext_resource type="Script" uid="uid://b8vqwkv52qq3e" path="res://Scripts/SakugaEngine/Resources/AnimationSettings.cs" id="1_8famv"]
-[ext_resource type="Script" uid="uid://5qrsoteskjym" path="res://Scripts/SakugaEngine/Resources/HitboxState.cs" id="1_nvx6j"]
-[ext_resource type="Script" uid="uid://5you05l2efnd" path="res://Scripts/SakugaEngine/Deprecated/StatePhysics.cs" id="2"]
 [ext_resource type="Script" uid="uid://bgwrlqrhqb2a4" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/MoveXAction.cs" id="2_er5x5"]
 [ext_resource type="Script" uid="uid://bw1835rb2hj7y" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/MoveYAction.cs" id="3_okv1i"]
 [ext_resource type="Script" uid="uid://c076jc3huncn2" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/FrameDataEvent.cs" id="4_22yt7"]
@@ -73,20 +70,6 @@ Conditions = Array[Object]([SubResource("Resource_hrtdk")])
 Actions = Array[Object]([SubResource("Resource_7w3ym")])
 metadata/_custom_type_script = "uid://c076jc3huncn2"
 
-[sub_resource type="Resource" id="Resource_ab25c"]
-script = ExtResource("1_8famv")
-SourceAnimation = "Walk_Backwards"
-metadata/_custom_type_script = "uid://b8vqwkv52qq3e"
-
-[sub_resource type="Resource" id="Resource_65hle"]
-script = ExtResource("1_nvx6j")
-
-[sub_resource type="Resource" id="1"]
-script = ExtResource("2")
-UseLateralSpeed = true
-LateralSpeed = -15000
-UseVerticalSpeed = true
-
 [resource]
 script = ExtResource("1")
 StateName = "Walk_Backwards"
@@ -98,14 +81,4 @@ OnTickEvents = Array[Object]([SubResource("Resource_oxxx8")])
 OnExitEvents = null
 OnHitConfirmEvents = null
 OnHitReactionEvents = null
-Duration = 33
-Loop = true
-LoopFrames = Vector2i(0, 32)
-stateProperties = null
-statePhysics = [SubResource("1")]
-hitboxStates = Array[Object]([SubResource("Resource_65hle")])
-animationEvents = null
-throwPivot = null
-stateTransitions = null
-animationSettings = Array[Object]([SubResource("Resource_ab25c")])
 AIFlags = 10

@@ -4,7 +4,6 @@
 [ext_resource type="Script" uid="uid://b1wnmgsdqaa50" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/GoToFrameActions.cs" id="1_h35cw"]
 [ext_resource type="Resource" uid="uid://er14j4r3aj7g" path="res://Fighters/Dummy/AnimationData/1_Dummy_MoveF_AnimationData.tres" id="1_x8ihf"]
 [ext_resource type="Script" uid="uid://bgwrlqrhqb2a4" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/MoveXAction.cs" id="2_1lf6q"]
-[ext_resource type="Script" uid="uid://5you05l2efnd" path="res://Scripts/SakugaEngine/Deprecated/StatePhysics.cs" id="2_5og4b"]
 [ext_resource type="Script" uid="uid://n7xih8pqfpwo" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/ChangeSideAction.cs" id="2_17iir"]
 [ext_resource type="Script" uid="uid://bho4h38y7suxk" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/StateEndedCondition.cs" id="2_x8ihf"]
 [ext_resource type="Script" uid="uid://b4st7jmqq1vph" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/CheckSideChangeCondition.cs" id="3_1gs7c"]
@@ -54,12 +53,6 @@ Conditions = Array[Object]([SubResource("Resource_ayr4o")])
 Actions = Array[Object]([SubResource("Resource_v4kv6")])
 metadata/_custom_type_script = "uid://c076jc3huncn2"
 
-[sub_resource type="Resource" id="Resource_knhp4"]
-script = ExtResource("2_5og4b")
-UseLateralSpeed = true
-LateralSpeed = 20000
-UseVerticalSpeed = true
-
 [resource]
 script = ExtResource("1_54d2f")
 StateName = "Dummy Move Forward"
@@ -71,14 +64,3 @@ OnTickEvents = Array[Object]([SubResource("Resource_vmdvx"), SubResource("Resour
 OnExitEvents = null
 OnHitConfirmEvents = null
 OnHitReactionEvents = null
-Duration = 64
-Loop = true
-LoopFrames = Vector2i(0, 63)
-TurnState = 0
-stateProperties = null
-statePhysics = Array[Object]([SubResource("Resource_knhp4")])
-hitboxStates = null
-animationEvents = null
-throwPivot = null
-stateTransitions = null
-animationSettings = null

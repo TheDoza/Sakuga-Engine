@@ -1,16 +1,12 @@
 [gd_resource type="Resource" script_class="FighterState" format=3 uid="uid://bblf2h48e6ya6"]
 
-[ext_resource type="Script" uid="uid://5qrsoteskjym" path="res://Scripts/SakugaEngine/Resources/HitboxState.cs" id="1_k2gxc"]
 [ext_resource type="Resource" uid="uid://peis46l1b20p" path="res://Fighters/Kaede/AnimationData/61_Kaede_236B_3_AnimData.tres" id="1_wsftv"]
-[ext_resource type="Script" uid="uid://b8vqwkv52qq3e" path="res://Scripts/SakugaEngine/Resources/AnimationSettings.cs" id="1_wsp2c"]
 [ext_resource type="Resource" uid="uid://nvkiyhr0b8sx" path="res://Fighters/Kaede/FrameDataEvents/Template_Trans_Idle.tres" id="2_27umx"]
 [ext_resource type="Script" uid="uid://6kbrdw6wei0q" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/StopKnockbackAction.cs" id="2_at05l"]
 [ext_resource type="Script" uid="uid://bf60srwkccsm8" path="res://Scripts/SakugaEngine/Resources/FighterState.cs" id="2_owm1w"]
 [ext_resource type="Script" uid="uid://bgwrlqrhqb2a4" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/MoveXAction.cs" id="2_qjlql"]
 [ext_resource type="Script" uid="uid://bw1835rb2hj7y" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/MoveYAction.cs" id="3_at05l"]
-[ext_resource type="Script" uid="uid://5you05l2efnd" path="res://Scripts/SakugaEngine/Deprecated/StatePhysics.cs" id="3_yv75w"]
 [ext_resource type="Script" uid="uid://c42r1mjvviuhg" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/AtFrameRangeCondition.cs" id="4_en5f8"]
-[ext_resource type="Script" uid="uid://bia88bspuvxd" path="res://Scripts/SakugaEngine/Deprecated/StateTransitionSettings.cs" id="4_t4s5q"]
 [ext_resource type="Script" uid="uid://c076jc3huncn2" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/FrameDataEvent.cs" id="5_t4cum"]
 
 [sub_resource type="Resource" id="Resource_rm4nb"]
@@ -60,39 +56,6 @@ Conditions = Array[Object]([SubResource("Resource_vnei4")])
 Actions = Array[Object]([SubResource("Resource_metke")])
 metadata/_custom_type_script = "uid://c076jc3huncn2"
 
-[sub_resource type="Resource" id="Resource_wsftv"]
-script = ExtResource("1_wsp2c")
-SourceAnimation = "236C_3"
-metadata/_custom_type_script = "uid://b8vqwkv52qq3e"
-
-[sub_resource type="Resource" id="Resource_qlmxr"]
-script = ExtResource("1_k2gxc")
-
-[sub_resource type="Resource" id="Resource_p8vrw"]
-script = ExtResource("1_k2gxc")
-animationStage = 1
-
-[sub_resource type="Resource" id="Resource_c3nis"]
-script = ExtResource("1_k2gxc")
-animationStage = 2
-
-[sub_resource type="Resource" id="Resource_mpd63"]
-script = ExtResource("3_yv75w")
-UseLateralSpeed = true
-LateralSpeed = 50000
-UseVerticalSpeed = true
-
-[sub_resource type="Resource" id="Resource_ijji8"]
-script = ExtResource("3_yv75w")
-Frame = 12
-UseLateralSpeed = true
-UseVerticalSpeed = true
-
-[sub_resource type="Resource" id="Resource_1k4x6"]
-script = ExtResource("4_t4s5q")
-StateIndex = 0
-Condition = 1
-
 [resource]
 script = ExtResource("2_owm1w")
 StateName = "236C_3"
@@ -104,12 +67,4 @@ OnTickEvents = Array[Object]([SubResource("Resource_5j2dr"), SubResource("Resour
 OnExitEvents = null
 OnHitConfirmEvents = null
 OnHitReactionEvents = null
-Duration = 40
-stateProperties = null
-statePhysics = Array[Object]([SubResource("Resource_mpd63"), SubResource("Resource_ijji8")])
-hitboxStates = Array[Object]([SubResource("Resource_qlmxr"), SubResource("Resource_p8vrw"), SubResource("Resource_c3nis")])
-animationEvents = null
-throwPivot = null
-stateTransitions = Array[Object]([SubResource("Resource_1k4x6")])
-animationSettings = Array[Object]([SubResource("Resource_wsftv")])
 AIFlags = 18

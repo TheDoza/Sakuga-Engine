@@ -1,11 +1,9 @@
 [gd_resource type="Resource" script_class="FighterState" format=3 uid="uid://dmfn50x0ch85i"]
 
 [ext_resource type="Script" uid="uid://b1wnmgsdqaa50" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/GoToFrameActions.cs" id="1_8e7qv"]
-[ext_resource type="Script" uid="uid://5qrsoteskjym" path="res://Scripts/SakugaEngine/Resources/HitboxState.cs" id="1_nsikp"]
 [ext_resource type="Script" uid="uid://bf60srwkccsm8" path="res://Scripts/SakugaEngine/Resources/FighterState.cs" id="1_pgpoo"]
 [ext_resource type="Resource" uid="uid://ciankdhfjjqt0" path="res://Fighters/Dummy/AnimationData/0_Dummy_Neutral_AnimationData.tres" id="1_txpyi"]
 [ext_resource type="Script" uid="uid://n7xih8pqfpwo" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/ChangeSideAction.cs" id="2_ayr4o"]
-[ext_resource type="Script" uid="uid://5you05l2efnd" path="res://Scripts/SakugaEngine/Deprecated/StatePhysics.cs" id="2_f8y4x"]
 [ext_resource type="Script" uid="uid://bho4h38y7suxk" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/StateEndedCondition.cs" id="2_txpyi"]
 [ext_resource type="Script" uid="uid://bgwrlqrhqb2a4" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/MoveXAction.cs" id="2_v4kv6"]
 [ext_resource type="Script" uid="uid://bw1835rb2hj7y" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/MoveYAction.cs" id="3_ayr4o"]
@@ -54,14 +52,6 @@ Conditions = Array[Object]([SubResource("Resource_ayr4o")])
 Actions = Array[Object]([SubResource("Resource_v4kv6")])
 metadata/_custom_type_script = "uid://c076jc3huncn2"
 
-[sub_resource type="Resource" id="Resource_rpu4i"]
-script = ExtResource("1_nsikp")
-
-[sub_resource type="Resource" id="Resource_aim2h"]
-script = ExtResource("2_f8y4x")
-UseLateralSpeed = true
-UseVerticalSpeed = true
-
 [resource]
 script = ExtResource("1_pgpoo")
 StateName = "Dummy Neutral"
@@ -73,13 +63,3 @@ OnTickEvents = Array[Object]([SubResource("Resource_7pn88"), SubResource("Resour
 OnExitEvents = null
 OnHitConfirmEvents = null
 OnHitReactionEvents = null
-Duration = 60
-Loop = true
-TurnState = 0
-stateProperties = null
-statePhysics = Array[Object]([SubResource("Resource_aim2h")])
-hitboxStates = Array[Object]([SubResource("Resource_rpu4i")])
-animationEvents = null
-throwPivot = null
-stateTransitions = null
-animationSettings = null

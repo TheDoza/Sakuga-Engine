@@ -1,15 +1,11 @@
 [gd_resource type="Resource" script_class="FighterState" format=3 uid="uid://bfwphabcikclj"]
 
-[ext_resource type="Script" uid="uid://5qrsoteskjym" path="res://Scripts/SakugaEngine/Resources/HitboxState.cs" id="1_1eh7d"]
-[ext_resource type="Script" uid="uid://b8vqwkv52qq3e" path="res://Scripts/SakugaEngine/Resources/AnimationSettings.cs" id="1_jjt3t"]
 [ext_resource type="Resource" uid="uid://b2aliu2hinnx" path="res://Fighters/Kaede/AnimationData/4_Kaede_JumpF_AnimData.tres" id="1_xpdaa"]
 [ext_resource type="Script" uid="uid://bgwrlqrhqb2a4" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/MoveXAction.cs" id="2_60xqc"]
 [ext_resource type="Script" uid="uid://bf60srwkccsm8" path="res://Scripts/SakugaEngine/Resources/FighterState.cs" id="2_f6kek"]
 [ext_resource type="Script" uid="uid://bnjqge5r5or28" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/SetCustomVariableAction.cs" id="3_6fxyi"]
 [ext_resource type="Script" uid="uid://c076jc3huncn2" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/FrameDataEvent.cs" id="3_34o0w"]
-[ext_resource type="Script" uid="uid://5you05l2efnd" path="res://Scripts/SakugaEngine/Deprecated/StatePhysics.cs" id="3_q2w33"]
 [ext_resource type="Script" uid="uid://bw1835rb2hj7y" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/MoveYAction.cs" id="4_6fxyi"]
-[ext_resource type="Script" uid="uid://bia88bspuvxd" path="res://Scripts/SakugaEngine/Deprecated/StateTransitionSettings.cs" id="4_bclfs"]
 [ext_resource type="Script" uid="uid://cydr41sr3vjdw" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/PlaySoundAction.cs" id="5_lofxe"]
 [ext_resource type="Script" uid="uid://6kbrdw6wei0q" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/StopKnockbackAction.cs" id="5_pjap4"]
 [ext_resource type="Script" uid="uid://cikljrwpapajp" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/OnKnockbackCondition.cs" id="6_ilj1k"]
@@ -133,46 +129,6 @@ Conditions = Array[Object]([SubResource("Resource_scwe0")])
 Actions = Array[Object]([SubResource("Resource_jcd1i")])
 metadata/_custom_type_script = "uid://c076jc3huncn2"
 
-[sub_resource type="Resource" id="Resource_xpdaa"]
-script = ExtResource("1_jjt3t")
-SourceAnimation = "Jump_Forward"
-metadata/_custom_type_script = "uid://b8vqwkv52qq3e"
-
-[sub_resource type="Resource" id="2"]
-script = ExtResource("1_1eh7d")
-
-[sub_resource type="Resource" id="5"]
-script = ExtResource("1_1eh7d")
-
-[sub_resource type="Resource" id="6"]
-script = ExtResource("1_1eh7d")
-
-[sub_resource type="Resource" id="1"]
-script = ExtResource("3_q2w33")
-UseLateralSpeed = true
-UseVerticalSpeed = true
-UseGravity = true
-
-[sub_resource type="Resource" id="Resource_vxydu"]
-script = ExtResource("3_q2w33")
-Frame = 4
-UseLateralSpeed = true
-LateralSpeed = 40000
-UseVerticalSpeed = true
-VerticalSpeed = 80000
-
-[sub_resource type="Resource" id="3"]
-script = ExtResource("3_q2w33")
-Frame = 5
-UseGravity = true
-Gravity = 200000
-
-[sub_resource type="Resource" id="Resource_x0rp8"]
-script = ExtResource("4_bclfs")
-StateIndex = 7
-Condition = 1
-DistanceArea = Vector2i(0, 99999)
-
 [resource]
 script = ExtResource("2_f6kek")
 StateName = "Dash_Jump"
@@ -184,12 +140,4 @@ OnTickEvents = Array[Object]([SubResource("Resource_lofxe"), SubResource("Resour
 OnExitEvents = Array[Object]([SubResource("Resource_tgspn")])
 OnHitConfirmEvents = null
 OnHitReactionEvents = null
-Duration = 22
-stateProperties = null
-statePhysics = [SubResource("1"), SubResource("Resource_vxydu"), SubResource("3")]
-hitboxStates = [SubResource("2"), SubResource("5"), SubResource("6")]
-animationEvents = null
-throwPivot = null
-stateTransitions = Array[Object]([SubResource("Resource_x0rp8")])
-animationSettings = Array[Object]([SubResource("Resource_xpdaa")])
 AIFlags = 12

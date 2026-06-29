@@ -1,14 +1,10 @@
 [gd_resource type="Resource" script_class="FighterState" format=3 uid="uid://dwyakph4mbo8g"]
 
 [ext_resource type="Script" uid="uid://bf60srwkccsm8" path="res://Scripts/SakugaEngine/Resources/FighterState.cs" id="1"]
-[ext_resource type="Script" uid="uid://b8vqwkv52qq3e" path="res://Scripts/SakugaEngine/Resources/AnimationSettings.cs" id="1_j6imy"]
 [ext_resource type="Resource" uid="uid://cqr68d55keuty" path="res://Fighters/Kaede/AnimationData/45_Kaede_Block_Air_Enter_AnimData.tres" id="1_s4m34"]
-[ext_resource type="Script" uid="uid://5qrsoteskjym" path="res://Scripts/SakugaEngine/Resources/HitboxState.cs" id="2"]
 [ext_resource type="Script" uid="uid://da4kqpf635oin" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/PlayStateAction.cs" id="2_7uva7"]
 [ext_resource type="Resource" uid="uid://dciieeb78vr5v" path="res://Fighters/Kaede/FrameDataEvents/Template_Gravity.tres" id="2_sk4af"]
-[ext_resource type="Script" uid="uid://5you05l2efnd" path="res://Scripts/SakugaEngine/Deprecated/StatePhysics.cs" id="3"]
 [ext_resource type="Script" uid="uid://bho4h38y7suxk" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/StateEndedCondition.cs" id="3_sk4af"]
-[ext_resource type="Script" uid="uid://bia88bspuvxd" path="res://Scripts/SakugaEngine/Deprecated/StateTransitionSettings.cs" id="4_3hnxb"]
 [ext_resource type="Script" uid="uid://c076jc3huncn2" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/FrameDataEvent.cs" id="4_gcjbk"]
 [ext_resource type="Script" uid="uid://baguhnol5ww4w" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/OnGroundCondition.cs" id="5_6hpr0"]
 
@@ -42,30 +38,6 @@ Conditions = Array[Object]([SubResource("Resource_co12h")])
 Actions = Array[Object]([SubResource("Resource_sk4af")])
 metadata/_custom_type_script = "uid://c076jc3huncn2"
 
-[sub_resource type="Resource" id="Resource_s4m34"]
-script = ExtResource("1_j6imy")
-SourceAnimation = "Block_Air_Enter"
-metadata/_custom_type_script = "uid://b8vqwkv52qq3e"
-
-[sub_resource type="Resource" id="1"]
-script = ExtResource("2")
-
-[sub_resource type="Resource" id="Resource_15hdw"]
-script = ExtResource("3")
-UseGravity = true
-Gravity = 200000
-
-[sub_resource type="Resource" id="Resource_wjeep"]
-script = ExtResource("4_3hnxb")
-StateIndex = 47
-Condition = 1
-
-[sub_resource type="Resource" id="Resource_crv68"]
-script = ExtResource("4_3hnxb")
-StateIndex = 8
-Condition = 4
-DistanceArea = Vector2i(0, 99999)
-
 [resource]
 script = ExtResource("1")
 StateName = "Block_Air_Enter"
@@ -77,12 +49,4 @@ OnTickEvents = Array[Object]([ExtResource("2_sk4af")])
 OnExitEvents = null
 OnHitConfirmEvents = null
 OnHitReactionEvents = null
-Duration = 6
-stateProperties = null
-statePhysics = [SubResource("Resource_15hdw")]
-hitboxStates = [SubResource("1")]
-animationEvents = null
-throwPivot = null
-stateTransitions = Array[Object]([SubResource("Resource_wjeep"), SubResource("Resource_crv68")])
-animationSettings = Array[Object]([SubResource("Resource_s4m34")])
 AIFlags = 68
