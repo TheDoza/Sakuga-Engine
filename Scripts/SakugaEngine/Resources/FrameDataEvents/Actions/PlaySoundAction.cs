@@ -15,25 +15,30 @@ namespace SakugaEngine.Resources
         public override void Execute(ref SakugaActor Actor)
         {
             if (Actor.Parameters.SoundSources == null || Actor.Parameters.SoundSources.Length == 0) return;
-            if (Actor.SFXList == null) return;
-            if (Actor.VoiceLines == null) return;
+            if (SoundType == SoundType.SFX && Actor.SFXList == null) return;
+            if (SoundType == SoundType.VOICE && Actor.VoiceLines == null) return;
             
             int ind = IsRandom ? RNG.Next(Index, Range) : Index;
-            if (FromExtraVariable >= 0)
+            if (Index < 0 && FromExtraVariable >= 0)
             {
                 ind = Actor.Parameters.Variables[FromExtraVariable].CurrentValue;
                 Actor.Parameters.Variables[FromExtraVariable].ChangeBehavior(CustomVariableBehaviorTarget.ON_USE);
             }
+
             AudioStream selectedSound = null;
             switch (SoundType)
             {
                 case SoundType.SFX:
-                    selectedSound = Actor.SFXList.Sounds[ind];
+                    if (ind >= 0 && ind < Actor.SFXList.Sounds.Length)
+                        selectedSound = Actor.SFXList.Sounds[ind];
                     break;
                 case SoundType.VOICE:
-                    selectedSound = Actor.VoiceLines.Sounds[ind];
+                    if (ind >= 0 && ind < Actor.VoiceLines.Sounds.Length)
+                        selectedSound = Actor.VoiceLines.Sounds[ind];
                     break;
             }
+
+            if (selectedSound == null) return;
             Actor.Parameters.SoundSources[Source].QueueSound(selectedSound);                
         }
     }
