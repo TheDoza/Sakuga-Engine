@@ -14,23 +14,29 @@ I was planning to migrate since a while, so let's see how it goes.
 - Stances
 - Projectiles
 - Pseudorandom number generator
-- AI (in progress)
+- Game modes
+- AI (experimental)
 - An example character
 ### For the future
-- Game modes
 - Puppets
 - Cinematics
 - Default Steamworks support
 - An original character
 ### Notes
 - Made completely in C#
-- Currently using Godot 4.6.1 .NET
+- Currently using Godot 4.7 .NET
 - It's strongly advised to know the basics of Godot to use it properly
 ## Frequently Answered Questions
 ### Godot complains about a lot of scripts missing. What should I do?
 Make sure you are using the .NET version of Godot 4.
 ### Do I need to learn GDScript to use it?
 Sakuga Engine is completely written in C# so there's no GDScript code to interact with for the core engine functionality. Also, Sakuga's philosohpy is to allow anyone to make a basic fighting game without writing a single line of code. That being said, it's recommended to know C# if you have bigger ambitions for it.
+### Okay but why C#?
+First of all: C# is my favorite language since I came from Unity. I considered using either GDScript or C++ via GDExtension to write Sakuga though, but three things made me stick with C# for this project:
+1. I had a lot of legacy C# code from AFF I could reuse
+2. I was still in the process of learning Godot so jumping straight to GDExtension (and learning a new language on top of ot) would be too much for me at the time
+3. I don't trust GDScript to write complex, performance-critical systems
+Therefore I concluded C# was the best option for Sakuga Engine (for now).
 ### Can I make a 3D game with it?
 No, Sakuga Engine is only for 2D traditional fighting games.
 ### Can i make a tag fighter?
