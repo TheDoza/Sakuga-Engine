@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="AnimationData" format=3]
+
+[ext_resource type="Resource" path="res://Fighters/Dummy/Hitboxes/1_Hitbox_Lying.tres" id="1_r"]
+[ext_resource type="Script" uid="uid://5qrsoteskjym" path="res://Scripts/SakugaEngine/Resources/HitboxState.cs" id="2_s"]
+[ext_resource type="Script" uid="uid://ddkya5wrb53ly" path="res://Scripts/SakugaEngine/Resources/AnimationData.cs" id="3_s"]
+
+[sub_resource type="Resource" id="Sub_1"]
+script = ExtResource("2_s")
+AtFrame = 0
+animationStage = 0
+HitboxData = ExtResource("1_r")
+metadata/_custom_type_script = "uid://5qrsoteskjym"
+
+[resource]
+script = ExtResource("3_s")
+Duration = 90
+Animations = []
+Hitboxes = [SubResource("Sub_1")]
+metadata/_custom_type_script = "uid://ddkya5wrb53ly"

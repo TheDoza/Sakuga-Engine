@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AnimationData" format=3]
+
+[ext_resource type="Script" uid="uid://ddkya5wrb53ly" path="res://Scripts/SakugaEngine/Resources/AnimationData.cs" id="1_s"]
+
+[resource]
+script = ExtResource("1_s")
+Duration = 30
+Animations = []
+Hitboxes = []
+metadata/_custom_type_script = "uid://ddkya5wrb53ly"

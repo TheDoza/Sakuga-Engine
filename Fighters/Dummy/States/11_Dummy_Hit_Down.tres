@@ -1,0 +1,57 @@
+[gd_resource type="Resource" script_class="FighterState" format=3]
+
+[ext_resource type="Script" uid="uid://6kbrdw6wei0q" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/StopKnockbackAction.cs" id="1_s"]
+[ext_resource type="Script" uid="uid://bgwrlqrhqb2a4" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/MoveXAction.cs" id="2_s"]
+[ext_resource type="Script" uid="uid://bw1835rb2hj7y" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/MoveYAction.cs" id="3_s"]
+[ext_resource type="Script" uid="uid://c076jc3huncn2" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/FrameDataEvent.cs" id="4_s"]
+[ext_resource type="Script" uid="uid://bho4h38y7suxk" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/StateEndedCondition.cs" id="5_s"]
+[ext_resource type="Script" uid="uid://da4kqpf635oin" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/PlayStateAction.cs" id="6_s"]
+[ext_resource type="Resource" path="res://Fighters/Dummy/AnimationData/11_Dummy_Hit_Down_AnimationData.tres" id="7_r"]
+[ext_resource type="Script" uid="uid://bf60srwkccsm8" path="res://Scripts/SakugaEngine/Resources/FighterState.cs" id="8_s"]
+
+[sub_resource type="Resource" id="Sub_1"]
+script = ExtResource("1_s")
+metadata/_custom_type_script = "uid://6kbrdw6wei0q"
+
+[sub_resource type="Resource" id="Sub_2"]
+script = ExtResource("2_s")
+metadata/_custom_type_script = "uid://bgwrlqrhqb2a4"
+
+[sub_resource type="Resource" id="Sub_3"]
+script = ExtResource("3_s")
+metadata/_custom_type_script = "uid://bw1835rb2hj7y"
+
+[sub_resource type="Resource" id="Sub_4"]
+script = ExtResource("4_s")
+Conditions = null
+Actions = Array[Object]([SubResource("Sub_1"), SubResource("Sub_2"), SubResource("Sub_3")])
+metadata/_custom_type_script = "uid://c076jc3huncn2"
+
+[sub_resource type="Resource" id="Sub_5"]
+script = ExtResource("5_s")
+metadata/_custom_type_script = "uid://bho4h38y7suxk"
+
+[sub_resource type="Resource" id="Sub_6"]
+script = ExtResource("6_s")
+StateIndex = 12
+metadata/_custom_type_script = "uid://da4kqpf635oin"
+
+[sub_resource type="Resource" id="Sub_7"]
+script = ExtResource("4_s")
+Conditions = Array[Object]([SubResource("Sub_5")])
+Actions = Array[Object]([SubResource("Sub_6")])
+metadata/_custom_type_script = "uid://c076jc3huncn2"
+
+[resource]
+script = ExtResource("8_s")
+StateName = "Hit_Down"
+BaseStance = 2
+Type = 4
+AnimationData = ExtResource("7_r")
+TransitionEvents = Array[Object]([SubResource("Sub_7")])
+OnEnterEvents = Array[Object]([SubResource("Sub_4")])
+OnTickEvents = null
+OnExitEvents = null
+OnHitConfirmEvents = null
+OnHitReactionEvents = null
+metadata/_custom_type_script = "uid://bf60srwkccsm8"

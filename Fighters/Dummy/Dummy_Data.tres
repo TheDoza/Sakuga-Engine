@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="DataContainer" load_steps=19 format=3 uid="uid://cgfa1xwppjfy2"]
+[gd_resource type="Resource" script_class="DataContainer" load_steps=26 format=3 uid="uid://cgfa1xwppjfy2"]
 
 [ext_resource type="Script" uid="uid://bsbjg1nuyall1" path="res://Scripts/SakugaEngine/Resources/DataContainer.cs" id="1_0jh8k"]
 [ext_resource type="Resource" uid="uid://b5x4otrs0q04d" path="res://Fighters/Dummy/Hitboxes/0_Hitbox_Basic.tres" id="1_j75aq"]
@@ -18,12 +18,19 @@
 [ext_resource type="Resource" uid="uid://b6a4cqdykhhg" path="res://Fighters/Shared/Shared_VFXList.tres" id="15_unqug"]
 [ext_resource type="Resource" uid="uid://c8h8jltu6u5pb" path="res://Fighters/Shared/Shared_VoiceLines.tres" id="16_8534m"]
 [ext_resource type="Resource" uid="uid://cjarssd2mjnuw" path="res://Fighters/Kaede/AI/Kaede_AIData.tres" id="17_alavs"]
+[ext_resource type="Resource" path="res://Fighters/Dummy/States/9_Dummy_Hit_GroundSlide.tres" id="st_9"]
+[ext_resource type="Resource" path="res://Fighters/Dummy/States/10_Dummy_Hit_Air.tres" id="st_10"]
+[ext_resource type="Resource" path="res://Fighters/Dummy/States/11_Dummy_Hit_Down.tres" id="st_11"]
+[ext_resource type="Resource" path="res://Fighters/Dummy/States/12_Dummy_GetUp.tres" id="st_12"]
+[ext_resource type="Resource" path="res://Fighters/Dummy/States/13_Dummy_SlideKick.tres" id="st_13"]
+[ext_resource type="Resource" path="res://Fighters/Dummy/Hitboxes/1_Hitbox_Lying.tres" id="hb_1"]
+[ext_resource type="Resource" path="res://Fighters/Dummy/Hitboxes/2_Hitbox_SlideKick_Active.tres" id="hb_2"]
 
 [resource]
 script = ExtResource("1_0jh8k")
 Profile = ExtResource("2_shirj")
-Hitboxes = Array[Object]([ExtResource("1_j75aq")])
-States = Array[Object]([ExtResource("4_sg45u"), ExtResource("5_ehl5k"), ExtResource("6_prr05"), ExtResource("7_grrr8"), ExtResource("8_unqug"), ExtResource("9_8534m"), ExtResource("10_alavs"), ExtResource("11_uq8vd"), ExtResource("12_pjhnq")])
+Hitboxes = Array[Object]([ExtResource("1_j75aq"), ExtResource("hb_1"), ExtResource("hb_2")])
+States = Array[Object]([ExtResource("4_sg45u"), ExtResource("5_ehl5k"), ExtResource("6_prr05"), ExtResource("7_grrr8"), ExtResource("8_unqug"), ExtResource("9_8534m"), ExtResource("10_alavs"), ExtResource("11_uq8vd"), ExtResource("12_pjhnq"), ExtResource("st_9"), ExtResource("st_10"), ExtResource("st_11"), ExtResource("st_12"), ExtResource("st_13")])
 Stances = Array[Object]([ExtResource("3_m7b0c")])
 SpawnablesList = ExtResource("4_grrr8")
 VFXList = ExtResource("15_unqug")
