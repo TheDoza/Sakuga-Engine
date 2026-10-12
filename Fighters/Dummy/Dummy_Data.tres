@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="DataContainer" load_steps=26 format=3 uid="uid://cgfa1xwppjfy2"]
+[gd_resource type="Resource" script_class="DataContainer" load_steps=59 format=3 uid="uid://cgfa1xwppjfy2"]
 
 [ext_resource type="Script" uid="uid://bsbjg1nuyall1" path="res://Scripts/SakugaEngine/Resources/DataContainer.cs" id="1_0jh8k"]
 [ext_resource type="Resource" uid="uid://b5x4otrs0q04d" path="res://Fighters/Dummy/Hitboxes/0_Hitbox_Basic.tres" id="1_j75aq"]
@@ -25,12 +25,45 @@
 [ext_resource type="Resource" path="res://Fighters/Dummy/States/13_Dummy_SlideKick.tres" id="st_13"]
 [ext_resource type="Resource" path="res://Fighters/Dummy/Hitboxes/1_Hitbox_Lying.tres" id="hb_1"]
 [ext_resource type="Resource" path="res://Fighters/Dummy/Hitboxes/2_Hitbox_SlideKick_Active.tres" id="hb_2"]
+[ext_resource type="Resource" path="res://Fighters/Dummy/States/14_Dummy_Block_Stand_Enter.tres" id="st_14"]
+[ext_resource type="Resource" path="res://Fighters/Dummy/States/15_Dummy_Block_Stand_Stun.tres" id="st_15"]
+[ext_resource type="Resource" path="res://Fighters/Dummy/States/16_Dummy_Block_Stand_Exit.tres" id="st_16"]
+[ext_resource type="Resource" path="res://Fighters/Dummy/States/17_Dummy_Block_Stand_Hold.tres" id="st_17"]
+[ext_resource type="Resource" path="res://Fighters/Dummy/States/18_Dummy_Block_Stand_GuardBreak.tres" id="st_18"]
+[ext_resource type="Resource" path="res://Fighters/Dummy/States/19_Dummy_Block_Crouch_Enter.tres" id="st_19"]
+[ext_resource type="Resource" path="res://Fighters/Dummy/States/20_Dummy_Block_Crouch_Stun.tres" id="st_20"]
+[ext_resource type="Resource" path="res://Fighters/Dummy/States/21_Dummy_Block_Crouch_Exit.tres" id="st_21"]
+[ext_resource type="Resource" path="res://Fighters/Dummy/States/22_Dummy_Block_Crouch_Hold.tres" id="st_22"]
+[ext_resource type="Resource" path="res://Fighters/Dummy/States/23_Dummy_Block_Crouch_GuardBreak.tres" id="st_23"]
+[ext_resource type="Resource" path="res://Fighters/Dummy/States/24_Dummy_Block_Air_Enter.tres" id="st_24"]
+[ext_resource type="Resource" path="res://Fighters/Dummy/States/25_Dummy_Block_Air_Stun.tres" id="st_25"]
+[ext_resource type="Resource" path="res://Fighters/Dummy/States/26_Dummy_Block_Air_Exit.tres" id="st_26"]
+[ext_resource type="Resource" path="res://Fighters/Dummy/States/27_Dummy_Block_Air_Hold.tres" id="st_27"]
+[ext_resource type="Resource" path="res://Fighters/Dummy/States/28_Dummy_Block_Air_GuardBreak.tres" id="st_28"]
+[ext_resource type="Resource" path="res://Fighters/Dummy/States/29_Dummy_TestMid.tres" id="st_29"]
+[ext_resource type="Resource" path="res://Fighters/Dummy/Hitboxes/3_Hitbox_Crouch.tres" id="hb_3"]
+[ext_resource type="Resource" path="res://Fighters/Dummy/Hitboxes/4_Hitbox_TestMid_Active.tres" id="hb_4"]
+[ext_resource type="Resource" path="res://Fighters/Dummy/States/30_Dummy_Hit_Stand_Weak.tres" id="st_30"]
+[ext_resource type="Resource" path="res://Fighters/Dummy/States/31_Dummy_Hit_Stand_Strong.tres" id="st_31"]
+[ext_resource type="Resource" path="res://Fighters/Dummy/States/32_Dummy_Hit_Crouch.tres" id="st_32"]
+[ext_resource type="Resource" path="res://Fighters/Dummy/States/33_Dummy_Hit_Air_Weak.tres" id="st_33"]
+[ext_resource type="Resource" path="res://Fighters/Dummy/States/34_Dummy_Crouch_Enter.tres" id="st_34"]
+[ext_resource type="Resource" path="res://Fighters/Dummy/States/35_Dummy_Crouching.tres" id="st_35"]
+[ext_resource type="Resource" path="res://Fighters/Dummy/States/36_Dummy_Crouch_Exit.tres" id="st_36"]
+[ext_resource type="Resource" path="res://Fighters/Dummy/States/37_Dummy_Air_Recovery.tres" id="st_37"]
+[ext_resource type="Resource" path="res://Fighters/Dummy/States/38_Dummy_Ground_Recovery.tres" id="st_38"]
+[ext_resource type="Resource" path="res://Fighters/Dummy/States/39_Dummy_Hit_WallBounce.tres" id="st_39"]
+[ext_resource type="Resource" path="res://Fighters/Dummy/States/40_Dummy_Hit_GroundBounce.tres" id="st_40"]
+[ext_resource type="Resource" path="res://Fighters/Dummy/States/41_Dummy_TestWallBounce.tres" id="st_41"]
+[ext_resource type="Resource" path="res://Fighters/Dummy/States/42_Dummy_TestGroundBounce.tres" id="st_42"]
+[ext_resource type="Resource" path="res://Fighters/Dummy/Hitboxes/5_Hitbox_TestWallBounce_Active.tres" id="hb_5"]
+[ext_resource type="Resource" path="res://Fighters/Dummy/Hitboxes/6_Hitbox_TestGroundBounce_Active.tres" id="hb_6"]
 
 [resource]
 script = ExtResource("1_0jh8k")
 Profile = ExtResource("2_shirj")
-Hitboxes = Array[Object]([ExtResource("1_j75aq"), ExtResource("hb_1"), ExtResource("hb_2")])
-States = Array[Object]([ExtResource("4_sg45u"), ExtResource("5_ehl5k"), ExtResource("6_prr05"), ExtResource("7_grrr8"), ExtResource("8_unqug"), ExtResource("9_8534m"), ExtResource("10_alavs"), ExtResource("11_uq8vd"), ExtResource("12_pjhnq"), ExtResource("st_9"), ExtResource("st_10"), ExtResource("st_11"), ExtResource("st_12"), ExtResource("st_13")])
+Hitboxes = Array[Object]([ExtResource("1_j75aq"), ExtResource("hb_1"), ExtResource("hb_2"), ExtResource("hb_3"), ExtResource("hb_4"), ExtResource("hb_5"), ExtResource("hb_6")])
+States = Array[Object]([ExtResource("4_sg45u"), ExtResource("5_ehl5k"), ExtResource("6_prr05"), ExtResource("7_grrr8"), ExtResource("8_unqug"), ExtResource("9_8534m"), ExtResource("10_alavs"), ExtResource("11_uq8vd"), ExtResource("12_pjhnq"), ExtResource("st_9"), ExtResource("st_10"), ExtResource("st_11"), ExtResource("st_12"), ExtResource("st_13"), ExtResource("st_14"), ExtResource("st_15"), ExtResource("st_16"), ExtResource("st_17"), ExtResource("st_18"), ExtResource("st_19"), ExtResource("st_20"), ExtResource("st_21"), ExtResource("st_22"), ExtResource("st_23"), ExtResource("st_24"), ExtResource("st_25"), ExtResource("st_26"), ExtResource("st_27"), ExtResource("st_28"), ExtResource("st_29"), ExtResource("st_30"), ExtResource("st_31"), ExtResource("st_32"), ExtResource("st_33"), ExtResource("st_34"), ExtResource("st_35"), ExtResource("st_36"), ExtResource("st_37"), ExtResource("st_38"), ExtResource("st_39"), ExtResource("st_40"), ExtResource("st_41"), ExtResource("st_42")])
 Stances = Array[Object]([ExtResource("3_m7b0c")])
 SpawnablesList = ExtResource("4_grrr8")
 VFXList = ExtResource("15_unqug")

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="FighterStance" load_steps=10 format=3 uid="uid://cjsr2weyqwopy"]
+[gd_resource type="Resource" script_class="FighterStance" load_steps=23 format=3 uid="uid://cjsr2weyqwopy"]
 
 [ext_resource type="Script" uid="uid://00dse0vp38l7" path="res://Scripts/SakugaEngine/Resources/FighterStance.cs" id="1_55coc"]
 [ext_resource type="Resource" uid="uid://bq6rlhndqo3wp" path="res://Fighters/Dummy/Moves/0_Dummy_MoveF.tres" id="1_c1uqo"]
@@ -9,14 +9,58 @@
 [ext_resource type="Resource" uid="uid://d20pqmn3u1he4" path="res://Fighters/Dummy/Moves/9_Dummy_AirDashF.tres" id="6_x058f"]
 [ext_resource type="Resource" uid="uid://cd4pnu30tsldm" path="res://Fighters/Dummy/Moves/10_Dummy_AirDashB.tres" id="7_ahvae"]
 [ext_resource type="Resource" path="res://Fighters/Dummy/Moves/7_Dummy_SlideKick.tres" id="mv_7"]
+[ext_resource type="Resource" path="res://Fighters/Dummy/Moves/8_Dummy_TestMid.tres" id="mv_8"]
+[ext_resource type="Resource" path="res://Fighters/Dummy/Moves/9_Dummy_Crouch.tres" id="mv_9"]
+[ext_resource type="Resource" path="res://Fighters/Dummy/Moves/10_Dummy_Uncrouch.tres" id="mv_10"]
+[ext_resource type="Resource" path="res://Fighters/Dummy/Moves/11_Dummy_AirRecovery.tres" id="mv_11"]
+[ext_resource type="Resource" path="res://Fighters/Dummy/Moves/12_Dummy_GroundRecovery.tres" id="mv_12"]
+[ext_resource type="Resource" path="res://Fighters/Dummy/Moves/13_Dummy_TestWallBounce.tres" id="mv_13"]
+[ext_resource type="Resource" path="res://Fighters/Dummy/Moves/14_Dummy_TestGroundBounce.tres" id="mv_14"]
+[ext_resource type="Script" uid="uid://d0re6r8d145i6" path="res://Scripts/SakugaEngine/Resources/BlockSettings.cs" id="bs_script"]
+[ext_resource type="Resource" uid="uid://biqgn48x4ggwh" path="res://Fighters/Shared/Inputs/1_Input_4.tres" id="in_4"]
+[ext_resource type="Resource" uid="uid://j1w64hweu08j" path="res://Fighters/Shared/Inputs/8_Input_1.tres" id="in_1"]
+
+[sub_resource type="Resource" id="Block_stand"]
+script = ExtResource("bs_script")
+ReferenceStance = 0
+BlockType = 3
+InputToCheck = ExtResource("in_4")
+EnterState = 14
+StunState = 15
+ExitState = 16
+GuardCrushState = 18
+metadata/_custom_type_script = "uid://d0re6r8d145i6"
+
+[sub_resource type="Resource" id="Block_crouch"]
+script = ExtResource("bs_script")
+ReferenceStance = 1
+BlockType = 6
+InputToCheck = ExtResource("in_1")
+EnterState = 19
+StunState = 20
+ExitState = 21
+GuardCrushState = 23
+metadata/_custom_type_script = "uid://d0re6r8d145i6"
+
+[sub_resource type="Resource" id="Block_air"]
+script = ExtResource("bs_script")
+ReferenceStance = 2
+BlockType = 7
+InputToCheck = ExtResource("in_4")
+EnterState = 24
+StunState = 25
+ExitState = 26
+GuardCrushState = 28
+metadata/_custom_type_script = "uid://d0re6r8d145i6"
 
 [resource]
 script = ExtResource("1_55coc")
 IsDamagePersistent = false
 IsRoundPersistent = false
 NeutralState = 0
-Moves = Array[Object]([ExtResource("1_c1uqo"), ExtResource("2_3l7yh"), ExtResource("3_ph8w4"), ExtResource("4_12jwt"), ExtResource("5_pdmj4"), ExtResource("6_x058f"), ExtResource("7_ahvae"), ExtResource("mv_7")])
-HitReactions = PackedInt32Array(0, 0, 0, 10, 10, 10, 10, 10, 9, 11, 12, 0, 0, 0, 0, 9)
+Moves = Array[Object]([ExtResource("1_c1uqo"), ExtResource("2_3l7yh"), ExtResource("3_ph8w4"), ExtResource("4_12jwt"), ExtResource("5_pdmj4"), ExtResource("6_x058f"), ExtResource("7_ahvae"), ExtResource("mv_7"), ExtResource("mv_8"), ExtResource("mv_9"), ExtResource("mv_10"), ExtResource("mv_11"), ExtResource("mv_12"), ExtResource("mv_13"), ExtResource("mv_14")])
+BlockReactions = Array[Object]([SubResource("Block_stand"), SubResource("Block_crouch"), SubResource("Block_air")])
+HitReactions = PackedInt32Array(30, 31, 32, 33, 10, 10, 10, 10, 9, 11, 12, 10, 10, 31, 0, 9)
 GroundBlockInitialState = -1
 CrouchBlockInitialState = -1
 AirBlockInitialState = -1

@@ -16,25 +16,41 @@ Size = Vector2i(12000, 3000)
 HitboxType = 1
 HitType = 2
 BaseDamage = 600
+ChipDamage = 60
 GroundHitstunType = 2
 GroundHitReaction = 15
 CrouchHitReaction = 15
 GroundHitKnockback = Vector2i(-100000, 0)
 GroundHitKnockbackTime = 8
 GroundHitstun = 34
+GroundBlockKnockback = Vector2i(-50000, 0)
+GroundBlockKnockbackTime = 8
+GroundBlockstun = 16
 AirHitstunType = 2
-AirHitReaction = 3
+AirHitReaction = 4
 AirHitKnockback = Vector2i(-40000, 70000)
 AirHitKnockbackGravity = 230000
 AirHitKnockbackTime = 8
 AirHitstun = 30
+AirBlockKnockback = Vector2i(-50000, 0)
+AirBlockKnockbackGravity = 230000
+AirBlockKnockbackTime = 8
+AirBlockstun = 16
 SelfPushbackForce = 0
 SelfPushbackDuration = 0
 BounceXIntensity = 0
 BounceYIntensity = 0
 metadata/_custom_type_script = "uid://c0y740kryylcs"
 
+[sub_resource type="Resource" id="Sub_3"]
+script = ExtResource("1_s")
+Center = Vector2i(14000, 3000)
+Size = Vector2i(24000, 6000)
+HitboxType = 2
+HitType = 2
+metadata/_custom_type_script = "uid://c0y740kryylcs"
+
 [resource]
 script = ExtResource("2_s")
-Hitboxes = [SubResource("Sub_1"), SubResource("Sub_2")]
+Hitboxes = [SubResource("Sub_1"), SubResource("Sub_2"), SubResource("Sub_3")]
 metadata/_custom_type_script = "uid://dxuwyhds75mce"
