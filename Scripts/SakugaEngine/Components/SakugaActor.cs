@@ -252,7 +252,11 @@ namespace SakugaEngine
             if (CanHitstun() && HitstunType < HitstunType.HARD_KNOCKDOWN)
                 Hitstun.Run();
 
-            if (StateManager.CurrentStateType() != StateType.HIT_REACTION)
+            // [FF PATCH: blockstun] Blockstun lasts until the blocked hitbox's Ground/AirBlockstun timer runs out.
+            // Upstream cleared it every frame in BLOCKING states, so blockstun ended the moment hitstop did.
+            if (BlockStun && !OnHitstun()) BlockStun = false;
+
+            if (StateManager.CurrentStateType() != StateType.HIT_REACTION && !BlockStun)
             {
                 if (CanHitstun()) Hitstun.Stop();
                 HitstunType = HitstunType.NONE;
@@ -445,7 +449,8 @@ namespace SakugaEngine
         public void BlockHit(SakugaActor target, HitboxElement box, int blockState) 
         {
             LayerSorting = -1;
-            bool isGroundHit = !IsKO() && Body != null && IsGroundState() && !IsAirState();
+            // [FF PATCH: crouch block] Upstream used IsGroundState(), so crouch-blocking used the AIR block values.
+            bool isGroundHit = !IsKO() && Body != null && !IsAirState();
             var finalHitstun = isGroundHit ? box.GroundBlockstun : box.AirBlockstun;
             var finalKnockbackTime = isGroundHit ? box.GroundBlockKnockbackTime : box.AirBlockKnockbackTime;
             var finalDamageKnockback = isGroundHit ? box.GroundBlockKnockback : box.AirBlockKnockback;
@@ -474,7 +479,7 @@ namespace SakugaEngine
             PushActor(
                 finalKnockbackTime,
                 finalDamageKnockback.X * (-target.Body.PlayerSide),
-                finalDamageKnockback.X,
+                finalDamageKnockback.Y, // [FF PATCH: block knockback Y] upstream passed .X here
                 finalKnockbackGravity
             );
             if (Parameters != null)
