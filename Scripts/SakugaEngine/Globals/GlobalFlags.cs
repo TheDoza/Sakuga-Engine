@@ -75,7 +75,12 @@ namespace SakugaEngine.Global
         DAMAGE_IMUNITY = 1 << 0,
         THROW_IMUNITY = 1 << 1,
         PROJECTILE_IMUNITY = 1 << 2,
-        LOCK_MOVE = 1 << 4
+        LOCK_MOVE = 1 << 4,
+        // [FF PATCH: locomotion] prejump is Burst invincible; prejump and run skid can't guard
+        BURST_IMUNITY = 1 << 5,
+        NO_GUARD = 1 << 6,
+        // [FF PATCH: state flash] reserved for future parry states (flashes green)
+        PARRY = 1 << 7
     }
     [Flags]
     public enum TransitionCondition : byte

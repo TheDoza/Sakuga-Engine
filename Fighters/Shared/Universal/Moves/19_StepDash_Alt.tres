@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="MoveSettings" format=3]
+
+[ext_resource type="Script" path="res://Scripts/FunctionFighter/Mechanics/DashInputCondition.cs" id="1_s"]
+[ext_resource type="Resource" path="res://Fighters/Shared/Inputs/0_Input_6.tres" id="2_r"]
+[ext_resource type="Script" uid="uid://gk1rkw667o4n" path="res://Scripts/SakugaEngine/Resources/MoveSettings.cs" id="3_s"]
+
+[sub_resource type="Resource" id="Sub_1"]
+script = ExtResource("1_s")
+
+[resource]
+script = ExtResource("3_s")
+MoveName = "Step Dash"
+MoveState = 62
+Inputs = ExtResource("2_r")
+Conditions = Array[Object]([SubResource("Sub_1")])
+Priority = 3
+CanBeOverrided = true
+UseOnGround = true
+UseOnAir = false
+metadata/_custom_type_script = "uid://gk1rkw667o4n"

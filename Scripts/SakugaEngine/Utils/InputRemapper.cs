@@ -48,6 +48,14 @@ namespace SakugaEngine.Utils
 			P2CurrentActiveInputMapping._Ready();
 		}
 
+		// [FF PATCH: pause controls] lets the pause menu reuse this scene with its own pivots
+		public void SetPivots(Control p1, Control p2) { P1Pivot = p1; P2Pivot = p2; }
+
+		public void HideAll()
+		{
+			foreach (var c in InputMappingChildren) c.Visible = false;
+		}
+
 		public void CreateDefaultKeymaps()
 		{
 			if (FileAccess.FileExists(DefaultDir)) return;
@@ -112,6 +120,7 @@ namespace SakugaEngine.Utils
 			{
 				if (tempKeymap.TryGetValue(action, out Array<InputEvent> ev))
 				{
+					ev ??= new Array<InputEvent>(); // [FF PATCH: disable buttons] a cleared / disabled button has no events
 					Remap(action, ev);
 					InputMap.ActionEraseEvents(action);
 					foreach (InputEvent newEv in ev)

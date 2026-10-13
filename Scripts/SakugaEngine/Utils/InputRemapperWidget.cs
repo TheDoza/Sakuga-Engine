@@ -18,12 +18,23 @@ namespace SakugaEngine.Utils
 
 		private bool remapping = false;
 
+		// [FF PATCH: disable buttons] While waiting for a new key, holding Right disables that button (no key at all).
+		// A quick tap of Right still binds it like any other key.
+		[Export] private float HoldToDisableSeconds = 0.6f;
+		private bool holdingRight;
+		private double holdTime;
+		private InputEvent rightEvent;
+		private Label titleLabel;
+		private string titleText;
+
 		private int Selected = 0;
 
 		public bool IsRemapping => remapping;
 
 		public override void _Ready()
 		{
+			titleLabel ??= GetNodeOrNull<Label>("VBoxContainer/Label");
+			if (titleLabel != null && titleText == null) titleText = titleLabel.Text;
 			for (int i = 0; i < Buttons.Length; i++)
 			{
 				UpdateText(i);
@@ -36,6 +47,12 @@ namespace SakugaEngine.Utils
 			if (!Visible) return;
 			
             base._Process(delta);
+			if (remapping && holdingRight)
+			{
+				holdTime += delta;
+				if (holdTime >= HoldToDisableSeconds) DisableSelected();
+				return;
+			}
 			if (remapping && TimeFrame.TimeLeft <= 0)
 			{
 				AudioManager.Instance.PlayMenuClip(2);
@@ -66,6 +83,15 @@ namespace SakugaEngine.Utils
 					Selected = Mathf.Clamp(Selected, 0, Buttons.Length - 1);
 					SetColors();
 				}
+				if (@event.IsActionPressed(Prefix + "accept") && Buttons[Selected].IsToggle)
+				{
+					// [FF PATCH: easy specials] option rows flip On/Off instead of waiting for a key
+					AudioManager.Instance.PlayMenuClip(1);
+					string key = Prefix + Buttons[Selected].ToggleKey;
+					FunctionFighter.Input.PlayerOptions.SetBool(key, !FunctionFighter.Input.PlayerOptions.GetBool(key));
+					UpdateText(Selected);
+					return;
+				}
 				if (@event.IsActionPressed(Prefix + "accept"))
 				{
 					AudioManager.Instance.PlayMenuClip(1);
@@ -81,7 +107,7 @@ namespace SakugaEngine.Utils
 					remapping = false;
 					Visible = false;
 				}
-				if (@event.IsActionPressed(Prefix + "extra1"))
+				if (@event.IsActionPressed(Prefix + "extra1") && !Buttons[Selected].IsToggle)
 				{
 					AudioManager.Instance.PlayMenuClip(2);
 					ClearMapping();
@@ -92,7 +118,7 @@ namespace SakugaEngine.Utils
 					Array<StringName> actions = new Array<StringName>();
 
 					foreach(InputRemapperButton button in Buttons)
-						actions.Add(Prefix + button.GetAction());
+						if (!button.IsToggle) actions.Add(Prefix + button.GetAction());
 
 					Remapper.ReturnToDefaultKeymaps(actions);
 
@@ -100,6 +126,26 @@ namespace SakugaEngine.Utils
 					{
 						UpdateText(i);
 					}
+				}
+				return;
+			}
+
+			// [FF PATCH: disable buttons]
+			if (CanDisable(Selected) && !holdingRight && @event.IsActionPressed(Prefix + "right") && !@event.IsEcho())
+			{
+				holdingRight = true;
+				holdTime = 0;
+				rightEvent = @event;
+				Buttons[Selected].SetKey("Keep holding...");
+				return;
+			}
+			if (holdingRight)
+			{
+				if (@event.IsActionReleased(Prefix + "right"))
+				{
+					// a quick tap: bind Right like any other key
+					holdingRight = false;
+					if (DeviceType == 0) RemapKeyboard(rightEvent); else RemapController(rightEvent, deviceID);
 				}
 				return;
 			}
@@ -116,8 +162,31 @@ namespace SakugaEngine.Utils
 			
 		}
 
+		/// <summary>Buttons and macros can be disabled; directions and option rows can't.</summary>
+		private bool CanDisable(int i)
+		{
+			if (Buttons[i].IsToggle) return false;
+			string a = Buttons[i].GetAction();
+			return a != "up" && a != "down" && a != "left" && a != "right";
+		}
+
+		private void DisableSelected()
+		{
+			string action = Prefix + Buttons[Selected].GetAction();
+			InputMap.ActionEraseEvents(action);
+			Remapper.Remap(action, new Array<InputEvent>());
+			Remapper.SaveKeymap();
+			AudioManager.Instance.PlayMenuClip(3);
+			holdingRight = false;
+			remapping = false;
+			UpdateText(Selected);
+			SetColors();
+		}
+
 		private void SetColors()
 		{
+			if (titleLabel != null && titleText != null)
+				titleLabel.Text = remapping && CanDisable(Selected) ? "Hold Right: disable" : titleText;
 			for (int i = 0; i < Buttons.Length; i++)
 			{
 				if (i == Selected)
@@ -193,14 +262,23 @@ namespace SakugaEngine.Utils
 			InputMap.ActionEraseEvents(Prefix + Buttons[Selected].GetAction());
 			ReleaseFocus();
 			Buttons[Selected].SetKey(" ");
-			Remapper.Remap(Prefix + Buttons[Selected].GetAction(), null);
+			Remapper.Remap(Prefix + Buttons[Selected].GetAction(), new Array<InputEvent>()); // [FF PATCH: disable buttons] empty, not null
 			Remapper.SaveKeymap();
 		}
 
 		private void UpdateText(int selected)
 		{
-			string actionStr = InputMap.ActionGetEvents(Prefix + Buttons[selected].GetAction())[0].AsText();
+			if (Buttons[selected].IsToggle)
+			{
+				bool on = FunctionFighter.Input.PlayerOptions.GetBool(Prefix + Buttons[selected].ToggleKey);
+				Buttons[selected].SetKey(on ? "On" : "Off");
+				return;
+			}
+			var events = InputMap.ActionGetEvents(Prefix + Buttons[selected].GetAction());
+			if (events.Count == 0) { Buttons[selected].SetKey("Disabled"); return; }
+			string actionStr = events[0].AsText();
 			if (DeviceType > 0) actionStr = GetSimplifiedGamepadButton(actionStr);
+			else actionStr = actionStr.Replace(" - Physical", ""); // [FF PATCH: disable buttons] shorter key names so they fit
 
 			Buttons[selected].SetKey(actionStr);
 		}

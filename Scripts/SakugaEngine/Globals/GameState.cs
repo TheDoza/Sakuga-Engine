@@ -25,6 +25,10 @@ namespace SakugaEngine.GameState
         [Key(13)] public HitChecker HitCheck;
         [Key(14)] public CancelCondition CancelConditions;
         [Key(15)] public int CurrentGrabbedNodeID;
+        [Key(16)] public FunctionFighter.Mechanics.BarrierState Barrier; // [FF PATCH: barrier]
+        [Key(17)] public FunctionFighter.Mechanics.BurstState Burst; // [FF PATCH: burst]
+        [Key(18)] public FunctionFighter.Mechanics.CounterState Counter; // [FF PATCH: counter]
+        [Key(19)] public FunctionFighter.Mechanics.LocomotionState Locomotion; // [FF PATCH: locomotion]
 
         public void GetStateData(ref SakugaActor reference)
         {
@@ -46,6 +50,10 @@ namespace SakugaEngine.GameState
             HitCheck = reference.HitCheck;
             CancelConditions = reference.CancelConditions;
             CurrentGrabbedNodeID = reference.CurrentGrabbedNodeID;
+            Barrier = reference.Barrier; // [FF PATCH: barrier]
+            Burst = reference.Burst; // [FF PATCH: burst]
+            Counter = reference.Counter; // [FF PATCH: counter]
+            Locomotion = reference.Locomotion; // [FF PATCH: locomotion]
         }
 
         public void SetStateData(ref SakugaActor reference)
@@ -68,6 +76,10 @@ namespace SakugaEngine.GameState
             reference.HitCheck = HitCheck;
             reference.CancelConditions = CancelConditions;
             reference.CurrentGrabbedNodeID = CurrentGrabbedNodeID;
+            reference.Barrier = Barrier; // [FF PATCH: barrier]
+            reference.Burst = Burst; // [FF PATCH: burst]
+            reference.Counter = Counter; // [FF PATCH: counter]
+            reference.Locomotion = Locomotion; // [FF PATCH: locomotion]
         }
     }
 

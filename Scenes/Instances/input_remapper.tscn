@@ -26,14 +26,14 @@ anchor_right = 0.104
 offset_left = -133.12
 offset_top = -0.0050201416
 offset_right = 132.88
-offset_bottom = 459.0
+offset_bottom = 595
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset_ratio = Vector2(0.5, 0)
 script = ExtResource("1_uolfa")
 Remapper = NodePath("..")
 Prefix = "k1_"
-Buttons = [NodePath("VBoxContainer/InputButton_Up"), NodePath("VBoxContainer/InputButton_Down"), NodePath("VBoxContainer/InputButton_Left"), NodePath("VBoxContainer/InputButton_Right"), NodePath("VBoxContainer/InputButton_A"), NodePath("VBoxContainer/InputButton_B"), NodePath("VBoxContainer/InputButton_C"), NodePath("VBoxContainer/InputButton_D"), NodePath("VBoxContainer/InputButton_E"), NodePath("VBoxContainer/InputButton_F"), NodePath("VBoxContainer/InputButton_G"), NodePath("VBoxContainer/InputButton_H")]
+Buttons = [NodePath("VBoxContainer/InputButton_Up"), NodePath("VBoxContainer/InputButton_Down"), NodePath("VBoxContainer/InputButton_Left"), NodePath("VBoxContainer/InputButton_Right"), NodePath("VBoxContainer/InputButton_A"), NodePath("VBoxContainer/InputButton_B"), NodePath("VBoxContainer/InputButton_C"), NodePath("VBoxContainer/InputButton_D"), NodePath("VBoxContainer/InputButton_E"), NodePath("VBoxContainer/InputButton_F"), NodePath("VBoxContainer/InputButton_G"), NodePath("VBoxContainer/InputButton_H"), NodePath("VBoxContainer/InputButton_SaveState"), NodePath("VBoxContainer/InputButton_LoadState"), NodePath("VBoxContainer/InputButton_FrameAdvance"), NodePath("VBoxContainer/InputButton_FrameStep")]
 DefaultColor = Color(0.20392157, 0.20392157, 0.20392157, 1)
 SelectedColor = Color(0.90311116, 0.57668877, 1.540184e-06, 1)
 RemappingColor = Color(0.047058824, 0.047058824, 0.047058824, 1)
@@ -53,7 +53,7 @@ color = Color(0, 0, 0, 0.40392157)
 [node name="VBoxContainer" type="VBoxContainer" parent="WGT_Keyboard1" unique_id=1265830030]
 layout_mode = 0
 offset_right = 266.0
-offset_bottom = 459.0
+offset_bottom = 595
 
 [node name="Label" type="Label" parent="WGT_Keyboard1/VBoxContainer" unique_id=879078739]
 layout_mode = 2
@@ -107,23 +107,43 @@ Action = "face_d"
 
 [node name="InputButton_E" parent="WGT_Keyboard1/VBoxContainer" unique_id=1495223049 instance=ExtResource("2_lr70m")]
 layout_mode = 2
-Title = "E"
+Title = "A+B"
 Action = "face_e"
 
 [node name="InputButton_F" parent="WGT_Keyboard1/VBoxContainer" unique_id=1283776125 instance=ExtResource("2_lr70m")]
 layout_mode = 2
-Title = "F"
+Title = "B+C"
 Action = "face_f"
 
 [node name="InputButton_G" parent="WGT_Keyboard1/VBoxContainer" unique_id=64489544 instance=ExtResource("2_lr70m")]
 layout_mode = 2
-Title = "G"
+Title = "A+B+C"
 Action = "face_g"
 
 [node name="InputButton_H" parent="WGT_Keyboard1/VBoxContainer" unique_id=17430933 instance=ExtResource("2_lr70m")]
 layout_mode = 2
-Title = "H"
+Title = "A+B+C+D"
 Action = "face_h"
+
+[node name="InputButton_SaveState" parent="WGT_Keyboard1/VBoxContainer" unique_id=1816087198 instance=ExtResource("2_lr70m")]
+layout_mode = 2
+Title = "Save State"
+Action = "save_state"
+
+[node name="InputButton_LoadState" parent="WGT_Keyboard1/VBoxContainer" unique_id=642730241 instance=ExtResource("2_lr70m")]
+layout_mode = 2
+Title = "Load State"
+Action = "load_state"
+
+[node name="InputButton_FrameAdvance" parent="WGT_Keyboard1/VBoxContainer" unique_id=1849078506 instance=ExtResource("2_lr70m")]
+layout_mode = 2
+Title = "Frame Advance"
+Action = "frame_advance"
+
+[node name="InputButton_FrameStep" parent="WGT_Keyboard1/VBoxContainer" unique_id=502993894 instance=ExtResource("2_lr70m")]
+layout_mode = 2
+Title = "Step Frame"
+Action = "frame_step"
 
 [node name="WGT_Keyboard2" type="Control" parent="." unique_id=1223534152 node_paths=PackedStringArray("Remapper", "Buttons", "TimeFrame", "WaitFor")]
 visible = false
@@ -133,14 +153,14 @@ anchor_right = 0.104
 offset_left = -133.12
 offset_top = -0.0050201416
 offset_right = 132.88
-offset_bottom = 459.0
+offset_bottom = 595
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset_ratio = Vector2(0.5, 0)
 script = ExtResource("1_uolfa")
 Remapper = NodePath("..")
 Prefix = "k2_"
-Buttons = [NodePath("VBoxContainer/InputButton_Up"), NodePath("VBoxContainer/InputButton_Down"), NodePath("VBoxContainer/InputButton_Left"), NodePath("VBoxContainer/InputButton_Right"), NodePath("VBoxContainer/InputButton_A"), NodePath("VBoxContainer/InputButton_B"), NodePath("VBoxContainer/InputButton_C"), NodePath("VBoxContainer/InputButton_D"), NodePath("VBoxContainer/InputButton_E"), NodePath("VBoxContainer/InputButton_F"), NodePath("VBoxContainer/InputButton_G"), NodePath("VBoxContainer/InputButton_H")]
+Buttons = [NodePath("VBoxContainer/InputButton_Up"), NodePath("VBoxContainer/InputButton_Down"), NodePath("VBoxContainer/InputButton_Left"), NodePath("VBoxContainer/InputButton_Right"), NodePath("VBoxContainer/InputButton_A"), NodePath("VBoxContainer/InputButton_B"), NodePath("VBoxContainer/InputButton_C"), NodePath("VBoxContainer/InputButton_D"), NodePath("VBoxContainer/InputButton_E"), NodePath("VBoxContainer/InputButton_F"), NodePath("VBoxContainer/InputButton_G"), NodePath("VBoxContainer/InputButton_H"), NodePath("VBoxContainer/InputButton_SaveState"), NodePath("VBoxContainer/InputButton_LoadState"), NodePath("VBoxContainer/InputButton_FrameAdvance"), NodePath("VBoxContainer/InputButton_FrameStep")]
 DefaultColor = Color(0.20392157, 0.20392157, 0.20392157, 1)
 SelectedColor = Color(0.90311116, 0.57668877, 1.540184e-06, 1)
 RemappingColor = Color(0.047058824, 0.047058824, 0.047058824, 1)
@@ -160,7 +180,7 @@ color = Color(0, 0, 0, 0.40392157)
 [node name="VBoxContainer" type="VBoxContainer" parent="WGT_Keyboard2" unique_id=1785671852]
 layout_mode = 0
 offset_right = 266.0
-offset_bottom = 459.0
+offset_bottom = 595
 
 [node name="Label" type="Label" parent="WGT_Keyboard2/VBoxContainer" unique_id=305534386]
 layout_mode = 2
@@ -214,23 +234,43 @@ Action = "face_d"
 
 [node name="InputButton_E" parent="WGT_Keyboard2/VBoxContainer" unique_id=1865385207 instance=ExtResource("2_lr70m")]
 layout_mode = 2
-Title = "E"
+Title = "A+B"
 Action = "face_e"
 
 [node name="InputButton_F" parent="WGT_Keyboard2/VBoxContainer" unique_id=1529155826 instance=ExtResource("2_lr70m")]
 layout_mode = 2
-Title = "F"
+Title = "B+C"
 Action = "face_f"
 
 [node name="InputButton_G" parent="WGT_Keyboard2/VBoxContainer" unique_id=826617208 instance=ExtResource("2_lr70m")]
 layout_mode = 2
-Title = "G"
+Title = "A+B+C"
 Action = "face_g"
 
 [node name="InputButton_H" parent="WGT_Keyboard2/VBoxContainer" unique_id=1537494516 instance=ExtResource("2_lr70m")]
 layout_mode = 2
-Title = "H"
+Title = "A+B+C+D"
 Action = "face_h"
+
+[node name="InputButton_SaveState" parent="WGT_Keyboard2/VBoxContainer" unique_id=799878127 instance=ExtResource("2_lr70m")]
+layout_mode = 2
+Title = "Save State"
+Action = "save_state"
+
+[node name="InputButton_LoadState" parent="WGT_Keyboard2/VBoxContainer" unique_id=523729283 instance=ExtResource("2_lr70m")]
+layout_mode = 2
+Title = "Load State"
+Action = "load_state"
+
+[node name="InputButton_FrameAdvance" parent="WGT_Keyboard2/VBoxContainer" unique_id=306207707 instance=ExtResource("2_lr70m")]
+layout_mode = 2
+Title = "Frame Advance"
+Action = "frame_advance"
+
+[node name="InputButton_FrameStep" parent="WGT_Keyboard2/VBoxContainer" unique_id=744702425 instance=ExtResource("2_lr70m")]
+layout_mode = 2
+Title = "Step Frame"
+Action = "frame_step"
 
 [node name="WGT_Gamepad1" type="Control" parent="." unique_id=1373467361 node_paths=PackedStringArray("Remapper", "Buttons", "TimeFrame")]
 visible = false
@@ -239,7 +279,7 @@ anchor_left = 0.104
 anchor_right = 0.104
 offset_left = -133.12
 offset_right = 132.88
-offset_bottom = 459.0
+offset_bottom = 633
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset_ratio = Vector2(0.5, 0)
@@ -247,7 +287,7 @@ script = ExtResource("1_uolfa")
 Remapper = NodePath("..")
 Prefix = "j1_"
 DeviceType = 1
-Buttons = [NodePath("VBoxContainer/InputButton_A"), NodePath("VBoxContainer/InputButton_B"), NodePath("VBoxContainer/InputButton_C"), NodePath("VBoxContainer/InputButton_D"), NodePath("VBoxContainer/InputButton_E"), NodePath("VBoxContainer/InputButton_F"), NodePath("VBoxContainer/InputButton_G"), NodePath("VBoxContainer/InputButton_H")]
+Buttons = [NodePath("VBoxContainer/InputButton_A"), NodePath("VBoxContainer/InputButton_B"), NodePath("VBoxContainer/InputButton_C"), NodePath("VBoxContainer/InputButton_D"), NodePath("VBoxContainer/InputButton_E"), NodePath("VBoxContainer/InputButton_F"), NodePath("VBoxContainer/InputButton_G"), NodePath("VBoxContainer/InputButton_H"), NodePath("VBoxContainer/InputButton_SaveState"), NodePath("VBoxContainer/InputButton_LoadState"), NodePath("VBoxContainer/InputButton_FrameAdvance"), NodePath("VBoxContainer/InputButton_FrameStep"), NodePath("VBoxContainer/InputButton_EasySpecials")]
 DefaultColor = Color(0.20392157, 0.20392157, 0.20392157, 1)
 SelectedColor = Color(0.90311116, 0.57668877, 1.540184e-06, 1)
 RemappingColor = Color(0.047058824, 0.047058824, 0.047058824, 1)
@@ -270,7 +310,7 @@ color = Color(0, 0, 0, 0.40392157)
 [node name="VBoxContainer" type="VBoxContainer" parent="WGT_Gamepad1" unique_id=71439209]
 layout_mode = 0
 offset_right = 266.0
-offset_bottom = 394.0
+offset_bottom = 568
 
 [node name="Label" type="Label" parent="WGT_Gamepad1/VBoxContainer" unique_id=413902599]
 layout_mode = 2
@@ -304,23 +344,49 @@ Action = "face_d"
 
 [node name="InputButton_E" parent="WGT_Gamepad1/VBoxContainer" unique_id=33878561 instance=ExtResource("2_lr70m")]
 layout_mode = 2
-Title = "E"
+Title = "A+B"
 Action = "face_e"
 
 [node name="InputButton_F" parent="WGT_Gamepad1/VBoxContainer" unique_id=1502230535 instance=ExtResource("2_lr70m")]
 layout_mode = 2
-Title = "F"
+Title = "B+C"
 Action = "face_f"
 
 [node name="InputButton_G" parent="WGT_Gamepad1/VBoxContainer" unique_id=1224676317 instance=ExtResource("2_lr70m")]
 layout_mode = 2
-Title = "G"
+Title = "A+B+C"
 Action = "face_g"
 
 [node name="InputButton_H" parent="WGT_Gamepad1/VBoxContainer" unique_id=1453940610 instance=ExtResource("2_lr70m")]
 layout_mode = 2
-Title = "H"
+Title = "A+B+C+D"
 Action = "face_h"
+
+[node name="InputButton_SaveState" parent="WGT_Gamepad1/VBoxContainer" unique_id=616455894 instance=ExtResource("2_lr70m")]
+layout_mode = 2
+Title = "Save State"
+Action = "save_state"
+
+[node name="InputButton_LoadState" parent="WGT_Gamepad1/VBoxContainer" unique_id=514743897 instance=ExtResource("2_lr70m")]
+layout_mode = 2
+Title = "Load State"
+Action = "load_state"
+
+[node name="InputButton_FrameAdvance" parent="WGT_Gamepad1/VBoxContainer" unique_id=1527659119 instance=ExtResource("2_lr70m")]
+layout_mode = 2
+Title = "Frame Advance"
+Action = "frame_advance"
+
+[node name="InputButton_FrameStep" parent="WGT_Gamepad1/VBoxContainer" unique_id=1668569557 instance=ExtResource("2_lr70m")]
+layout_mode = 2
+Title = "Step Frame"
+Action = "frame_step"
+
+[node name="InputButton_EasySpecials" parent="WGT_Gamepad1/VBoxContainer" unique_id=1453940611 instance=ExtResource("2_lr70m")]
+layout_mode = 2
+Title = "Easy Specials"
+IsToggle = true
+ToggleKey = "easy_specials"
 
 [node name="WGT_Gamepad2" type="Control" parent="." unique_id=269925898 node_paths=PackedStringArray("Remapper", "Buttons", "TimeFrame")]
 visible = false
@@ -329,7 +395,7 @@ anchor_left = 0.104
 anchor_right = 0.104
 offset_left = -133.12
 offset_right = 132.88
-offset_bottom = 459.0
+offset_bottom = 633
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset_ratio = Vector2(0.5, 0)
@@ -338,7 +404,7 @@ Remapper = NodePath("..")
 Prefix = "j2_"
 DeviceType = 1
 deviceID = 1
-Buttons = [NodePath("VBoxContainer/InputButton_A"), NodePath("VBoxContainer/InputButton_B"), NodePath("VBoxContainer/InputButton_C"), NodePath("VBoxContainer/InputButton_D"), NodePath("VBoxContainer/InputButton_E"), NodePath("VBoxContainer/InputButton_F"), NodePath("VBoxContainer/InputButton_G"), NodePath("VBoxContainer/InputButton_H")]
+Buttons = [NodePath("VBoxContainer/InputButton_A"), NodePath("VBoxContainer/InputButton_B"), NodePath("VBoxContainer/InputButton_C"), NodePath("VBoxContainer/InputButton_D"), NodePath("VBoxContainer/InputButton_E"), NodePath("VBoxContainer/InputButton_F"), NodePath("VBoxContainer/InputButton_G"), NodePath("VBoxContainer/InputButton_H"), NodePath("VBoxContainer/InputButton_SaveState"), NodePath("VBoxContainer/InputButton_LoadState"), NodePath("VBoxContainer/InputButton_FrameAdvance"), NodePath("VBoxContainer/InputButton_FrameStep"), NodePath("VBoxContainer/InputButton_EasySpecials")]
 DefaultColor = Color(0.20392157, 0.20392157, 0.20392157, 1)
 SelectedColor = Color(0.90311116, 0.57668877, 1.540184e-06, 1)
 RemappingColor = Color(0.047058824, 0.047058824, 0.047058824, 1)
@@ -361,7 +427,7 @@ color = Color(0, 0, 0, 0.40392157)
 [node name="VBoxContainer" type="VBoxContainer" parent="WGT_Gamepad2" unique_id=1685119918]
 layout_mode = 0
 offset_right = 266.0
-offset_bottom = 394.0
+offset_bottom = 568
 
 [node name="Label" type="Label" parent="WGT_Gamepad2/VBoxContainer" unique_id=534204598]
 layout_mode = 2
@@ -395,20 +461,46 @@ Action = "face_d"
 
 [node name="InputButton_E" parent="WGT_Gamepad2/VBoxContainer" unique_id=1962653174 instance=ExtResource("2_lr70m")]
 layout_mode = 2
-Title = "E"
+Title = "A+B"
 Action = "face_e"
 
 [node name="InputButton_F" parent="WGT_Gamepad2/VBoxContainer" unique_id=1273666115 instance=ExtResource("2_lr70m")]
 layout_mode = 2
-Title = "F"
+Title = "B+C"
 Action = "face_f"
 
 [node name="InputButton_G" parent="WGT_Gamepad2/VBoxContainer" unique_id=757820113 instance=ExtResource("2_lr70m")]
 layout_mode = 2
-Title = "G"
+Title = "A+B+C"
 Action = "face_g"
 
 [node name="InputButton_H" parent="WGT_Gamepad2/VBoxContainer" unique_id=1952720988 instance=ExtResource("2_lr70m")]
 layout_mode = 2
-Title = "H"
+Title = "A+B+C+D"
 Action = "face_h"
+
+[node name="InputButton_SaveState" parent="WGT_Gamepad2/VBoxContainer" unique_id=1866425269 instance=ExtResource("2_lr70m")]
+layout_mode = 2
+Title = "Save State"
+Action = "save_state"
+
+[node name="InputButton_LoadState" parent="WGT_Gamepad2/VBoxContainer" unique_id=347094926 instance=ExtResource("2_lr70m")]
+layout_mode = 2
+Title = "Load State"
+Action = "load_state"
+
+[node name="InputButton_FrameAdvance" parent="WGT_Gamepad2/VBoxContainer" unique_id=1971767675 instance=ExtResource("2_lr70m")]
+layout_mode = 2
+Title = "Frame Advance"
+Action = "frame_advance"
+
+[node name="InputButton_FrameStep" parent="WGT_Gamepad2/VBoxContainer" unique_id=652633481 instance=ExtResource("2_lr70m")]
+layout_mode = 2
+Title = "Step Frame"
+Action = "frame_step"
+
+[node name="InputButton_EasySpecials" parent="WGT_Gamepad2/VBoxContainer" unique_id=1952720989 instance=ExtResource("2_lr70m")]
+layout_mode = 2
+Title = "Easy Specials"
+IsToggle = true
+ToggleKey = "easy_specials"

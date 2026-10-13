@@ -79,6 +79,8 @@ namespace SakugaEngine
 
         public void TakeDamage(int damage, int superGaugeGain, bool isKilingBlow)
         {
+            damage = FunctionFighter.Mechanics.Barrier.ApplyDanger(_owner, damage); // [FF PATCH: barrier] Danger = extra damage taken
+            if (!_owner.BlockStun) FunctionFighter.Mechanics.Burst.OnDamaged(_owner, damage); // [FF PATCH: burst] gauge from hits taken (not chip)
             if (Health != null)
             {
                 if (!isKilingBlow && Health.CurrentValue - damage <= 1)

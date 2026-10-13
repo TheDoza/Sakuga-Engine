@@ -28,6 +28,9 @@ namespace SakugaEngine.Resources
         [Export] public MoveCancelSettings[] CanCancelTo;
         [Export] public CustomVariableCondition[] VariablesRequirement;
         [Export] public CustomVariableChange[] VariablesChange;
+        // [FF PATCH: move conditions] Extra FrameDataConditions that must all be true for this move to come out
+        // (e.g. BarrierHeldCondition on the Barrier moves). Empty = no extra check.
+        [Export] public FrameDataCondition[] Conditions;
         
         [ExportCategory("Move Flags")]
         [Export] public bool SkipCheck;

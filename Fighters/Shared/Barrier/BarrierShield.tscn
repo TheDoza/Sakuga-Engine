@@ -1,0 +1,22 @@
+[gd_scene format=3]
+
+[ext_resource type="Shader" path="res://Fighters/Shared/Barrier/BarrierShield.gdshader" id="1_shader"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_shield"]
+render_priority = 1
+shader = ExtResource("1_shader")
+shader_parameter/tint = Color(0.35, 1, 0.8, 1)
+shader_parameter/core_tint = Color(0.75, 1, 1, 1)
+shader_parameter/strength = 1.2
+shader_parameter/spin_speed = 0.6
+
+[sub_resource type="QuadMesh" id="QuadMesh_shield"]
+material = SubResource("ShaderMaterial_shield")
+size = Vector2(1.45, 1.45)
+
+[node name="BarrierShield" type="Node3D"]
+
+[node name="Shield" type="MeshInstance3D" parent="."]
+layers = 2
+cast_shadow = 0
+mesh = SubResource("QuadMesh_shield")

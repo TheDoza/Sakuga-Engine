@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="HitboxSettings" format=3]
+
+[ext_resource type="Script" uid="uid://c0y740kryylcs" path="res://Scripts/SakugaEngine/Resources/HitboxElement.cs" id="1_s"]
+[ext_resource type="Script" uid="uid://dxuwyhds75mce" path="res://Scripts/SakugaEngine/Resources/HitboxSettings.cs" id="2_s"]
+[ext_resource type="Resource" uid="uid://bwffnan18ibt8" path="res://Fighters/Shared/HitboxPresets/Pushbox_Idle.tres" id="pb_push"]
+
+[sub_resource type="Resource" id="Sub_1"]
+script = ExtResource("1_s")
+Center = Vector2i(5000, 5000)
+Size = Vector2i(12000, 10000)
+metadata/_custom_type_script = "uid://c0y740kryylcs"
+
+[sub_resource type="Resource" id="Sub_2"]
+script = ExtResource("1_s")
+HitboxType = 4
+ThrowHitstop = 16
+ThrowHitstopAfterHit = 16
+ThrowHitReaction = 14
+Center = Vector2i(4000, 11500)
+Size = Vector2i(5000, 6000)
+AirThrow = true
+metadata/_custom_type_script = "uid://c0y740kryylcs"
+
+[resource]
+script = ExtResource("2_s")
+Pushbox = ExtResource("pb_push")
+Hitboxes = [SubResource("Sub_1"), SubResource("Sub_2")]
+metadata/_custom_type_script = "uid://dxuwyhds75mce"

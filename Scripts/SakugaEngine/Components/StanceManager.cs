@@ -53,6 +53,11 @@ namespace SakugaEngine
             if (!isCorrectState) return false;
 
             if (!_owner.Parameters.CompareVariables(GetMove(index).VariablesRequirement)) return false;
+
+            // [FF PATCH: move conditions] optional per-move FrameDataConditions
+            if (GetMove(index).Conditions != null)
+                foreach (FrameDataCondition condition in GetMove(index).Conditions)
+                    if (condition != null && !condition.Check(ref _owner)) return false;
             
             bool AllowedFrameWindow = _owner.StateManager.CurrentStateFrame < GetMove(index).FrameLimit;
             if (GetMove(index).FrameLimit > 0 && !AllowedFrameWindow) return false;
@@ -65,16 +70,26 @@ namespace SakugaEngine
             if (MoveBuffer == null) return;
             if (!CanRun) return;
 
-            for (int i = GetMoveListLength() - 1; i >= 0; i--)
+            // [FF PATCH: training reversal] The training dummy's tech / reversal action starts here, on the same frame a
+            // perfectly timed input would. When it does, normal input matching is skipped for this frame.
+            bool forced = FunctionFighter.Training.Reversal.Run(_owner, this) ||
+                          FunctionFighter.Mechanics.Locomotion.TryHeldTech(_owner, this); // [FF PATCH: tech] hold A/B/C to tech asap
+
+            // [FF PATCH: move priority] When several moves match on the same frame, the highest Priority wins
+            // (e.g. B+C throw beats the B and C normals). Ties still go to the move lower in the list, like upstream.
+            // Upstream simply took the lowest matching move in the list and ignored Priority here.
+            int bestMove = -1;
+            for (int i = forced ? -1 : GetMoveListLength() - 1; i >= 0; i--)
             {
                 if (GetMove(i).SkipCheck) continue;
+                // [FF PATCH: locomotion] walking / crouching (priority 0) can't interrupt a run, skid, step dash or backdash
+                if (GetMove(i).Priority <= 0 && FunctionFighter.Mechanics.Locomotion.BlocksBasicMoves(_owner)) continue;
+                if (bestMove >= 0 && GetMove(i).Priority <= GetMove(bestMove).Priority) continue;
                 if (!CheckMoveConditions(i)) continue;
                 if (_owner.Inputs.CheckMotionInputs(GetMove(i).Inputs, _owner.InputSide(GetMove(i).SideCheck)))
-                {
-                    BufferMove(i, false);
-                    break;
-                }
+                    bestMove = i;
             }
+            if (bestMove >= 0) BufferMove(bestMove, false);
 
             //if (CurrentMove >= 0)
                 //_owner.Parameters.SuperGauge.AddSuperGauge(GetCurrentMove().BuildSuperGauge);
@@ -131,6 +146,26 @@ namespace SakugaEngine
                     break;
                 }
             }
+        }
+
+        /// <summary>[FF PATCH: training reversal] Would this move come out right now if its input were pressed?
+        /// Same checks as CheckMoves + ProcessMoveBuffer (conditions, state, hitstop/hitstun, LOCK_MOVE, priority).</summary>
+        public bool CanExecuteNow(int index)
+        {
+            if (index < 0 || index >= GetMoveListLength() || GetMove(index) == null) return false;
+            if (!CheckMoveConditions(index)) return false;
+            var m = GetMove(index);
+            if (_owner.StateManager.CurrentStateType() == StateType.COMBAT) return false;
+            if (!m.Unlockable && _owner.ContainsFrameProperty(FrameProperties.LOCK_MOVE)) return false;
+            if (!m.IgnoreHitstop && _owner.Hitstop.IsRunning()) return false;
+            if (!m.IgnoreHitstun && _owner.Hitstun.IsRunning()) return false;
+            if (CurrentMove >= 0)
+            {
+                var c = GetCurrentMove();
+                bool ok = c.CanBeOverrided && (c.IgnoreSamePriority ? m.Priority > c.Priority : m.Priority >= c.Priority);
+                if (!ok) return false;
+            }
+            return true;
         }
 
         public void ProcessMoveBuffer()
@@ -273,6 +308,7 @@ namespace SakugaEngine
         {
             if (_owner.StateManager.CurrentStateType() == StateType.HIT_REACTION) return -1;
             if (_owner.StateManager.CurrentStateType() == StateType.LOCKED) return -1;
+            if (_owner.ContainsFrameProperty(FrameProperties.NO_GUARD)) return -1; // [FF PATCH: locomotion] prejump, run skid
             if (_owner.StateManager.CurrentStateType() == StateType.COMBAT && _owner.StateManager.CurrentStateFrame >= GlobalVariables.KaraCancelWindow) return -1;
             if (GetCurrentStance().BlockReactions == null || GetCurrentStance().BlockReactions.Length == 0) return -1;
             for (int i = 0; i < GetCurrentStance().BlockReactions.Length; i++)
@@ -282,7 +318,12 @@ namespace SakugaEngine
                 if (!_owner.Body.IsOnGround && block.ReferenceStance != StanceSelect.AIR) continue;
                 if (!ValidHitType(Type, block.BlockType)) continue;
                 if (block.InputToCheck == null) continue;
-                if (!_owner.Inputs.CheckMotionInputs(block.InputToCheck, _owner.InputSide(InputSideCheck.SIDE_RELATIVE))) continue;
+                // [FF PATCH: barrier, training guard] A barrier that's up guards without holding back, and the training dummy
+                // can be set to guard on its own; both use the block that matches the fighter's stance (or the hit, for the dummy).
+                StanceSelect autoGuard = FunctionFighter.Mechanics.GuardOverride.GetGuardStance(_owner, Type);
+                bool autoGuarding = (int)autoGuard >= 0;
+                if (autoGuarding ? block.ReferenceStance != autoGuard
+                                 : !_owner.Inputs.CheckMotionInputs(block.InputToCheck, _owner.InputSide(InputSideCheck.SIDE_RELATIVE))) continue;
 
                 switch (state)
                 {
@@ -332,4 +373,4 @@ namespace SakugaEngine
         public MoveSettings GetBufferedMove() => GetMove(BufferedMove);
         public int GetMoveListLength() => GetCurrentStance().Moves.Length;
     }
-}
+}

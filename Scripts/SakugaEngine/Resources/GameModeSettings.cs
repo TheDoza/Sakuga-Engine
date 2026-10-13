@@ -25,5 +25,7 @@ namespace SakugaEngine.Resources
         [Export] public bool AllowUseDebugCommands;
         [Export] public bool NoAI;
         [Export] public string ReturnToScene;
+        /// <summary>[FF PATCH: training] Turns on the Training Settings page in the pause menu and the training hotkeys.</summary>
+        [Export] public bool IsTraining;
     }
 }

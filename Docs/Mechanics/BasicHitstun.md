@@ -1,44 +1,42 @@
 # Basic Hitstun
 
-**Status:** ✅ Working (tested headless 2026-10-11) · **Fighters:** Dummy · **Rollback-safe:** Yes (data only)
+**Status:** ✅ Working (tested 2026-10-11) · **Fighters:** Dummy · **Rollback-safe:** Yes (data only)
 
 ## What it does
 Ordinary hits put the Dummy in hitstun for exactly the hitbox's `GroundHitstun` / `AirHitstun` frames,
-then return it to Neutral (ground) or Falling (air).
+then return it to Idle (ground) or Falling (air).
 
 ## How it works
-- **Ground hits (30, 31, 32):** 8-frame states with `HitstunHold = 2`. The state freezes on frame 2 while hitstun runs, then plays its last 6 frames, so it ends exactly when hitstun ends. Change hitstun on the move, not the state.
-- **Weak air hit (33):** falls with the knockback's gravity. Landing → Neutral. After hitstun it keeps tumbling; any attack button air-techs (see TechRecovery.md).
-- **Strong air hit (10):** always lands into Hit_Down, then gets up.
+- **Ground hits (20, 21, 22):** 8-frame states with `HitstunHold = 2`. The state freezes on frame 2 while hitstun runs, then plays its last 6 frames, so it ends exactly when hitstun ends. Change hitstun on the move, not the state.
+- **Weak air hit (23):** falls with the knockback's gravity. Landing → Idle. After hitstun it keeps tumbling; A/B/C + a direction air-techs (see TechRecovery.md).
+- **Strong air hit (24):** always lands into Hit_Down (the knockdown / tech timeline, see TechRecovery.md).
 - The attacker's hitbox picks the slot: `GroundHitReaction`, `CrouchHitReaction`, `AirHitReaction`.
 
 ## Dummy states
 | State | Slot | Ends | Hurtbox |
 |---|---|---|---|
-| 30 Hit_Stand_Weak | 0 | hitstun ends → Neutral | Basic |
-| 31 Hit_Stand_Strong | 1 | hitstun ends → Neutral | Basic |
-| 32 Hit_Crouch | 2 | hitstun ends → Neutral | Crouch |
-| 33 Hit_Air_Weak | 3 | lands → Neutral, or air tech after hitstun | Basic |
-| 10 Hit_Air | 4–7, 11, 12 | lands → Hit_Down | Basic |
+| 20 Hit_Stand_Weak | 0 | hitstun ends → Idle | Basic |
+| 21 Hit_Stand_Strong | 1 | hitstun ends → Idle | Basic |
+| 22 Hit_Crouch | 2 | hitstun ends → Crouching | Crouch |
+| 23 Hit_Air_Weak | 3 | lands → Idle, or air tech after hitstun | Basic |
+| 24 Hit_Air | 4–7, 11, 12 | lands → Hit_Down | Basic |
 
 ## Test results
 | Test | Result |
 |---|---|
-| Test Mid on standing Dummy | Hit_Stand_Strong for exactly 18 frames after hitstop, then Neutral |
+| Test Mid on standing Dummy | Hit_Stand_Strong for exactly 18 frames after hitstop, then Idle |
 | Test Mid on airborne Dummy | Hit_Air_Weak, then Falling when hitstun ends |
-| Slide Kick re-hit during slide | Hit_Air → Hit_Down → Hit_GetUp → Neutral |
+| Slide Kick re-hit during slide | Hit_Air → Hit_Down → tech → Idle |
 
 ## Tuning: "I want to change…"
 | I want to… | File | Field |
 |---|---|---|
 | How long a move stuns | that move's attack hitbox | `GroundHitstun` / `AirHitstun` |
 | Weak vs strong reaction | that move's attack hitbox | `GroundHitReaction` (0/1), `AirHitReaction` (3 weak, 4 knockdown) |
-| Make air hits always knock down | `Stances/0_Dummy_Stance_Main.tres` | `HitReactions` slot 3 → 10 |
+| Make air hits always knock down | `Stances/0_Dummy_Stance_Main.tres` | `HitReactions` slot 3 → 24 |
 
 ## Known issues
-- Hit_Crouch now returns to Crouching (see Crouching.md).
-- Tech recovery: see TechRecovery.md.
-- Slot 14 (throw reaction) still → Neutral.
+- Training's frame meter shows hitstun in yellow; the data panel shows the hit's frame data and advantage.
 
 ## Change log
 | Date | Change |

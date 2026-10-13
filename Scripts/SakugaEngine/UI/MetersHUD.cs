@@ -10,6 +10,9 @@ namespace SakugaEngine.UI
         [Export] private Label P2TrainingInfo;
         [Export] private InputHistory P1InputHistory;
         [Export] private InputHistory P2InputHistory;
+        // [FF PATCH: training] aligned training data panels (replace the old two-label layout)
+        [Export] private FunctionFighter.UI.TrainingInfoPanel P1Panel;
+        [Export] private FunctionFighter.UI.TrainingInfoPanel P2Panel;
 
         private int CurrentFrameAdvantage;
 
@@ -37,8 +40,10 @@ namespace SakugaEngine.UI
             P1InputHistory.SetHistoryList(fighters[0].Inputs);
             P2InputHistory.SetHistoryList(fighters[1].Inputs);
 
-            P1TrainingInfo.Text = TrainingInfoText(fighters[0], fighters[1]);
-            P2TrainingInfo.Text = TrainingInfoText(fighters[1], fighters[0]);
+            if (P1Panel != null) P1Panel.UpdateInfo(fighters[0], fighters[1]); // [FF PATCH: training]
+            if (P2Panel != null) P2Panel.UpdateInfo(fighters[1], fighters[0]);
+            if (P1TrainingInfo != null) P1TrainingInfo.Text = TrainingInfoText(fighters[0], fighters[1]);
+            if (P2TrainingInfo != null) P2TrainingInfo.Text = TrainingInfoText(fighters[1], fighters[0]);
         }
 
         void GetFrameAdvantage(SakugaActor[] fighters)

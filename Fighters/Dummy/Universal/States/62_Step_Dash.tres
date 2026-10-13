@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="FighterState" format=3]
+
+[ext_resource type="Resource" path="res://Fighters/Dummy/Universal/AnimationData/62_Step_Dash_AnimationData.tres" id="1_a"]
+[ext_resource type="Script" path="res://Scripts/SakugaEngine/Resources/FighterState.cs" id="2_s"]
+[ext_resource type="Script" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/FrameDataEvent.cs" id="3_e"]
+[ext_resource type="Script" path="res://Scripts/FunctionFighter/Mechanics/LocomotionAction.cs" id="4_l"]
+
+[sub_resource type="Resource" id="Sub_loco"]
+script = ExtResource("4_l")
+Mode = 3
+Direction = 0
+
+[sub_resource type="Resource" id="Sub_enter"]
+script = ExtResource("3_e")
+Conditions = null
+Actions = Array[Object]([SubResource("Sub_loco")])
+
+[resource]
+script = ExtResource("2_s")
+StateName = "Step_Dash"
+Type = 1
+AnimationData = ExtResource("1_a")
+TransitionEvents = []
+OnEnterEvents = Array[Object]([SubResource("Sub_enter")])
+OnTickEvents = []
+OnExitEvents = []
+OnHitConfirmEvents = []
+OnHitReactionEvents = []

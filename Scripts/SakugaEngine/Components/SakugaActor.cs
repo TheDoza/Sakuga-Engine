@@ -26,6 +26,7 @@ namespace SakugaEngine
 		[ExportCategory("Visuals")]
         [Export] private AnimationViewer Animator;
         [Export] protected Node3D[] Graphics;
+        public Node3D[] GraphicsNodes => Graphics; // [FF PATCH: locomotion] read by the movement visuals
         [ExportCategory("Resources")]
         [Export] public DataContainer Data;
         [Export] public SpawnsList SpawnablesList;
@@ -52,6 +53,14 @@ namespace SakugaEngine
         public HitChecker HitCheck;
         public CancelCondition CancelConditions;
         public int CurrentGrabbedNodeID = -1;
+        // [FF PATCH: barrier] Barrier meter / Danger / queued barrier pushback (see Scripts/FunctionFighter/Mechanics/Barrier.cs).
+        public FunctionFighter.Mechanics.BarrierState Barrier;
+        // [FF PATCH: burst] Burst gauge / lock (see Scripts/FunctionFighter/Mechanics/Burst.cs).
+        public FunctionFighter.Mechanics.BurstState Burst;
+        // [FF PATCH: counter] counter-hit carry, Big Counter combo, Functional Counter (saved for rollback)
+        public FunctionFighter.Mechanics.CounterState Counter;
+        // [FF PATCH: locomotion] run / dash / jump state, air actions, momentum (saved for rollback)
+        public FunctionFighter.Mechanics.LocomotionState Locomotion;
 
         // References
         private SakugaActor actor;
@@ -203,6 +212,10 @@ namespace SakugaEngine
 
             FrameProperties = InitialProperties;
             HitCheck = AllowHit;
+            FunctionFighter.Mechanics.Barrier.Reset(this); // [FF PATCH: barrier]
+            FunctionFighter.Mechanics.Burst.Init(this); // [FF PATCH: burst] full at match start only, carries over between rounds
+            FunctionFighter.Mechanics.Counter.Reset(this); // [FF PATCH: counter]
+            FunctionFighter.Mechanics.Locomotion.Reset(this); // [FF PATCH: locomotion]
         }
         
         public void InitializePool()
@@ -237,11 +250,18 @@ namespace SakugaEngine
 
             FrameProperties = InitialProperties;
             HitCheck = AllowHit;
+            FunctionFighter.Mechanics.Barrier.Reset(this); // [FF PATCH: barrier]
+            FunctionFighter.Mechanics.Counter.Reset(this); // [FF PATCH: counter]
+            FunctionFighter.Mechanics.Locomotion.Reset(this); // [FF PATCH: locomotion]
         }
 
         public override void PreTick()
         {
             if (!IsActive) return;
+
+            // [FF PATCH: barrier, burst] gauge refills/timers that keep running during hitstop
+            FunctionFighter.Mechanics.Barrier.PreTick(this);
+            FunctionFighter.Mechanics.Burst.PreTick(this);
 
             if (CanHitstop()) Hitstop.Run();
             if (Body != null) Body.IsMovable = !OnHitstop();
@@ -281,6 +301,10 @@ namespace SakugaEngine
 
             if (OnHitstop()) return;
 
+            FunctionFighter.Mechanics.Barrier.Tick(this); // [FF PATCH: barrier] meter drain/refill + barrier pushback
+            FunctionFighter.Mechanics.Counter.Tick(this); // [FF PATCH: counter] carry, combo flags, Functional Counter timer + auto-dash
+            FunctionFighter.Mechanics.Locomotion.Tick(this); // [FF PATCH: locomotion] run, skid, dashes, jumps, air actions, momentum
+
             foreach(FrameDataEvent tickEvent in StateManager.GetCurrentState().OnTickEvents)
                 tickEvent.RunEvent(ref actor);
         }
@@ -293,6 +317,8 @@ namespace SakugaEngine
 
         public override void Render()
         {
+            FunctionFighter.Mechanics.BarrierVisual.Update(this); // [FF PATCH: barrier] shield in front of a barriering fighter (visual only)
+            FunctionFighter.Mechanics.LocomotionVisual.Update(this); // [FF PATCH: locomotion] super jump afterimages, air dash speed lines (visual only)
             foreach (Node3D g in Graphics)
             {
                 g.Visible = IsActive;
@@ -359,14 +385,19 @@ namespace SakugaEngine
             // Change hit fighter layering
             LayerSorting = -1;
             // Select hit values
-            bool isGroundHit = !IsKO() && Body != null && !IsAirState();
+            // [FF PATCH: tech] the early part of a wakeup roll is hit like an airborne fighter, the late part like a crouching one
+            bool isGroundHit = !IsKO() && Body != null && !IsAirState() && !FunctionFighter.Mechanics.Locomotion.HitAsAirborne(this);
             var finalHitstun = isGroundHit ? box.GroundHitstun : box.AirHitstun;
             var finalKnockbackTime = isGroundHit ? box.GroundHitKnockbackTime : box.AirHitKnockbackTime;
             var finalDamageKnockback = isGroundHit ? box.GroundHitKnockback : box.AirHitKnockback;
             var finalKnockbackGravity = isGroundHit ? box.GroundHitKnockbackGravity : box.AirHitKnockbackGravity;
-            var finalHitReaction = isGroundHit ? (IsCrouchState() ? box.CrouchHitReaction : box.GroundHitReaction) : box.AirHitReaction;
+            var finalHitReaction = isGroundHit ? (IsCrouchState() || FunctionFighter.Mechanics.Locomotion.HitAsCrouching(this) ? box.CrouchHitReaction : box.GroundHitReaction) : box.AirHitReaction;
             HitstunType = isGroundHit ? box.GroundHitstunType : box.AirHitstunType;
             bool canTech = StateManager != null && StateManager.CurrentStateType() == StateType.HIT_REACTION && !OnHitstun() && ValidTechState();
+            // [FF PATCH: counter] Counter Hit / Big Counter / Functional Counter bonuses for this hit
+            var counterHit = FunctionFighter.Mechanics.Counter.OnHit(this, target, box, isGroundHit);
+            finalHitstun = counterHit.Hitstun(finalHitstun);
+            finalKnockbackGravity = counterHit.Gravity(finalKnockbackGravity);
             
             if (Body != null)
             {
@@ -386,7 +417,7 @@ namespace SakugaEngine
             if (CanHitstop())
             {
                 if (!isTrade)
-                    Hitstop.Start((uint)box.OpponentHitStopDuration);
+                    Hitstop.Start((uint)(box.OpponentHitStopDuration + counterHit.ExtraHitstop)); // [FF PATCH: counter]
                 else 
                     Hitstop.Stop();
             }
@@ -423,6 +454,7 @@ namespace SakugaEngine
                     Parameters.Prorations.CurrentDefense,
                     (ushort)box.DamageScalingSubtract
                 );
+                finalDamage = counterHit.Damage(finalDamage); // [FF PATCH: counter] +10% on counter hits
                 Parameters.TakeDamage(
                     finalDamage,
                     box.OpponentSuperGaugeGain,
@@ -475,6 +507,9 @@ namespace SakugaEngine
 
             if (CanHitstun()) Hitstun.Start((uint)finalHitstun);
             if (CanHitstop()) Hitstop.Start((uint)box.BlockStopDuration);
+
+            // [FF PATCH: barrier] Holding A+B while blocking: no chip damage, extra pushback, drains the barrier meter.
+            bool barrierBlock = FunctionFighter.Mechanics.Barrier.OnBlock(this, target, finalDamageKnockback.X, finalKnockbackTime, box.BaseDamage);
             
             PushActor(
                 finalKnockbackTime,
@@ -486,7 +521,7 @@ namespace SakugaEngine
             {
                 int stunFrame = target.StateManager == null ? 0 : target.StateManager.GetCurrentState().AnimationData.Duration - target.StateManager.CurrentStateFrame;
                 int finalAttack = target.Parameters.Prorations != null ? target.Parameters.Prorations.CurrentAttack : target.Data.BaseAttack;
-                int finalDamage = Parameters.CalculateProrations(
+                int finalDamage = barrierBlock ? 0 : Parameters.CalculateProrations( // [FF PATCH: barrier] no chip on barrier
                     box.ChipDamage, finalAttack,
                     Parameters.Prorations.CurrentDefense,
                     0
@@ -589,20 +624,34 @@ namespace SakugaEngine
             if (Inputs.CheckMotionInputs(StanceManager.GetCurrentStance().ThrowEscapeInput, InputSide(InputSideCheck.SIDE_RELATIVE)))
             {
                 HitstunType = 0;
-                ThrowEscapeAction();
+                ThrowEscapeAction(false); // [FF PATCH: throw reject] this fighter was the one being thrown
                 GameManager.Instance.PlayHitNotificationByIndex((int)playerID, 4);
-                target.ThrowEscapeAction();
+                target.ThrowEscapeAction(true); // [FF PATCH: throw reject] the target is the thrower
             }
         }
-        public void ThrowEscapeAction()
+        // Throw trades (both throws connect on the same frame) treat both fighters as throwers.
+        public void ThrowEscapeAction() => ThrowEscapeAction(true);
+        // [FF PATCH: throw reject] wasThrower picks the stance's Ground/AirThrowRejectedState for the thrower.
+        // If the stance sets no rejected states, this falls back to upstream behaviour (escape state + hardcoded push for both).
+        public void ThrowEscapeAction(bool wasThrower)
         {
             if (StanceManager == null) return;
+            FighterStance stance = StanceManager.GetCurrentStance();
             int selfSelectThrowEscape = Body.IsOnGround ? 
-                                        StanceManager.GetCurrentStance().GroundThrowEscapeState : 
-                                        StanceManager.GetCurrentStance().AirThrowEscapeState;
+                                        stance.GroundThrowEscapeState : 
+                                        stance.AirThrowEscapeState;
+            int selfSelectThrowRejected = Body.IsOnGround ?
+                                        stance.GroundThrowRejectedState :
+                                        stance.AirThrowRejectedState;
+            bool usesRejectStates = stance.GroundThrowRejectedState >= 0 || stance.AirThrowRejectedState >= 0;
             if (CanHitstop()) Hitstop.Stop();
-            if (StateManager != null) StateManager.PlayState(selfSelectThrowEscape);
             CurrentGrabbedNodeID = -1;
+            if (usesRejectStates)
+            {
+                if (StateManager != null) StateManager.PlayState(wasThrower ? selfSelectThrowRejected : selfSelectThrowEscape, true);
+                return;
+            }
+            if (StateManager != null) StateManager.PlayState(selfSelectThrowEscape);
             PushActor(10, -40000 * Body.PlayerSide, 0, 0);
         }
         public void HitConfirm(SakugaActor target, int superGaugeGain, uint hitStopDuration, int hitEffect, Vector2I VFXSpawn)
@@ -637,6 +686,8 @@ namespace SakugaEngine
         public void BaseDamage(SakugaActor target, HitboxElement box, Vector2I contact)
         {
             bool isHitAllowed = !target.ContainsFrameProperty(FrameProperties.DAMAGE_IMUNITY);
+            // [FF PATCH: locomotion] prejump is invincible to Bursts
+            if (box.IsBurst && target.ContainsFrameProperty(FrameProperties.BURST_IMUNITY)) isHitAllowed = false;
             if (!isHitAllowed) return;
 
             CurrentGrabbedNodeID = -1;
@@ -675,6 +726,8 @@ namespace SakugaEngine
                     {
                         hitFX = box.BlockEffectIndex;
                         target.BlockHit(actor, box, blockState);
+                        FunctionFighter.Training.TrainingController.OnDummyBlocked(target); // [FF PATCH: training reversal]
+                        FunctionFighter.Mechanics.Advantage.OnContact(this, target, contact, true); // [FF PATCH: advantage] spark on top of the block effect
                         if (box.AllowSelfPushback)
                             HitPushback(target, box.SelfPushbackDuration, box.SelfPushbackForce);
                         GD.Print("Fighter: Blocked!");
@@ -683,16 +736,18 @@ namespace SakugaEngine
                 }
                 else
                 {
-                    hitFX = box.HitEffectIndex;
+                    // [FF PATCH: advantage] the advantage hitspark replaces the hit effect (Training can switch back)
+                    hitFX = FunctionFighter.Mechanics.Advantage.SparksOn ? -1 : box.HitEffectIndex;
                     if (GameManager.Instance.WaitingForFirstStrike())
                         GameManager.Instance.PlayHitNotificationByIndex((int)playerID, 0);
 
-                    if (IsCounter(target))
-                        GameManager.Instance.PlayHitNotificationByIndex((int)playerID, 1);
-                    else if (IsPunishCounter(target))
+                    // [FF PATCH: counter] "Counter" / "Big Counter" notifications now come from FunctionFighter.Mechanics.Counter.
+                    if (!IsCounter(target) && IsPunishCounter(target))
                         GameManager.Instance.PlayHitNotificationByIndex((int)playerID, 2);
 
                     target.HitDamage(actor, box, false);
+                    FunctionFighter.Training.TrainingController.OnDummyHit(target); // [FF PATCH: training reversal]
+                    FunctionFighter.Mechanics.Advantage.OnContact(this, target, contact, false); // [FF PATCH: advantage] the advantage spark is the hitspark
                     if (box.AllowSelfPushback)
                         HitPushback(target, box.SelfPushbackDuration, box.SelfPushbackForce);
                     CancelConditions |= CancelCondition.HIT_CANCEL;
@@ -723,6 +778,10 @@ namespace SakugaEngine
                                     (target.IsAirState() && box.AirThrow) ||
                                     (box.GroundThrow && box.AirThrow));
             if (!isThrowAllowed) return;
+
+            // [FF PATCH: no throw combos] Fighters in hitstun or blockstun can't be thrown, so throws never combo.
+            // Blocking without blockstun (holding back, proximity guard) is still throwable.
+            if (target.StateManager.CurrentStateType() == StateType.HIT_REACTION || target.BlockStun) return;
 
             uint finalHitstop = (uint)box.ThrowHitstop;
             if (target.StateManager.CurrentStateType() == StateType.HIT_REACTION) finalHitstop = (uint)box.ThrowHitstopAfterHit;

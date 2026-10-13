@@ -67,6 +67,7 @@ namespace SakugaEngine.Collision
                         PhysicsBody bodyB = bodies[j];
                         
                         if (bodyA.IsStatic && bodyB.IsStatic) continue;
+                        if (bodyA.IgnorePushbox || bodyB.IgnorePushbox) continue; // [FF PATCH: tech] wakeup roll passes through
                         
                         if (bodyA.Pushbox.IsOverlapping(bodyB.Pushbox))
                         {

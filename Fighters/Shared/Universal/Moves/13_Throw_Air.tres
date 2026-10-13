@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="MoveSettings" format=3]
+
+[ext_resource type="Resource" uid="uid://dovk6n76rc55h" path="res://Fighters/Shared/Inputs/22_Input_BC.tres" id="1_r"]
+[ext_resource type="Script" uid="uid://gk1rkw667o4n" path="res://Scripts/SakugaEngine/Resources/MoveSettings.cs" id="2_s"]
+
+[resource]
+script = ExtResource("2_s")
+MoveName = "Throw (Air)"
+MoveState = 34
+Inputs = ExtResource("1_r")
+Priority = 6
+MoveEnd = 2
+UseOnAir = true
+metadata/_custom_type_script = "uid://gk1rkw667o4n"

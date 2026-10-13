@@ -1,6 +1,6 @@
 # Blocking
 
-**Status:** ✅ Working (tested headless 2026-10-11) · **Fighters:** Dummy · **Rollback-safe:** Yes (engine patch uses already-saved state)
+**Status:** ✅ Working (tested 2026-10-11) · **Fighters:** Dummy · **Rollback-safe:** Yes (engine patch uses already-saved state)
 
 ## What it does
 The Dummy blocks standing (hold back), crouching (hold down-back) and in the air (hold back).
@@ -9,23 +9,23 @@ Blockstun lasts the hitbox's `GroundBlockstun` / `AirBlockstun` frames (needs th
 ## How it works
 - **Which block:** the stance's `BlockReactions` are checked in order: stand (input 4, blocks high + mid), crouch (input 1, blocks mid + low), air (input 4, blocks everything).
 - **Proximity guard:** a `PROXIMITY_BLOCK` box (HitboxType 2) on the attacker puts a holding-back defender into Enter before the hit lands. Give it the same `HitType` as the attack, or crouch-blockers won't react.
-- **Flow:** Enter (4f) → Blocking (hold) → on a blocked hit, Blockstun (8f animation) → Blocking until blockstun runs out and no proximity box touches → Exit (4f) → Neutral. Air blockers who land go to Blocking_Stand.
+- **Flow:** Enter (4f) → Blocking (hold) → on a blocked hit, Blockstun (8f animation) → Blocking until blockstun runs out and no proximity box touches → Exit (4f) → Idle. Air blockers who land go to Blocking_Stand.
 - **Guard break:** `GuardCrush = true` on a hitbox sends the blocker to GuardBreak for 40 frames. Not tested yet; no move uses it.
 
 ## Dummy states
 | Stance | Enter | Blockstun | Exit | Blocking (hold) | Guard break |
 |---|---|---|---|---|---|
-| Stand | 14 | 15 | 16 | 17 | 18 |
-| Crouch | 19 | 20 | 21 | 22 | 23 |
-| Air | 24 | 25 | 26 | 27 | 28 |
+| Stand | 40 | 41 | 42 | 43 | 44 |
+| Crouch | 45 | 46 | 47 | 48 | 49 |
+| Air | 50 | 51 | 52 | 53 | 54 |
 
-Crouch block uses `Hitboxes/3_Hitbox_Crouch.tres`. No crouch idle yet, so crouch block exits to Neutral.
+Crouch block uses `Hitboxes/3_Hitbox_Crouch.tres`. Crouch block exits to Crouching (see Crouching).
 
 ## Test moves
 | Move | Input | Type | Blockstun | Chip | Block pushback |
 |---|---|---|---|---|---|
-| Test Mid (state 29) | 5B | MID | 14 | 40 | -40000 for 6f |
-| Slide Kick (state 13) | 5C | LOW | 16 | 60 | -50000 for 8f |
+| Test Mid (state 101) | 5B | MID | 14 | 40 | -40000 for 6f |
+| Slide Kick (state 100) | 5C | LOW | 16 | 60 | -50000 for 8f |
 
 Tested: stand block stops Test Mid; stand block loses to Slide Kick; crouch block stops both; air block stops Test Mid and lands into Blocking_Stand.
 
@@ -37,7 +37,7 @@ Tested: stand block stops Test Mid; stand block loses to Slide Kick; crouch bloc
 | Change chip damage | that move's attack hitbox | `ChipDamage` (`ChipDeath` = can chip kill) |
 | Make a move overhead or low | attack hitbox **and** its proximity box | `HitType` (0 high, 1 mid, 2 low) |
 | Change what each block stance stops | `Stances/0_Dummy_Stance_Main.tres` → `BlockReactions` | `BlockType` (1 high + 2 mid + 4 low) |
-| Change block enter/exit time | `14/16/19/21/24/26_..._AnimationData` | `Duration` |
+| Change block enter/exit time | `40/42/45/47/50/52_..._AnimationData` | `Duration` |
 
 ## Engine patch — `Scripts/SakugaEngine/Components/SakugaActor.cs`
 Search for `[FF PATCH`.
@@ -48,7 +48,7 @@ Search for `[FF PATCH`.
 | block knockback Y | `BlockHit` passed X knockback as Y velocity | Pass `.Y` |
 
 ## Known issues
-- Blockstun isn't shown in training-mode frame data yet.
+- Training's frame meter shows blockstun (orange) and the exit frames (teal).
 - Exit adds 4 frames after blockstun where the blocker can't act.
 - After any upstream Sakuga merge, re-check the three `[FF PATCH` lines.
 

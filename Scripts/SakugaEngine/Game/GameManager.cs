@@ -92,7 +92,8 @@ namespace SakugaEngine.Game
             if (Monitor == null) return;
 
             if (SeedViewer.Visible) SeedViewer.Text = finalSeed.ToString();
-            if (Input.IsActionJustPressed("pause") && Match.SelectedModeSettings.PauseMode != PauseMode.LOCK && Monitor.MatchState == MatchState.ROUND_RUNNING)
+            // [FF PATCH: pause pages] the pause key is ignored while the Training / Controls pages are open
+            if (Input.IsActionJustPressed("pause") && !FunctionFighter.UI.PauseOverlay.Blocking && Match.SelectedModeSettings.PauseMode != PauseMode.LOCK && Monitor.MatchState == MatchState.ROUND_RUNNING)
             {
                 CallDeferred("PauseControl", !paused);
             }
@@ -243,6 +244,8 @@ namespace SakugaEngine.Game
         public void GameLoop(byte[] playerInput)
         {
             if (paused) return;
+            // [FF PATCH: frame advance] Training frame advance: hold the frame unless a step is waiting.
+            if (FunctionFighter.Training.FrameAdvance.HoldFrame()) return;
 
             finalSeed = CalculateSeed();
             RNG.Set(finalSeed);
@@ -279,6 +282,10 @@ namespace SakugaEngine.Game
                 PlayerInputs combinedInput = 0;
                 combinedInput |= (PlayerInputs)playerInput[i * InputSize];
                 combinedInput |= (PlayerInputs)(playerInput[(i * InputSize) + 1] << 8);
+                // [FF PATCH: macros] E-H press their button combinations (A+B, B+C, A+B+C, A+B+C+D).
+                combinedInput = FunctionFighter.Input.ButtonMacros.Expand(combinedInput);
+                // [FF PATCH: training] Dummy behavior, recording and playback (does nothing outside Training).
+                combinedInput = FunctionFighter.Training.TrainingController.FilterInput(i, combinedInput, Fighters, playerInput, (int)InputSize);
                 Inputs[i].InsertToHistory(combinedInput);
             }
 
@@ -307,8 +314,10 @@ namespace SakugaEngine.Game
                 {
                     if (Fighters[i].Parameters.Health.CurrentValue <= 0)
                         Fighters[i].Parameters.Health.CurrentValue = 1;
-                    if (!Fighters[i].OnHitstun() && Fighters[i].StateManager.CurrentStateType() != StateType.HIT_REACTION)
-                        Fighters[i].Parameters.Health.CurrentValue = Fighters[i].Data.MaxHealth;
+                    // [FF PATCH: training] Refill can be turned off and set to a percentage in the Training Settings.
+                    if (FunctionFighter.Training.TrainingController.HealthRefillOn(i) &&
+                        !Fighters[i].OnHitstun() && Fighters[i].StateManager.CurrentStateType() != StateType.HIT_REACTION)
+                        Fighters[i].Parameters.Health.CurrentValue = FunctionFighter.Training.TrainingController.HealthRefillValue(i, Fighters[i]);
                 }
                 if (Match.SelectedModeSettings.AutoFillResources)
                 {
@@ -318,10 +327,18 @@ namespace SakugaEngine.Game
                     }    
                 }
             }
+
+            // [FF PATCH: training] meters, barrier, Burst and guard settings (does nothing outside Training)
+            FunctionFighter.Training.TrainingController.AfterTick(Fighters);
+            FunctionFighter.Mechanics.Advantage.AfterTick(Fighters); // [FF PATCH: advantage] frame advantage icons (visual, all modes)
             
             for (int i = 0; i < Nodes.Count; i++)
                 Nodes[i].LateTick();
         }
+
+        // [FF PATCH: training] Access for the Training Settings menu.
+        public SakugaActor[] GetFighters() => Fighters;
+        public bool IsPaused => paused;
 
         public override void _UnhandledInput(InputEvent @event)
 		{

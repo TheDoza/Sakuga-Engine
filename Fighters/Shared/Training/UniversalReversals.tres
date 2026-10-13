@@ -1,0 +1,100 @@
+[gd_resource type="Resource" script_class="ReversalList" load_steps=16 format=3]
+
+[ext_resource type="Script" path="res://Scripts/FunctionFighter/Training/ReversalAction.cs" id="1_a"]
+[ext_resource type="Script" path="res://Scripts/FunctionFighter/Training/ReversalList.cs" id="2_l"]
+
+[sub_resource type="Resource" id="Act_0"]
+script = ExtResource("1_a")
+Label = "8  Neutral Jump"
+MoveName = "Neutral Jump"
+Hold = ""
+HoldFrames = 0
+
+[sub_resource type="Resource" id="Act_1"]
+script = ExtResource("1_a")
+Label = "9  Forward Jump"
+MoveName = "Forward Jump"
+Hold = ""
+HoldFrames = 0
+
+[sub_resource type="Resource" id="Act_2"]
+script = ExtResource("1_a")
+Label = "7  Back Jump"
+MoveName = "Backwards Jump"
+Hold = ""
+HoldFrames = 0
+
+[sub_resource type="Resource" id="Act_3"]
+script = ExtResource("1_a")
+Label = "2~8  Super Jump"
+MoveName = "Super Jump"
+Hold = ""
+HoldFrames = 0
+
+[sub_resource type="Resource" id="Act_4"]
+script = ExtResource("1_a")
+Label = "2~9  Super Jump Forward"
+MoveName = "Super Jump Forward"
+Hold = ""
+HoldFrames = 0
+
+[sub_resource type="Resource" id="Act_5"]
+script = ExtResource("1_a")
+Label = "2~7  Super Jump Back"
+MoveName = "Super Jump Back"
+Hold = ""
+HoldFrames = 0
+
+[sub_resource type="Resource" id="Act_6"]
+script = ExtResource("1_a")
+Label = "44  Backdash"
+MoveName = "Backdash"
+Hold = ""
+HoldFrames = 0
+
+[sub_resource type="Resource" id="Act_7"]
+script = ExtResource("1_a")
+Label = "66  Run"
+MoveName = "Run"
+Hold = "6"
+HoldFrames = 30
+
+[sub_resource type="Resource" id="Act_8"]
+script = ExtResource("1_a")
+Label = "66  Step Dash"
+MoveName = "Step Dash"
+Hold = ""
+HoldFrames = 0
+
+[sub_resource type="Resource" id="Act_9"]
+script = ExtResource("1_a")
+Label = "4+AB  Barrier"
+MoveName = "Barrier"
+Hold = "4AB"
+HoldFrames = 40
+
+[sub_resource type="Resource" id="Act_10"]
+script = ExtResource("1_a")
+Label = "BC  Throw"
+MoveName = "Throw (Forward)"
+Hold = ""
+HoldFrames = 0
+
+[sub_resource type="Resource" id="Act_11"]
+script = ExtResource("1_a")
+Label = "4BC  Back Throw"
+MoveName = "Throw (Back)"
+Hold = ""
+HoldFrames = 0
+
+[sub_resource type="Resource" id="Act_12"]
+script = ExtResource("1_a")
+Label = "ABCD  Burst"
+MoveName = "Burst"
+Hold = ""
+HoldFrames = 0
+
+[resource]
+script = ExtResource("2_l")
+Actions = Array[Object]([SubResource("Act_0"), SubResource("Act_1"), SubResource("Act_2"), SubResource("Act_3"), SubResource("Act_4"), SubResource("Act_5"), SubResource("Act_6"), SubResource("Act_7"), SubResource("Act_8"), SubResource("Act_9"), SubResource("Act_10"), SubResource("Act_11"), SubResource("Act_12")])
+IncludeUniversal = true

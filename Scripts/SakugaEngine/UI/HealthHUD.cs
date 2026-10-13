@@ -24,6 +24,23 @@ namespace SakugaEngine.UI
         [Export] private Label P2Name;
         [Export] private HitNotificationController P2Notif;
 
+        // [FF PATCH: barrier] Barrier gauge under each health bar (optional: leave empty to hide).
+        [ExportCategory("Barrier")]
+        [Export] private Godot.Range P1Barrier;
+        [Export] private Godot.Range P2Barrier;
+        [Export] private Label P1Danger;
+        [Export] private Label P2Danger;
+        [Export] private Color BarrierColor = new Color(0.2f, 0.55f, 1f);
+        [Export] private Color BarrierLowColor = new Color(1f, 0.8f, 0.1f);
+        [Export] private Color DangerColor = new Color(0.6f, 0.05f, 0.08f);
+        /// <summary>Below this percent the gauge turns from blue to yellow.</summary>
+        [Export] private int BarrierLowPercent = 50;
+
+        // [FF PATCH: burst] Burst gauge icons (optional).
+        [ExportCategory("Burst")]
+        [Export] private FunctionFighter.UI.BurstGaugeHUD P1Burst;
+        [Export] private FunctionFighter.UI.BurstGaugeHUD P2Burst;
+
         [ExportCategory("Extra")]
         [Export] private Label Timer;
         [Export] private Label P1Debug;
@@ -48,6 +65,21 @@ namespace SakugaEngine.UI
 
             P1Rounds.Setup();
             P2Rounds.Setup();
+
+            int barrierMax = FunctionFighter.Mechanics.BarrierSettings.Get().MaxValue; // [FF PATCH: barrier]
+            if (P1Barrier != null) P1Barrier.MaxValue = barrierMax;
+            if (P2Barrier != null) P2Barrier.MaxValue = barrierMax;
+        }
+
+        // [FF PATCH: barrier] blue when healthy, yellow when low, dark red in Danger
+        private void UpdateBarrier(Godot.Range bar, Label danger, SakugaActor fighter)
+        {
+            if (bar == null) return;
+            var b = fighter.Barrier;
+            bar.Value = b.Value;
+            bool low = b.Value * 100 < BarrierLowPercent * bar.MaxValue;
+            bar.SelfModulate = b.Danger ? DangerColor : (low ? BarrierLowColor : BarrierColor);
+            if (danger != null) danger.Visible = b.Danger;
         }
 
         public void UpdateHealthBars(SakugaActor[] fighters, GameMonitor monitor)
@@ -67,6 +99,11 @@ namespace SakugaEngine.UI
 
             P1Combo.UpdateCounter((int)fighters[1].Hitstun.TimeLeft, fighters[1].Parameters.Tracker);
             P2Combo.UpdateCounter((int)fighters[0].Hitstun.TimeLeft, fighters[0].Parameters.Tracker);
+
+            UpdateBarrier(P1Barrier, P1Danger, fighters[0]); // [FF PATCH: barrier]
+            UpdateBarrier(P2Barrier, P2Danger, fighters[1]);
+            if (P1Burst != null) P1Burst.UpdateGauge(fighters[0]); // [FF PATCH: burst]
+            if (P2Burst != null) P2Burst.UpdateGauge(fighters[1]);
 
             UpdateDebug(fighters);
         }

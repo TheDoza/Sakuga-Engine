@@ -57,7 +57,31 @@ NotificationName = "Invalid"
 Description = "For invalid combos"
 metadata/_custom_type_script = "uid://bqear64xdcxwm"
 
+[sub_resource type="Resource" id="Resource_danger"]
+script = ExtResource("1_apjgi")
+NotificationName = "Danger"
+Description = "Barrier meter ran out: takes extra damage until it refills"
+metadata/_custom_type_script = "uid://bqear64xdcxwm"
+
+[sub_resource type="Resource" id="Resource_bigcounter"]
+script = ExtResource("1_apjgi")
+NotificationName = "Big Counter"
+Description = "Counter hit with a Big Counter attack: the rest of the combo gets extra hitstun"
+metadata/_custom_type_script = "uid://bqear64xdcxwm"
+
+[sub_resource type="Resource" id="Resource_fcstart"]
+script = ExtResource("1_apjgi")
+NotificationName = "Functional Counter"
+Description = "Big Counter on an opponent in Danger"
+metadata/_custom_type_script = "uid://bqear64xdcxwm"
+
+[sub_resource type="Resource" id="Resource_fcend"]
+script = ExtResource("1_apjgi")
+NotificationName = "Functional End"
+Description = "Last hit of a Functional Counter"
+metadata/_custom_type_script = "uid://bqear64xdcxwm"
+
 [resource]
 script = ExtResource("1_wmhdv")
-Elements = Array[Object]([SubResource("Resource_jobs6"), SubResource("Resource_xxvg2"), SubResource("Resource_l1fn6"), SubResource("Resource_qokn8"), SubResource("Resource_ccn70"), SubResource("Resource_xlgnu"), SubResource("Resource_apjgi"), SubResource("Resource_oiim8"), SubResource("Resource_7mfca")])
+Elements = Array[Object]([SubResource("Resource_jobs6"), SubResource("Resource_xxvg2"), SubResource("Resource_l1fn6"), SubResource("Resource_qokn8"), SubResource("Resource_ccn70"), SubResource("Resource_xlgnu"), SubResource("Resource_apjgi"), SubResource("Resource_oiim8"), SubResource("Resource_7mfca"), SubResource("Resource_danger"), SubResource("Resource_bigcounter"), SubResource("Resource_fcstart"), SubResource("Resource_fcend")])
 metadata/_custom_type_script = "uid://b6fu34fkx6cj7"

@@ -24,6 +24,21 @@
 [ext_resource type="Script" uid="uid://c74ackq5g2cbw" path="res://Scripts/SakugaEngine/Resources/MatchAnimation.cs" id="15_ysn3l"]
 [ext_resource type="Script" uid="uid://3uu6r0mhj3p3" path="res://Scripts/SakugaEngine/Components/SoundQueue.cs" id="17_fweai"]
 [ext_resource type="Script" uid="uid://cedml1i8ld8de" path="res://Scripts/SakugaEngine/UI/PauseMenu.cs" id="20_4120v"]
+[ext_resource type="Script" path="res://Scripts/FunctionFighter/UI/BurstGaugeHUD.cs" id="ff_burst"]
+[ext_resource type="Script" path="res://Scripts/FunctionFighter/UI/TrainingInfoPanel.cs" id="ff_tinfo"]
+[ext_resource type="Script" path="res://Scripts/FunctionFighter/Training/TrainingMenu.cs" id="ff_tmenu"]
+[ext_resource type="Script" path="res://Scripts/FunctionFighter/UI/PauseControls.cs" id="ff_pctrl"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_barrier_bg"]
+bg_color = Color(0.1, 0.1, 0.12, 0.85)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_barrier_fill"]
+bg_color = Color(1, 1, 1, 1)
 
 [sub_resource type="Resource" id="Resource_4120v"]
 script = ExtResource("15_ysn3l")
@@ -597,7 +612,7 @@ _data = {
 
 [node name="CanvasLayer" type="CanvasLayer" unique_id=1639285127]
 
-[node name="GameHUD_Background" type="Control" parent="." unique_id=1728610067 node_paths=PackedStringArray("P1Portrait", "P1Health", "P1LostHealth", "P1Rounds", "P1Combo", "P1Name", "P1Notif", "P2Portrait", "P2Health", "P2LostHealth", "P2Rounds", "P2Combo", "P2Name", "P2Notif", "Timer", "P1Debug", "P2Debug")]
+[node name="GameHUD_Background" type="Control" parent="." unique_id=1728610067 node_paths=PackedStringArray("P1Portrait", "P1Health", "P1LostHealth", "P1Rounds", "P1Combo", "P1Name", "P1Notif", "P2Portrait", "P2Health", "P2LostHealth", "P2Rounds", "P2Combo", "P2Name", "P2Notif", "Timer", "P1Debug", "P2Debug", "P1Barrier", "P2Barrier", "P1Danger", "P2Danger", "P1Burst", "P2Burst")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -622,6 +637,12 @@ P2Notif = NodePath("P2HitNotifications")
 Timer = NodePath("HealthBars/Timer")
 P1Debug = NodePath("../Debug/P1Debug")
 P2Debug = NodePath("../Debug/P2Debug")
+P1Barrier = NodePath("HealthBars/P1Barrier")
+P2Barrier = NodePath("HealthBars/P2Barrier")
+P1Danger = NodePath("HealthBars/P1Danger")
+P2Danger = NodePath("HealthBars/P2Danger")
+P1Burst = NodePath("HealthBars/P1Burst")
+P2Burst = NodePath("HealthBars/P2Burst")
 
 [node name="HealthBars" type="Control" parent="GameHUD_Background" unique_id=1101058686]
 anchors_preset = 0
@@ -724,6 +745,122 @@ value = 7000.0
 texture_progress = ExtResource("3_quu14")
 tint_under = Color(0.509804, 0.509804, 0.509804, 1)
 tint_progress = Color(0.909804, 0.843137, 0.396078, 1)
+
+[node name="P1Barrier" type="ProgressBar" parent="GameHUD_Background/HealthBars"]
+layout_mode = 0
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -510.0
+offset_top = 130.0
+offset_right = -50.0
+offset_bottom = 140.0
+theme_override_styles/background = SubResource("StyleBox_barrier_bg")
+theme_override_styles/fill = SubResource("StyleBox_barrier_fill")
+max_value = 10000.0
+step = 1.0
+value = 10000.0
+fill_mode = 1
+show_percentage = false
+self_modulate = Color(0.35, 0.85, 1, 1)
+
+[node name="P2Barrier" type="ProgressBar" parent="GameHUD_Background/HealthBars"]
+layout_mode = 0
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 46.0
+offset_top = 130.0
+offset_right = 506.0
+offset_bottom = 140.0
+theme_override_styles/background = SubResource("StyleBox_barrier_bg")
+theme_override_styles/fill = SubResource("StyleBox_barrier_fill")
+max_value = 10000.0
+step = 1.0
+value = 10000.0
+fill_mode = 0
+show_percentage = false
+self_modulate = Color(0.35, 0.85, 1, 1)
+
+[node name="P1BarrierLabel" type="Label" parent="GameHUD_Background/HealthBars"]
+layout_mode = 0
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -590.0
+offset_top = 125.0
+offset_right = -514.0
+offset_bottom = 145.0
+theme_override_colors/font_color = Color(0.85, 0.92, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 13
+text = "BARRIER"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="P2BarrierLabel" type="Label" parent="GameHUD_Background/HealthBars"]
+layout_mode = 0
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 510.0
+offset_top = 125.0
+offset_right = 586.0
+offset_bottom = 145.0
+theme_override_colors/font_color = Color(0.85, 0.92, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 13
+text = "BARRIER"
+horizontal_alignment = 0
+vertical_alignment = 1
+
+[node name="P1Burst" type="Control" parent="GameHUD_Background/HealthBars"]
+layout_mode = 0
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -590.0
+offset_top = 146.0
+offset_right = -540.0
+offset_bottom = 196.0
+script = ExtResource("ff_burst")
+
+[node name="P2Burst" type="Control" parent="GameHUD_Background/HealthBars"]
+layout_mode = 0
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 536.0
+offset_top = 146.0
+offset_right = 586.0
+offset_bottom = 196.0
+script = ExtResource("ff_burst")
+
+[node name="P1Danger" type="Label" parent="GameHUD_Background/HealthBars"]
+visible = false
+layout_mode = 0
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -590.0
+offset_top = 140.0
+offset_right = -50.0
+offset_bottom = 163.0
+theme_override_colors/font_color = Color(1, 0.25, 0.25, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+text = "DANGER"
+horizontal_alignment = 2
+
+[node name="P2Danger" type="Label" parent="GameHUD_Background/HealthBars"]
+visible = false
+layout_mode = 0
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 46.0
+offset_top = 140.0
+offset_right = 586.0
+offset_bottom = 163.0
+theme_override_colors/font_color = Color(1, 0.25, 0.25, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+text = "DANGER"
+horizontal_alignment = 0
 
 [node name="P1Rounds" type="HBoxContainer" parent="GameHUD_Background/HealthBars" unique_id=1236664845 node_paths=PackedStringArray("RoundViews")]
 layout_mode = 0
@@ -1130,7 +1267,7 @@ cull_mask = 18
 fov = 45.0
 near = 0.01
 
-[node name="GameHUD_Foreground" type="Control" parent="." unique_id=595347272 node_paths=PackedStringArray("P1Meter", "P2Meter", "P1TrainingInfo", "P2TrainingInfo", "P1InputHistory", "P2InputHistory")]
+[node name="GameHUD_Foreground" type="Control" parent="." unique_id=595347272 node_paths=PackedStringArray("P1Meter", "P2Meter", "P1InputHistory", "P2InputHistory", "P1Panel", "P2Panel")]
 process_priority = -1
 layout_mode = 3
 anchors_preset = 15
@@ -1141,10 +1278,10 @@ grow_vertical = 2
 script = ExtResource("6_m7ri4")
 P1Meter = NodePath("Meters/P1Meter")
 P2Meter = NodePath("Meters/P2Meter")
-P1TrainingInfo = NodePath("TrainingInfo/P1Info/Information")
-P2TrainingInfo = NodePath("TrainingInfo/P2Info/Information")
 P1InputHistory = NodePath("InputHistory/P1InputHistory")
 P2InputHistory = NodePath("InputHistory/P2InputHistory")
+P1Panel = NodePath("TrainingInfo/P1Info")
+P2Panel = NodePath("TrainingInfo/P2Info")
 
 [node name="Meters" type="Control" parent="GameHUD_Foreground" unique_id=1096578342]
 anchors_preset = 0
@@ -1243,115 +1380,24 @@ anchor_bottom = 1.0
 
 [node name="P1Info" type="Control" parent="GameHUD_Foreground/TrainingInfo" unique_id=1092314173]
 anchors_preset = 0
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -290.0
-offset_top = 130.0
-offset_right = -290.0
-offset_bottom = 130.0
-
-[node name="Background" type="ColorRect" parent="GameHUD_Foreground/TrainingInfo/P1Info" unique_id=812274031]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_right = 209.0
-offset_bottom = 156.0
-grow_horizontal = 0
-grow_vertical = 2
-color = Color(0, 0, 0, 0.501961)
-
-[node name="Descriptions" type="Label" parent="GameHUD_Foreground/TrainingInfo/P1Info" unique_id=1100564771]
-layout_mode = 1
-anchors_preset = 9
-anchor_bottom = 1.0
-offset_left = 6.0
-offset_right = 141.0
-offset_bottom = 156.0
-grow_vertical = 2
-text = "Damage
-Current combo
-Highest combo
-Hit type
-Damage scaling
-Frame data"
-vertical_alignment = 1
-
-[node name="Information" type="Label" parent="GameHUD_Foreground/TrainingInfo/P1Info" unique_id=1033807718]
-layout_mode = 1
-anchors_preset = 11
-anchor_left = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 141.0
-offset_right = 209.0
-offset_bottom = 156.0
-grow_horizontal = 0
-grow_vertical = 2
-text = "0
-0
-0
-HIGH
-100
-0(+0) "
+offset_left = 128.0
+offset_top = 480.0
+offset_right = 318.0
+offset_bottom = 636.0
+mouse_filter = 2
+script = ExtResource("ff_tinfo")
 
 [node name="P2Info" type="Control" parent="GameHUD_Foreground/TrainingInfo" unique_id=1297068344]
-anchors_preset = 0
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = 100.0
-offset_top = 130.0
-offset_right = 100.0
-offset_bottom = 130.0
-
-[node name="Background" type="ColorRect" parent="GameHUD_Foreground/TrainingInfo/P2Info" unique_id=1521455846]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_right = 209.0
-offset_bottom = 156.0
-grow_horizontal = 0
-grow_vertical = 2
-color = Color(0, 0, 0, 0.501961)
-
-[node name="Descriptions" type="Label" parent="GameHUD_Foreground/TrainingInfo/P2Info" unique_id=333085343]
-layout_mode = 1
-anchors_preset = 9
-anchor_bottom = 1.0
-offset_left = 6.0
-offset_right = 141.0
-offset_bottom = 156.0
-grow_vertical = 2
-text = "Damage
-Current combo
-Highest combo
-Hit type
-Damage scaling
-Frame data"
-vertical_alignment = 1
-
-[node name="Information" type="Label" parent="GameHUD_Foreground/TrainingInfo/P2Info" unique_id=1961395200]
-layout_mode = 1
-anchors_preset = 11
+anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 141.0
-offset_right = 209.0
-offset_bottom = 156.0
+offset_left = -318.0
+offset_top = 480.0
+offset_right = -128.0
+offset_bottom = 636.0
 grow_horizontal = 0
-grow_vertical = 2
-text = "0
-0
-0
-HIGH
-100
-0(+0) "
+mouse_filter = 2
+script = ExtResource("ff_tinfo")
 
 [node name="InputHistory" type="Control" parent="GameHUD_Foreground" unique_id=1672551536]
 visible = false
@@ -1917,6 +1963,27 @@ text = "Character Select"
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 text = "Main Menu"
+
+[node name="TrainingMenu" type="Control" parent="." unique_id=1973510997]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("ff_tmenu")
+
+[node name="PauseControls" type="Control" parent="." unique_id=1973510998]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("ff_pctrl")
 
 [node name="Seed" type="Label" parent="." unique_id=737444796]
 anchors_preset = 7

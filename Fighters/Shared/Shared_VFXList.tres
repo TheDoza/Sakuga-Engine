@@ -6,6 +6,12 @@
 [ext_resource type="PackedScene" uid="uid://b6q10l0c6oxdp" path="res://Fighters/Shared/VFX/VFX_01.tscn" id="3_d40lu"]
 [ext_resource type="PackedScene" uid="uid://ci8tj0xdjw1dl" path="res://Fighters/Shared/VFX/VFX_02.tscn" id="4_sa5vh"]
 [ext_resource type="PackedScene" uid="uid://bkam4nekv1yw2" path="res://Fighters/Shared/VFX/VFX_03.tscn" id="5_mfebo"]
+[ext_resource type="PackedScene" path="res://Fighters/Shared/VFX/VFX_04.tscn" id="6_alert"]
+[ext_resource type="PackedScene" path="res://Fighters/Shared/VFX/VFX_05.tscn" id="7_barrier"]
+[ext_resource type="PackedScene" path="res://Fighters/Shared/VFX/VFX_06.tscn" id="8_burst"]
+[ext_resource type="PackedScene" path="res://Fighters/Shared/VFX/VFX_07.tscn" id="9_counter"]
+[ext_resource type="PackedScene" path="res://Fighters/Shared/VFX/VFX_08.tscn" id="10_fcstart"]
+[ext_resource type="PackedScene" path="res://Fighters/Shared/VFX/VFX_09.tscn" id="11_fcend"]
 
 [sub_resource type="Resource" id="Resource_2floy"]
 script = ExtResource("2_0kwyy")
@@ -31,6 +37,42 @@ Key = "Armor"
 Instance = ExtResource("5_mfebo")
 PoolSize = 1
 
+[sub_resource type="Resource" id="Resource_alert"]
+script = ExtResource("2_0kwyy")
+Key = "ThrowAlert"
+Instance = ExtResource("6_alert")
+PoolSize = 2
+
+[sub_resource type="Resource" id="Resource_barrier"]
+script = ExtResource("2_0kwyy")
+Key = "BarrierFlash"
+Instance = ExtResource("7_barrier")
+PoolSize = 2
+
+[sub_resource type="Resource" id="Resource_burst"]
+script = ExtResource("2_0kwyy")
+Key = "Burst"
+Instance = ExtResource("8_burst")
+PoolSize = 1
+
+[sub_resource type="Resource" id="Resource_counter"]
+script = ExtResource("2_0kwyy")
+Key = "CounterFlash"
+Instance = ExtResource("9_counter")
+PoolSize = 2
+
+[sub_resource type="Resource" id="Resource_fcstart"]
+script = ExtResource("2_0kwyy")
+Key = "FunctionalStart"
+Instance = ExtResource("10_fcstart")
+PoolSize = 1
+
+[sub_resource type="Resource" id="Resource_fcend"]
+script = ExtResource("2_0kwyy")
+Key = "FunctionalEnd"
+Instance = ExtResource("11_fcend")
+PoolSize = 1
+
 [resource]
 script = ExtResource("1_r1fnx")
-SpawnObjects = Array[Object]([SubResource("Resource_2floy"), SubResource("Resource_6t0f1"), SubResource("Resource_widxw"), SubResource("Resource_55vjd")])
+SpawnObjects = Array[Object]([SubResource("Resource_2floy"), SubResource("Resource_6t0f1"), SubResource("Resource_widxw"), SubResource("Resource_55vjd"), SubResource("Resource_alert"), SubResource("Resource_barrier"), SubResource("Resource_burst"), SubResource("Resource_counter"), SubResource("Resource_fcstart"), SubResource("Resource_fcend")])

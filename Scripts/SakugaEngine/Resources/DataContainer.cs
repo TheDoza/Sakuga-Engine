@@ -14,6 +14,15 @@ namespace SakugaEngine.Resources
         [Export] public int MaxSuperGauge = 10000;
         [Export] public ushort BaseAttack = 100;
         [Export] public ushort BaseDefense = 100;
+        /// <summary>[FF PATCH: locomotion] Run, dash, jump and air action numbers (empty = defaults).</summary>
+        [Export] public FunctionFighter.Mechanics.LocomotionSettings Locomotion;
+        /// <summary>[FF PATCH: training reversal] This fighter's reversal actions in Training (empty = universal ones only).</summary>
+        [Export] public FunctionFighter.Training.ReversalList TrainingReversals;
+        /// <summary>[FF PATCH: pushbox] Pushbox used when a state's hitbox settings have none (or the state has no hitbox
+        /// settings at all), so a forgotten pushbox never lets fighters walk through each other. Per-hitbox pushboxes
+        /// (HitboxSettings.Pushbox) always win. For a state that should pass through on purpose, give its hitbox settings
+        /// a pushbox with Size (0, 0) (Shared/HitboxPresets/Pushbox_None.tres). Empty = no fallback (old behaviour).</summary>
+        [Export] public BoxShape DefaultPushbox;
 
         [Export] public AIData _aiData;
 

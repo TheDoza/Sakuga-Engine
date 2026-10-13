@@ -30,6 +30,10 @@ namespace SakugaEngine.Resources
         [Export] public int CounterHitStopDuration = 20;
         [Export] public int ClashHitStopDuration = 20;
         [Export] public int DamageScalingSubtract = 15;
+        /// <summary>[FF PATCH: counter] A counter hit with this hitbox is a Big Counter (and can start a Functional Counter).</summary>
+        [Export] public bool BigCounter;
+        /// <summary>[FF PATCH: locomotion] This is a Burst hitbox (prejump is invincible to it).</summary>
+        [Export] public bool IsBurst;
         
         //VFX settings
         [ExportGroup("VFX Settings")]

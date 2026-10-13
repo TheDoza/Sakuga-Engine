@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c0y740kryylcs" path="res://Scripts/SakugaEngine/Resources/HitboxElement.cs" id="1_s"]
 [ext_resource type="Script" uid="uid://dxuwyhds75mce" path="res://Scripts/SakugaEngine/Resources/HitboxSettings.cs" id="2_s"]
+[ext_resource type="Resource" uid="uid://bwffnan18ibt8" path="res://Fighters/Shared/HitboxPresets/Pushbox_Idle.tres" id="pb_push"]
 
 [sub_resource type="Resource" id="Sub_1"]
 script = ExtResource("1_s")
@@ -52,5 +53,6 @@ metadata/_custom_type_script = "uid://c0y740kryylcs"
 
 [resource]
 script = ExtResource("2_s")
+Pushbox = ExtResource("pb_push")
 Hitboxes = [SubResource("Sub_1"), SubResource("Sub_2"), SubResource("Sub_3")]
 metadata/_custom_type_script = "uid://dxuwyhds75mce"

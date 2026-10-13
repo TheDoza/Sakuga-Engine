@@ -24,6 +24,9 @@ namespace SakugaEngine.Collision
         public bool IsLeftSide;
         public int PlayerSide;
         public bool IsMovable = true;
+        /// <summary>[FF PATCH: tech] Pushbox ignores other fighters (wakeup roll passing through). Set every frame by
+        /// Locomotion.Tick before physics runs, so it doesn't need saving for rollback.</summary>
+        public bool IgnorePushbox;
         public List<uint> HitBodies = new List<uint>();
         public bool ProximityBlocked;
         public HitboxState CurrentHitbox = null;
@@ -184,21 +187,27 @@ namespace SakugaEngine.Collision
                 FixedPosition.Y = Mathf.Clamp(FixedPosition.Y, 0, GlobalVariables.CeilingLimit);
             }
 
+            Vector2I Side = new Vector2I(PlayerSide, 1);
             if (CurrentHitbox == null || CurrentHitbox.HitboxData == null) //If there's no hitbox active, remove all boxes
             {
-                Pushbox.UpdateCollider(FixedPosition, Vector2I.Zero);
+                // [FF PATCH: pushbox] keep the fighter's default pushbox (no hurtboxes) instead of none
+                BoxShape fallback = _owner?.Data?.DefaultPushbox;
+                if (fallback == null)
+                    Pushbox.UpdateCollider(FixedPosition, Vector2I.Zero);
+                else
+                    Pushbox.UpdateCollider(FixedPosition + (fallback.Center * Side), fallback.Size);
 
                 for(int i = 0; i < Hitboxes.Length; i++)
                     Hitboxes[i].UpdateCollider(FixedPosition, Vector2I.Zero);
             }
             else //Update hitboxes
             {
-                Vector2I Side = new Vector2I(PlayerSide, 1);
-
-                if (CurrentHitbox.HitboxData.Pushbox == null)
+                // [FF PATCH: pushbox] no pushbox on this hitbox → the fighter's DefaultPushbox (DataContainer)
+                BoxShape push = CurrentHitbox.HitboxData.Pushbox ?? _owner?.Data?.DefaultPushbox;
+                if (push == null)
                     Pushbox.UpdateCollider(FixedPosition + Vector2I.Zero, Vector2I.Zero);
                 else
-                    Pushbox.UpdateCollider(FixedPosition + (CurrentHitbox.HitboxData.Pushbox.Center * Side), CurrentHitbox.HitboxData.Pushbox.Size);
+                    Pushbox.UpdateCollider(FixedPosition + (push.Center * Side), push.Size);
                 
                 for(int i = 0; i < Hitboxes.Length; i++)
                     if (i < CurrentHitbox.HitboxData.Hitboxes.Length)

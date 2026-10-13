@@ -1,0 +1,70 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" uid="uid://d4e1sv1gy8i8a" path="res://Scripts/SakugaEngine/Components/SakugaVFX.cs" id="1_vfx"]
+
+[sub_resource type="Animation" id="Animation_gfx"]
+resource_name = "GFX"
+length = 0.25
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Graphics/Visuals/Label3D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0.4, 0.4, 0.4), Vector3(1.3, 1.3, 1.3), Vector3(1, 1, 1), Vector3(1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_reset"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Graphics/Visuals/Label3D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_alert"]
+_data = {
+&"GFX": SubResource("Animation_gfx"),
+&"RESET": SubResource("Animation_reset")
+}
+
+[node name="VFX" type="Node" node_paths=PackedStringArray("Player", "Graphics")]
+script = ExtResource("1_vfx")
+Duration = 16
+Player = NodePath("Graphics/Visuals/AnimationPlayer")
+Graphics = NodePath("Graphics")
+AnimationName = "GFX"
+
+[node name="Graphics" type="Node3D" parent="."]
+
+[node name="Visuals" type="Node3D" parent="Graphics"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Graphics/Visuals"]
+root_node = NodePath("../../..")
+libraries/ = SubResource("AnimationLibrary_alert")
+speed_scale = 0.0
+
+[node name="Label3D" type="Label3D" parent="Graphics/Visuals"]
+layers = 2
+sorting_offset = 20.0
+pixel_size = 0.006
+billboard = 1
+no_depth_test = true
+fixed_size = false
+modulate = Color(0.35, 1, 0.35, 1)
+outline_modulate = Color(0, 0.25, 0, 1)
+text = "!"
+font_size = 96
+outline_size = 18

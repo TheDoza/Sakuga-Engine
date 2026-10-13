@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="CounterSettings" format=3]
+
+[ext_resource type="Script" path="res://Scripts/FunctionFighter/Mechanics/CounterSettings.cs" id="1_ctr"]
+
+[resource]
+script = ExtResource("1_ctr")
+DamagePercent = 110
+ExtraGroundHitstun = 4
+ExtraAirHitstun = 8
+ExtraHitstop = 8
+CounterHitCarry = true
+CounterNotificationIndex = 1
+CounterVFXIndex = 7
+BigCounterComboHitstun = 3
+BigCounterNotificationIndex = 10
+FunctionalCounterEnabled = true
+Duration = 300
+HitstunPercent = 200
+GravityPercent = 35
+AutoDashDistance = 14000
+AutoDashFrames = 10
+AutoDashMinGap = 7000
+StartNotificationIndex = 11
+EndNotificationIndex = 12
+StartVFXIndex = 8
+EndVFXIndex = 9
+VFXHeight = 9000

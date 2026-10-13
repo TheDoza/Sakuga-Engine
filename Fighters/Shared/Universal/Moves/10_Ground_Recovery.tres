@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="MoveSettings" format=3]
+
+[ext_resource type="Resource" uid="uid://c6x3ahrknltf1" path="res://Fighters/Shared/Inputs/26_Input_5X.tres" id="1_r"]
+[ext_resource type="Script" uid="uid://gk1rkw667o4n" path="res://Scripts/SakugaEngine/Resources/MoveSettings.cs" id="2_s"]
+[ext_resource type="Script" path="res://Scripts/FunctionFighter/Mechanics/GroundTechCondition.cs" id="3_c"]
+
+[sub_resource type="Resource" id="Sub_1"]
+script = ExtResource("3_c")
+Direction = 0
+
+[resource]
+script = ExtResource("2_s")
+MoveName = "Ground Recovery"
+MoveState = 14
+Inputs = ExtResource("1_r")
+Conditions = Array[Object]([SubResource("Sub_1")])
+IsSequenceFromStates = PackedInt32Array(26)
+Priority = 1
+PriorityBuffer = true
+AcceptMovementStates = false
+AcceptHitReactionStates = true
+UseOnGround = true
+metadata/_custom_type_script = "uid://gk1rkw667o4n"

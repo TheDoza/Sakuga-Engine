@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="BarrierSettings" format=3 uid="uid://baeil0w235fvo"]
+
+[ext_resource type="Script" uid="uid://3hnop6figtv0" path="res://Scripts/FunctionFighter/Mechanics/BarrierSettings.cs" id="1_bar"]
+[ext_resource type="PackedScene" path="res://Fighters/Shared/Barrier/BarrierShield.tscn" id="2_shield"]
+
+[resource]
+script = ExtResource("1_bar")
+RegenAmount = 60
+DangerFrames = 1800
+ShieldScene = ExtResource("2_shield")
