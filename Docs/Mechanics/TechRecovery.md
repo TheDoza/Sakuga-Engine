@@ -16,7 +16,7 @@ Modelled on BBCF. Frame 1 = the frame the fighter lands in **Hit_Down** (26).
 
 There's no Quick Tech. **Emergency Tech is just Neutral Tech, available early**: same animation, same 32 invincible frames.
 
-**Lying down is hittable** (BBCF): Hit_Down now has the lying hurtbox, so OTG hits connect (as air hits). Any hit on a fighter who could have teched (lying after a soft knockdown, or in the air after the untechable part) makes the combo **INVALID**: the combo counter turns red and shows INVALID, in every mode. An OTG hit after a **hard** knockdown (throw, wall bounce) is a normal, valid hit. To make lying fighters invincible again, remove the hurtbox from `26_Hit_Down_AnimationData.tres`.
+**Lying down is hittable** (BBCF): Hit_Down now has the lying hurtbox, so OTG hits connect (as air hits). Any hit on a fighter who could have teched (lying after a soft knockdown, or in the air after the untechable part) makes the combo **INVALID**: the combo counter turns red and shows INVALID with the hit number where it became invalid ("INVALID ⊘2"), in every mode. An OTG hit after a **hard** knockdown (throw, wall bounce) is a normal, valid hit. To make lying fighters invincible again, remove the hurtbox from `26_Hit_Down_AnimationData.tres`.
 
 **Hard knockdowns** (every throw, wall bounce): no tech of any kind; the fighter gets up (Hit_GetUp) after 30 frames.
 

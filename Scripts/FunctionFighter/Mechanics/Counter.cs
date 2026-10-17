@@ -7,7 +7,7 @@ using SakugaEngine.Resources;
 
 namespace FunctionFighter.Mechanics
 {
-    public enum CounterKind : byte { None, Counter, BigCounter, Functional, Carry }
+    public enum CounterKind : byte { None, Counter, BigCounter, Functional, Carry, Punish }
 
     /// <summary>Per-fighter counter-hit state. Saved with the fighter for rollback (SakugaActorState key 18).</summary>
     [MessagePackObject]
@@ -34,6 +34,14 @@ namespace FunctionFighter.Mechanics
         [Key(8)] public bool FunctionalVictim;
         /// <summary>What the last hit taken was (for the training display).</summary>
         [Key(9)] public CounterKind LastKind;
+
+        // Indicators
+        /// <summary>[FF PATCH: indicators] Has been in blockstun / hitstun / a knockdown since it last could act
+        /// (Indicators: a move on the first free frame is a Reversal).</summary>
+        [Key(10)] public bool InReaction;
+        /// <summary>The last state of that reaction (getup, tech, roll...) and whether its one free grace frame was used.</summary>
+        [Key(11)] public int ReactionState;
+        [Key(12)] public bool ReactionGrace;
     }
 
     /// <summary>What a hit gets from counter rules. Applied in SakugaActor.HitDamage ([FF PATCH: counter]).</summary>
@@ -60,6 +68,9 @@ namespace FunctionFighter.Mechanics
     ///   +10% damage, extra hitstun / untechable time and extra hitstop. Counter Hit Carry: the rest of that
     ///   attack's hits count too (no extra hitstop).
     /// - Big Counter: a Counter Hit with a BigCounter hitbox. Every later hit in that combo gets +3 hitstun (doesn't stack).
+    /// - Punish: none of the above, but the defender was in the recovery of a move. Visual only (see Indicators).
+    /// - Counter Hit Recovery: a move's recovery entry (HitboxState.CounterHitInRecovery) can be counter hit. That's a
+    ///   normal Counter (red, with the bonus) plus the "Punish" notification.
     /// - Functional Counter: a Big Counter on a defender in Danger (and the mechanic turned on). For 5 seconds the
     ///   attacker's hits do double hitstun, launched opponents fall slowly, and every attack that ends without a cancel
     ///   is followed by an auto-dash. The first hit after time runs out still counts and ends it with a green spark.
@@ -87,7 +98,10 @@ namespace FunctionFighter.Mechanics
             SakugaActor attacker = attackerNode.GetMaster() ?? attackerNode;
 
             int forced = Training.TrainingController.ForcedCounter(defender);
-            bool counter = forced == 0 ? attackerNode.IsCounter(defender) : forced > 0;
+            bool recovering = IsRecovering(defender);
+            // Counter Hit Recovery: a move whose recovery frames are marked CounterHitInRecovery can be counter hit there.
+            bool recoveryCounter = recovering && defender.Body.CurrentHitbox.CounterHitInRecovery && CanCounter(attackerNode);
+            bool counter = forced == 0 ? (attackerNode.IsCounter(defender) || recoveryCounter) : forced > 0;
             bool big = counter && ((box != null && box.BigCounter) || forced == 2);
             bool carry = !counter && forced >= 0 && s.CounterHitCarry && IsCarrying(attackerNode);
 
@@ -140,10 +154,30 @@ namespace FunctionFighter.Mechanics
                 }
             }
 
+            // Punish: the defender was in the recovery of a move (visual only, see Indicators). On a counter hit in
+            // recovery (Counter Hit Recovery, or Training's forced counter) the red counter effects win; the "Punish"
+            // notification still shows next to "Counter".
+            if (recovering && r.Kind == CounterKind.None)
+            {
+                r.Kind = CounterKind.Punish;
+                Indicators.OnPunish(attacker, defender, true);
+            }
+            else if (recovering && counter) Indicators.OnPunish(attacker, defender, false);
+
             defender.Counter.LastKind = r.Kind;
-            if (r.Kind != CounterKind.None) StateFlash.Counter(defender, r.Kind); // red / orange / gold flash on the interrupted fighter
+            if (r.Kind != CounterKind.None && r.Kind != CounterKind.Punish) StateFlash.Counter(defender, r.Kind); // red / orange / gold flash on the interrupted fighter
             return r;
         }
+
+        /// <summary>The attacker side of a counter hit (same as Sakuga's IsCounter): attacking, not in recovery itself.</summary>
+        static bool CanCounter(SakugaActor attacker) =>
+            attacker.StateManager != null && attacker.StateManager.CurrentStateType() == StateType.COMBAT &&
+            attacker.Body?.CurrentHitbox != null && attacker.Body.CurrentHitbox.animationStage < AnimationStage.RECOVERY;
+
+        /// <summary>In the recovery frames of a move (attack, throw...).</summary>
+        public static bool IsRecovering(SakugaActor a) =>
+            a.StateManager.CurrentStateType() == StateType.COMBAT && a.Body?.CurrentHitbox != null &&
+            a.Body.CurrentHitbox.animationStage == AnimationStage.RECOVERY;
 
         static bool IsCarrying(SakugaActor a)
         {

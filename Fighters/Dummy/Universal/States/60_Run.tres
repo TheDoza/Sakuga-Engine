@@ -1,14 +1,13 @@
-[gd_resource type="Resource" script_class="FighterState" format=3]
+[gd_resource type="Resource" script_class="FighterState" format=3 uid="uid://diu3f3nei2gqb"]
 
-[ext_resource type="Resource" path="res://Fighters/Dummy/Universal/AnimationData/60_Run_AnimationData.tres" id="1_a"]
-[ext_resource type="Script" path="res://Scripts/SakugaEngine/Resources/FighterState.cs" id="2_s"]
-[ext_resource type="Script" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/FrameDataEvent.cs" id="3_e"]
-[ext_resource type="Script" path="res://Scripts/FunctionFighter/Mechanics/LocomotionAction.cs" id="4_l"]
+[ext_resource type="Resource" uid="uid://dju2htwuyiyo6" path="res://Fighters/Dummy/Universal/AnimationData/60_Run_AnimationData.tres" id="1_a"]
+[ext_resource type="Script" uid="uid://bf60srwkccsm8" path="res://Scripts/SakugaEngine/Resources/FighterState.cs" id="2_s"]
+[ext_resource type="Script" uid="uid://c076jc3huncn2" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/FrameDataEvent.cs" id="3_e"]
+[ext_resource type="Script" uid="uid://2ay34rfl7jag" path="res://Scripts/FunctionFighter/Mechanics/LocomotionAction.cs" id="4_l"]
 
 [sub_resource type="Resource" id="Sub_loco"]
 script = ExtResource("4_l")
 Mode = 1
-Direction = 0
 
 [sub_resource type="Resource" id="Sub_enter"]
 script = ExtResource("3_e")

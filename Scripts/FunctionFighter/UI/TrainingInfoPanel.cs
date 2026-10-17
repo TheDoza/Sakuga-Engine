@@ -119,6 +119,7 @@ namespace FunctionFighter.UI
                 case CounterKind.Carry: return "Carry";
                 case CounterKind.BigCounter: return "Big";
                 case CounterKind.Functional: return "Functional";
+                case CounterKind.Punish: return "Punish";
                 default: return "-";
             }
         }

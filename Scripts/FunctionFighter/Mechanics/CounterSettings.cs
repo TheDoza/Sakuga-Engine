@@ -58,6 +58,14 @@ namespace FunctionFighter.Mechanics
         [Export] public int EndVFXIndex = 9;
         [Export] public int VFXHeight = 9000;
 
+        [ExportGroup("Punish & Reversal indicators")]
+        /// <summary>[FF PATCH: indicators] Notification / flash VFX for a Punish (a hit on an opponent in recovery). -1 = none.</summary>
+        [Export] public int PunishNotificationIndex = 2;
+        [Export] public int PunishVFXIndex = 10;
+        /// <summary>Notification / flash VFX for a Reversal (a move on the first frame after blockstun, hitstun or wakeup). -1 = none.</summary>
+        [Export] public int ReversalNotificationIndex = 13;
+        [Export] public int ReversalVFXIndex = 11;
+
         private static CounterSettings _cached;
 
         public static CounterSettings Get()

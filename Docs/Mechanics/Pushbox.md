@@ -3,7 +3,7 @@
 **Status:** ✅ Working (tested 2026-10-13) · **Fighters:** All fighters (engine-level + per-fighter default) · **Added:** 2026-10-13 · **Rollback-safe:** Yes (data only; positions are already saved)
 
 ## What it does
-Fighters are solid: you can't walk through the opponent. Walking into them pushes them back, and in the corner you just stop against them. Jumping over them still crosses up, and the start of a wakeup roll passes through (see [TechRecovery.md](TechRecovery.md)).
+Fighters are solid: you can't walk through the opponent. Walking into them pushes them back, and in the corner you just stop against them. Jumping over them crosses up in open space, but **not in the corner**: you can't jump, super jump, double jump or air dash over a cornered opponent and land behind them. The cornered fighter can still jump out over you. The start of a wakeup roll passes through (see [TechRecovery.md](TechRecovery.md)).
 
 ## How it works (flow)
 ```
@@ -11,6 +11,10 @@ Every frame, for each pair of fighters:
   pushboxes overlap? --yes--> push both apart by half the overlap each
                               (a fighter against a wall doesn't move; the other one takes the whole push)
   either one has IgnorePushbox (wakeup roll's first frames) --> skip
+  one is cornered (less room between it and the wall than the other's pushbox width)
+      and it isn't jumping out (in the air above the other one)
+      --> corner rule: its pushbox counts as reaching all the way up; the other fighter is
+          always kept on the open side, however high it is
 ```
 Which pushbox a fighter has this frame:
 1. The current hitbox settings' **Pushbox** (`HitboxSettings.Pushbox`): normal case, can change per state and per frame.
@@ -29,6 +33,7 @@ To make a state pass through on purpose (a teleport, a cross-under), give its hi
 | `Fighters/<Fighter>/<Fighter>_Data.tres` → `DefaultPushbox` | Fallback when a hitbox has none `[FF PATCH: pushbox]` |
 | `Scripts/SakugaEngine/Collision/PhysicsBody.cs` → `UpdateColliders` | Picks the pushbox `[FF PATCH: pushbox]` |
 | `Scripts/SakugaEngine/Collision/PhysicsWorld.cs` → `Simulate` | Pushes overlapping fighters apart (engine) |
+| `Scripts/SakugaEngine/Collision/PhysicsWorld.cs` → `ResolveCorner`, `JumpingOut` | Corner rule: no jumping over a cornered fighter `[FF PATCH: pushbox]` |
 | `Scripts/SakugaEngine/Resources/DataContainer.cs` → `DefaultPushbox` | The fallback field `[FF PATCH: pushbox]` |
 
 Dummy hitbox settings and their pushbox:
@@ -58,12 +63,14 @@ See the pushboxes in Training with **F10** (hitbox view): the pushbox is the box
 ## Known issues / gotchas
 - An empty `Pushbox` now means "use the default", not "no pushbox". Use `Pushbox_None` to pass through on purpose.
 - Lying fighters keep a low pushbox (you can't walk through someone who's down). That's a design choice, and it matches the engine's sample fighter. To allow it, set the Dummy's `1_Hitbox_Lying.tres` Pushbox to `Pushbox_None`.
+- Corner rule edge: the cornered fighter jumping straight up can still be walked under (it counts as jumping out). Most games allow this; say if you want it blocked too.
 - The Dummy's hurtboxes sit 5,000 units in front of its centre (Center X 5000, Size X 12000), so they reach far forward and barely behind. That's separate from the pushbox, but it affects cross-ups. Worth tidying when hit states are reworked.
 
 ## Tests
-FeatureTest `pushbox:` checks: walking in pushes and never passes through; a crouching dummy is still solid; a cornered dummy stays in the corner; jumping over crosses up; a forward roll passes through; an empty Pushbox falls back to `DefaultPushbox`.
+FeatureTest `pushbox:` checks: walking in pushes and never passes through; a crouching dummy is still solid; a cornered dummy stays in the corner; jumping over crosses up midscreen; a forward roll passes through; an empty Pushbox falls back to `DefaultPushbox`; no jump, super jump, double jump or air dash over a cornered dummy (right and left wall); the cornered fighter can jump out over the opponent.
 
 ## Change log
 | Date | Change |
 |---|---|
+| 2026-10-14 | Corner rule: can't jump over a cornered fighter (the cornered fighter can still jump out) |
 | 2026-10-13 | Created. Dummy had no pushboxes (fighters walked through each other): added them, plus the `DefaultPushbox` fallback and `Pushbox_None` preset |

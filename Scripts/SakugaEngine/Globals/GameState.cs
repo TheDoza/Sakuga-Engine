@@ -386,6 +386,7 @@ namespace SakugaEngine.GameState
         [Key(8)] public int StunAtHit;
         [Key(9)] public int LastHitType;
         [Key(10)] public bool invalidHit;
+        [Key(11)] public int InvalidAtHit; // [FF PATCH: combo display]
 
         public void GetStateData(ref CombatTracker reference)
         {
@@ -402,6 +403,7 @@ namespace SakugaEngine.GameState
             StunAtHit = reference.StunAtHit;
             LastHitType = reference.LastHitType;
             invalidHit = reference.invalidHit;
+            InvalidAtHit = reference.InvalidAtHit;
         }
 
         public void SetStateData(ref CombatTracker reference)
@@ -419,6 +421,7 @@ namespace SakugaEngine.GameState
             reference.StunAtHit = StunAtHit;
             reference.LastHitType = LastHitType;
             reference.invalidHit = invalidHit;
+            reference.InvalidAtHit = InvalidAtHit;
         }
     }
 

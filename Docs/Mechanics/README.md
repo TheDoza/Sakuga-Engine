@@ -24,7 +24,7 @@ Start here, then open the mechanic's page.
 | Knockdowns & recovery | Wall & ground bounce | ✅ Working (tested 2026-10-11) | Dummy | [Bounce.md](Bounce.md) |
 | Knockdowns & recovery | Tech & wakeup (Emergency / Neutral Tech, rolls, air recovery, INVALID combos) | ✅ Working (tested 2026-10-12) | All fighters (per-fighter numbers) | [TechRecovery.md](TechRecovery.md) |
 | Throws | Throws & throw reject | ✅ Working (tested 2026-10-11) | Dummy (template) | [Throws.md](Throws.md) |
-| Visual feedback | Visual indicators (state flashes, advantage hitsparks) | ✅ Working (tested 2026-10-12) | All fighters, all modes | [Visuals.md](Visuals.md) |
+| Visual feedback | Visual indicators (state flashes, advantage hitsparks, punish / reversal) | ✅ Working (tested 2026-10-17) | All fighters, all modes | [Visuals.md](Visuals.md) |
 | Training & testing | Training mode | ✅ Complete (tested 2026-10-12) | P2 is the dummy | [Training.md](Training.md) |
 | Training & testing | How to test everything | Checklist | Dummy vs Dummy | [TestingGuide.md](TestingGuide.md) |
 
@@ -98,7 +98,7 @@ On a tie, the move lower in the stance's `Moves` list wins. This is an `[FF PATC
 ### 6. Engine patches
 
 Every change to Sakuga's own C# is marked with a `[FF PATCH: ...]` comment. Search for `[FF PATCH` to find them all.
-Current patches: blockstun, crouch block, block knockback Y (see [Blocking.md](Blocking.md)); no throw combos, throw reject, move priority (see [Throws.md](Throws.md)); barrier, move conditions (see [Barrier.md](Barrier.md)); burst (see [Burst.md](Burst.md)); counter (see [Counter.md](Counter.md)); training, training reversal, frame advance (see [Training.md](Training.md)); macros, easy specials, disable buttons, pause controls, pause pages (see [Controls.md](Controls.md)); locomotion (see [Locomotion.md](Locomotion.md)); tech, invalid combo (see [TechRecovery.md](TechRecovery.md)); advantage, state flash (see [Visuals.md](Visuals.md)); pushbox (see [Pushbox.md](Pushbox.md)).
+Current patches: blockstun, crouch block, block knockback Y (see [Blocking.md](Blocking.md)); no throw combos, throw reject, move priority, throw corner (see [Throws.md](Throws.md)); barrier, move conditions (see [Barrier.md](Barrier.md)); burst (see [Burst.md](Burst.md)); counter (see [Counter.md](Counter.md)); training, training reversal, frame advance (see [Training.md](Training.md)); macros, easy specials, disable buttons, pause controls, pause pages (see [Controls.md](Controls.md)); locomotion (see [Locomotion.md](Locomotion.md)); tech, invalid combo (see [TechRecovery.md](TechRecovery.md)); advantage, state flash, indicators, combo display (see [Visuals.md](Visuals.md)); pushbox (see [Pushbox.md](Pushbox.md)).
 
 ### 7. Rollback rule of thumb
 

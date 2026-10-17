@@ -22,6 +22,9 @@ namespace FunctionFighter.Mechanics
         [ExportGroup("Run Skid (run released or back held)")]
         /// <summary>Length of the skid. The fighter can't guard during it (Barrier cancels it: Barrier Brake).</summary>
         [Export] public int SkidFrames = 14;
+        /// <summary>Allow 66 / 44 (run, step dash, backdash) to cancel the skid. Off: the skid has to finish first, so runs
+        /// can't be chained by mashing 6. Attacks, throws, jumps and Barrier (Barrier Brake) still cancel it.</summary>
+        [Export] public bool SkidDashCancel = false;
 
         [ExportGroup("Step Dash (alternative to Run)")]
         [Export] public int StepDashFrames = 18;

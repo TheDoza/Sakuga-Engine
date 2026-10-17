@@ -12,6 +12,8 @@
 [ext_resource type="PackedScene" path="res://Fighters/Shared/VFX/VFX_07.tscn" id="9_counter"]
 [ext_resource type="PackedScene" path="res://Fighters/Shared/VFX/VFX_08.tscn" id="10_fcstart"]
 [ext_resource type="PackedScene" path="res://Fighters/Shared/VFX/VFX_09.tscn" id="11_fcend"]
+[ext_resource type="PackedScene" path="res://Fighters/Shared/VFX/VFX_10.tscn" id="12_punish"]
+[ext_resource type="PackedScene" path="res://Fighters/Shared/VFX/VFX_11.tscn" id="13_reversal"]
 
 [sub_resource type="Resource" id="Resource_2floy"]
 script = ExtResource("2_0kwyy")
@@ -73,6 +75,18 @@ Key = "FunctionalEnd"
 Instance = ExtResource("11_fcend")
 PoolSize = 1
 
+[sub_resource type="Resource" id="Resource_punish"]
+script = ExtResource("2_0kwyy")
+Key = "PunishFlash"
+Instance = ExtResource("12_punish")
+PoolSize = 2
+
+[sub_resource type="Resource" id="Resource_reversal"]
+script = ExtResource("2_0kwyy")
+Key = "ReversalFlash"
+Instance = ExtResource("13_reversal")
+PoolSize = 2
+
 [resource]
 script = ExtResource("1_r1fnx")
-SpawnObjects = Array[Object]([SubResource("Resource_2floy"), SubResource("Resource_6t0f1"), SubResource("Resource_widxw"), SubResource("Resource_55vjd"), SubResource("Resource_alert"), SubResource("Resource_barrier"), SubResource("Resource_burst"), SubResource("Resource_counter"), SubResource("Resource_fcstart"), SubResource("Resource_fcend")])
+SpawnObjects = Array[Object]([SubResource("Resource_2floy"), SubResource("Resource_6t0f1"), SubResource("Resource_widxw"), SubResource("Resource_55vjd"), SubResource("Resource_alert"), SubResource("Resource_barrier"), SubResource("Resource_burst"), SubResource("Resource_counter"), SubResource("Resource_fcstart"), SubResource("Resource_fcend"), SubResource("Resource_punish"), SubResource("Resource_reversal")])

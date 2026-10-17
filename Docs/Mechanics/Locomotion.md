@@ -6,7 +6,7 @@
 | Action | Input | How it behaves |
 |---|---|---|
 | **Run** | 66, keep holding 6 (or 3) | Starts fast and speeds up. `6356` runs (the second 6 comes back from a roll), `6536` doesn't. |
-| **Run Skid** | let go of 6 (or hold 4) while running | Slides to a stop. **Can't guard** during it. |
+| **Run Skid** | let go of 6 (or hold 4) while running | Slides to a stop. **Can't guard** during it, and **66 / 44 can't cancel it** (no chaining runs by mashing 6). Attacks, throws, jumps and Barrier (Barrier Brake) still cancel it. |
 | **Barrier Brake** | Barrier (back + A+B) while running or skidding | Cancels the run/skid straight into Barrier and keeps the full speed, fading out over 20 frames (about 6,000–7,000 units at top speed). Pressing back first (skid) then A+B works too. |
 | **Running momentum** | any attack, throw or Barrier out of a run, skid or step dash | Keeps the current speed, fading over `SlideFrames`. Getting hit, blocking, or a throw connecting ends the slide. A jump out of a skid keeps the skid's speed too. |
 | **Step Dash** *(alternative to Run)* | 66 | A fixed-distance hop forward. Can't guard or cancel until `StepDashCancelFrame`. |
@@ -50,9 +50,10 @@ Velocities: 60,000 = 1,000 units per frame.
 
 | I want to… | Field (Dummy value) |
 |---|---|
-| Faster / slower run | `RunStartSpeed` 30000, `RunAcceleration` 600, `RunMaxSpeed` 42000 |
+| Faster / slower run | `RunStartSpeed` 30000, `RunAcceleration` 600, `RunMaxSpeed` 42000 (keep the start speed at or below the max: anything above it is cut to the max on the next frame) |
 | Easier 66 / 44 | `DashInputWindow` 10 |
 | Longer skid | `SkidFrames` 14 |
+| Let 66 / 44 cancel the skid (run again / backdash out of it) | `SkidDashCancel` off |
 | Step dash | `StepDashFrames` 18, `StepDashDistance` 9000, `StepDashCancelFrame` 10 |
 | Backdash | `BackdashFrames` 22, `BackdashDistance` 7500, `BackdashMoveFrames` 14, `BackdashInvulnFrames` 7, `BackdashThrowInvulnFrames` 12 |
 | Jump | `PrejumpFrames` 4, `JumpVelocityY` 80000, `JumpForwardX` 18000, `JumpBackX` 12000 |
@@ -74,5 +75,6 @@ All 23 locomotion checks pass (2026-10-12): Barrier Brake from a run and from a 
 ## Change log
 | Date | Change |
 |---|---|
+| 2026-10-17 | Run skid can no longer be cancelled by 66 / 44 (mashing 6 chained runs, worst with high run speeds); new `SkidDashCancel` setting to allow it per fighter |
 | 2026-10-12 | Momentum: full speed fading over 20 frames; skid counts; throws slide; slide stops on hit / block |
 | 2026-10-12 | Created: run, skid, Barrier Brake, step dash (alternative), backdash, prejump, super jump, double jump, momentum, air-action pool, visuals |

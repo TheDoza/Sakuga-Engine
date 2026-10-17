@@ -9,6 +9,7 @@ namespace FunctionFighter.Mechanics
     /// Fantasy Strike-style state colors: a tint + outline on the fighter's model while something about them matters.
     /// Highest first:
     /// - Counter Hit (interrupted): red; Big Counter orange; Functional Counter gold (a short flash after the hit).
+    ///   Punish (hit in recovery): purple. Reversal (move on the first possible frame): cyan, on the one who reversed.
     /// - Parry: green (FrameProperties.PARRY, for future parry states; Barrier is not a parry and doesn't flash).
     /// - Armor: blue (super armor up).
     /// - Invincible: white (strike invincible frames, or an attack / locked state with no hurtbox, e.g. Burst).
@@ -22,6 +23,9 @@ namespace FunctionFighter.Mechanics
         public static Color ParryColor = new Color(0.2f, 1f, 0.35f);
         public static Color ArmorColor = new Color(0.25f, 0.55f, 1f);
         public static Color InvulnColor = new Color(1f, 1f, 1f);
+        /// <summary>[FF PATCH: indicators] Punish (on the punished fighter) and Reversal (on the fighter who reversed).</summary>
+        public static Color PunishColor = new Color(0.85f, 0.2f, 1f);
+        public static Color ReversalColor = new Color(0.15f, 0.9f, 1f);
         /// <summary>How long a counter flash lasts, in rendered frames.</summary>
         public static int CounterFrames = 24;
         /// <summary>Tint strength (0-1) and outline thickness (model units).</summary>
@@ -72,6 +76,15 @@ namespace FunctionFighter.Mechanics
             var l = Get(defender);
             l.CounterUntil = Now + (ulong)CounterFrames;
             l.CounterTint = kind == CounterKind.BigCounter ? BigCounterColor : kind == CounterKind.Functional ? FunctionalColor : CounterColor;
+        }
+
+        /// <summary>A short flash in any color (Punish, Reversal), same length as a counter flash.</summary>
+        public static void Flash(SakugaActor a, Color color)
+        {
+            if (a == null) return;
+            var l = Get(a);
+            l.CounterUntil = Now + (ulong)CounterFrames;
+            l.CounterTint = color;
         }
 
         public static bool Enabled => !Training.TrainingController.Active || Training.TrainingSettings.ShowStateFlash;

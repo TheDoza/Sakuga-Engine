@@ -87,6 +87,8 @@ namespace FunctionFighter.Training
         public static bool ShowFrameMeter = true;
         public static bool ShowAdvantage = true;
         public static bool ShowStateFlash = true;
+        public static bool ShowPunish = true;
+        public static bool ShowReversal = true;
         public static bool ShowP1Inputs = true;
         public static bool ShowP2Inputs = true;
         public static bool ShowTrainingInfo = true;
@@ -126,7 +128,7 @@ namespace FunctionFighter.Training
             PlaybackRandom = false;
             ShowInputHistory = true;
             ShowFrameMeter = ShowP1Inputs = ShowP2Inputs = true;
-            ShowAdvantage = ShowStateFlash = true;
+            ShowAdvantage = ShowStateFlash = ShowPunish = ShowReversal = true;
             ShowTrainingInfo = true;
             Position = ResetPosition.Center;
         }
@@ -159,6 +161,8 @@ namespace FunctionFighter.Training
             ShowFrameMeter = (bool)cfg.GetValue(Section, "show_frame_meter", ShowFrameMeter);
             ShowAdvantage = (bool)cfg.GetValue(Section, "show_advantage", ShowAdvantage);
             ShowStateFlash = (bool)cfg.GetValue(Section, "show_state_flash", ShowStateFlash);
+            ShowPunish = (bool)cfg.GetValue(Section, "show_punish", ShowPunish);
+            ShowReversal = (bool)cfg.GetValue(Section, "show_reversal", ShowReversal);
             ShowP1Inputs = (bool)cfg.GetValue(Section, "show_p1_inputs", ShowP1Inputs);
             ShowP2Inputs = (bool)cfg.GetValue(Section, "show_p2_inputs", ShowP2Inputs);
             ShowTrainingInfo = (bool)cfg.GetValue(Section, "show_info", ShowTrainingInfo);
@@ -202,6 +206,8 @@ namespace FunctionFighter.Training
             cfg.SetValue(Section, "show_frame_meter", ShowFrameMeter);
             cfg.SetValue(Section, "show_advantage", ShowAdvantage);
             cfg.SetValue(Section, "show_state_flash", ShowStateFlash);
+            cfg.SetValue(Section, "show_punish", ShowPunish);
+            cfg.SetValue(Section, "show_reversal", ShowReversal);
             cfg.SetValue(Section, "show_p1_inputs", ShowP1Inputs);
             cfg.SetValue(Section, "show_p2_inputs", ShowP2Inputs);
             cfg.SetValue(Section, "show_info", ShowTrainingInfo);

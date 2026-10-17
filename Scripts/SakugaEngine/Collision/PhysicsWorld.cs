@@ -68,6 +68,7 @@ namespace SakugaEngine.Collision
                         
                         if (bodyA.IsStatic && bodyB.IsStatic) continue;
                         if (bodyA.IgnorePushbox || bodyB.IgnorePushbox) continue; // [FF PATCH: tech] wakeup roll passes through
+                        if (ResolveCorner(bodyA, bodyB)) continue; // [FF PATCH: pushbox] no jumping over a cornered fighter
                         
                         if (bodyA.Pushbox.IsOverlapping(bodyB.Pushbox))
                         {
@@ -436,6 +437,44 @@ namespace SakugaEngine.Collision
 
             return Depth;
         }
+
+        /// <summary>
+        /// [FF PATCH: pushbox] Corner rule. When one fighter is pinned against a wall (there isn't room for the other
+        /// fighter's pushbox between it and the wall), its pushbox counts as reaching all the way up: the other fighter
+        /// can't jump, super jump, double jump or air dash over it and land behind. It always stays on the open side.
+        /// The cornered fighter can still jump out over the other one (see JumpingOut).
+        /// Returns true when the rule handled this pair (the normal pushbox check is skipped).
+        /// </summary>
+        private bool ResolveCorner(PhysicsBody bodyA, PhysicsBody bodyB)
+        {
+            if (!bodyA.Pushbox.Active || !bodyB.Pushbox.Active) return false;
+            if (bodyA.IsStatic || bodyB.IsStatic) return false;
+
+            // Right wall: the fighter further right is the one that could be pinned (a tie goes by side).
+            bool aRight = bodyA.FixedPosition.X > bodyB.FixedPosition.X ||
+                          (bodyA.FixedPosition.X == bodyB.FixedPosition.X && !bodyA.IsLeftSide);
+            PhysicsBody right = aRight ? bodyA : bodyB, left = aRight ? bodyB : bodyA;
+            if (GlobalVariables.WallLimit - right.FixedPosition.X < left.Pushbox.Size.X && !JumpingOut(right, left))
+            {
+                // left must stay entirely on the left of right's pushbox
+                int depth = (left.Pushbox.Center.X + left.Pushbox.Size.X / 2) - (right.Pushbox.Center.X - right.Pushbox.Size.X / 2);
+                if (depth > 0) left.Resolve(new Vector2I(depth, 0));
+                return true;
+            }
+            // Left wall: the fighter further left is the one that could be pinned.
+            if (left.FixedPosition.X + GlobalVariables.WallLimit < right.Pushbox.Size.X && !JumpingOut(left, right))
+            {
+                int depth = (left.Pushbox.Center.X + left.Pushbox.Size.X / 2) - (right.Pushbox.Center.X - right.Pushbox.Size.X / 2);
+                if (depth > 0) right.Resolve(new Vector2I(-depth, 0));
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>[FF PATCH: pushbox] The cornered fighter is in the air above the other one: it's jumping out of the
+        /// corner, which is allowed (normal pushbox rules apply).</summary>
+        private static bool JumpingOut(PhysicsBody pinned, PhysicsBody other) =>
+            !pinned.IsOnGround && pinned.FixedPosition.Y > other.FixedPosition.Y;
 
         private bool Unpushable(PhysicsBody bodyA, PhysicsBody bodyB)
         {

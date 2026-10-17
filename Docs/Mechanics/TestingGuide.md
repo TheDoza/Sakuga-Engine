@@ -23,6 +23,7 @@ The checks are grouped in the same order as the mechanics reference.
 - [ ] **Disable a button:** in Controls, pick A+B, press Accept, hold Right → "Disabled"; in game that button does nothing. Map it again to bring it back.
 - [ ] **Run:** P1 taps D, D and keeps holding → runs and speeds up; let go → Run_Skid slides to a stop. D, S+D, D (6356) also runs; D, A, D (6536) doesn't.
 - [ ] **Skid can't guard:** while P1 skids, P2 presses B → P1 is hit.
+- [ ] **No run chaining:** run, let go, mash D during the skid → P1 skids to a full stop first, then runs again.
 - [ ] **Barrier Brake:** while running, P1 holds A + U + I (back + A+B) → straight into barrier and slides a long way. Also: let go and tap A (skid), then U + I → barrier keeps the skid's speed.
 - [ ] **Running attack / throw:** run, press I (B) → the attack slides forward with the run's speed. Same with I + J (throw).
 - [ ] **Backdash:** P1 taps A, A → hops back; P2's B passes through the start of it, but hits the end.
@@ -33,7 +34,8 @@ The checks are grouped in the same order as the mechanics reference.
 - [ ] **Dash jump:** run, then W+D → goes much farther than a normal jump. Double jump forward keeps the speed, up drifts forward, back still goes back but only a little.
 - [ ] **Air dash lines:** air dash (D, D in the air) → white speed lines behind P1; air backdash (A, A) → lines in front.
 - [ ] **Pushbox:** P1 walks into P2 → P1 stops and slowly pushes P2 back; never walks through. Same with P2 crouching. In the corner, P2 doesn't move and P1 stops against it. F10 shows the pushbox.
-- [ ] **Pushbox cross-up:** P1 jumps over P2 from close → lands on the other side. Knock P2 down with C and have it forward roll → it rolls through P1.
+- [ ] **Pushbox cross-up:** midscreen, P1 jumps over P2 from close → lands on the other side. Knock P2 down with C and have it forward roll → it rolls through P1.
+- [ ] **No corner jump-over:** P2 in the corner. P1 jumps, super jumps, double jumps or air dashes over it → always lands in front, P2 stays in the corner. P2 jumps forward over P1 → gets out.
 - [ ] **Step Dash:** swap move 19 in the Dummy's stance to `19_StepDash_Alt.tres` → D, D now does a short hop instead of a run (swap back afterwards).
 
 ## Defense
@@ -94,11 +96,15 @@ The checks are grouped in the same order as the mechanics reference.
 - [ ] **Air reject:** same, P2 presses B+C during the **!** → both pop up a little and fall; P1 is pushed back.
 - [ ] **Knockdown can't be teched:** after any throw, P2 mashing A does nothing until it stands up.
 - [ ] **No tech after throws:** throw P2, mash Numpad 4 → it just gets up.
+- [ ] **Back throw in the corner:** P1 with its back to the left wall, P2 next to it. P1 presses A + I + J (4+B+C) → P2 ends up in the corner, P1 outside. Forward throw into the corner → P2 stays cornered.
 
 ## Visual Feedback
 
 - [ ] **State flashes:** Counter Hit setting Always Counter → P2 flashes red when hit. Backdash / rolls / techs flash white.
 - [ ] **Advantage hitsparks:** P1 presses B on a blocking P2 → the block effect plus a red X-shaped hitspark (minus) on the impact frame. On hit: the hitspark replaces the old hit effect. Training Display → Advantage Hitsparks Off → the old hit effect comes back. Any mode (Versus) shows the hitsparks too.
+- [ ] **Punish:** P2 presses B far away (whiffs); P1 hits it during the recovery → "Punish" on P1's side, purple flash on P2, Training Data Counter = Punish. Hitting P2 during its startup is still "Counter" (red).
+- [ ] **Reversal:** P2 blocks P1's B and mashes B → "Reversal" on P2's side, cyan flash. Press it a little late → nothing. Knock P2 down with C and jump on the first frame of wakeup → "Reversal".
+- [ ] **Combo damage:** P1 hits P2 twice in a row → the gold combo damage shows under the hit counter. Knock P2 down with 2B (soft knockdown) and hit it lying with C → "INVALID ⊘2" next to the damage.
 - [ ] **Hitspark size:** a hit that's −1 makes a small red spark; a very minus block (e.g. a big move blocked) makes a big dark-red one; even (0) is the normal yellow.
 
 ## Training Mode

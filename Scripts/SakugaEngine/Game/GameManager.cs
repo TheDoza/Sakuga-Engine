@@ -331,6 +331,7 @@ namespace SakugaEngine.Game
             // [FF PATCH: training] meters, barrier, Burst and guard settings (does nothing outside Training)
             FunctionFighter.Training.TrainingController.AfterTick(Fighters);
             FunctionFighter.Mechanics.Advantage.AfterTick(Fighters); // [FF PATCH: advantage] frame advantage icons (visual, all modes)
+            FunctionFighter.Mechanics.Indicators.AfterTick(Fighters); // [FF PATCH: indicators] Reversal indicator (all modes)
             
             for (int i = 0; i < Nodes.Count; i++)
                 Nodes[i].LateTick();

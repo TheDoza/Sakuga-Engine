@@ -1,8 +1,8 @@
-[gd_resource type="Resource" script_class="FighterState" format=3]
+[gd_resource type="Resource" script_class="FighterState" format=3 uid="uid://yu3i1soliufg"]
 
 [ext_resource type="Script" uid="uid://bf60srwkccsm8" path="res://Scripts/SakugaEngine/Resources/FighterState.cs" id="1_54d2f"]
 [ext_resource type="Script" uid="uid://b1wnmgsdqaa50" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/GoToFrameActions.cs" id="1_h35cw"]
-[ext_resource type="Resource" path="res://Fighters/Dummy/Universal/AnimationData/1_Walk_Forward_AnimationData.tres" id="1_x8ihf"]
+[ext_resource type="Resource" uid="uid://c5fubks6m3pyc" path="res://Fighters/Dummy/Universal/AnimationData/1_Walk_Forward_AnimationData.tres" id="1_x8ihf"]
 [ext_resource type="Script" uid="uid://bgwrlqrhqb2a4" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/MoveXAction.cs" id="2_1lf6q"]
 [ext_resource type="Script" uid="uid://n7xih8pqfpwo" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/ChangeSideAction.cs" id="2_17iir"]
 [ext_resource type="Script" uid="uid://bho4h38y7suxk" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/StateEndedCondition.cs" id="2_x8ihf"]
@@ -26,7 +26,7 @@ metadata/_custom_type_script = "uid://c076jc3huncn2"
 
 [sub_resource type="Resource" id="Resource_17iir"]
 script = ExtResource("2_1lf6q")
-Velocity = 18000
+Velocity = 20000
 metadata/_custom_type_script = "uid://bgwrlqrhqb2a4"
 
 [sub_resource type="Resource" id="Resource_1gs7c"]

@@ -172,6 +172,8 @@ namespace FunctionFighter.Training
             Option("Training Data", () => OnOff(TrainingSettings.ShowTrainingInfo), d => { TrainingSettings.ShowTrainingInfo = !TrainingSettings.ShowTrainingInfo; ApplyDisplay(); });
             Option("Advantage Hitsparks", () => OnOff(TrainingSettings.ShowAdvantage), d => TrainingSettings.ShowAdvantage = !TrainingSettings.ShowAdvantage);
             Option("State Flashes", () => OnOff(TrainingSettings.ShowStateFlash), d => TrainingSettings.ShowStateFlash = !TrainingSettings.ShowStateFlash);
+            Option("Punish Indicator", () => OnOff(TrainingSettings.ShowPunish), d => TrainingSettings.ShowPunish = !TrainingSettings.ShowPunish);
+            Option("Reversal Indicator", () => OnOff(TrainingSettings.ShowReversal), d => TrainingSettings.ShowReversal = !TrainingSettings.ShowReversal);
             Option("Hitboxes", () => OnOff(GameManager.Instance != null && GameManager.Instance.ShowHitboxes),
                 d => { if (GameManager.Instance != null) GameManager.Instance.ShowHitboxes = !GameManager.Instance.ShowHitboxes; });
 

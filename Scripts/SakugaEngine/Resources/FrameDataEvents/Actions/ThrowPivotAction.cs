@@ -24,7 +24,17 @@ namespace SakugaEngine.Resources
             int grabState = ThrowReaction >= 0 ? grabbedActor.StanceManager.GetCurrentStance().HitReactions[ThrowReaction] : -1;
             grabbedActor.StateManager.PlayState(grabState, false);
             grabbedActor.Body.SetVelocity(Vector2I.Zero);
-            grabbedActor.Body.MoveTo(Actor.Body.FixedPosition + PivotPosition * new Vector2I(Actor.Body.PlayerSide, 1));
+            Vector2I target = Actor.Body.FixedPosition + PivotPosition * new Vector2I(Actor.Body.PlayerSide, 1);
+            // [FF PATCH: throw corner] If the victim would end up past the wall (a back throw with your back to the
+            // corner, or any throw toward a wall), put the victim at the wall and move the thrower out by the same
+            // amount, so the throw keeps its spacing and a back throw in the corner switches sides.
+            int overflow = target.X - Mathf.Clamp(target.X, -GlobalVariables.WallLimit, GlobalVariables.WallLimit);
+            if (overflow != 0)
+            {
+                Actor.Body.MoveTo(Actor.Body.FixedPosition - new Vector2I(overflow, 0));
+                target.X -= overflow;
+            }
+            grabbedActor.Body.MoveTo(target);
 
             if (EndThrow) Actor.CurrentGrabbedNodeID = -1;
         }

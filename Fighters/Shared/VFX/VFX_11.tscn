@@ -1,0 +1,89 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" uid="uid://d4e1sv1gy8i8a" path="res://Scripts/SakugaEngine/Components/SakugaVFX.cs" id="1_vfx"]
+
+[sub_resource type="StandardMaterial3D" id="Mat_fx"]
+resource_local_to_scene = true
+transparency = 1
+cull_mode = 2
+shading_mode = 0
+albedo_color = Color(0.15, 0.9, 1, 0.55)
+
+[sub_resource type="SphereMesh" id="Mesh_fx"]
+resource_local_to_scene = true
+material = SubResource("Mat_fx")
+radius = 0.7
+height = 1.8
+radial_segments = 24
+rings = 12
+
+[sub_resource type="Animation" id="Animation_gfx"]
+resource_name = "GFX"
+length = 0.2
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Graphics/Visuals/Shield:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.7, 0.7, 0.7), Vector3(1.2, 1.2, 1.2)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Graphics/Visuals/Shield:mesh:material:albedo_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.15, 0.9, 1, 0.55), Color(0.15, 0.9, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_reset"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Graphics/Visuals/Shield:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fx"]
+_data = {
+&"GFX": SubResource("Animation_gfx"),
+&"RESET": SubResource("Animation_reset")
+}
+
+[node name="VFX" type="Node" node_paths=PackedStringArray("Player", "Graphics")]
+script = ExtResource("1_vfx")
+Duration = 12
+Player = NodePath("Graphics/Visuals/AnimationPlayer")
+Graphics = NodePath("Graphics")
+AnimationName = "GFX"
+
+[node name="Graphics" type="Node3D" parent="."]
+
+[node name="Visuals" type="Node3D" parent="Graphics"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Graphics/Visuals"]
+root_node = NodePath("../../..")
+libraries/ = SubResource("AnimationLibrary_fx")
+speed_scale = 0.0
+
+[node name="Shield" type="MeshInstance3D" parent="Graphics/Visuals"]
+layers = 2
+cast_shadow = 0
+mesh = SubResource("Mesh_fx")

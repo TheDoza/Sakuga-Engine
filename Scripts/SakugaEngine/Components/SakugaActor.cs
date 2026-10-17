@@ -742,8 +742,7 @@ namespace SakugaEngine
                         GameManager.Instance.PlayHitNotificationByIndex((int)playerID, 0);
 
                     // [FF PATCH: counter] "Counter" / "Big Counter" notifications now come from FunctionFighter.Mechanics.Counter.
-                    if (!IsCounter(target) && IsPunishCounter(target))
-                        GameManager.Instance.PlayHitNotificationByIndex((int)playerID, 2);
+                    // [FF PATCH: indicators] "Punish" too (FunctionFighter.Mechanics.Indicators), for any hit on a recovering opponent.
 
                     target.HitDamage(actor, box, false);
                     FunctionFighter.Training.TrainingController.OnDummyHit(target); // [FF PATCH: training reversal]

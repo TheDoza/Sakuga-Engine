@@ -20,6 +20,10 @@ Throw counters (BBCF) aren't in the game.
 
 The defender's model also flashes **red** (Counter), **orange** (Big Counter) or **gold** (Functional Counter) for 24 frames: see Visuals.md.
 
+**Punish** (a hit on an opponent in the recovery of a move) isn't a counter hit: no bonus, just the indicator. See Visuals.md → Punish and Reversal indicators.
+
+**Counter Hit Recovery** (ready for future moves; no Dummy move uses it yet): tick **Counter Hit In Recovery** on a move's RECOVERY entry in its AnimationData → Hitboxes (the `HitboxState` with `animationStage` = RECOVERY). Getting hit there is then a normal **Counter** (red, with the full bonus; Big Counter / Functional Counter work too), and the **"Punish"** notification shows as well. The red effects win over the purple ones. Meant for big, risky moves.
+
 ## How it works (flow)
 ```
 hit lands ─► defender in startup/active of an attack?  ─ no ─► same attack already countered? ─ yes ─► Carry (bonus, no extra hitstop)
@@ -45,6 +49,9 @@ combo drops (defender not in a hit reaction) ─► Big Counter combo and Functi
 | `HitNotifs.tres` | notifications 10 "Big Counter", 11 "Functional Counter", 12 "Functional End" (1 "Counter" already existed) |
 
 ## Engine patches (search for `[FF PATCH: counter]`)
+
+`HitboxState.cs` → `CounterHitInRecovery` (new field, Counter Hit Recovery).
+
 | File | What it changes |
 |---|---|
 | `SakugaActor.cs` → `HitDamage` | asks `Counter.OnHit` for this hit's bonus: hitstun, hitstop, damage, knockback gravity |
@@ -66,6 +73,7 @@ combo drops (defender not in a hit reaction) ─► Big Counter combo and Functi
 | Its hitstun / fall speed | `HitstunPercent` / `GravityPercent` | 200 / 35 |
 | Auto-dash | `AutoDashDistance` / `AutoDashFrames` / `AutoDashMinGap` | 14,000 / 10 / 7,000 |
 | Popups / effects | `*NotificationIndex`, `*VFXIndex`, `VFXHeight` | 1, 10, 11, 12 / 7, 8, 9 |
+| Make a move's recovery counter-hittable | that move's `<n>_AnimationData.tres` → Hitboxes → the RECOVERY entry → `CounterHitInRecovery` | off |
 
 ## Adding it to another fighter
 Nothing to do: every fighter has it. Tick **Big Counter** on the hitboxes of that fighter's Big Counter attacks (BBCF gives every character at least one).
@@ -94,4 +102,5 @@ All checks pass (2026-10-12):
 ## Change log
 | Date | Change |
 |---|---|
+| 2026-10-17 | Counter Hit Recovery flag (`HitboxState.CounterHitInRecovery`): Counter + Punish notification |
 | 2026-10-12 | Created: Counter Hit + carry, Big Counter, Functional Counter |

@@ -3,7 +3,7 @@
 **Status:** ✅ Working (tested 2026-10-11) · **Fighters:** Dummy (template — stamps onto new fighters) · **Rollback-safe:** Yes (data + C# logic that only reads/writes state the engine already saves)
 
 ## What it does
-Press **B+C** next to the opponent to throw them. **B+C** or **6+B+C** is a forward throw, **4+B+C** is a back throw (the opponent lands behind you), and **B+C in the air** is an air throw.
+Press **B+C** next to the opponent to throw them. **B+C** or **6+B+C** is a forward throw, **4+B+C** is a back throw (the opponent lands behind you; with your back to the corner you switch sides and they end up in the corner), and **B+C in the air** is an air throw.
 A throw is one hit for 1,500 damage that always ends in a **hard knockdown**. Nothing can combo out of a throw, and you can't throw someone who's in hitstun or blockstun, so nothing combos into one either.
 The fighter being thrown gets a green **!** over their head and has **15 frames** to press **B+C** and reject it. On a reject both fighters are invincible for 28 frames and recover together (no advantage). The thrower is pushed back about half a screen and the defender stays put.
 
@@ -54,6 +54,7 @@ Reject:   victim  → 55 Throw_Reject_Ground / 56 Throw_Reject_Air    (stays put
 | no throw combos | `SakugaActor.cs` → `ThrowDamage` | a fighter in a HIT_REACTION state or in blockstun can't be thrown. Holding back with no blockstun is still throwable. |
 | throw reject | `SakugaActor.cs` → `ThrowEscape` / `ThrowEscapeAction`, `FighterStance.cs` | new stance fields `GroundThrowRejectedState` / `AirThrowRejectedState` for the thrower. When they're set, all reject movement comes from the states' data. Left at -1, Sakuga's original behaviour is kept (both fighters play the escape state and get pushed). |
 | move priority | `StanceManager.cs` → `CheckMoves` | when several moves match on the same frame, the highest `Priority` wins (throws 6–7 beat the B and C normals at 5). Before this, the move lowest in the list always won and Priority was ignored here. |
+| throw corner | `ThrowPivotAction.cs` → `Execute` | if a throw would put the victim past the wall, the victim is placed at the wall and the thrower moves out by the same amount. A back throw with your back to the corner switches sides; a forward throw into the corner keeps the throw's spacing. |
 
 ## Tuning: "I want to change…"
 | I want to… | File | Field | Current |
@@ -79,7 +80,7 @@ Reject:   victim  → 55 Throw_Reject_Ground / 56 Throw_Reject_Air    (stays put
 3. To change throw timing or damage for one fighter only, edit its own `Universal/States` files after stamping (re-stamping resets them).
 
 ## Known issues / gotchas
-- **Back throw and the Dummy:** the Dummy has no pushbox, so fighters can walk through each other and the throw range is measured between hurtboxes. Give Basic Bro a pushbox.
+- **Back throw in the corner** switches sides (2026-10-14, `[FF PATCH: throw corner]`). Fighters have pushboxes now (see [Pushbox.md](Pushbox.md)); the throw range is still measured between the throw box and the hurtbox.
 - **The "!" stays its full 16 frames** even if the throw is rejected early (Sakuga VFX can't be cancelled from a state).
 - Pressing B+C exactly on the frame the throw connects (before the grab registers) counts as your own throw attempt, not a reject. The 15 reject frames start the frame after the grab.
 - On a reject, Sakuga's built-in "Escaped" notification (hit notification 4) shows on the rejecting player's side.
@@ -91,3 +92,4 @@ Reject:   victim  → 55 Throw_Reject_Ground / 56 Throw_Reject_Air    (stays put
 |---|---|
 | 2026-10-11 | Created: forward/back/air throws, green reject, "!" indicator, 3 engine patches |
 | 2026-10-12 | "!" raised to 18,500 so it sits above the Dummy's head |
+| 2026-10-14 | Back throw with your back to the corner switches sides (throw corner patch) |

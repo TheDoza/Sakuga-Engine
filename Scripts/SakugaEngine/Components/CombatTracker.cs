@@ -17,6 +17,8 @@ namespace SakugaEngine
         public int StunAtHit;
         public int LastHitType;
         public bool invalidHit;
+        /// <summary>[FF PATCH: combo display] The hit number at which the combo became invalid (0 = still valid).</summary>
+        public int InvalidAtHit;
 
         public void Initialize(SakugaActor onwer)
         {
@@ -32,14 +34,15 @@ namespace SakugaEngine
             StunAtHit = 0;
             LastHitType = 0;
             invalidHit = false;
+            InvalidAtHit = 0;
         }
         public void UpdateTrackers(int damage, int hitFrame, int hitStun, int hitType, bool isInvalid = false, bool isCombo = true)
         {
-            if (isInvalid)
-                invalidHit = true;
-
             if (HitCombo == 0) CurrentCombo = 0;
             if (isCombo) HitCombo++;
+            if (isInvalid && !invalidHit) InvalidAtHit = HitCombo; // [FF PATCH: combo display]
+            if (isInvalid)
+                invalidHit = true;
             LastDamage = damage;
             CurrentCombo += damage;
             if (CurrentCombo > HighestCombo)
@@ -66,6 +69,7 @@ namespace SakugaEngine
             //LastDamage = 0;
             //CurrentCombo = 0;
             invalidHit = false;
+            InvalidAtHit = 0;
         }
     }
 }
