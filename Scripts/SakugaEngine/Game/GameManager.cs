@@ -98,7 +98,7 @@ namespace SakugaEngine.Game
                 CallDeferred("PauseControl", !paused);
             }
             // Return to menu for now
-            if (Monitor.MatchState == MatchState.RESULTS && (Input.IsActionJustPressed("ui_accept") || Input.IsActionJustPressed("ui_cancel")))
+            if (Monitor.MatchState == MatchState.RESULTS && !FunctionFighter.UI.RematchScreen.Active && (Input.IsActionJustPressed("ui_accept") || Input.IsActionJustPressed("ui_cancel"))) // [FF PATCH: rematch]
             {
                 LoadingScreenManager.Instance.LoadScene(Monitor.sceneToReturn);
             }

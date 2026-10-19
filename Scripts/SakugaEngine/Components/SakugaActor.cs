@@ -384,6 +384,8 @@ namespace SakugaEngine
         {
             // Change hit fighter layering
             LayerSorting = -1;
+            // [FF PATCH: landing] BBCF: the frame before landing counts as grounded, so this becomes a standing ground hit
+            if (FunctionFighter.Mechanics.Locomotion.LandsNextFrame(this)) FunctionFighter.Mechanics.Locomotion.SnapToGround(this);
             // Select hit values
             // [FF PATCH: tech] the early part of a wakeup roll is hit like an airborne fighter, the late part like a crouching one
             bool isGroundHit = !IsKO() && Body != null && !IsAirState() && !FunctionFighter.Mechanics.Locomotion.HitAsAirborne(this);
@@ -460,6 +462,7 @@ namespace SakugaEngine
                     box.OpponentSuperGaugeGain,
                     box.KillingBlow
                 );
+                FunctionFighter.Mechanics.KO.OnHit(this, target); // [FF PATCH: ko] the finishing hit always launches
                 
                 Parameters.Tracker.UpdateTrackers(finalDamage, stunFrame, finalHitstunForReal, (int)box.HitType, canTech);
 
@@ -772,8 +775,10 @@ namespace SakugaEngine
         }
         public void ThrowDamage(SakugaActor target, HitboxElement box, Vector2I contact)
         {
+            // [FF PATCH: landing] BBCF: the frame before landing counts as grounded, so ground throws can grab it
+            bool preLanding = box.GroundThrow && FunctionFighter.Mechanics.Locomotion.LandsNextFrame(target);
             bool isThrowAllowed = !target.ContainsFrameProperty(FrameProperties.THROW_IMUNITY) && 
-                                    ((target.Body.IsOnGround && box.GroundThrow) || 
+                                    ((target.Body.IsOnGround && box.GroundThrow) || preLanding || 
                                     (target.IsAirState() && box.AirThrow) ||
                                     (box.GroundThrow && box.AirThrow));
             if (!isThrowAllowed) return;
@@ -781,6 +786,7 @@ namespace SakugaEngine
             // [FF PATCH: no throw combos] Fighters in hitstun or blockstun can't be thrown, so throws never combo.
             // Blocking without blockstun (holding back, proximity guard) is still throwable.
             if (target.StateManager.CurrentStateType() == StateType.HIT_REACTION || target.BlockStun) return;
+            if (preLanding) FunctionFighter.Mechanics.Locomotion.SnapToGround(target); // [FF PATCH: landing]
 
             uint finalHitstop = (uint)box.ThrowHitstop;
             if (target.StateManager.CurrentStateType() == StateType.HIT_REACTION) finalHitstop = (uint)box.ThrowHitstopAfterHit;

@@ -47,6 +47,12 @@ namespace SakugaEngine.Resources
         [Export] public bool IgnoreHitstop = false;
         [Export] public bool IgnoreHitstun = false;
         [Export] public bool IgnoreKnockdownHits = false;
+        // [FF PATCH: burst] Also usable during hard knockdown hits (e.g. Burst out of a wall bounce). Lying on the
+        // floor is still excluded by the move's IgnoreStates.
+        [Export] public bool AcceptHardKnockdownHits = false;
         [Export] public bool UseOnGround, UseOnAir;
+        // [FF PATCH: indicators] Does starting this move on the first possible frame show the Reversal indicator?
+        // Auto = only specials (a COMBAT move with a motion input like 236 / 214 / 623 / [4]6). Always / Never override it.
+        [Export] public FunctionFighter.Mechanics.ReversalIndicatorMode ReversalIndicator = FunctionFighter.Mechanics.ReversalIndicatorMode.Auto;
     }
 }

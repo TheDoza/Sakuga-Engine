@@ -5,6 +5,7 @@
 
 [resource]
 script = ExtResource("2_d8bj7")
+SideCheck = 1
 MoveName = "Neutral Jump"
 MoveState = 3
 Inputs = ExtResource("1_vnxue")

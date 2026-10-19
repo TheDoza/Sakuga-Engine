@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="FighterState" format=3]
+[gd_resource type="Resource" script_class="FighterState" format=3 uid="uid://crnx5ilhcaw5c"]
 
 [ext_resource type="Script" uid="uid://da4kqpf635oin" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/PlayStateAction.cs" id="1_s"]
 [ext_resource type="Script" uid="uid://ceoqefty16hbe" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/OnHitstunCondition.cs" id="2_s"]
@@ -7,8 +7,23 @@
 [ext_resource type="Script" uid="uid://bho4h38y7suxk" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/StateEndedCondition.cs" id="5_s"]
 [ext_resource type="Script" uid="uid://bgwrlqrhqb2a4" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/MoveXAction.cs" id="6_s"]
 [ext_resource type="Script" uid="uid://bw1835rb2hj7y" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/MoveYAction.cs" id="7_s"]
-[ext_resource type="Resource" path="res://Fighters/Dummy/Universal/AnimationData/25_Hit_GroundSlide_AnimationData.tres" id="8_r"]
+[ext_resource type="Resource" uid="uid://bsr0ku2gf83hu" path="res://Fighters/Dummy/Universal/AnimationData/25_Hit_GroundSlide_AnimationData.tres" id="8_r"]
 [ext_resource type="Script" uid="uid://bf60srwkccsm8" path="res://Scripts/SakugaEngine/Resources/FighterState.cs" id="9_s"]
+
+[sub_resource type="Resource" id="Sub_7"]
+script = ExtResource("6_s")
+UseInertia = true
+metadata/_custom_type_script = "uid://bgwrlqrhqb2a4"
+
+[sub_resource type="Resource" id="Sub_8"]
+script = ExtResource("7_s")
+metadata/_custom_type_script = "uid://bw1835rb2hj7y"
+
+[sub_resource type="Resource" id="Sub_9"]
+script = ExtResource("4_s")
+Conditions = null
+Actions = Array[Object]([SubResource("Sub_7"), SubResource("Sub_8")])
+metadata/_custom_type_script = "uid://c076jc3huncn2"
 
 [sub_resource type="Resource" id="Sub_1"]
 script = ExtResource("1_s")
@@ -23,8 +38,6 @@ metadata/_custom_type_script = "uid://ceoqefty16hbe"
 [sub_resource type="Resource" id="Sub_3"]
 script = ExtResource("3_s")
 Absolute = true
-Value = 0
-CompareMode = 0
 metadata/_custom_type_script = "uid://crxpnvf7li0aq"
 
 [sub_resource type="Resource" id="Sub_4"]
@@ -41,21 +54,6 @@ metadata/_custom_type_script = "uid://bho4h38y7suxk"
 script = ExtResource("4_s")
 Conditions = Array[Object]([SubResource("Sub_5")])
 Actions = Array[Object]([SubResource("Sub_1")])
-metadata/_custom_type_script = "uid://c076jc3huncn2"
-
-[sub_resource type="Resource" id="Sub_7"]
-script = ExtResource("6_s")
-UseInertia = true
-metadata/_custom_type_script = "uid://bgwrlqrhqb2a4"
-
-[sub_resource type="Resource" id="Sub_8"]
-script = ExtResource("7_s")
-metadata/_custom_type_script = "uid://bw1835rb2hj7y"
-
-[sub_resource type="Resource" id="Sub_9"]
-script = ExtResource("4_s")
-Conditions = null
-Actions = Array[Object]([SubResource("Sub_7"), SubResource("Sub_8")])
 metadata/_custom_type_script = "uid://c076jc3huncn2"
 
 [resource]

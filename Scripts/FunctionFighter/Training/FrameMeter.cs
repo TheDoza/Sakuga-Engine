@@ -93,7 +93,7 @@ namespace FunctionFighter.Training
                     break;
                 case StateType.MOVEMENT:
                     bool locked = a.ContainsFrameProperty(FrameProperties.LOCK_MOVE) || Locomotion.InPrejump(a) || a.Locomotion.Mode == LocoMode.Skid;
-                    c.Kind = locked ? FrameKind.Movement : FrameKind.Free;
+                    c.Kind = Locomotion.InSpecialLanding(a) ? FrameKind.Recovery : locked ? FrameKind.Movement : FrameKind.Free; // special landing recovery = the move's recovery
                     break;
                 default: // NULL exit states, LOCKED (techs, throws being done to you...)
                     c.Kind = FrameKind.Movement;

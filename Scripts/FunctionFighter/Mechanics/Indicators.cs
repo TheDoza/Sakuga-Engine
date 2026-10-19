@@ -5,6 +5,18 @@ using SakugaEngine.Global;
 
 namespace FunctionFighter.Mechanics
 {
+    /// <summary>Per move (MoveSettings.ReversalIndicator): does a first-frame use of it show the Reversal indicator?</summary>
+    public enum ReversalIndicatorMode
+    {
+        /// <summary>Only specials: a COMBAT move whose input is a motion (236, 214, 623, 41236, [4]6...). Normals, throws,
+        /// Barrier, Burst and movement (jumps, dashes, run) don't count.</summary>
+        Auto,
+        /// <summary>Always shows it (any move type).</summary>
+        Always,
+        /// <summary>Never shows it.</summary>
+        Never,
+    }
+
     /// <summary>
     /// Punish and Reversal indicators, in the same style as the counter indicators: a hit notification on the player's
     /// side ("Punish" / "Reversal"), a flash VFX and a short color flash on the fighter.
@@ -12,9 +24,11 @@ namespace FunctionFighter.Mechanics
     /// - PUNISH: a hit that lands while the opponent is in the recovery frames of a move (a blocked or whiffed attack,
     ///   a whiffed throw...). Visual only: damage and hitstun don't change. A counter hit (startup / active) stays a
     ///   Counter. Detected in Counter.OnHit, which calls OnPunish here.
-    /// - REVERSAL: a move started on the very first frame a fighter can act after blockstun, hitstun, a knockdown /
-    ///   getup, a tech or a roll (attacks, throws, jumps, super / double jumps, air dashes, run, step dash, backdash,
-    ///   barrier). Checked every frame after the simulation (GameManager, [FF PATCH: indicators]).
+    /// - REVERSAL: a SPECIAL started on the very first frame a fighter can act after blockstun, hitstun, a knockdown /
+    ///   getup, a tech or a roll. Specials = moves with a motion input (236, 214, 623...), or any move whose
+    ///   MoveSettings.ReversalIndicator is Always (see ReversalIndicatorMode). Any other first-frame action (a normal,
+    ///   a jump, a dash, Barrier...) uses up the chance without an indicator. Checked every frame after the simulation
+    ///   (GameManager, [FF PATCH: indicators]).
     ///
     /// The "was in a reaction" flag lives in CounterState (saved for rollback), so a re-simulated frame gives the same
     /// answer. Both show in every mode; in Training, Display → Punish Indicator / Reversal Indicator turn them off.
@@ -84,7 +98,7 @@ namespace FunctionFighter.Mechanics
             if (IsAction(a, st))
             {
                 c.InReaction = false;
-                OnReversal(a);
+                if (CountsAsReversal(a, st)) OnReversal(a);
                 return;
             }
             // Exit / getup / tech / roll frames keep waiting.
@@ -98,6 +112,57 @@ namespace FunctionFighter.Mechanics
         {
             if (a.StateManager.CurrentStateType() == StateType.COMBAT) return true;
             foreach (int s in ActionStates) if (s == state) return true;
+            return false;
+        }
+
+        /// <summary>
+        /// The move that started <paramref name="state"/> shows the Reversal indicator: its ReversalIndicator setting, and
+        /// for Auto, a COMBAT move with a special motion input. The move is the one the stance manager just ran
+        /// (saved for rollback); if the state was started some other way, the first move of the stance that plays it.
+        /// </summary>
+        public static bool CountsAsReversal(SakugaActor a, int state)
+        {
+            var move = MoveFor(a, state);
+            if (move == null) return false;
+            switch (move.ReversalIndicator)
+            {
+                case ReversalIndicatorMode.Always: return true;
+                case ReversalIndicatorMode.Never: return false;
+                default: return a.StateManager.CurrentStateType() == StateType.COMBAT && IsSpecialInput(move.Inputs);
+            }
+        }
+
+        static SakugaEngine.Resources.MoveSettings MoveFor(SakugaActor a, int state)
+        {
+            var sm = a.StanceManager;
+            if (sm == null) return null;
+            var stance = sm.GetCurrentStance();
+            if (stance?.Moves == null) return null;
+            if (sm.CurrentMove >= 0 && sm.CurrentMove < stance.Moves.Length && stance.Moves[sm.CurrentMove]?.MoveState == state)
+                return stance.Moves[sm.CurrentMove];
+            foreach (var m in stance.Moves) if (m != null && m.MoveState == state) return m;
+            return null;
+        }
+
+        /// <summary>
+        /// A special motion: at least two directional steps, one of them with down in it (236, 214, 623, 41236, 22, 360...),
+        /// or a charge input (DirectionalChargeLimit, e.g. [4]6, [2]8). Single directions (5A, 6A, 2B) and 66 / 44 aren't.
+        /// </summary>
+        public static bool IsSpecialInput(SakugaEngine.Resources.MotionInputs inputs)
+        {
+            if (inputs?.ValidInputs == null) return false;
+            foreach (var option in inputs.ValidInputs)
+            {
+                if (option?.Inputs == null) continue;
+                int steps = 0; bool down = false;
+                foreach (var seq in option.Inputs)
+                {
+                    if (seq == null || seq.Directional == 0) continue;
+                    steps++;
+                    if ((seq.Directional & DirectionalInputs.DOWN) != 0) down = true;
+                }
+                if (steps >= 2 && (down || inputs.DirectionalChargeLimit > 0)) return true;
+            }
             return false;
         }
 

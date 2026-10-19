@@ -1,65 +1,48 @@
-[gd_resource type="Resource" script_class="ReversalList" load_steps=11 format=3]
+[gd_resource type="Resource" script_class="ReversalList" format=3 uid="uid://chapm1e0m3f4l"]
 
-[ext_resource type="Script" path="res://Scripts/FunctionFighter/Training/ReversalAction.cs" id="1_a"]
-[ext_resource type="Script" path="res://Scripts/FunctionFighter/Training/ReversalList.cs" id="2_l"]
+[ext_resource type="Script" uid="uid://5j6iowrbgbm5" path="res://Scripts/FunctionFighter/Training/ReversalAction.cs" id="1_a"]
+[ext_resource type="Script" uid="uid://jpjehkhy6h83" path="res://Scripts/FunctionFighter/Training/ReversalList.cs" id="2_l"]
 
 [sub_resource type="Resource" id="Act_0"]
 script = ExtResource("1_a")
 Label = "5A  Test Wall Bounce"
 MoveName = "Test Wall Bounce"
-Hold = ""
-HoldFrames = 0
 
 [sub_resource type="Resource" id="Act_1"]
 script = ExtResource("1_a")
 Label = "5B  Test Mid"
 MoveName = "Test Mid"
-Hold = ""
-HoldFrames = 0
 
 [sub_resource type="Resource" id="Act_2"]
 script = ExtResource("1_a")
 Label = "5C  Slide Kick"
 MoveName = "Slide Kick"
-Hold = ""
-HoldFrames = 0
 
 [sub_resource type="Resource" id="Act_3"]
 script = ExtResource("1_a")
 Label = "5D  Test Ground Bounce"
 MoveName = "Test Ground Bounce"
-Hold = ""
-HoldFrames = 0
 
 [sub_resource type="Resource" id="Act_4"]
 script = ExtResource("1_a")
 Label = "2A  Test Launcher"
 MoveName = "Test Launcher"
-Hold = ""
-HoldFrames = 0
 
 [sub_resource type="Resource" id="Act_5"]
 script = ExtResource("1_a")
 Label = "2B  Test Air Knockdown"
 MoveName = "Test Air Knockdown"
-Hold = ""
-HoldFrames = 0
 
 [sub_resource type="Resource" id="Act_6"]
 script = ExtResource("1_a")
 Label = "2C  Test Hard Sweep"
 MoveName = "Test Hard Sweep"
-Hold = ""
-HoldFrames = 0
 
 [sub_resource type="Resource" id="Act_7"]
 script = ExtResource("1_a")
 Label = "2D  Test Fast Knockdown"
 MoveName = "Test Fast Knockdown"
-Hold = ""
-HoldFrames = 0
 
 [resource]
 script = ExtResource("2_l")
-Actions = Array[Object]([SubResource("Act_0"), SubResource("Act_1"), SubResource("Act_2"), SubResource("Act_3"), SubResource("Act_4"), SubResource("Act_5"), SubResource("Act_6"), SubResource("Act_7")])
-IncludeUniversal = true
+Actions = [SubResource("Act_0"), SubResource("Act_1"), SubResource("Act_2"), SubResource("Act_3"), SubResource("Act_4"), SubResource("Act_5"), SubResource("Act_6"), SubResource("Act_7")]

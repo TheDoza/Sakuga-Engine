@@ -42,6 +42,29 @@ namespace FunctionFighter.Mechanics
         /// <summary>Throw invincible on frames 1..this.</summary>
         [Export] public int BackdashThrowInvulnFrames = 12;
 
+        [ExportGroup("Landing recovery")]
+        /// <summary>Standard landing recovery (BBCF): for this many frames after landing, walks, jumps, super jumps and
+        /// backdash are locked. Attacks, guarding, run and step dash work at once, and doing one unlocks everything.
+        /// Special landing recovery (a move's +XL) is set per move with SetLandingRecoveryAction.</summary>
+        [Export] public int LandingRecoveryFrames = 5;
+        /// <summary>BBCF: the frame before a jumping fighter touches down counts as grounded. A hit on that frame gives a
+        /// standing ground hit reaction (and puts the fighter on the floor), and ground throws can grab them.</summary>
+        [Export] public bool PreLandingFrameGrounded = true;
+
+        [ExportGroup("KO")]
+        /// <summary>The finishing hit launches the fighter: speed away from the attacker, up, and the fall's gravity.</summary>
+        [Export] public int KOLaunchX = 25000;
+        [Export] public int KOLaunchY = 60000;
+        [Export] public int KOLaunchGravity = 230000;
+        /// <summary>Frames the launch speed is held before gravity takes over.</summary>
+        [Export] public int KOLaunchTime = 8;
+
+        [ExportGroup("Movement effects")]
+        /// <summary>Dust / air puffs on jumps, landings, run, skid, step dash, air dash and double jump (MovementVFX).</summary>
+        [Export] public bool MovementEffects = true;
+        /// <summary>While running, a dust puff every this many frames (0 = only when the run starts).</summary>
+        [Export] public int RunDustInterval = 12;
+
         [ExportGroup("Jump")]
         /// <summary>Prejump: on the ground, can't guard, throw and Burst invincible. Also used by super jumps.</summary>
         [Export] public int PrejumpFrames = 4;
@@ -70,10 +93,16 @@ namespace FunctionFighter.Mechanics
         [Export] public int MaxAirJumps = -1;
         /// <summary>Most air dashes per jump (-1 = only limited by the pool). E.g. pool 2, jumps 1, dashes 1 = air dash > double jump.</summary>
         [Export] public int MaxAirDashes = -1;
+        /// <summary>Air dash 66 / 44: most frames the first tap, the gap between taps and the second tap may each last.
+        /// Bigger = easier air dashes.</summary>
+        [Export] public int AirDashInputWindow = 6;
 
         [ExportGroup("Running momentum (run, skid and step dash)")]
         /// <summary>Percent of the run speed carried into a jump (dash jump).</summary>
         [Export] public int JumpMomentumPercent = 50;
+        /// <summary>Back jump (7) out of a run / skid / step dash: percent of that carried momentum it keeps. 0 = a normal
+        /// back jump (the run's forward speed is dropped); 100 = full forward carry, which can cancel the back jump out.</summary>
+        [Export] public int BackJumpMomentumPercent = 0;
         /// <summary>Double jump after a dash jump, in the same direction it's travelling: percent of the momentum kept.</summary>
         [Export] public int DoubleJumpSameDirectionPercent = 100;
         /// <summary>...straight up (8).</summary>

@@ -1,8 +1,8 @@
-[gd_resource type="Resource" script_class="MoveSettings" format=3]
+[gd_resource type="Resource" script_class="MoveSettings" format=3 uid="uid://bd11yw2q1x6jq"]
 
 [ext_resource type="Resource" uid="uid://c6x3ahrknltf1" path="res://Fighters/Shared/Inputs/26_Input_5X.tres" id="1_r"]
 [ext_resource type="Script" uid="uid://gk1rkw667o4n" path="res://Scripts/SakugaEngine/Resources/MoveSettings.cs" id="2_s"]
-[ext_resource type="Script" path="res://Scripts/FunctionFighter/Mechanics/GroundTechCondition.cs" id="3_c"]
+[ext_resource type="Script" uid="uid://ctsefpuf6e7r7" path="res://Scripts/FunctionFighter/Mechanics/GroundTechCondition.cs" id="3_c"]
 
 [sub_resource type="Resource" id="Sub_1"]
 script = ExtResource("3_c")
@@ -13,9 +13,12 @@ script = ExtResource("2_s")
 MoveName = "Back Roll"
 MoveState = 71
 Inputs = ExtResource("1_r")
-Conditions = Array[Object]([SubResource("Sub_1")])
-IsSequenceFromStates = PackedInt32Array(26)
 Priority = 1
+IsSequenceFromStates = PackedInt32Array(26)
+CanCancelTo = null
+VariablesRequirement = null
+VariablesChange = null
+Conditions = Array[Object]([SubResource("Sub_1")])
 PriorityBuffer = true
 AcceptMovementStates = false
 AcceptHitReactionStates = true

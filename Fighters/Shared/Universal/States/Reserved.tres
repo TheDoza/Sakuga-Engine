@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="FighterState" format=3]
+[gd_resource type="Resource" script_class="FighterState" format=3 uid="uid://c4ollj5iemgkp"]
 
 [ext_resource type="Script" uid="uid://bf60srwkccsm8" path="res://Scripts/SakugaEngine/Resources/FighterState.cs" id="1_s"]
 [ext_resource type="Script" uid="uid://da4kqpf635oin" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/PlayStateAction.cs" id="2_s"]
@@ -8,7 +8,6 @@
 
 [sub_resource type="Resource" id="Sub_1"]
 script = ExtResource("2_s")
-StateIndex = 0
 metadata/_custom_type_script = "uid://da4kqpf635oin"
 
 [sub_resource type="Resource" id="Sub_2"]

@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="FighterState" format=3]
+[gd_resource type="Resource" script_class="FighterState" format=3 uid="uid://dwh1578okinqt"]
 
-[ext_resource type="Resource" path="res://Fighters/Dummy/Universal/AnimationData/38_Hit_Thrown_Launch_AnimationData.tres" id="1_r"]
+[ext_resource type="Resource" uid="uid://ktlxvqy346v8" path="res://Fighters/Dummy/Universal/AnimationData/38_Hit_Thrown_Launch_AnimationData.tres" id="1_r"]
 [ext_resource type="Script" uid="uid://c42r1mjvviuhg" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/AtFrameRangeCondition.cs" id="2_s"]
 [ext_resource type="Script" uid="uid://baguhnol5ww4w" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/OnGroundCondition.cs" id="3_s"]
 [ext_resource type="Script" uid="uid://bjhfta73s6pqs" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/CheckYVelocityCondition.cs" id="4_s"]
@@ -14,32 +14,6 @@
 [ext_resource type="Script" uid="uid://bw1835rb2hj7y" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/MoveYAction.cs" id="12_s"]
 [ext_resource type="Script" uid="uid://dcnb575mw2hwp" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/AddGravityAction.cs" id="13_s"]
 [ext_resource type="Script" uid="uid://bf60srwkccsm8" path="res://Scripts/SakugaEngine/Resources/FighterState.cs" id="14_s"]
-
-[sub_resource type="Resource" id="Sub_1"]
-script = ExtResource("2_s")
-MinFrame = 3
-MaxFrame = 9999
-metadata/_custom_type_script = "uid://c42r1mjvviuhg"
-
-[sub_resource type="Resource" id="Sub_2"]
-script = ExtResource("3_s")
-metadata/_custom_type_script = "uid://baguhnol5ww4w"
-
-[sub_resource type="Resource" id="Sub_3"]
-script = ExtResource("4_s")
-CompareMode = 4
-metadata/_custom_type_script = "uid://bjhfta73s6pqs"
-
-[sub_resource type="Resource" id="Sub_4"]
-script = ExtResource("5_s")
-StateIndex = 26
-metadata/_custom_type_script = "uid://da4kqpf635oin"
-
-[sub_resource type="Resource" id="Sub_5"]
-script = ExtResource("6_s")
-Conditions = Array[Object]([SubResource("Sub_1"), SubResource("Sub_2"), SubResource("Sub_3")])
-Actions = Array[Object]([SubResource("Sub_4")])
-metadata/_custom_type_script = "uid://c076jc3huncn2"
 
 [sub_resource type="Resource" id="Sub_6"]
 script = ExtResource("7_s")
@@ -63,11 +37,6 @@ Conditions = null
 Actions = Array[Object]([SubResource("Sub_6"), SubResource("Sub_7"), SubResource("Sub_8")])
 metadata/_custom_type_script = "uid://c076jc3huncn2"
 
-[sub_resource type="Resource" id="Sub_10"]
-script = ExtResource("10_s")
-Frame = 1
-metadata/_custom_type_script = "uid://50grsd2r3wl8"
-
 [sub_resource type="Resource" id="Sub_11"]
 script = ExtResource("11_s")
 Velocity = -35000
@@ -77,6 +46,11 @@ metadata/_custom_type_script = "uid://bgwrlqrhqb2a4"
 script = ExtResource("12_s")
 Velocity = 55000
 metadata/_custom_type_script = "uid://bw1835rb2hj7y"
+
+[sub_resource type="Resource" id="Sub_10"]
+script = ExtResource("10_s")
+Frame = 1
+metadata/_custom_type_script = "uid://50grsd2r3wl8"
 
 [sub_resource type="Resource" id="Sub_13"]
 script = ExtResource("6_s")
@@ -94,6 +68,32 @@ metadata/_custom_type_script = "uid://dcnb575mw2hwp"
 script = ExtResource("6_s")
 Conditions = null
 Actions = Array[Object]([SubResource("Sub_14")])
+metadata/_custom_type_script = "uid://c076jc3huncn2"
+
+[sub_resource type="Resource" id="Sub_4"]
+script = ExtResource("5_s")
+StateIndex = 26
+metadata/_custom_type_script = "uid://da4kqpf635oin"
+
+[sub_resource type="Resource" id="Sub_1"]
+script = ExtResource("2_s")
+MinFrame = 3
+MaxFrame = 9999
+metadata/_custom_type_script = "uid://c42r1mjvviuhg"
+
+[sub_resource type="Resource" id="Sub_2"]
+script = ExtResource("3_s")
+metadata/_custom_type_script = "uid://baguhnol5ww4w"
+
+[sub_resource type="Resource" id="Sub_3"]
+script = ExtResource("4_s")
+CompareMode = 4
+metadata/_custom_type_script = "uid://bjhfta73s6pqs"
+
+[sub_resource type="Resource" id="Sub_5"]
+script = ExtResource("6_s")
+Conditions = Array[Object]([SubResource("Sub_1"), SubResource("Sub_2"), SubResource("Sub_3")])
+Actions = Array[Object]([SubResource("Sub_4")])
 metadata/_custom_type_script = "uid://c076jc3huncn2"
 
 [resource]

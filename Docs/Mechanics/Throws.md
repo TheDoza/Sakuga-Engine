@@ -61,7 +61,7 @@ Reject:   victim  → 55 Throw_Reject_Ground / 56 Throw_Reject_Air    (stays put
 |---|---|---|---|
 | Throw damage | `38_Hit_Thrown_Launch.tres` → OnEnter → AnimationDamageAction | `Damage` | 1500 |
 | Let throws scale in combos | same action | `UseProrations` | off |
-| Throw range | `7_Hitbox_Throw_Active.tres` → 2nd box | `Center` / `Size` | (4000, 5000) / (4000, 8000): grabs up to ~17,000 apart |
+| Throw range | `7_Hitbox_Throw_Active.tres` → 2nd box | `Center` / `Size` | (4000, 5000) / (4000, 8000): grabs up to ~8,500 apart (centre to centre; the Dummy's body hurtbox is 5,000 wide) |
 | Air throw height limit | `8_Hitbox_AirThrow_Active.tres` → 2nd box | bottom edge = Center.Y − Size.Y/2 | 8,500 → reaches 1,500 below your feet |
 | Reject window | `7_` and `8_Hitbox` → 2nd box | `ThrowHitstop` (= window + 1) | 16 |
 | Startup / active / recovery | `30_`, `32_`, `34_..._AnimationData.tres` | throw box `AtFrame`, `Duration` | 6 / 9 / 33 |
@@ -90,6 +90,7 @@ Reject:   victim  → 55 Throw_Reject_Ground / 56 Throw_Reject_Air    (stays put
 ## Change log
 | Date | Change |
 |---|---|
+| 2026-10-17 | Throw range is now ~8,500 (the Dummy's hurtboxes were tightened; before, its wide hurtbox let throws reach ~17,000) |
 | 2026-10-11 | Created: forward/back/air throws, green reject, "!" indicator, 3 engine patches |
 | 2026-10-12 | "!" raised to 18,500 so it sits above the Dummy's head |
 | 2026-10-14 | Back throw with your back to the corner switches sides (throw corner patch) |

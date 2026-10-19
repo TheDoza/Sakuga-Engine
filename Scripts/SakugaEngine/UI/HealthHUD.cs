@@ -50,6 +50,10 @@ namespace SakugaEngine.UI
         {
             P1Health.MaxValue = fighters[0].Data.MaxHealth;
             P2Health.MaxValue = fighters[1].Data.MaxHealth;
+            // [FF PATCH: health bar] the red "lost health" bar uses the same scale, or a fighter whose MaxHealth isn't the
+            // scene's 10000 keeps a red sliver that never goes away
+            P1LostHealth.MaxValue = fighters[0].Data.MaxHealth;
+            P2LostHealth.MaxValue = fighters[1].Data.MaxHealth;
             
             if (fighters[0].Data.Profile.Portrait != null)
             {

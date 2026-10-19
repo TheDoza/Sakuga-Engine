@@ -5,6 +5,7 @@
 
 [resource]
 script = ExtResource("2_qovlc")
+SideCheck = 1
 MoveName = "Backwards Jump"
 MoveState = 5
 Inputs = ExtResource("1_1vlup")

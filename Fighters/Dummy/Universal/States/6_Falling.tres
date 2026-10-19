@@ -1,7 +1,7 @@
-[gd_resource type="Resource" script_class="FighterState" format=3]
+[gd_resource type="Resource" script_class="FighterState" format=3 uid="uid://da62n7ysfsh0v"]
 
 [ext_resource type="Script" uid="uid://bf60srwkccsm8" path="res://Scripts/SakugaEngine/Resources/FighterState.cs" id="1_gw68j"]
-[ext_resource type="Resource" path="res://Fighters/Dummy/Universal/AnimationData/6_Falling_AnimationData.tres" id="1_v57yf"]
+[ext_resource type="Resource" uid="uid://cfba5ffuc44r4" path="res://Fighters/Dummy/Universal/AnimationData/6_Falling_AnimationData.tres" id="1_v57yf"]
 [ext_resource type="Script" uid="uid://da4kqpf635oin" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/PlayStateAction.cs" id="1_xasyr"]
 [ext_resource type="Script" uid="uid://dcnb575mw2hwp" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/AddGravityAction.cs" id="2_fqlry"]
 [ext_resource type="Script" uid="uid://baguhnol5ww4w" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/OnGroundCondition.cs" id="2_v57yf"]

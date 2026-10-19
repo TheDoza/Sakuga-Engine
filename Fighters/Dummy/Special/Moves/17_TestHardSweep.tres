@@ -11,4 +11,5 @@ Inputs = ExtResource("1_r")
 Priority = 5
 MoveEnd = 2
 UseOnGround = true
+ReversalIndicator = 1
 metadata/_custom_type_script = "uid://gk1rkw667o4n"

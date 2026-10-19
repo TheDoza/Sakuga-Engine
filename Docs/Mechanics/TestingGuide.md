@@ -23,6 +23,11 @@ The checks are grouped in the same order as the mechanics reference.
 - [ ] **Disable a button:** in Controls, pick A+B, press Accept, hold Right → "Disabled"; in game that button does nothing. Map it again to bring it back.
 - [ ] **Run:** P1 taps D, D and keeps holding → runs and speeds up; let go → Run_Skid slides to a stop. D, S+D, D (6356) also runs; D, A, D (6536) doesn't.
 - [ ] **Skid can't guard:** while P1 skids, P2 presses B → P1 is hit.
+- [ ] **Hold through a cross-up:** P1 holds W+D, jumps over P2 and keeps holding → the next jump goes right (a back jump, away from P2), not back over P2. Holding D after landing walks right (back).
+- [ ] **Landing recovery:** jump and hold W → after landing P1 waits 5 frames before jumping again. Press I (B) as you land → the attack comes out at once. Tap D, D as you land → runs at once. Tap A, A as you land → no backdash.
+- [ ] **Frame before landing is grounded:** hard to time by hand; the automated tests cover it (`landing: a hit on the pre-landing frame…`, `landing: a ground throw grabs on the pre-landing frame`). With frame advance in Training: jump P2 at P1, step to the last airborne frame, hit it → P2 gets a standing hit on the floor, not an air hit.
+- [ ] **Air dash lengths:** frame meter on, air dash forward → 20F; air backdash → 16F.
+- [ ] **Movement effects:** neutral jump → upward dust burst at the feet; forward / back jump → slanted burst leaning the way you jump; every landing → wide dust crescent; run → dust at the start and puffs while running; let go → skid dust; step dash → dash trail; backdash → the same trail, mirrored; air dash / double jump → white puff.
 - [ ] **No run chaining:** run, let go, mash D during the skid → P1 skids to a full stop first, then runs again.
 - [ ] **Barrier Brake:** while running, P1 holds A + U + I (back + A+B) → straight into barrier and slides a long way. Also: let go and tap A (skid), then U + I → barrier keeps the skid's speed.
 - [ ] **Running attack / throw:** run, press I (B) → the attack slides forward with the run's speed. Same with I + J (throw).
@@ -54,6 +59,7 @@ The checks are grouped in the same order as the mechanics reference.
 - [ ] **Barrier without back:** P2 holds Right + Numpad 4 + 5, then lets go of Right (keeps 4 + 5) → still barriering; P1 presses B → blocked, no chip, back to barrier afterwards.
 - [ ] **Burst gauge:** an orange round "BURST" icon sits under each portrait (full at match start).
 - [ ] **Burst:** P1 hits P2 with B; while P2 is reeling, P2 presses Numpad 4 + 5 + 1 + 2 (A+B+C+D) → explosion, P1 flies away and lands in a knockdown, P2's icon shows 0 and starts refilling; P1's icon is crossed out until P1 gets up.
+- [ ] **Burst in a wall bounce:** Training: Burst Infinite. P2 in the corner, P1 presses A (Test Wall Bounce); while P2 bounces off the wall, P2 presses Numpad . (H) → Burst. Once P2 is lying on the floor → no Burst.
 - [ ] **Burst needs the full gauge:** right after, repeat → nothing (the icon isn't orange yet).
 - [ ] **Block the Burst:** the attacker has to be out of recovery and holding back (or barrier) when the Burst comes out, e.g. they stop their combo early. The Dummy's test moves leave the attacker in recovery, so this is covered by the automated checks rather than by hand for now.
 - [ ] **Burst carries over:** in a versus match (Training has no rounds), Burst in round 1, then start round 2 → the icon is still low.
@@ -66,6 +72,7 @@ The checks are grouped in the same order as the mechanics reference.
 - [ ] **Counter Hit:** P2 presses B, P1 presses B just before → "Counter", red flash, 440 damage.
 - [ ] **Big Counter:** P2 presses B, P1 presses A just before → "Big Counter".
 - [ ] **Functional Counter:** Training Settings → Dummy Barrier: **Danger**, Counter Hit: **Always Big Counter**. P1 presses B → "Functional Counter", gold burst; P1 auto-dashes forward after the attack; hits stun much longer; after 5 s the next hit shows a green spark and "Functional End". Functional Counter: **Off** → it never starts.
+- [ ] **Clash:** P1 and P2 both press B about two character-lengths apart → both freeze, no damage, clash effect. Up close → they trade.
 
 ## Knockdowns & Recovery
 
@@ -103,7 +110,7 @@ The checks are grouped in the same order as the mechanics reference.
 - [ ] **State flashes:** Counter Hit setting Always Counter → P2 flashes red when hit. Backdash / rolls / techs flash white.
 - [ ] **Advantage hitsparks:** P1 presses B on a blocking P2 → the block effect plus a red X-shaped hitspark (minus) on the impact frame. On hit: the hitspark replaces the old hit effect. Training Display → Advantage Hitsparks Off → the old hit effect comes back. Any mode (Versus) shows the hitsparks too.
 - [ ] **Punish:** P2 presses B far away (whiffs); P1 hits it during the recovery → "Punish" on P1's side, purple flash on P2, Training Data Counter = Punish. Hitting P2 during its startup is still "Counter" (red).
-- [ ] **Reversal:** P2 blocks P1's B and mashes B → "Reversal" on P2's side, cyan flash. Press it a little late → nothing. Knock P2 down with C and jump on the first frame of wakeup → "Reversal".
+- [ ] **Reversal:** P2 blocks P1's B and mashes B → "Reversal" on P2's side, cyan flash. Press it a little late → nothing. Knock P2 down with C and jump on the first frame of wakeup → no indicator (jumps aren't specials).
 - [ ] **Combo damage:** P1 hits P2 twice in a row → the gold combo damage shows under the hit counter. Knock P2 down with 2B (soft knockdown) and hit it lying with C → "INVALID ⊘2" next to the damage.
 - [ ] **Hitspark size:** a hit that's −1 makes a small red spark; a very minus block (e.g. a big move blocked) makes a big dark-red one; even (0) is the normal yellow.
 
@@ -138,3 +145,9 @@ The checks are grouped in the same order as the mechanics reference.
 - [ ] **Recording slots:** Recording → Slot 1, record a jump; Slot 2, record a low. Playback: Random Slot, Dummy: Playback → it mixes the two.
 - [ ] **Refill After Combo:** Super Meter → Refill After Combo, Super Refill Amount 50 % → do a combo with a super; once things settle the meter is back at half.
 
+## Match end (Versus, not Training)
+- [ ] **Health bar:** with a fighter whose MaxHealth isn't 10000 (Dummy 11000), take a hit and wait → the red part drains all the way and disappears.
+- [ ] **KO:** finish P2 with a standing B while P2 holds forward → P2 is launched, lands and stays down; holding any direction does nothing.
+- [ ] **Rematch screen:** after the winner's outro → both players get Rematch / Character Select / Leave Match, with the winner's render, quote, WON / LOST and rounds won.
+- [ ] **Rematch:** P1 picks Rematch → "READY – WAITING FOR PLAYER 2"; P2 picks Rematch → the match restarts. Against the CPU, P1's Rematch restarts at once.
+- [ ] **Character Select / Leave Match:** either player picking Character Select → character select; Leave Match → main menu. B takes a pick back.

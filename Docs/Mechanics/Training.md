@@ -221,7 +221,7 @@ The hitspark tells the **attacker** who recovers first: blue = plus, yellow = ev
 | **P1 / P2 Input Display** | a stick gate and A / B / C / D buttons per player above the data panels, showing what the fighter actually receives (recordings and reversals show too; macro buttons light the buttons they press) |
 | **State Flashes** | white = invincible, blue = armor, red / orange / gold = counter hits, purple = punished, cyan = reversal (all modes; see Visuals.md) |
 | **Punish Indicator** | "Punish" notification + purple flash when a hit lands on a recovering opponent (see Visuals.md) |
-| **Reversal Indicator** | "Reversal" notification + cyan flash when a move comes out on the first possible frame (see Visuals.md) |
+| **Reversal Indicator** | "Reversal" notification + cyan flash when a special comes out on the first possible frame (see Visuals.md) |
 | **Hitboxes** (F10) | hitboxes and hurtboxes |
 
 **Status line** (under the timer): RECORDING IN 3/2/1 · REC SLOT n · PLAYBACK SLOT n · READY / GO! · FRAME ADVANCE +n. Below it, short popups: blue for reversals and techs, purple for save states.

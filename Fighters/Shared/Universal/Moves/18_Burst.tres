@@ -1,7 +1,7 @@
-[gd_resource type="Resource" script_class="MoveSettings" format=3]
+[gd_resource type="Resource" script_class="MoveSettings" format=3 uid="uid://dhvfdk0ceb64r"]
 
-[ext_resource type="Script" path="res://Scripts/FunctionFighter/Mechanics/BurstReadyCondition.cs" id="1_s"]
-[ext_resource type="Resource" path="res://Fighters/Shared/Inputs/33_Input_ABCD.tres" id="2_r"]
+[ext_resource type="Script" uid="uid://cv1bkjepu7nuu" path="res://Scripts/FunctionFighter/Mechanics/BurstReadyCondition.cs" id="1_s"]
+[ext_resource type="Resource" uid="uid://1xyopbf8w862" path="res://Fighters/Shared/Inputs/33_Input_ABCD.tres" id="2_r"]
 [ext_resource type="Script" uid="uid://gk1rkw667o4n" path="res://Scripts/SakugaEngine/Resources/MoveSettings.cs" id="3_s"]
 
 [sub_resource type="Resource" id="Sub_1"]
@@ -12,11 +12,15 @@ script = ExtResource("3_s")
 MoveName = "Burst"
 MoveState = 18
 Inputs = ExtResource("2_r")
-Conditions = Array[Object]([SubResource("Sub_1")])
 Priority = 10
-IgnoreStates = PackedInt32Array(26)
+IgnoreStates = PackedInt32Array(26, 27)
+CanCancelTo = null
+VariablesRequirement = null
+VariablesChange = null
+Conditions = Array[Object]([SubResource("Sub_1")])
 AcceptMovementStates = false
 AcceptHitReactionStates = true
+AcceptHardKnockdownHits = true
 IgnoreHitstun = true
 UseOnGround = true
 UseOnAir = true

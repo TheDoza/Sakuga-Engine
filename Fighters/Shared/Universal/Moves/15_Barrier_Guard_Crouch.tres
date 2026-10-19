@@ -1,7 +1,7 @@
-[gd_resource type="Resource" script_class="MoveSettings" format=3]
+[gd_resource type="Resource" script_class="MoveSettings" format=3 uid="uid://b1l2v7qc41yvi"]
 
-[ext_resource type="Script" path="res://Scripts/FunctionFighter/Mechanics/BarrierHeldCondition.cs" id="1_s"]
-[ext_resource type="Resource" path="res://Fighters/Shared/Inputs/34_Input_AB_Hold.tres" id="2_r"]
+[ext_resource type="Script" uid="uid://dw3ss4x3jfcl4" path="res://Scripts/FunctionFighter/Mechanics/BarrierHeldCondition.cs" id="1_s"]
+[ext_resource type="Resource" uid="uid://di3fdbh5bog24" path="res://Fighters/Shared/Inputs/34_Input_AB_Hold.tres" id="2_r"]
 [ext_resource type="Script" uid="uid://gk1rkw667o4n" path="res://Scripts/SakugaEngine/Resources/MoveSettings.cs" id="3_s"]
 
 [sub_resource type="Resource" id="Sub_1"]
@@ -13,7 +13,10 @@ script = ExtResource("3_s")
 MoveName = "Barrier (Crouch)"
 MoveState = 16
 Inputs = ExtResource("2_r")
-Conditions = Array[Object]([SubResource("Sub_1")])
 Priority = 9
+CanCancelTo = null
+VariablesRequirement = null
+VariablesChange = null
+Conditions = Array[Object]([SubResource("Sub_1")])
 UseOnGround = true
 metadata/_custom_type_script = "uid://gk1rkw667o4n"

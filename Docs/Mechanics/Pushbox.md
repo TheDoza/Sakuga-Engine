@@ -64,7 +64,7 @@ See the pushboxes in Training with **F10** (hitbox view): the pushbox is the box
 - An empty `Pushbox` now means "use the default", not "no pushbox". Use `Pushbox_None` to pass through on purpose.
 - Lying fighters keep a low pushbox (you can't walk through someone who's down). That's a design choice, and it matches the engine's sample fighter. To allow it, set the Dummy's `1_Hitbox_Lying.tres` Pushbox to `Pushbox_None`.
 - Corner rule edge: the cornered fighter jumping straight up can still be walked under (it counts as jumping out). Most games allow this; say if you want it blocked too.
-- The Dummy's hurtboxes sit 5,000 units in front of its centre (Center X 5000, Size X 12000), so they reach far forward and barely behind. That's separate from the pushbox, but it affects cross-ups. Worth tidying when hit states are reworked.
+- The Dummy's body hurtboxes are centred on it, (0, 5000) and 5,000 wide (tightened 2026-10-17; they used to sit 5,000 in front of it).
 
 ## Tests
 FeatureTest `pushbox:` checks: walking in pushes and never passes through; a crouching dummy is still solid; a cornered dummy stays in the corner; jumping over crosses up midscreen; a forward roll passes through; an empty Pushbox falls back to `DefaultPushbox`; no jump, super jump, double jump or air dash over a cornered dummy (right and left wall); the cornered fighter can jump out over the opponent.

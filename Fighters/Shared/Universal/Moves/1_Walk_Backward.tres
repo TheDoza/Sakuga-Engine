@@ -5,6 +5,7 @@
 
 [resource]
 script = ExtResource("1_jm03a")
+SideCheck = 1
 MoveName = "Move Backwards"
 MoveState = 2
 Inputs = ExtResource("1_2obma")

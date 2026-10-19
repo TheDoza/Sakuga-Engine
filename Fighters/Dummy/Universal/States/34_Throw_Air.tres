@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="FighterState" format=3]
+[gd_resource type="Resource" script_class="FighterState" format=3 uid="uid://cfjfa3obkt6e3"]
 
-[ext_resource type="Resource" path="res://Fighters/Dummy/Universal/AnimationData/34_Throw_Air_AnimationData.tres" id="1_r"]
+[ext_resource type="Resource" uid="uid://dxkajs0e5uoef" path="res://Fighters/Dummy/Universal/AnimationData/34_Throw_Air_AnimationData.tres" id="1_r"]
 [ext_resource type="Script" uid="uid://baguhnol5ww4w" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/OnGroundCondition.cs" id="2_s"]
 [ext_resource type="Script" uid="uid://bjhfta73s6pqs" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/CheckYVelocityCondition.cs" id="3_s"]
 [ext_resource type="Script" uid="uid://da4kqpf635oin" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/PlayStateAction.cs" id="4_s"]
@@ -9,39 +9,15 @@
 [ext_resource type="Script" uid="uid://dcnb575mw2hwp" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/AddGravityAction.cs" id="7_s"]
 [ext_resource type="Script" uid="uid://bf60srwkccsm8" path="res://Scripts/SakugaEngine/Resources/FighterState.cs" id="8_s"]
 
-[sub_resource type="Resource" id="Sub_1"]
-script = ExtResource("2_s")
-metadata/_custom_type_script = "uid://baguhnol5ww4w"
-
-[sub_resource type="Resource" id="Sub_2"]
-script = ExtResource("3_s")
-CompareMode = 4
-metadata/_custom_type_script = "uid://bjhfta73s6pqs"
-
-[sub_resource type="Resource" id="Sub_3"]
+[sub_resource type="Resource" id="Sub_10"]
 script = ExtResource("4_s")
-StateIndex = 36
+StateIndex = 35
 metadata/_custom_type_script = "uid://da4kqpf635oin"
 
-[sub_resource type="Resource" id="Sub_4"]
+[sub_resource type="Resource" id="Sub_11"]
 script = ExtResource("5_s")
-Conditions = Array[Object]([SubResource("Sub_1"), SubResource("Sub_2")])
-Actions = Array[Object]([SubResource("Sub_3")])
-metadata/_custom_type_script = "uid://c076jc3huncn2"
-
-[sub_resource type="Resource" id="Sub_5"]
-script = ExtResource("6_s")
-metadata/_custom_type_script = "uid://bho4h38y7suxk"
-
-[sub_resource type="Resource" id="Sub_6"]
-script = ExtResource("4_s")
-StateIndex = 6
-metadata/_custom_type_script = "uid://da4kqpf635oin"
-
-[sub_resource type="Resource" id="Sub_7"]
-script = ExtResource("5_s")
-Conditions = Array[Object]([SubResource("Sub_5")])
-Actions = Array[Object]([SubResource("Sub_6")])
+Conditions = null
+Actions = Array[Object]([SubResource("Sub_10")])
 metadata/_custom_type_script = "uid://c076jc3huncn2"
 
 [sub_resource type="Resource" id="Sub_8"]
@@ -56,15 +32,39 @@ Conditions = null
 Actions = Array[Object]([SubResource("Sub_8")])
 metadata/_custom_type_script = "uid://c076jc3huncn2"
 
-[sub_resource type="Resource" id="Sub_10"]
+[sub_resource type="Resource" id="Sub_3"]
 script = ExtResource("4_s")
-StateIndex = 35
+StateIndex = 36
 metadata/_custom_type_script = "uid://da4kqpf635oin"
 
-[sub_resource type="Resource" id="Sub_11"]
+[sub_resource type="Resource" id="Sub_1"]
+script = ExtResource("2_s")
+metadata/_custom_type_script = "uid://baguhnol5ww4w"
+
+[sub_resource type="Resource" id="Sub_2"]
+script = ExtResource("3_s")
+CompareMode = 4
+metadata/_custom_type_script = "uid://bjhfta73s6pqs"
+
+[sub_resource type="Resource" id="Sub_4"]
 script = ExtResource("5_s")
-Conditions = null
-Actions = Array[Object]([SubResource("Sub_10")])
+Conditions = Array[Object]([SubResource("Sub_1"), SubResource("Sub_2")])
+Actions = Array[Object]([SubResource("Sub_3")])
+metadata/_custom_type_script = "uid://c076jc3huncn2"
+
+[sub_resource type="Resource" id="Sub_6"]
+script = ExtResource("4_s")
+StateIndex = 6
+metadata/_custom_type_script = "uid://da4kqpf635oin"
+
+[sub_resource type="Resource" id="Sub_5"]
+script = ExtResource("6_s")
+metadata/_custom_type_script = "uid://bho4h38y7suxk"
+
+[sub_resource type="Resource" id="Sub_7"]
+script = ExtResource("5_s")
+Conditions = Array[Object]([SubResource("Sub_5")])
+Actions = Array[Object]([SubResource("Sub_6")])
 metadata/_custom_type_script = "uid://c076jc3huncn2"
 
 [resource]

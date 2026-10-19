@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="HitboxSettings" format=3]
+[gd_resource type="Resource" script_class="HitboxSettings" format=3 uid="uid://2fxy5oqu7lxx"]
 
 [ext_resource type="Script" uid="uid://c0y740kryylcs" path="res://Scripts/SakugaEngine/Resources/HitboxElement.cs" id="1_s"]
 [ext_resource type="Script" uid="uid://dxuwyhds75mce" path="res://Scripts/SakugaEngine/Resources/HitboxSettings.cs" id="2_s"]
@@ -6,8 +6,8 @@
 
 [sub_resource type="Resource" id="Sub_1"]
 script = ExtResource("1_s")
-Center = Vector2i(5000, 5000)
-Size = Vector2i(12000, 10000)
+Center = Vector2i(0, 5000)
+Size = Vector2i(5000, 10000)
 metadata/_custom_type_script = "uid://c0y740kryylcs"
 
 [sub_resource type="Resource" id="Sub_2"]

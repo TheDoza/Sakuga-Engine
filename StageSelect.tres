@@ -6,6 +6,15 @@
 [ext_resource type="Texture2D" uid="uid://76j3dxo635sm" path="res://Stages/Sakuga Default/Sakuga_Default_Thumbnail.png" id="2_ufopn"]
 [ext_resource type="Script" uid="uid://c2hiysdgxfpw6" path="res://Scripts/SakugaEngine/Resources/StageList.cs" id="4_ufopn"]
 [ext_resource type="Texture2D" uid="uid://bvyhebpl464x2" path="res://Stages/AFF_Legacy/Textures/AFF_Legacy_Thumbnail.png" id="5_i140w"]
+[ext_resource type="PackedScene" path="res://Stages/Training Room/training_room.tscn" id="6_trnrm"]
+[ext_resource type="Texture2D" uid="uid://csfhgrugbetm2" path="res://Stages/Training Room/Training_Room_Thumbnail.png" id="7_trnth"]
+
+[sub_resource type="Resource" id="Resource_trnrm"]
+script = ExtResource("2_o2vfw")
+Instance = ExtResource("6_trnrm")
+Name = "Training Room"
+Thumbnail = ExtResource("7_trnth")
+metadata/_custom_type_script = "uid://dw7uv2j4bk58i"
 
 [sub_resource type="Resource" id="Resource_i140w"]
 script = ExtResource("2_o2vfw")
@@ -23,4 +32,4 @@ metadata/_custom_type_script = "uid://dw7uv2j4bk58i"
 
 [resource]
 script = ExtResource("4_ufopn")
-elements = Array[Object]([SubResource("Resource_i140w"), SubResource("Resource_07y5t")])
+elements = Array[Object]([SubResource("Resource_trnrm"), SubResource("Resource_i140w"), SubResource("Resource_07y5t")])

@@ -1,14 +1,12 @@
-[gd_resource type="Resource" script_class="AnimationData" format=3]
+[gd_resource type="Resource" script_class="AnimationData" format=3 uid="uid://ximhapul7jxw"]
 
-[ext_resource type="Resource" path="res://Fighters/Dummy/Hitboxes/3_Hitbox_Crouch.tres" id="1_r"]
+[ext_resource type="Resource" uid="uid://dab88jn1634ap" path="res://Fighters/Dummy/Hitboxes/3_Hitbox_Crouch.tres" id="1_r"]
 [ext_resource type="Script" uid="uid://5qrsoteskjym" path="res://Scripts/SakugaEngine/Resources/HitboxState.cs" id="2_s"]
-[ext_resource type="Resource" path="res://Fighters/Dummy/Hitboxes/13_Hitbox_TestFastKnockdown_Active.tres" id="3_r"]
+[ext_resource type="Resource" uid="uid://caktv8ja6lhfj" path="res://Fighters/Dummy/Hitboxes/13_Hitbox_TestFastKnockdown_Active.tres" id="3_r"]
 [ext_resource type="Script" uid="uid://ddkya5wrb53ly" path="res://Scripts/SakugaEngine/Resources/AnimationData.cs" id="4_s"]
 
 [sub_resource type="Resource" id="Sub_1"]
 script = ExtResource("2_s")
-AtFrame = 0
-animationStage = 0
 HitboxData = ExtResource("1_r")
 
 [sub_resource type="Resource" id="Sub_2"]

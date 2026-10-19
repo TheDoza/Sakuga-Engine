@@ -6,8 +6,8 @@
 
 [sub_resource type="Resource" id="Resource_tm223"]
 script = ExtResource("1_a68yr")
-Center = Vector2i(5000, 5000)
-Size = Vector2i(12000, 10000)
+Center = Vector2i(0, 5000)
+Size = Vector2i(5000, 10000)
 AirBlockKnockbackGravity = 300000
 SelfPushbackForce = 0
 SelfPushbackDuration = 0

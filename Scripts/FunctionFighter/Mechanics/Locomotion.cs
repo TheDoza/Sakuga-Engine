@@ -39,6 +39,12 @@ namespace FunctionFighter.Mechanics
         [Key(16)] public int DashVelocity;
         /// <summary>Super jumps and double jumps turn to face the opponent until landing (normal jumps don't).</summary>
         [Key(17)] public bool AutoFaceInAir;
+        /// <summary>[FF PATCH: landing] Standard landing recovery: frames left where walks, jumps and backdash are locked.</summary>
+        [Key(18)] public int LandLock;
+        /// <summary>Special landing recovery waiting for the landing (set by a move, SetLandingRecoveryAction), in frames.</summary>
+        [Key(19)] public int SpecialLanding;
+        /// <summary>Special landing recovery running now: frames left of being unable to act.</summary>
+        [Key(20)] public int SpecialLandLeft;
     }
 
     /// <summary>
@@ -68,6 +74,105 @@ namespace FunctionFighter.Mechanics
         static bool IsFighter(SakugaActor a) => a != null && a.Body != null && a.StateManager != null && a.Inputs != null;
 
         public static void Reset(SakugaActor a) => a.Locomotion = new LocomotionState();
+
+        // ------------------------------------------------------------ landing recovery ([FF PATCH: landing])
+
+        /// <summary>States the standard landing recovery locks for its first frames (walks, jumps, super jumps, backdash).
+        /// Attacks, guarding, run, step dash, Barrier and everything else stay available.</summary>
+        static readonly int[] LandingLockedStates = { 1, 2, JumpNeutral, JumpForward, JumpBack, SuperJumpNeutral, SuperJumpForward, SuperJumpBack, Backdash };
+
+        /// <summary>Landed this frame (still counted as airborne by Locomotion until its Tick runs) and not in a hit reaction.</summary>
+        static bool JustLanded(SakugaActor a) =>
+            a.Body.IsOnGround && a.Locomotion.AirFrames > 0 && a.StateManager.CurrentStateType() != StateType.HIT_REACTION;
+
+        /// <summary>
+        /// BBCF rule: the frame before a jumping fighter actually lands counts as grounded. True when the fighter is in the
+        /// air, falling, not in a hit / block reaction or a locked state, and next frame's move (gravity, then the
+        /// physics sub-steps) will put it on the floor. Pure function of saved state, so rollback-safe.
+        /// Read by SakugaActor.HitDamage / ThrowDamage ([FF PATCH: landing]).
+        /// </summary>
+        public static bool LandsNextFrame(SakugaActor a)
+        {
+            if (!IsFighter(a) || a.IsKO() || a.Body.IsOnGround || !Settings(a).PreLandingFrameGrounded) return false;
+            var type = a.StateManager.CurrentStateType();
+            if (type != StateType.MOVEMENT && type != StateType.COMBAT) return false;
+            int vy = a.Body.FixedVelocity.Y - a.Body.CurrentGravity / GlobalVariables.TicksPerSecond;
+            if (vy >= 0) return false;
+            int y = a.Body.FixedPosition.Y;
+            for (int i = 0; i < GlobalVariables.SubSteps; i++) y += vy / GlobalVariables.Delta;
+            return y <= 0;
+        }
+
+        /// <summary>Puts a fighter caught on its pre-landing frame on the floor, so the ground reaction plays from the ground.</summary>
+        public static void SnapToGround(SakugaActor a)
+        {
+            if (!IsFighter(a)) return;
+            a.Body.FixedPosition.Y = 0;
+            a.Body.FixedVelocity.Y = 0;
+            a.Body.UpdateColliders();
+        }
+
+        /// <summary>In special landing recovery (unactionable), or landing into it this frame.</summary>
+        public static bool InSpecialLanding(SakugaActor a) =>
+            IsFighter(a) && a.Body.IsOnGround && (a.Locomotion.SpecialLandLeft > 0 || (JustLanded(a) && a.Locomotion.SpecialLanding > 0));
+
+        /// <summary>StanceManager.CheckMoves: is this move locked by landing recovery right now?</summary>
+        public static bool LandingBlocks(SakugaActor a, SakugaEngine.Resources.MoveSettings move)
+        {
+            if (!IsFighter(a) || move == null || !a.Body.IsOnGround) return false;
+            if (InSpecialLanding(a)) return true;
+            ref LocomotionState l = ref a.Locomotion;
+            if (l.LandLock <= 0 && !JustLanded(a)) return false;
+            return System.Array.IndexOf(LandingLockedStates, move.MoveState) >= 0;
+        }
+
+        /// <summary>A move sets the special landing recovery it will have if it lands (0 clears it).</summary>
+        public static void SetSpecialLanding(SakugaActor a, int frames)
+        {
+            if (!IsFighter(a)) return;
+            a.Locomotion.SpecialLanding = System.Math.Max(0, frames);
+        }
+
+        /// <summary>Once per frame from Tick: start / count down the landing recovery.</summary>
+        static void LandingTick(SakugaActor a, LocomotionSettings s, ref FrameProperties props)
+        {
+            ref LocomotionState l = ref a.Locomotion;
+            var type = a.StateManager.CurrentStateType();
+            // Getting hit cancels any landing recovery, pending or running.
+            if (type == StateType.HIT_REACTION || type == StateType.BLOCKING)
+            {
+                l.SpecialLanding = l.SpecialLandLeft = l.LandLock = 0;
+                return;
+            }
+            if (JustLanded(a))
+            {
+                MovementVFX.AtFeet(a, MovementVFX.Landing, a.Body.PlayerSide);
+                if (l.SpecialLanding > 0)
+                {
+                    // Special: unactionable for the whole length (this landing frame is frame 1). Overrides the standard one.
+                    l.SpecialLandLeft = l.SpecialLanding - 1;
+                    l.SpecialLanding = 0;
+                    l.LandLock = 0;
+                    a.Body.SetLateralVelocity(0);
+                    if (a.StateManager.CurrentStateType() != StateType.MOVEMENT) a.StateManager.PlayState(Idle, true);
+                    props |= FrameProperties.LOCK_MOVE | FrameProperties.NO_GUARD;
+                }
+                else l.LandLock = System.Math.Max(0, s.LandingRecoveryFrames - 1);
+                return;
+            }
+            if (l.SpecialLandLeft > 0)
+            {
+                props |= FrameProperties.LOCK_MOVE | FrameProperties.NO_GUARD;
+                l.SpecialLandLeft--;
+            }
+            if (l.LandLock > 0)
+            {
+                // Doing an allowed action (attack, run, crouch, guard...) unlocks everything.
+                int cur = a.StateManager.CurrentState;
+                if (cur != Idle && cur != Falling) l.LandLock = 0;
+                else l.LandLock--;
+            }
+        }
 
         /// <summary>Walk / crouch moves (priority 0) don't interrupt these.</summary>
         public static bool BlocksBasicMoves(SakugaActor a)
@@ -129,6 +234,24 @@ namespace FunctionFighter.Mechanics
             if (Duration(a, 1) > s.DashInputWindow) return false;
             PlayerInputs first = Raw(a, 2);
             return Has(first, dir) && !Has(first, PlayerInputs.UP);
+        }
+
+        /// <summary>
+        /// Air dash 66 (or 44 with <paramref name="back"/>), relative to the fighter's own facing: a tap of the direction
+        /// (9 / 7 also counts for the first tap, so it can come straight out of the jump input), a release, then the
+        /// direction again. Each of the three may last at most AirDashInputWindow frames.
+        /// </summary>
+        public static bool AirDashInput(SakugaActor a, bool back)
+        {
+            if (!IsFighter(a)) return false;
+            int window = Settings(a).AirDashInputWindow;
+            PlayerInputs dir = back ? BackBit(a) : ForwardBit(a);
+            PlayerInputs cur = Raw(a, 0);
+            if (!Has(cur, dir) || Has(cur, PlayerInputs.DOWN) || Has(cur, PlayerInputs.UP) || Duration(a, 0) > window) return false;
+            PlayerInputs mid = Raw(a, 1);
+            if (Has(mid, dir) || Duration(a, 1) > window) return false;
+            PlayerInputs first = Raw(a, 2);
+            return Has(first, dir) && !Has(first, PlayerInputs.DOWN) && Duration(a, 2) <= window;
         }
 
         /// <summary>Up just pressed with a down input inside the window before it (2 then 7/8/9).</summary>
@@ -194,6 +317,8 @@ namespace FunctionFighter.Mechanics
                     l.Launched = false;
                     l.DashJump = wasDashing;
                     l.Momentum = (int)((long)carried * s.JumpMomentumPercent / 100);
+                    // A back jump against the run's direction keeps only BackJumpMomentumPercent of it.
+                    if (dir < 0 && System.Math.Sign(carried) == facing) l.Momentum = (int)((long)l.Momentum * s.BackJumpMomentumPercent / 100);
                     l.AirActionsUsed = l.AirJumpsUsed = l.AirDashesUsed = 0;
                     l.AutoFaceInAir = mode == LocoMode.SuperJump;
                     break;
@@ -229,6 +354,7 @@ namespace FunctionFighter.Mechanics
             l.State = a.StateManager.CurrentState;
             l.Frame = 0;
             l.Dir = dir;
+            MovementVFX.OnEnter(a, mode, dir);
             if (mode == LocoMode.Jump || mode == LocoMode.SuperJump)
             {
                 if (l.PrejumpLeft > 0) SetProps(a, FrameProperties.THROW_IMUNITY | FrameProperties.BURST_IMUNITY | FrameProperties.NO_GUARD);
@@ -267,6 +393,7 @@ namespace FunctionFighter.Mechanics
             a.Body.SetVelocity(new Vector2I(vx, super ? s.SuperJumpVelocityY : s.JumpVelocityY));
             l.Launched = true;
             l.AirFrames = 0;
+            MovementVFX.OnLaunch(a, l.Dir);
             SetProps(a, 0);
         }
 
@@ -292,6 +419,9 @@ namespace FunctionFighter.Mechanics
             if (l.Mode != LocoMode.None && !InPrejump(a) && sm.CurrentMove >= 0 && sm.GetCurrentMove().MoveState == l.State)
                 sm.CurrentMove = -1;
 
+            FrameProperties props = 0;
+            LandingTick(a, s, ref props); // [FF PATCH: landing] before AirFrames is reset below
+
             if (a.Body.IsOnGround)
             {
                 if (l.Mode != LocoMode.Jump && l.Mode != LocoMode.SuperJump)
@@ -307,7 +437,6 @@ namespace FunctionFighter.Mechanics
                 if (l.AutoFaceInAir) AutoFace(a);
             }
 
-            FrameProperties props = 0;
             switch (l.Mode)
             {
                 case LocoMode.Run:
@@ -319,6 +448,7 @@ namespace FunctionFighter.Mechanics
                     l.Speed = System.Math.Min(s.RunMaxSpeed, l.Speed + s.RunAcceleration);
                     l.DashVelocity = l.Speed * facing;
                     a.Body.SetLateralVelocity(l.DashVelocity);
+                    if (s.RunDustInterval > 0 && l.Frame > 0 && l.Frame % s.RunDustInterval == 0) MovementVFX.AtFeet(a, MovementVFX.Run, facing);
                     break;
                 }
                 case LocoMode.Skid:
@@ -502,6 +632,8 @@ namespace FunctionFighter.Mechanics
 
         static void KnockdownTick(SakugaActor a, LocomotionSettings s)
         {
+            // [FF PATCH: ko] stays down until the next round: Hit_Down's own end (a tech) never comes
+            if (KO.IsKO(a)) { KO.HoldDown(a); return; }
             int f = KnockdownFrame(a);
             if (IsHardKnockdown(a))
             {

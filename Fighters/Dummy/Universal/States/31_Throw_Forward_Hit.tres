@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="FighterState" format=3]
+[gd_resource type="Resource" script_class="FighterState" format=3 uid="uid://c55ewj8q17qsk"]
 
-[ext_resource type="Resource" path="res://Fighters/Dummy/Universal/AnimationData/31_Throw_Forward_Hit_AnimationData.tres" id="1_r"]
+[ext_resource type="Resource" uid="uid://d2jv4282wik7c" path="res://Fighters/Dummy/Universal/AnimationData/31_Throw_Forward_Hit_AnimationData.tres" id="1_r"]
 [ext_resource type="Script" uid="uid://bho4h38y7suxk" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/StateEndedCondition.cs" id="2_s"]
 [ext_resource type="Script" uid="uid://da4kqpf635oin" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/PlayStateAction.cs" id="3_s"]
 [ext_resource type="Script" uid="uid://c076jc3huncn2" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/FrameDataEvent.cs" id="4_s"]
@@ -10,21 +10,6 @@
 [ext_resource type="Script" uid="uid://50grsd2r3wl8" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/AtFrameCondition.cs" id="8_s"]
 [ext_resource type="Script" uid="uid://doigm444jhtjn" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/ThrowPivotAction.cs" id="9_s"]
 [ext_resource type="Script" uid="uid://bf60srwkccsm8" path="res://Scripts/SakugaEngine/Resources/FighterState.cs" id="10_s"]
-
-[sub_resource type="Resource" id="Sub_1"]
-script = ExtResource("2_s")
-metadata/_custom_type_script = "uid://bho4h38y7suxk"
-
-[sub_resource type="Resource" id="Sub_2"]
-script = ExtResource("3_s")
-StateIndex = 0
-metadata/_custom_type_script = "uid://da4kqpf635oin"
-
-[sub_resource type="Resource" id="Sub_3"]
-script = ExtResource("4_s")
-Conditions = Array[Object]([SubResource("Sub_1")])
-Actions = Array[Object]([SubResource("Sub_2")])
-metadata/_custom_type_script = "uid://c076jc3huncn2"
 
 [sub_resource type="Resource" id="Sub_4"]
 script = ExtResource("5_s")
@@ -44,26 +29,21 @@ Conditions = null
 Actions = Array[Object]([SubResource("Sub_4"), SubResource("Sub_5"), SubResource("Sub_6")])
 metadata/_custom_type_script = "uid://c076jc3huncn2"
 
-[sub_resource type="Resource" id="Sub_8"]
-script = ExtResource("8_s")
-Frame = 1
-metadata/_custom_type_script = "uid://50grsd2r3wl8"
-
 [sub_resource type="Resource" id="Sub_9"]
 script = ExtResource("9_s")
 PivotPosition = Vector2i(7000, 0)
 metadata/_custom_type_script = "uid://doigm444jhtjn"
+
+[sub_resource type="Resource" id="Sub_8"]
+script = ExtResource("8_s")
+Frame = 1
+metadata/_custom_type_script = "uid://50grsd2r3wl8"
 
 [sub_resource type="Resource" id="Sub_10"]
 script = ExtResource("4_s")
 Conditions = Array[Object]([SubResource("Sub_8")])
 Actions = Array[Object]([SubResource("Sub_9")])
 metadata/_custom_type_script = "uid://c076jc3huncn2"
-
-[sub_resource type="Resource" id="Sub_11"]
-script = ExtResource("8_s")
-Frame = 10
-metadata/_custom_type_script = "uid://50grsd2r3wl8"
 
 [sub_resource type="Resource" id="Sub_12"]
 script = ExtResource("9_s")
@@ -72,10 +52,29 @@ ThrowReaction = 16
 EndThrow = true
 metadata/_custom_type_script = "uid://doigm444jhtjn"
 
+[sub_resource type="Resource" id="Sub_11"]
+script = ExtResource("8_s")
+Frame = 10
+metadata/_custom_type_script = "uid://50grsd2r3wl8"
+
 [sub_resource type="Resource" id="Sub_13"]
 script = ExtResource("4_s")
 Conditions = Array[Object]([SubResource("Sub_11")])
 Actions = Array[Object]([SubResource("Sub_12")])
+metadata/_custom_type_script = "uid://c076jc3huncn2"
+
+[sub_resource type="Resource" id="Sub_2"]
+script = ExtResource("3_s")
+metadata/_custom_type_script = "uid://da4kqpf635oin"
+
+[sub_resource type="Resource" id="Sub_1"]
+script = ExtResource("2_s")
+metadata/_custom_type_script = "uid://bho4h38y7suxk"
+
+[sub_resource type="Resource" id="Sub_3"]
+script = ExtResource("4_s")
+Conditions = Array[Object]([SubResource("Sub_1")])
+Actions = Array[Object]([SubResource("Sub_2")])
 metadata/_custom_type_script = "uid://c076jc3huncn2"
 
 [resource]

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="FighterState" format=3]
+[gd_resource type="Resource" script_class="FighterState" format=3 uid="uid://5liwe86ohqhw"]
 
 [ext_resource type="Script" uid="uid://bgwrlqrhqb2a4" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/MoveXAction.cs" id="1_s"]
 [ext_resource type="Script" uid="uid://bw1835rb2hj7y" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/MoveYAction.cs" id="2_s"]
@@ -22,14 +22,13 @@ Conditions = null
 Actions = Array[Object]([SubResource("Sub_1"), SubResource("Sub_2")])
 metadata/_custom_type_script = "uid://c076jc3huncn2"
 
+[sub_resource type="Resource" id="Sub_5"]
+script = ExtResource("5_s")
+metadata/_custom_type_script = "uid://da4kqpf635oin"
+
 [sub_resource type="Resource" id="Sub_4"]
 script = ExtResource("4_s")
 metadata/_custom_type_script = "uid://bho4h38y7suxk"
-
-[sub_resource type="Resource" id="Sub_5"]
-script = ExtResource("5_s")
-StateIndex = 0
-metadata/_custom_type_script = "uid://da4kqpf635oin"
 
 [sub_resource type="Resource" id="Sub_6"]
 script = ExtResource("3_s")
@@ -40,7 +39,6 @@ metadata/_custom_type_script = "uid://c076jc3huncn2"
 [resource]
 script = ExtResource("7_s")
 StateName = "Hit_GetUp"
-Type = 0
 AnimationData = ExtResource("6_r")
 TransitionEvents = Array[Object]([SubResource("Sub_6")])
 OnEnterEvents = Array[Object]([SubResource("Sub_3")])

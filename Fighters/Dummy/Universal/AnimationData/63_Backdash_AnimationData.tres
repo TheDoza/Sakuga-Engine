@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="AnimationData" format=3]
+[gd_resource type="Resource" script_class="AnimationData" format=3 uid="uid://2hl4ljycygho"]
 
 [ext_resource type="Script" uid="uid://ddkya5wrb53ly" path="res://Scripts/SakugaEngine/Resources/AnimationData.cs" id="1_38sty"]
 [ext_resource type="Resource" uid="uid://b5x4otrs0q04d" path="res://Fighters/Dummy/Hitboxes/0_Hitbox_Basic.tres" id="1_kpyr8"]

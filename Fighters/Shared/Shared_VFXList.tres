@@ -15,6 +15,14 @@
 [ext_resource type="PackedScene" path="res://Fighters/Shared/VFX/VFX_10.tscn" id="12_punish"]
 [ext_resource type="PackedScene" path="res://Fighters/Shared/VFX/VFX_11.tscn" id="13_reversal"]
 
+[ext_resource type="PackedScene" path="res://Fighters/Shared/VFX/VFX_12.tscn" id="14_move"]
+[ext_resource type="PackedScene" path="res://Fighters/Shared/VFX/VFX_13.tscn" id="15_move"]
+[ext_resource type="PackedScene" path="res://Fighters/Shared/VFX/VFX_14.tscn" id="16_move"]
+[ext_resource type="PackedScene" path="res://Fighters/Shared/VFX/VFX_15.tscn" id="17_move"]
+[ext_resource type="PackedScene" path="res://Fighters/Shared/VFX/VFX_16.tscn" id="18_move"]
+[ext_resource type="PackedScene" path="res://Fighters/Shared/VFX/VFX_17.tscn" id="19_move"]
+[ext_resource type="PackedScene" path="res://Fighters/Shared/VFX/VFX_18.tscn" id="20_move"]
+
 [sub_resource type="Resource" id="Resource_2floy"]
 script = ExtResource("2_0kwyy")
 Key = "Hit"
@@ -87,6 +95,48 @@ Key = "ReversalFlash"
 Instance = ExtResource("13_reversal")
 PoolSize = 2
 
+[sub_resource type="Resource" id="Resource_MoveJumpStraight"]
+script = ExtResource("2_0kwyy")
+Key = "MoveJumpStraight"
+Instance = ExtResource("14_move")
+PoolSize = 2
+
+[sub_resource type="Resource" id="Resource_MoveJumpTilted"]
+script = ExtResource("2_0kwyy")
+Key = "MoveJumpTilted"
+Instance = ExtResource("15_move")
+PoolSize = 2
+
+[sub_resource type="Resource" id="Resource_MoveLanding"]
+script = ExtResource("2_0kwyy")
+Key = "MoveLanding"
+Instance = ExtResource("16_move")
+PoolSize = 2
+
+[sub_resource type="Resource" id="Resource_MoveRun"]
+script = ExtResource("2_0kwyy")
+Key = "MoveRun"
+Instance = ExtResource("17_move")
+PoolSize = 3
+
+[sub_resource type="Resource" id="Resource_MoveBreak"]
+script = ExtResource("2_0kwyy")
+Key = "MoveBreak"
+Instance = ExtResource("18_move")
+PoolSize = 1
+
+[sub_resource type="Resource" id="Resource_MoveDash"]
+script = ExtResource("2_0kwyy")
+Key = "MoveDash"
+Instance = ExtResource("19_move")
+PoolSize = 2
+
+[sub_resource type="Resource" id="Resource_MovePuff"]
+script = ExtResource("2_0kwyy")
+Key = "MovePuff"
+Instance = ExtResource("20_move")
+PoolSize = 2
+
 [resource]
 script = ExtResource("1_r1fnx")
-SpawnObjects = Array[Object]([SubResource("Resource_2floy"), SubResource("Resource_6t0f1"), SubResource("Resource_widxw"), SubResource("Resource_55vjd"), SubResource("Resource_alert"), SubResource("Resource_barrier"), SubResource("Resource_burst"), SubResource("Resource_counter"), SubResource("Resource_fcstart"), SubResource("Resource_fcend"), SubResource("Resource_punish"), SubResource("Resource_reversal")])
+SpawnObjects = Array[Object]([SubResource("Resource_2floy"), SubResource("Resource_6t0f1"), SubResource("Resource_widxw"), SubResource("Resource_55vjd"), SubResource("Resource_alert"), SubResource("Resource_barrier"), SubResource("Resource_burst"), SubResource("Resource_counter"), SubResource("Resource_fcstart"), SubResource("Resource_fcend"), SubResource("Resource_punish"), SubResource("Resource_reversal"), SubResource("Resource_MoveJumpStraight"), SubResource("Resource_MoveJumpTilted"), SubResource("Resource_MoveLanding"), SubResource("Resource_MoveRun"), SubResource("Resource_MoveBreak"), SubResource("Resource_MoveDash"), SubResource("Resource_MovePuff")])

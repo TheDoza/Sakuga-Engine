@@ -25,6 +25,8 @@ namespace SakugaEngine.Resources
         [Export] public bool AllowUseDebugCommands;
         [Export] public bool NoAI;
         [Export] public string ReturnToScene;
+        // [FF PATCH: rematch] Where "Leave Match" on the results screen goes (an online mode can point it at its lobby).
+        [Export] public string LeaveMatchScene = "res://Scenes/MainMenu.tscn";
         /// <summary>[FF PATCH: training] Turns on the Training Settings page in the pause menu and the training hotkeys.</summary>
         [Export] public bool IsTraining;
     }

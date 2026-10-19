@@ -1,17 +1,21 @@
 [gd_resource type="Resource" script_class="FighterStance" format=3 uid="uid://cjsr2weyqwopy"]
 
 [ext_resource type="Script" uid="uid://00dse0vp38l7" path="res://Scripts/SakugaEngine/Resources/FighterStance.cs" id="1_55coc"]
+[ext_resource type="Script" uid="uid://d0re6r8d145i6" path="res://Scripts/SakugaEngine/Resources/BlockSettings.cs" id="bs_script"]
+[ext_resource type="Resource" uid="uid://j1w64hweu08j" path="res://Fighters/Shared/Inputs/8_Input_1.tres" id="in_1"]
+[ext_resource type="Resource" uid="uid://biqgn48x4ggwh" path="res://Fighters/Shared/Inputs/1_Input_4.tres" id="in_4"]
+[ext_resource type="Resource" uid="uid://dovk6n76rc55h" path="res://Fighters/Shared/Inputs/22_Input_BC.tres" id="in_bc"]
 [ext_resource type="Resource" path="res://Fighters/Shared/Universal/Moves/0_Walk_Forward.tres" id="mv_0"]
 [ext_resource type="Resource" path="res://Fighters/Shared/Universal/Moves/1_Walk_Backward.tres" id="mv_1"]
 [ext_resource type="Resource" path="res://Fighters/Shared/Universal/Moves/2_Jump_Neutral.tres" id="mv_2"]
 [ext_resource type="Resource" path="res://Fighters/Shared/Universal/Moves/3_Jump_Forward.tres" id="mv_3"]
 [ext_resource type="Resource" path="res://Fighters/Shared/Universal/Moves/4_Jump_Backward.tres" id="mv_4"]
-[ext_resource type="Resource" path="res://Fighters/Shared/Universal/Moves/5_AirDash_Forward.tres" id="mv_5"]
-[ext_resource type="Resource" path="res://Fighters/Shared/Universal/Moves/6_AirDash_Backward.tres" id="mv_6"]
+[ext_resource type="Resource" uid="uid://bp0vxd5xr3hv" path="res://Fighters/Shared/Universal/Moves/5_AirDash_Forward.tres" id="mv_5"]
+[ext_resource type="Resource" uid="uid://crai6jnvipegf" path="res://Fighters/Shared/Universal/Moves/6_AirDash_Backward.tres" id="mv_6"]
 [ext_resource type="Resource" path="res://Fighters/Shared/Universal/Moves/7_Crouch.tres" id="mv_7"]
 [ext_resource type="Resource" path="res://Fighters/Shared/Universal/Moves/8_Uncrouch.tres" id="mv_8"]
 [ext_resource type="Resource" path="res://Fighters/Shared/Universal/Moves/9_Air_Recovery.tres" id="mv_9"]
-[ext_resource type="Resource" path="res://Fighters/Shared/Universal/Moves/10_Ground_Recovery.tres" id="mv_10"]
+[ext_resource type="Resource" uid="uid://cu8ks30ntxi3b" path="res://Fighters/Shared/Universal/Moves/10_Ground_Recovery.tres" id="mv_10"]
 [ext_resource type="Resource" path="res://Fighters/Dummy/Special/Moves/11_SlideKick.tres" id="mv_11"]
 [ext_resource type="Resource" path="res://Fighters/Dummy/Special/Moves/12_TestMid.tres" id="mv_12"]
 [ext_resource type="Resource" path="res://Fighters/Dummy/Special/Moves/13_TestWallBounce.tres" id="mv_13"]
@@ -20,32 +24,27 @@
 [ext_resource type="Resource" path="res://Fighters/Dummy/Special/Moves/16_TestAirKnockdown.tres" id="mv_16"]
 [ext_resource type="Resource" path="res://Fighters/Dummy/Special/Moves/17_TestHardSweep.tres" id="mv_17"]
 [ext_resource type="Resource" path="res://Fighters/Dummy/Special/Moves/18_TestFastKnockdown.tres" id="mv_18"]
-[ext_resource type="Script" uid="uid://d0re6r8d145i6" path="res://Scripts/SakugaEngine/Resources/BlockSettings.cs" id="bs_script"]
-[ext_resource type="Resource" uid="uid://biqgn48x4ggwh" path="res://Fighters/Shared/Inputs/1_Input_4.tres" id="in_4"]
-[ext_resource type="Resource" uid="uid://j1w64hweu08j" path="res://Fighters/Shared/Inputs/8_Input_1.tres" id="in_1"]
 [ext_resource type="Resource" path="res://Fighters/Shared/Universal/Moves/11_Throw_Forward.tres" id="mv_u11"]
 [ext_resource type="Resource" path="res://Fighters/Shared/Universal/Moves/12_Throw_Back.tres" id="mv_u12"]
 [ext_resource type="Resource" path="res://Fighters/Shared/Universal/Moves/13_Throw_Air.tres" id="mv_u13"]
-[ext_resource type="Resource" uid="uid://dovk6n76rc55h" path="res://Fighters/Shared/Inputs/22_Input_BC.tres" id="in_bc"]
-[ext_resource type="Resource" path="res://Fighters/Shared/Universal/Moves/14_Barrier_Guard.tres" id="mv_u14"]
-[ext_resource type="Resource" path="res://Fighters/Shared/Universal/Moves/15_Barrier_Guard_Crouch.tres" id="mv_u15"]
-[ext_resource type="Resource" path="res://Fighters/Shared/Universal/Moves/16_Barrier_Guard_Air.tres" id="mv_u16"]
+[ext_resource type="Resource" uid="uid://cab75plhaw0wx" path="res://Fighters/Shared/Universal/Moves/14_Barrier_Guard.tres" id="mv_u14"]
+[ext_resource type="Resource" uid="uid://b1l2v7qc41yvi" path="res://Fighters/Shared/Universal/Moves/15_Barrier_Guard_Crouch.tres" id="mv_u15"]
+[ext_resource type="Resource" uid="uid://g5s2m4oos8dp" path="res://Fighters/Shared/Universal/Moves/16_Barrier_Guard_Air.tres" id="mv_u16"]
 [ext_resource type="Resource" path="res://Fighters/Shared/Universal/Moves/17_Barrier_Fizzle.tres" id="mv_u17"]
-[ext_resource type="Resource" path="res://Fighters/Shared/Universal/Moves/18_Burst.tres" id="mv_u18"]
-[ext_resource type="Resource" path="res://Fighters/Shared/Universal/Moves/19_Run.tres" id="mv_u19"]
-[ext_resource type="Resource" path="res://Fighters/Shared/Universal/Moves/20_Backdash.tres" id="mv_u20"]
-[ext_resource type="Resource" path="res://Fighters/Shared/Universal/Moves/21_Super_Jump_Neutral.tres" id="mv_u21"]
-[ext_resource type="Resource" path="res://Fighters/Shared/Universal/Moves/22_Super_Jump_Forward.tres" id="mv_u22"]
-[ext_resource type="Resource" path="res://Fighters/Shared/Universal/Moves/23_Super_Jump_Backward.tres" id="mv_u23"]
-[ext_resource type="Resource" path="res://Fighters/Shared/Universal/Moves/24_Double_Jump_Neutral.tres" id="mv_u24"]
-[ext_resource type="Resource" path="res://Fighters/Shared/Universal/Moves/25_Double_Jump_Forward.tres" id="mv_u25"]
-[ext_resource type="Resource" path="res://Fighters/Shared/Universal/Moves/26_Double_Jump_Backward.tres" id="mv_u26"]
-[ext_resource type="Resource" path="res://Fighters/Shared/Universal/Moves/27_Forward_Roll.tres" id="mv_u27"]
-[ext_resource type="Resource" path="res://Fighters/Shared/Universal/Moves/28_Back_Roll.tres" id="mv_u28"]
+[ext_resource type="Resource" uid="uid://dhvfdk0ceb64r" path="res://Fighters/Shared/Universal/Moves/18_Burst.tres" id="mv_u18"]
+[ext_resource type="Resource" uid="uid://bm4snjxiatba1" path="res://Fighters/Shared/Universal/Moves/19_Run.tres" id="mv_u19"]
+[ext_resource type="Resource" uid="uid://p3v8figq7l6d" path="res://Fighters/Shared/Universal/Moves/20_Backdash.tres" id="mv_u20"]
+[ext_resource type="Resource" uid="uid://c0dk1773nr3k2" path="res://Fighters/Shared/Universal/Moves/21_Super_Jump_Neutral.tres" id="mv_u21"]
+[ext_resource type="Resource" uid="uid://cwqf2jbcpjbts" path="res://Fighters/Shared/Universal/Moves/22_Super_Jump_Forward.tres" id="mv_u22"]
+[ext_resource type="Resource" uid="uid://c77vgf1cgbqyr" path="res://Fighters/Shared/Universal/Moves/23_Super_Jump_Backward.tres" id="mv_u23"]
+[ext_resource type="Resource" uid="uid://drkfword63vrd" path="res://Fighters/Shared/Universal/Moves/24_Double_Jump_Neutral.tres" id="mv_u24"]
+[ext_resource type="Resource" uid="uid://ca4fdihik30dm" path="res://Fighters/Shared/Universal/Moves/25_Double_Jump_Forward.tres" id="mv_u25"]
+[ext_resource type="Resource" uid="uid://ch3onjx6pt10q" path="res://Fighters/Shared/Universal/Moves/26_Double_Jump_Backward.tres" id="mv_u26"]
+[ext_resource type="Resource" uid="uid://dmbm1gay2imy3" path="res://Fighters/Shared/Universal/Moves/27_Forward_Roll.tres" id="mv_u27"]
+[ext_resource type="Resource" uid="uid://bd11yw2q1x6jq" path="res://Fighters/Shared/Universal/Moves/28_Back_Roll.tres" id="mv_u28"]
 
 [sub_resource type="Resource" id="Block_stand"]
 script = ExtResource("bs_script")
-ReferenceStance = 0
 BlockType = 3
 InputToCheck = ExtResource("in_4")
 EnterState = 40
@@ -78,20 +77,9 @@ metadata/_custom_type_script = "uid://d0re6r8d145i6"
 
 [resource]
 script = ExtResource("1_55coc")
-IsDamagePersistent = false
-IsRoundPersistent = false
-NeutralState = 0
 Moves = Array[Object]([ExtResource("mv_0"), ExtResource("mv_1"), ExtResource("mv_2"), ExtResource("mv_3"), ExtResource("mv_4"), ExtResource("mv_5"), ExtResource("mv_6"), ExtResource("mv_7"), ExtResource("mv_8"), ExtResource("mv_9"), ExtResource("mv_10"), ExtResource("mv_u11"), ExtResource("mv_u12"), ExtResource("mv_u13"), ExtResource("mv_u14"), ExtResource("mv_u15"), ExtResource("mv_u16"), ExtResource("mv_u17"), ExtResource("mv_u18"), ExtResource("mv_u19"), ExtResource("mv_u20"), ExtResource("mv_u21"), ExtResource("mv_u22"), ExtResource("mv_u23"), ExtResource("mv_u24"), ExtResource("mv_u25"), ExtResource("mv_u26"), ExtResource("mv_u27"), ExtResource("mv_u28"), ExtResource("mv_11"), ExtResource("mv_12"), ExtResource("mv_13"), ExtResource("mv_14"), ExtResource("mv_15"), ExtResource("mv_16"), ExtResource("mv_17"), ExtResource("mv_18")])
-BlockReactions = Array[Object]([SubResource("Block_stand"), SubResource("Block_crouch"), SubResource("Block_air")])
 HitReactions = PackedInt32Array(20, 21, 22, 23, 24, 24, 24, 24, 25, 26, 27, 24, 24, 21, 37, 25, 38)
-GroundBlockInitialState = -1
-CrouchBlockInitialState = -1
-AirBlockInitialState = -1
-GroundForwardRecoveryState = -1
-GroundBackwardsRecoveryState = -1
-AirForwardRecoveryState = -1
-AirBackwardsRecoveryState = -1
-OffTheGroundRecoveryState = -1
+BlockReactions = Array[Object]([SubResource("Block_stand"), SubResource("Block_crouch"), SubResource("Block_air")])
 ThrowEscapeInput = ExtResource("in_bc")
 GroundThrowEscapeState = 55
 AirThrowEscapeState = 56

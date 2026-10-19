@@ -3,7 +3,7 @@
 **Status:** ✅ Working (tested 2026-10-12) · **Fighters:** every fighter (engine logic + universal state 18, stamped automatically) · **Rollback-safe:** Yes (the gauge is saved with each fighter, all integer math)
 
 ## What it does
-Press **A+B+C+D while getting hit** (or the **H** macro button) (ground or air) to Burst. It costs a **full Burst gauge**. A Burst:
+Press **A+B+C+D while getting hit** (or the **H** macro button) (ground or air, including wall and ground bounces and other hard knockdown hits) to Burst. Not while lying on the floor (Hit_Down) or getting up (Hit_GetUp). It costs a **full Burst gauge**. A Burst:
 - does **0 damage** and is **invincible** from frame 1 to 31 (throws included);
 - comes out on frame 6, is active for 6 frames, then has 43 frames of recovery (−24 if blocked);
 - **launches** the opponent far away. They can't air-tech and land in a soft knockdown (ground tech allowed), so both reset to neutral;
@@ -12,7 +12,8 @@ Press **A+B+C+D while getting hit** (or the **H** macro button) (ground or air) 
 Burst is **disabled** (the icon is crossed out) while:
 - you're being thrown (until you've recovered);
 - you were hit by a Burst (until you've recovered);
-- the opponent's super flash has you frozen.
+- the opponent's super flash has you frozen;
+- you've been knocked out.
 
 ## Burst gauge
 The round icon under each portrait. It fills clockwise with a 0–9 number (tens of percent) in the middle, turns orange with "BURST" when full, and gets a red X when Burst is disabled.
@@ -65,6 +66,7 @@ hit by it ─► 24 Hit_Air (KNOCKDOWN: no air tech) ─► lands ─► 26 Hit_
 | `GameState.cs` | saves/loads the Burst state for rollback (key 17; `PassiveRemainder` keeps the half-speed fractions) |
 | `SakugaParameters.cs` → `TakeDamage` | gauge gain when taking a hit (skipped for chip) |
 | `HealthHUD.cs` | updates the gauge icons |
+| `MoveSettings.cs`, `StanceManager.cs` → `CheckAllowedStateType` | `AcceptHardKnockdownHits`: the Burst move also works during hard knockdown hits (wall bounce...). Upstream only allowed moves in hits below HARD_KNOCKDOWN |
 
 ## Tuning: "I want to change…"
 | I want to… | File | Field | Current |
@@ -108,5 +110,6 @@ All Burst checks pass (2026-10-12), on the Dummy and on a freshly stamped fighte
 ## Change log
 | Date | Change |
 |---|---|
+| 2026-10-18 | Fixed: couldn't Burst during a wall bounce (hard knockdown hits blocked every move). Burst move: `AcceptHardKnockdownHits` on, `IgnoreStates` 26, 27. No Burst once KO'd |
 | 2026-10-12 | Passive refill halved (`PassiveSpeedPercent` 50) |
 | 2026-10-12 | Created |

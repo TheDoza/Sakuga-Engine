@@ -4,12 +4,20 @@
 
 [resource]
 script = ExtResource("1_loco")
-RunStartSpeed = 90000
-RunAcceleration = 5000
-RunMaxSpeed = 80000
-BackdashDistance = 13500
-JumpVelocityY = 90000
-JumpBackX = 18000
+RunStartSpeed = 35000
+RunAcceleration = 4000
+RunMaxSpeed = 70000
+BackdashFrames = 20
+BackdashDistance = 12500
+BackdashMoveFrames = 20
+JumpVelocityY = 82000
+JumpForwardX = 20000
+JumpBackX = 20000
 SuperJumpVelocityY = 90000
 SuperJumpForwardX = 37000
 SuperJumpBackX = 34000
+DoubleJumpVelocityY = 70000
+DoubleJumpForwardX = 24000
+DoubleJumpBackX = 24000
+BackJumpMomentumPercent = 50
+DoubleJumpSameDirectionPercent = 40

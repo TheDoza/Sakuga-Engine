@@ -46,7 +46,7 @@ namespace FunctionFighter.Mechanics
 
         /// <summary>Everything that has to be true for the Burst move to come out.</summary>
         public static bool CanBurst(SakugaActor a) =>
-            IsFighter(a) && IsFull(a) && !IsDisabled(a) &&
+            IsFighter(a) && IsFull(a) && !IsDisabled(a) && !KO.IsKO(a) &&
             a.StateManager != null && a.StateManager.CurrentStateType() == StateType.HIT_REACTION;
 
         /// <summary>Every frame, before hitstop: passive refill and unlocking.</summary>

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="HitboxSettings" format=3]
+[gd_resource type="Resource" script_class="HitboxSettings" format=3 uid="uid://bfwgtxsy6bgdy"]
 
 [ext_resource type="Script" uid="uid://c0y740kryylcs" path="res://Scripts/SakugaEngine/Resources/HitboxElement.cs" id="1_s"]
 [ext_resource type="Script" uid="uid://dxuwyhds75mce" path="res://Scripts/SakugaEngine/Resources/HitboxSettings.cs" id="2_s"]
@@ -6,8 +6,8 @@
 
 [sub_resource type="Resource" id="Sub_1"]
 script = ExtResource("1_s")
-Center = Vector2i(5000, 5000)
-Size = Vector2i(12000, 10000)
+Center = Vector2i(0, 5000)
+Size = Vector2i(5000, 10000)
 metadata/_custom_type_script = "uid://c0y740kryylcs"
 
 [sub_resource type="Resource" id="Sub_2"]
@@ -17,17 +17,8 @@ Size = Vector2i(10000, 3000)
 HitboxType = 1
 HitType = 1
 BaseDamage = 500
-BigCounter = true
 ChipDamage = 50
-GroundBlockKnockback = Vector2i(-40000, 0)
-GroundBlockKnockbackTime = 6
-GroundBlockstun = 16
-AirBlockKnockback = Vector2i(-40000, 0)
-AirBlockKnockbackGravity = 230000
-AirBlockKnockbackTime = 6
-AirBlockstun = 16
-SelfPushbackForce = 0
-SelfPushbackDuration = 0
+BigCounter = true
 GroundHitstunType = 3
 GroundHitReaction = 4
 CrouchHitReaction = 4
@@ -35,12 +26,21 @@ GroundHitKnockback = Vector2i(-150000, 30000)
 GroundHitKnockbackGravity = 230000
 GroundHitKnockbackTime = 12
 GroundHitstun = 40
+GroundBlockKnockback = Vector2i(-40000, 0)
+GroundBlockKnockbackTime = 6
+GroundBlockstun = 16
 AirHitstunType = 3
 AirHitReaction = 4
 AirHitKnockback = Vector2i(-150000, 30000)
 AirHitKnockbackGravity = 230000
 AirHitKnockbackTime = 12
 AirHitstun = 40
+AirBlockKnockback = Vector2i(-40000, 0)
+AirBlockKnockbackGravity = 230000
+AirBlockKnockbackTime = 6
+AirBlockstun = 16
+SelfPushbackForce = 0
+SelfPushbackDuration = 0
 BounceTime = 60
 BounceXIntensity = 70
 BounceYIntensity = 0

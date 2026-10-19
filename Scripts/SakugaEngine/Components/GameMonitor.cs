@@ -333,7 +333,8 @@ namespace SakugaEngine
             if (RoundWinner == 2) return _fighters[0].StateManager.CurrentState == 0 && _fighters[1].StateManager.CurrentState == 0;
 
             return _fighters[RoundWinner].StateManager.CurrentState == 0 && ((_fighters[RoundLoser].IsKO() && _fighters[RoundLoser].Body.IsOnGround && 
-                    _fighters[RoundLoser].StateManager.StateEnded()) || _fighters[RoundLoser].StateManager.CurrentState == 0);
+                    _fighters[RoundLoser].StateManager.StateEnded()) || _fighters[RoundLoser].StateManager.CurrentState == 0 ||
+                    FunctionFighter.Mechanics.KO.IsDown(_fighters[RoundLoser])); // [FF PATCH: ko] KO'd fighters lie in Hit_Down for good
         }
 
         private void SelectWinnerToAnimate()
@@ -359,6 +360,12 @@ namespace SakugaEngine
         {
             if (ResultsScreen == null) return;
             if (ResultsScreen.Visible) return;
+            // [FF PATCH: rematch] Rematch / Character Select / Leave Match screen (the old results panel stays as a fallback)
+            if (FunctionFighter.UI.RematchScreen.Open(ResultsScreen.GetParent(), _fighters, this, Winner, winnerMessage))
+            {
+                AudioManager.Instance.PlayBGM(VictoryJingle);
+                return;
+            }
 
             Control winP1 = ResultsScreen.GetNode<Control>("WinBannerP1");
             Control winP2 = ResultsScreen.GetNode<Control>("WinBannerP2");

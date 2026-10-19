@@ -69,6 +69,7 @@ namespace SakugaEngine
         {
             if (MoveBuffer == null) return;
             if (!CanRun) return;
+            if (FunctionFighter.Mechanics.KO.IsKO(_owner)) { BufferedMove = -1; return; } // [FF PATCH: ko] a KO'd fighter ignores its inputs
 
             // [FF PATCH: training reversal] The training dummy's tech / reversal action starts here, on the same frame a
             // perfectly timed input would. When it does, normal input matching is skipped for this frame.
@@ -84,6 +85,8 @@ namespace SakugaEngine
                 if (GetMove(i).SkipCheck) continue;
                 // [FF PATCH: locomotion] walking / crouching (priority 0) can't interrupt a run, skid, step dash or backdash
                 if (GetMove(i).Priority <= 0 && FunctionFighter.Mechanics.Locomotion.BlocksBasicMoves(_owner)) continue;
+                // [FF PATCH: landing] landing recovery: walks / jumps / backdash locked for a few frames, everything during special landing
+                if (FunctionFighter.Mechanics.Locomotion.LandingBlocks(_owner, GetMove(i))) continue;
                 if (bestMove >= 0 && GetMove(i).Priority <= GetMove(bestMove).Priority) continue;
                 if (!CheckMoveConditions(i)) continue;
                 if (_owner.Inputs.CheckMotionInputs(GetMove(i).Inputs, _owner.InputSide(GetMove(i).SideCheck)))
@@ -210,7 +213,9 @@ namespace SakugaEngine
             bool checkMovementState = GetMove(moveIndex).AcceptMovementStates && _owner.StateManager.GetCurrentState().Type == StateType.MOVEMENT;
             bool checkCombatState = GetMove(moveIndex).AcceptCombatStates && _owner.StateManager.GetCurrentState().Type == StateType.COMBAT;
             bool checkBlockingState = GetMove(moveIndex).AcceptBlockingStates && _owner.StateManager.GetCurrentState().Type == StateType.BLOCKING;
-            bool checkHitReactionState = GetMove(moveIndex).AcceptHitReactionStates && _owner.StateManager.GetCurrentState().Type == StateType.HIT_REACTION && _owner.HitstunType < HitstunType.HARD_KNOCKDOWN;
+            // [FF PATCH: burst] AcceptHardKnockdownHits lets a move (Burst) come out of hard knockdown hits too (wall bounce...)
+            bool checkHitReactionState = GetMove(moveIndex).AcceptHitReactionStates && _owner.StateManager.GetCurrentState().Type == StateType.HIT_REACTION &&
+                (_owner.HitstunType < HitstunType.HARD_KNOCKDOWN || GetMove(moveIndex).AcceptHardKnockdownHits && _owner.HitstunType == HitstunType.HARD_KNOCKDOWN);
 
             return notLockedState && (checkNullState || checkMovementState || checkCombatState || checkBlockingState || checkHitReactionState);
         }
