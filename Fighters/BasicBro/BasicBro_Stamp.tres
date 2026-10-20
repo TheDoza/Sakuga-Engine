@@ -1,0 +1,92 @@
+[gd_resource type="Resource" script_class="UniversalStampConfig" format=3]
+
+[ext_resource type="Script" path="res://Scripts/FunctionFighter/Tools/UniversalStampConfig.cs" id="1_script"]
+[ext_resource type="Resource" path="res://Fighters/Dummy/Dummy_Data.tres" id="2_template"]
+[ext_resource type="Resource" path="res://Fighters/BasicBro/BasicBro_Data.tres" id="3_target"]
+[ext_resource type="Resource" path="res://Fighters/BasicBro/Hitboxes/BB_Hitbox_Stand.tres" id="4_stand"]
+[ext_resource type="Resource" path="res://Fighters/BasicBro/Hitboxes/BB_Hitbox_Crouch.tres" id="5_crouch"]
+[ext_resource type="Resource" path="res://Fighters/BasicBro/Hitboxes/BB_Hitbox_Lying.tres" id="6_lying"]
+[ext_resource type="Resource" path="res://Fighters/BasicBro/Hitboxes/BB_Hitbox_Throw_Active.tres" id="7_throw"]
+[ext_resource type="Resource" path="res://Fighters/BasicBro/Hitboxes/BB_Hitbox_AirThrow_Active.tres" id="8_airthrow"]
+
+[resource]
+script = ExtResource("1_script")
+TemplateData = ExtResource("2_template")
+TargetData = ExtResource("3_target")
+TargetFolder = "res://Fighters/BasicBro"
+StandHurtbox = ExtResource("4_stand")
+CrouchHurtbox = ExtResource("5_crouch")
+LyingHurtbox = ExtResource("6_lying")
+GroundThrowBox = ExtResource("7_throw")
+AirThrowBox = ExtResource("8_airthrow")
+UseAnimations = true
+AnimationNames = Dictionary[String, String]({
+"Idle": "Idle",
+"Walk_Forward": "Walk_Forward",
+"Walk_Backward": "Walk_Backward",
+"Jump_Neutral": "Jump_Neutral",
+"Jump_Forward": "Jump_Forward",
+"Jump_Backward": "Jump_Backward",
+"Falling": "Falling",
+"AirDash_Forward": "AirDash_Forward",
+"AirDash_Backward": "AirDash_Backward",
+"Crouch_Enter": "Crouch_Enter",
+"Crouching": "Crouching",
+"Crouch_Exit": "Crouch_Exit",
+"Air_Recovery": "Air_Recovery",
+"Ground_Recovery": "Ground_Recovery",
+"Hit_Stand_Weak": "Idle",
+"Hit_Stand_Strong": "Idle",
+"Hit_Crouch": "Crouching",
+"Hit_Air_Weak": "Falling",
+"Hit_Air": "Falling",
+"Hit_GroundSlide": "Crouching",
+"Hit_Down": "Crouching",
+"Hit_GetUp": "Crouch_Exit",
+"Hit_WallBounce": "Falling",
+"Hit_GroundBounce": "Falling",
+"Block_Stand_Enter": "Barrier_Stand",
+"Blockstun_Stand": "Barrier_Stand",
+"Block_Stand_Exit": "Barrier_Stand",
+"Blocking_Stand": "Barrier_Stand",
+"GuardBreak_Stand": "Barrier_Stand",
+"Block_Crouch_Enter": "Barrier_Crouch",
+"Blockstun_Crouch": "Barrier_Crouch",
+"Block_Crouch_Exit": "Barrier_Crouch",
+"Blocking_Crouch": "Barrier_Crouch",
+"GuardBreak_Crouch": "Barrier_Crouch",
+"Block_Air_Enter": "Barrier_Air",
+"Blockstun_Air": "Barrier_Air",
+"Block_Air_Exit": "Barrier_Air",
+"Blocking_Air": "Barrier_Air",
+"GuardBreak_Air": "Barrier_Air",
+"Throw_Forward": "Idle",
+"Throw_Forward_Hit": "Idle",
+"Throw_Back": "Idle",
+"Throw_Back_Hit": "Idle",
+"Throw_Air": "Falling",
+"Throw_Air_Hit": "Falling",
+"Throw_Air_Landing": "Crouch_Exit",
+"Hit_Thrown": "Idle",
+"Hit_Thrown_Launch": "Falling",
+"Throw_Reject_Ground": "Idle",
+"Throw_Reject_Air": "Falling",
+"Throw_Rejected_Ground": "Idle",
+"Throw_Rejected_Air": "Falling",
+"Barrier_Stand": "Barrier_Stand",
+"Barrier_Crouch": "Barrier_Crouch",
+"Barrier_Air": "Barrier_Air",
+"Burst": "Barrier_Stand",
+"Roll_Forward": "Crouching",
+"Roll_Back": "Crouching",
+"Run": "Run",
+"Run_Skid": "Run_Skid",
+"Step_Dash": "AirDash_Forward",
+"Backdash": "Backdash",
+"Super_Jump_Neutral": "Jump_Neutral",
+"Super_Jump_Forward": "Jump_Forward",
+"Super_Jump_Backward": "Jump_Backward",
+"Double_Jump_Neutral": "Jump_Neutral",
+"Double_Jump_Forward": "Jump_Forward",
+"Double_Jump_Backward": "Jump_Backward"
+})

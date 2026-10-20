@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="DataContainer" format=3]
+
+[ext_resource type="Script" path="res://Scripts/SakugaEngine/Resources/DataContainer.cs" id="1_script"]
+[ext_resource type="Resource" path="res://Fighters/BasicBro/BasicBro_Profile.tres" id="2_profile"]
+[ext_resource type="Resource" path="res://Fighters/Shared/HitboxPresets/Pushbox_Idle.tres" id="3_pushbox"]
+
+[resource]
+script = ExtResource("1_script")
+Profile = ExtResource("2_profile")
+MaxHealth = 11000
+DefaultPushbox = ExtResource("3_pushbox")

@@ -12,6 +12,8 @@
 [ext_resource type="PackedScene" uid="uid://bloh87idirh84" path="res://Fighters/Dummy/Instances/Dummy_Fighter_Alt3.tscn" id="9_w00mg"]
 [ext_resource type="PackedScene" uid="uid://3reeyb4tcc1i" path="res://Fighters/Dummy/Instances/Dummy_Fighter_Default.tscn" id="12_f2d14"]
 
+[ext_resource type="Resource" path="res://Fighters/BasicBro/BasicBro_Profile.tres" id="bb_profile"]
+[ext_resource type="PackedScene" path="res://Fighters/BasicBro/Instances/BasicBro_Fighter_Default.tscn" id="bb_scene"]
 [sub_resource type="Resource" id="Resource_q6gag"]
 script = ExtResource("2_w00mg")
 PaletteName = "Default"
@@ -60,6 +62,18 @@ Profile = ExtResource("5_mamio")
 ColorPalettes = Array[Object]([SubResource("Resource_f2d14"), SubResource("Resource_df8sf"), SubResource("Resource_hc8t8"), SubResource("Resource_fbx8u")])
 metadata/_custom_type_script = "uid://dclkxgxahdy5l"
 
+[sub_resource type="Resource" id="Resource_bb_default"]
+script = ExtResource("2_w00mg")
+PaletteName = "Default"
+Instance = ExtResource("bb_scene")
+metadata/_custom_type_script = "uid://dg21wno6w513c"
+
+[sub_resource type="Resource" id="Resource_bb"]
+script = ExtResource("3_m8lbm")
+Profile = ExtResource("bb_profile")
+ColorPalettes = Array[Object]([SubResource("Resource_bb_default")])
+metadata/_custom_type_script = "uid://dclkxgxahdy5l"
+
 [resource]
 script = ExtResource("1_x0sfh")
-elements = Array[Object]([SubResource("Resource_ug4c5"), SubResource("Resource_r4w1x")])
+elements = Array[Object]([SubResource("Resource_ug4c5"), SubResource("Resource_r4w1x"), SubResource("Resource_bb")])
