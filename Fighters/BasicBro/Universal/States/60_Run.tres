@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="FighterState" format=3 uid="uid://fg7eaqhaxgmq"]
+
+[ext_resource type="Resource" uid="uid://cq35ftst4owim" path="res://Fighters/BasicBro/Universal/AnimationData/60_Run_AnimationData.tres" id="1_13ng4"]
+[ext_resource type="Script" uid="uid://2ay34rfl7jag" path="res://Scripts/FunctionFighter/Mechanics/LocomotionAction.cs" id="2_w50hh"]
+[ext_resource type="Script" uid="uid://c076jc3huncn2" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/FrameDataEvent.cs" id="3_y1ris"]
+[ext_resource type="Script" uid="uid://bf60srwkccsm8" path="res://Scripts/SakugaEngine/Resources/FighterState.cs" id="4_ka8i8"]
+
+[sub_resource type="Resource" id="Resource_13ng4"]
+script = ExtResource("2_w50hh")
+Mode = 1
+
+[sub_resource type="Resource" id="Resource_w50hh"]
+script = ExtResource("3_y1ris")
+Conditions = null
+Actions = Array[Object]([SubResource("Resource_13ng4")])
+
+[resource]
+script = ExtResource("4_ka8i8")
+StateName = "Run"
+Type = 1
+AnimationData = ExtResource("1_13ng4")
+TransitionEvents = []
+OnEnterEvents = Array[Object]([SubResource("Resource_w50hh")])
+OnTickEvents = []
+OnExitEvents = []
+OnHitConfirmEvents = []
+OnHitReactionEvents = []

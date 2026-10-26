@@ -32,9 +32,24 @@ namespace SakugaEngine.Collision
         public HitboxState CurrentHitbox = null;
         public int CurrentGravity = GlobalVariables.DefaultGravity;
         
+        /// <summary>How far the fighter's default pushbox reaches from its origin (its outermost edge, either side).
+        /// The fighter's position stops this much short of the wall, so the pushbox and model stay inside it.</summary>
+        public int WallInset
+        {
+            get
+            {
+                BoxShape box = _owner?.Data?.DefaultPushbox;
+                if (box == null) return 0;
+                return Mathf.Abs(box.Center.X) + box.Size.X / 2;
+            }
+        }
+
+        /// <summary>The furthest X this fighter's origin can reach on either side (the wall, minus its pushbox reach).</summary>
+        public int MaxX => GlobalVariables.WallLimit - WallInset;
+
         public bool IsOnGround => FixedPosition.Y <= 0;
-        public bool IsOnLeftWall => FixedPosition.X <= -GlobalVariables.WallLimit;
-        public bool IsOnRightWall => FixedPosition.X >= GlobalVariables.WallLimit;
+        public bool IsOnLeftWall => FixedPosition.X <= -MaxX;
+        public bool IsOnRightWall => FixedPosition.X >= MaxX;
         public bool IsFalling => !IsOnGround && FixedVelocity.Y <= 0;
         public bool JustLanded => IsOnGround && FixedVelocity.Y < 0;
         public bool IsOnWall => IsOnLeftWall || IsOnRightWall;
@@ -183,7 +198,7 @@ namespace SakugaEngine.Collision
             if (StayOnBounds)
             {
                 if (!IgnoreWalls)
-                    FixedPosition.X = Mathf.Clamp(FixedPosition.X, -GlobalVariables.WallLimit, GlobalVariables.WallLimit);
+                    FixedPosition.X = Mathf.Clamp(FixedPosition.X, -MaxX, MaxX);
                 FixedPosition.Y = Mathf.Clamp(FixedPosition.Y, 0, GlobalVariables.CeilingLimit);
             }
 

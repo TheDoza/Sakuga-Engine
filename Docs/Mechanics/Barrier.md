@@ -91,6 +91,7 @@ hit while barriering     ─► blockstun: chip 0, gauge −(damage/2, max 500),
 | How fast the extra push happens | `PushFrames` | 8 |
 | Block flash / its height | `FlashVFXIndex` / `FlashHeight` | 5 / 9000 |
 | Shield scene / position | `ShieldScene` / `ShieldOffset` | `BarrierShield.tscn` / 3,500 in front, 9,500 up |
+| Shield position while crouching | `CrouchShieldOffset` | 3,500 in front, 6,000 up (used in any crouching state: crouch barrier, crouch block) |
 | Shield look | `BarrierShield.tscn` → material | `tint`, `core_tint`, `strength`, `spin_speed`; quad size 1.45 |
 | Gauge colours | `Sakuga_UI.tscn` → `GameHUD_Background` (HealthHUD) → Barrier group | blue / yellow below 50 % / dark red |
 | Danger notification | `DangerNotificationIndex` | 9 (-1 = none) |
@@ -139,3 +140,4 @@ All barrier checks pass (2026-10-12), on the Dummy and on a freshly stamped figh
 | 2026-10-12 | Neutral barrier: states 15–17, hold inputs, Barrier Fizzle move, move-conditions patch; extra push based on knockback only |
 | 2026-10-12 | A+B alone keeps a barrier up (and guarding) after letting go of back; input 34 |
 | 2026-10-12 | BBCF gauge numbers (100 to start, 10/frame, damage/2 per hit, 124-frame refill delay, 900-frame Danger); shield visual; BARRIER label and blue/yellow/red gauge; guards Burst |
+| 2026-10-20 | Shield drops to `CrouchShieldOffset` in crouching states (crouch barrier no longer clips into the fighter) |

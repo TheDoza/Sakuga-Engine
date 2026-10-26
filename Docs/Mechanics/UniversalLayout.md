@@ -2,7 +2,7 @@
 
 **Status:** ✅ Working (tested 2026-10-11) · **Template fighter:** Dummy · **Rollback-safe:** Yes (data only; the tool runs in the editor)
 
-States **0–99 mean the same thing on every fighter** (0–71 used, 72–99 reserved for future universal mechanics). A fighter's own moves (normals, specials, supers) start at **100**.
+States **0–99 mean the same thing on every fighter** (0–73 used, 74–99 reserved for future universal mechanics). A fighter's own moves (normals, specials, supers) start at **100**.
 The Dummy is the template: change a universal state on the Dummy, then re-stamp other fighters to copy the change.
 
 ## The layout
@@ -38,7 +38,8 @@ The Dummy is the template: change a universal state on the Dummy, then re-stamp 
 | 63 | Backdash | 68 | Double_Jump_Forward |
 | 64 | Super_Jump_Neutral | 69 | Double_Jump_Backward |
 | 70 | Roll_Forward | 71 | Roll_Back |
-| 72–99 | *reserved* | | |
+| 72 | Outro (round win + match win pose) | 73 | Habit (idle fidget) |
+| 74–99 | *reserved* | | |
 
 See [Locomotion.md](Locomotion.md) for how they behave.
 
@@ -47,6 +48,14 @@ Reserved slots point at `Fighters/Shared/Universal/States/Reserved.tres` (return
 **Universal moves** (shared files in `Fighters/Shared/Universal/Moves/`, always first in a stance's move list):
 0 Walk_Forward · 1 Walk_Backward · 2 Jump_Neutral · 3 Jump_Forward · 4 Jump_Backward · 5 AirDash_Forward · 6 AirDash_Backward · 7 Crouch · 8 Uncrouch · 9 Air_Recovery · 10 Ground_Recovery · 11 Throw_Forward · 12 Throw_Back · 13 Throw_Air · 14 Barrier_Guard · 15 Barrier_Guard_Crouch · 16 Barrier_Guard_Air · 17 Barrier_Fizzle · 18 Burst · 19 Run (or `19_StepDash_Alt`) · 20 Backdash · 21–23 Super_Jump (neutral / forward / back) · 24–26 Double_Jump (neutral / forward / back) · 27 Forward_Roll · 28 Back_Roll.
 A fighter's own moves come after them (Dummy: Slide Kick, Test Mid, Test Wall Bounce, Test Ground Bounce, then the 2A–2D knockdown tests).
+
+## Outro and Habit (72–73)
+- **72 Outro** plays the fighter's `Outro` clip and holds its last frame (state type Locked, no movement). It's used for both the round-win pose and the match-win outro: point the fighter's Data → `VictoryPoses` (round win) and `Outros` (match win, with its quote in `FinalMessage`) at state 72. The stamp doesn't fill those two lists, so set them once per fighter.
+- **73 Habit** plays the `Habit` clip once, then goes back to Idle. It acts like Idle (you can walk, attack, block out of it). Idle goes into it after **5 full Idle loops** while the round is running; any other action resets the count.
+  - Opt-in per fighter: the fighter scene needs a CustomVariable node named **IdleLoops** under `Parameters/Variables` (added to the Variables list, MaxValue 99, Reset on). Without it the fighter never plays a habit. The Dummy doesn't have one.
+  - Number of loops: Dummy's `0_Idle.tres` → TransitionEvents → 2nd event → CheckCustomVariableCondition → `Value` (5), then re-stamp. With Basic Bro's 72-frame idle, 5 loops = 6 seconds.
+  - Rollback-safe: the counter is a CustomVariable, which is saved with the fighter.
+- With **Model Scene** set, the stamp sets both states' Duration to their clip length (`Clip Length States`), so Habit returns to Idle exactly when its clip ends.
 
 ## Folder structure (per fighter)
 ```
@@ -72,6 +81,7 @@ Fighters/<Name>/
    - **Stand / Crouch / Lying Hurtbox** = his three hurtboxes
    - **Ground / Air Throw Box** = his two throw boxes (leave empty to share the Dummy's)
    - **Use Animations** on; check **Animation Names** (state name → clip name; defaults follow the Kaede clip-name list)
+   - **Model Scene** = the fighter's `.glb` and **Match Loop Durations** on: every state that loops itself (state ends → go to frame 0: Idle, Walk Forward/Backward, Crouching, Barrier Stand/Crouch/Air) gets its Duration set to its clip's length, so loops don't pop. Recalculated on every stamp.
 5. Click **Stamp Universal States**. The Output panel reports what it wrote.
 6. Make his scene: duplicate `Fighters/Dummy/Instances/Dummy_Fighter_Default.tscn`, set **Data** to `BasicBro_Data.tres`, swap the model, and add him to `Roster.tres`.
 
@@ -80,6 +90,8 @@ If the fighter had states before its first stamp, they're moved to 100+ and the 
 A fighter stamped under the old 0–59 layout has its own states moved from 60+ to 100+ automatically, and its own moves' **Move State** raised by 40. Any `PlayStateAction` in its own states that points at another own state still needs updating by hand (the Output panel reminds you).
 The stamp also copies the Dummy's movement numbers to `<Folder>/<Name>_Locomotion.tres` (only if the fighter doesn't have one), so you can tune each fighter's run and jumps without re-stamping resetting them.
 If the fighter has no AI data, it borrows the Dummy's until you give it its own.
+
+Loop lengths: with **Model Scene** set, self-looping states get Duration = clip length in frames (Output says how many matched, and lists any clip it couldn't find). Without it, they keep the Dummy's Duration (Idle 60, Walk 60…), and a clip of a different length pops when the state restarts.
 
 ## What the tool does not copy
 - Walk speed and air dash distance are copied exactly from the Dummy (re-stamping resets them). Run, jump, super jump, double jump, step dash and backdash numbers live in the fighter's own `<Name>_Locomotion.tres` and survive re-stamping.
@@ -108,4 +120,6 @@ The Dummy's own states moved: 60 Slide Kick → **100**, 61 Test Mid → **101**
 | 2026-10-12 | Universal block expanded to 0–99; locomotion states 60–69, moves 19–26; own states from 100; stamp copies `Locomotion` |
 | 2026-10-12 | Burst added: state 18, move 18 |
 | 2026-10-12 | Barrier added: states 15–17, moves 14–17 |
+| 2026-10-20 | States 72 Outro and 73 Habit; Idle counts its loops into IdleLoops and plays Habit after 5; stamp `ClipLengthStates` |
+| 2026-10-20 | Loop lengths: `ModelScene` + `MatchLoopDurations` set self-looping states' Duration from the clip length |
 | 2026-10-11 | Throws added: states 30–38 and 55–58, moves 11–13; stamp tool copies throw boxes, rejected states and throw clip names; re-stamping no longer prints "another resource is loaded" errors |

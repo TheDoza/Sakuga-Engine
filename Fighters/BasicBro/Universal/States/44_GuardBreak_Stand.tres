@@ -1,0 +1,51 @@
+[gd_resource type="Resource" script_class="FighterState" format=3 uid="uid://bqwpa3uvt05y8"]
+
+[ext_resource type="Resource" uid="uid://di4ehwjh4pvuw" path="res://Fighters/BasicBro/Universal/AnimationData/44_GuardBreak_Stand_AnimationData.tres" id="1_fv27x"]
+[ext_resource type="Script" uid="uid://bgwrlqrhqb2a4" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/MoveXAction.cs" id="2_jatbm"]
+[ext_resource type="Script" uid="uid://bw1835rb2hj7y" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/MoveYAction.cs" id="3_a3gvt"]
+[ext_resource type="Script" uid="uid://c076jc3huncn2" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/FrameDataEvent.cs" id="4_80rmj"]
+[ext_resource type="Script" uid="uid://da4kqpf635oin" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/PlayStateAction.cs" id="5_e6u4g"]
+[ext_resource type="Script" uid="uid://ceoqefty16hbe" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/OnHitstunCondition.cs" id="6_ab8iq"]
+[ext_resource type="Script" uid="uid://bf60srwkccsm8" path="res://Scripts/SakugaEngine/Resources/FighterState.cs" id="7_vurpt"]
+
+[sub_resource type="Resource" id="Resource_fv27x"]
+script = ExtResource("2_jatbm")
+metadata/_custom_type_script = "uid://bgwrlqrhqb2a4"
+
+[sub_resource type="Resource" id="Resource_jatbm"]
+script = ExtResource("3_a3gvt")
+metadata/_custom_type_script = "uid://bw1835rb2hj7y"
+
+[sub_resource type="Resource" id="Resource_a3gvt"]
+script = ExtResource("4_80rmj")
+Conditions = null
+Actions = Array[Object]([SubResource("Resource_fv27x"), SubResource("Resource_jatbm")])
+metadata/_custom_type_script = "uid://c076jc3huncn2"
+
+[sub_resource type="Resource" id="Resource_80rmj"]
+script = ExtResource("5_e6u4g")
+metadata/_custom_type_script = "uid://da4kqpf635oin"
+
+[sub_resource type="Resource" id="Resource_e6u4g"]
+script = ExtResource("6_ab8iq")
+Not = true
+metadata/_custom_type_script = "uid://ceoqefty16hbe"
+
+[sub_resource type="Resource" id="Resource_ab8iq"]
+script = ExtResource("4_80rmj")
+Conditions = Array[Object]([SubResource("Resource_e6u4g")])
+Actions = Array[Object]([SubResource("Resource_80rmj")])
+metadata/_custom_type_script = "uid://c076jc3huncn2"
+
+[resource]
+script = ExtResource("7_vurpt")
+StateName = "GuardBreak_Stand"
+Type = 4
+AnimationData = ExtResource("1_fv27x")
+TransitionEvents = Array[Object]([SubResource("Resource_ab8iq")])
+OnEnterEvents = Array[Object]([SubResource("Resource_a3gvt")])
+OnTickEvents = null
+OnExitEvents = null
+OnHitConfirmEvents = null
+OnHitReactionEvents = null
+metadata/_custom_type_script = "uid://bf60srwkccsm8"

@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="FighterState" format=3 uid="uid://cbpvrystu60hl"]
+
+[ext_resource type="Resource" uid="uid://mqyhv1jwn0em" path="res://Fighters/BasicBro/Universal/AnimationData/72_Outro_AnimationData.tres" id="1_5m7vl"]
+[ext_resource type="Script" uid="uid://bgwrlqrhqb2a4" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/MoveXAction.cs" id="2_8f3hl"]
+[ext_resource type="Script" uid="uid://bw1835rb2hj7y" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/MoveYAction.cs" id="3_c2ore"]
+[ext_resource type="Script" uid="uid://c076jc3huncn2" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/FrameDataEvent.cs" id="4_ibjfn"]
+[ext_resource type="Script" uid="uid://bf60srwkccsm8" path="res://Scripts/SakugaEngine/Resources/FighterState.cs" id="5_8aooj"]
+
+[sub_resource type="Resource" id="Resource_qwnpb"]
+script = ExtResource("2_8f3hl")
+
+[sub_resource type="Resource" id="Resource_tcrbv"]
+script = ExtResource("3_c2ore")
+
+[sub_resource type="Resource" id="Resource_d0ffu"]
+script = ExtResource("4_ibjfn")
+Conditions = null
+Actions = Array[Object]([SubResource("Resource_qwnpb"), SubResource("Resource_tcrbv")])
+
+[resource]
+script = ExtResource("5_8aooj")
+StateName = "Outro"
+Type = 5
+AnimationData = ExtResource("1_5m7vl")
+TransitionEvents = null
+OnEnterEvents = Array[Object]([SubResource("Resource_d0ffu")])
+OnTickEvents = Array[Object]([SubResource("Resource_d0ffu")])
+OnExitEvents = null
+OnHitConfirmEvents = null
+OnHitReactionEvents = null

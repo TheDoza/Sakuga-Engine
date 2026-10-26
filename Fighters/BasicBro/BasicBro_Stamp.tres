@@ -8,6 +8,7 @@
 [ext_resource type="Resource" path="res://Fighters/BasicBro/Hitboxes/BB_Hitbox_Lying.tres" id="6_lying"]
 [ext_resource type="Resource" path="res://Fighters/BasicBro/Hitboxes/BB_Hitbox_Throw_Active.tres" id="7_throw"]
 [ext_resource type="Resource" path="res://Fighters/BasicBro/Hitboxes/BB_Hitbox_AirThrow_Active.tres" id="8_airthrow"]
+[ext_resource type="PackedScene" path="res://Fighters/BasicBro/Model/BasicBro.glb" id="9_model"]
 
 [resource]
 script = ExtResource("1_script")
@@ -20,6 +21,8 @@ LyingHurtbox = ExtResource("6_lying")
 GroundThrowBox = ExtResource("7_throw")
 AirThrowBox = ExtResource("8_airthrow")
 UseAnimations = true
+ModelScene = ExtResource("9_model")
+MatchLoopDurations = true
 AnimationNames = Dictionary[String, String]({
 "Idle": "Idle",
 "Walk_Forward": "Walk_Forward",
@@ -88,5 +91,7 @@ AnimationNames = Dictionary[String, String]({
 "Super_Jump_Backward": "Jump_Backward",
 "Double_Jump_Neutral": "Jump_Neutral",
 "Double_Jump_Forward": "Jump_Forward",
-"Double_Jump_Backward": "Jump_Backward"
+"Double_Jump_Backward": "Jump_Backward",
+"Outro": "Outro",
+"Habit": "Habit"
 })

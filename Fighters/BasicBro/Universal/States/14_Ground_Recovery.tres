@@ -1,0 +1,60 @@
+[gd_resource type="Resource" script_class="FighterState" format=3 uid="uid://x5ip1ulm02q2"]
+
+[ext_resource type="Resource" uid="uid://dh537p5tv3ec1" path="res://Fighters/BasicBro/Universal/AnimationData/14_Ground_Recovery_AnimationData.tres" id="1_ql6g3"]
+[ext_resource type="Script" uid="uid://6kbrdw6wei0q" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/StopKnockbackAction.cs" id="2_wlah0"]
+[ext_resource type="Script" uid="uid://bgwrlqrhqb2a4" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/MoveXAction.cs" id="3_wqm23"]
+[ext_resource type="Script" uid="uid://bw1835rb2hj7y" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/MoveYAction.cs" id="4_gvpnb"]
+[ext_resource type="Script" uid="uid://2ay34rfl7jag" path="res://Scripts/FunctionFighter/Mechanics/LocomotionAction.cs" id="5_kkdyi"]
+[ext_resource type="Script" uid="uid://c076jc3huncn2" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/FrameDataEvent.cs" id="6_p8qo4"]
+[ext_resource type="Script" uid="uid://da4kqpf635oin" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/PlayStateAction.cs" id="7_ovx2s"]
+[ext_resource type="Script" uid="uid://bho4h38y7suxk" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/StateEndedCondition.cs" id="8_rh1ha"]
+[ext_resource type="Script" uid="uid://bf60srwkccsm8" path="res://Scripts/SakugaEngine/Resources/FighterState.cs" id="9_sdpo7"]
+
+[sub_resource type="Resource" id="Resource_ql6g3"]
+script = ExtResource("2_wlah0")
+metadata/_custom_type_script = "uid://6kbrdw6wei0q"
+
+[sub_resource type="Resource" id="Resource_wlah0"]
+script = ExtResource("3_wqm23")
+metadata/_custom_type_script = "uid://bgwrlqrhqb2a4"
+
+[sub_resource type="Resource" id="Resource_wqm23"]
+script = ExtResource("4_gvpnb")
+metadata/_custom_type_script = "uid://bw1835rb2hj7y"
+
+[sub_resource type="Resource" id="Resource_gvpnb"]
+script = ExtResource("5_kkdyi")
+Mode = 9
+
+[sub_resource type="Resource" id="Resource_kkdyi"]
+script = ExtResource("6_p8qo4")
+Conditions = null
+Actions = Array[Object]([SubResource("Resource_ql6g3"), SubResource("Resource_wlah0"), SubResource("Resource_wqm23"), SubResource("Resource_gvpnb")])
+metadata/_custom_type_script = "uid://c076jc3huncn2"
+
+[sub_resource type="Resource" id="Resource_p8qo4"]
+script = ExtResource("7_ovx2s")
+metadata/_custom_type_script = "uid://da4kqpf635oin"
+
+[sub_resource type="Resource" id="Resource_ovx2s"]
+script = ExtResource("8_rh1ha")
+metadata/_custom_type_script = "uid://bho4h38y7suxk"
+
+[sub_resource type="Resource" id="Resource_rh1ha"]
+script = ExtResource("6_p8qo4")
+Conditions = Array[Object]([SubResource("Resource_ovx2s")])
+Actions = Array[Object]([SubResource("Resource_p8qo4")])
+metadata/_custom_type_script = "uid://c076jc3huncn2"
+
+[resource]
+script = ExtResource("9_sdpo7")
+StateName = "Ground_Recovery"
+Type = 5
+AnimationData = ExtResource("1_ql6g3")
+TransitionEvents = Array[Object]([SubResource("Resource_rh1ha")])
+OnEnterEvents = Array[Object]([SubResource("Resource_kkdyi")])
+OnTickEvents = null
+OnExitEvents = null
+OnHitConfirmEvents = null
+OnHitReactionEvents = null
+metadata/_custom_type_script = "uid://bf60srwkccsm8"

@@ -7,8 +7,8 @@ namespace SakugaEngine.Global
         public const int SubSteps = 2; // Discrete substeps for collisions
         public const int Delta = TicksPerSecond * SubSteps;
         public const int SimulationScale = 10000; //World units multiplied by this
-        public const int WallLimit = 75000;
-        public const int CeilingLimit = 120000;
+        public const int WallLimit = 100000;   // was 75000: play box is now 20 units wide (was 15)
+        public const int CeilingLimit = 160000; // was 120000
         public const int StartingPosition = 12500;
         public const int MaxPlayersDistance = 70000;
         public const int InputHistorySize = 16;

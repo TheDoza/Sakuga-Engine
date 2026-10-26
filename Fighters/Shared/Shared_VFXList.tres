@@ -14,7 +14,6 @@
 [ext_resource type="PackedScene" path="res://Fighters/Shared/VFX/VFX_09.tscn" id="11_fcend"]
 [ext_resource type="PackedScene" path="res://Fighters/Shared/VFX/VFX_10.tscn" id="12_punish"]
 [ext_resource type="PackedScene" path="res://Fighters/Shared/VFX/VFX_11.tscn" id="13_reversal"]
-
 [ext_resource type="PackedScene" path="res://Fighters/Shared/VFX/VFX_12.tscn" id="14_move"]
 [ext_resource type="PackedScene" path="res://Fighters/Shared/VFX/VFX_13.tscn" id="15_move"]
 [ext_resource type="PackedScene" path="res://Fighters/Shared/VFX/VFX_14.tscn" id="16_move"]

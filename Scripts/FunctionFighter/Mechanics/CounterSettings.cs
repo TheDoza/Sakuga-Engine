@@ -65,6 +65,9 @@ namespace FunctionFighter.Mechanics
         /// <summary>Notification / flash VFX for a Reversal (a move on the first frame after blockstun, hitstun or wakeup). -1 = none.</summary>
         [Export] public int ReversalNotificationIndex = 13;
         [Export] public int ReversalVFXIndex = 11;
+        /// <summary>Notification when the opponent lands in a hard knockdown (index in HitNotifs.tres; 7 = "Hard
+        /// Knockdown"). -1 = none.</summary>
+        [Export] public int HardKnockdownNotificationIndex = 7;
 
         private static CounterSettings _cached;
 

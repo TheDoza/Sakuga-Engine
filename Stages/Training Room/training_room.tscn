@@ -5,17 +5,17 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_grid"]
 render_priority = 0
 shader = ExtResource("1_grid")
-shader_parameter/wall_limit = 7.5
+shader_parameter/wall_limit = 10.0
 shader_parameter/back_wall_z = -5.0
-shader_parameter/ceiling_height = 12.0
+shader_parameter/ceiling_height = 16.0
 
 [sub_resource type="BoxMesh" id="BoxMesh_floor"]
 material = SubResource("ShaderMaterial_grid")
-size = Vector3(15.0, 0.2, 29.0)
+size = Vector3(20.0, 0.2, 29.0)
 
 [sub_resource type="BoxMesh" id="BoxMesh_back"]
 material = SubResource("ShaderMaterial_grid")
-size = Vector3(15.4, 30.0, 0.2)
+size = Vector3(20.4, 30.0, 0.2)
 
 [sub_resource type="BoxMesh" id="BoxMesh_side"]
 material = SubResource("ShaderMaterial_grid")
@@ -53,12 +53,12 @@ mesh = SubResource("BoxMesh_back")
 cast_shadow = 0
 
 [node name="LeftWall" type="MeshInstance3D" parent="Geometry"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.6, 15, 9.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.1, 15, 9.5)
 mesh = SubResource("BoxMesh_side")
 cast_shadow = 0
 
 [node name="RightWall" type="MeshInstance3D" parent="Geometry"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.6, 15, 9.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.1, 15, 9.5)
 mesh = SubResource("BoxMesh_side")
 cast_shadow = 0
 
@@ -176,12 +176,52 @@ font_size = 64
 outline_size = 14
 horizontal_alignment = 0
 
+[node name="Mark_12m" type="Label3D" parent="HeightMarkers/Back"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12, 12.16, -4.98)
+pixel_size = 0.006
+modulate = Color(0.45, 0.95, 0.25, 1)
+outline_modulate = Color(0.05, 0.08, 0.05, 1)
+text = "12m"
+font_size = 64
+outline_size = 14
+horizontal_alignment = 0
+
+[node name="Mark_13m" type="Label3D" parent="HeightMarkers/Back"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12, 13.16, -4.98)
+pixel_size = 0.006
+modulate = Color(0.45, 0.95, 0.25, 1)
+outline_modulate = Color(0.05, 0.08, 0.05, 1)
+text = "13m"
+font_size = 64
+outline_size = 14
+horizontal_alignment = 0
+
+[node name="Mark_14m" type="Label3D" parent="HeightMarkers/Back"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12, 14.16, -4.98)
+pixel_size = 0.006
+modulate = Color(0.45, 0.95, 0.25, 1)
+outline_modulate = Color(0.05, 0.08, 0.05, 1)
+text = "14m"
+font_size = 64
+outline_size = 14
+horizontal_alignment = 0
+
+[node name="Mark_15m" type="Label3D" parent="HeightMarkers/Back"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12, 15.16, -4.98)
+pixel_size = 0.006
+modulate = Color(0.45, 0.95, 0.25, 1)
+outline_modulate = Color(0.05, 0.08, 0.05, 1)
+text = "15m"
+font_size = 64
+outline_size = 14
+horizontal_alignment = 0
+
 [node name="Ceiling" type="Label3D" parent="HeightMarkers/Back"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12, 12.18, -4.98)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12, 16.18, -4.98)
 pixel_size = 0.006
 modulate = Color(1, 0.3, 0.25, 1)
 outline_modulate = Color(0.05, 0.08, 0.05, 1)
-text = "CEILING 12m"
+text = "CEILING 16m"
 font_size = 64
 outline_size = 14
 horizontal_alignment = 0
@@ -189,7 +229,7 @@ horizontal_alignment = 0
 [node name="Left" type="Node3D" parent="HeightMarkers"]
 
 [node name="Mark_1m" type="Label3D" parent="HeightMarkers/Left"]
-transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -7.48, 1.16, -0.12)
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -9.98, 1.16, -0.12)
 pixel_size = 0.006
 modulate = Color(0.45, 0.95, 0.25, 1)
 outline_modulate = Color(0.05, 0.08, 0.05, 1)
@@ -199,7 +239,7 @@ outline_size = 14
 horizontal_alignment = 0
 
 [node name="Mark_2m" type="Label3D" parent="HeightMarkers/Left"]
-transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -7.48, 2.16, -0.12)
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -9.98, 2.16, -0.12)
 pixel_size = 0.006
 modulate = Color(0.45, 0.95, 0.25, 1)
 outline_modulate = Color(0.05, 0.08, 0.05, 1)
@@ -209,7 +249,7 @@ outline_size = 14
 horizontal_alignment = 0
 
 [node name="Mark_3m" type="Label3D" parent="HeightMarkers/Left"]
-transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -7.48, 3.16, -0.12)
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -9.98, 3.16, -0.12)
 pixel_size = 0.006
 modulate = Color(0.45, 0.95, 0.25, 1)
 outline_modulate = Color(0.05, 0.08, 0.05, 1)
@@ -219,7 +259,7 @@ outline_size = 14
 horizontal_alignment = 0
 
 [node name="Mark_4m" type="Label3D" parent="HeightMarkers/Left"]
-transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -7.48, 4.16, -0.12)
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -9.98, 4.16, -0.12)
 pixel_size = 0.006
 modulate = Color(0.45, 0.95, 0.25, 1)
 outline_modulate = Color(0.05, 0.08, 0.05, 1)
@@ -229,7 +269,7 @@ outline_size = 14
 horizontal_alignment = 0
 
 [node name="Mark_5m" type="Label3D" parent="HeightMarkers/Left"]
-transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -7.48, 5.16, -0.12)
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -9.98, 5.16, -0.12)
 pixel_size = 0.006
 modulate = Color(0.45, 0.95, 0.25, 1)
 outline_modulate = Color(0.05, 0.08, 0.05, 1)
@@ -239,7 +279,7 @@ outline_size = 14
 horizontal_alignment = 0
 
 [node name="Mark_6m" type="Label3D" parent="HeightMarkers/Left"]
-transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -7.48, 6.16, -0.12)
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -9.98, 6.16, -0.12)
 pixel_size = 0.006
 modulate = Color(0.45, 0.95, 0.25, 1)
 outline_modulate = Color(0.05, 0.08, 0.05, 1)
@@ -249,7 +289,7 @@ outline_size = 14
 horizontal_alignment = 0
 
 [node name="Mark_7m" type="Label3D" parent="HeightMarkers/Left"]
-transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -7.48, 7.16, -0.12)
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -9.98, 7.16, -0.12)
 pixel_size = 0.006
 modulate = Color(0.45, 0.95, 0.25, 1)
 outline_modulate = Color(0.05, 0.08, 0.05, 1)
@@ -259,7 +299,7 @@ outline_size = 14
 horizontal_alignment = 0
 
 [node name="Mark_8m" type="Label3D" parent="HeightMarkers/Left"]
-transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -7.48, 8.16, -0.12)
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -9.98, 8.16, -0.12)
 pixel_size = 0.006
 modulate = Color(0.45, 0.95, 0.25, 1)
 outline_modulate = Color(0.05, 0.08, 0.05, 1)
@@ -269,7 +309,7 @@ outline_size = 14
 horizontal_alignment = 0
 
 [node name="Mark_9m" type="Label3D" parent="HeightMarkers/Left"]
-transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -7.48, 9.16, -0.12)
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -9.98, 9.16, -0.12)
 pixel_size = 0.006
 modulate = Color(0.45, 0.95, 0.25, 1)
 outline_modulate = Color(0.05, 0.08, 0.05, 1)
@@ -279,7 +319,7 @@ outline_size = 14
 horizontal_alignment = 0
 
 [node name="Mark_10m" type="Label3D" parent="HeightMarkers/Left"]
-transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -7.48, 10.16, -0.12)
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -9.98, 10.16, -0.12)
 pixel_size = 0.006
 modulate = Color(0.45, 0.95, 0.25, 1)
 outline_modulate = Color(0.05, 0.08, 0.05, 1)
@@ -289,7 +329,7 @@ outline_size = 14
 horizontal_alignment = 0
 
 [node name="Mark_11m" type="Label3D" parent="HeightMarkers/Left"]
-transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -7.48, 11.16, -0.12)
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -9.98, 11.16, -0.12)
 pixel_size = 0.006
 modulate = Color(0.45, 0.95, 0.25, 1)
 outline_modulate = Color(0.05, 0.08, 0.05, 1)
@@ -298,12 +338,52 @@ font_size = 64
 outline_size = 14
 horizontal_alignment = 0
 
+[node name="Mark_12m" type="Label3D" parent="HeightMarkers/Left"]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -9.98, 12.16, -0.12)
+pixel_size = 0.006
+modulate = Color(0.45, 0.95, 0.25, 1)
+outline_modulate = Color(0.05, 0.08, 0.05, 1)
+text = "12m"
+font_size = 64
+outline_size = 14
+horizontal_alignment = 0
+
+[node name="Mark_13m" type="Label3D" parent="HeightMarkers/Left"]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -9.98, 13.16, -0.12)
+pixel_size = 0.006
+modulate = Color(0.45, 0.95, 0.25, 1)
+outline_modulate = Color(0.05, 0.08, 0.05, 1)
+text = "13m"
+font_size = 64
+outline_size = 14
+horizontal_alignment = 0
+
+[node name="Mark_14m" type="Label3D" parent="HeightMarkers/Left"]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -9.98, 14.16, -0.12)
+pixel_size = 0.006
+modulate = Color(0.45, 0.95, 0.25, 1)
+outline_modulate = Color(0.05, 0.08, 0.05, 1)
+text = "14m"
+font_size = 64
+outline_size = 14
+horizontal_alignment = 0
+
+[node name="Mark_15m" type="Label3D" parent="HeightMarkers/Left"]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -9.98, 15.16, -0.12)
+pixel_size = 0.006
+modulate = Color(0.45, 0.95, 0.25, 1)
+outline_modulate = Color(0.05, 0.08, 0.05, 1)
+text = "15m"
+font_size = 64
+outline_size = 14
+horizontal_alignment = 0
+
 [node name="Ceiling" type="Label3D" parent="HeightMarkers/Left"]
-transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -7.48, 12.18, -0.12)
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -9.98, 16.18, -0.12)
 pixel_size = 0.006
 modulate = Color(1, 0.3, 0.25, 1)
 outline_modulate = Color(0.05, 0.08, 0.05, 1)
-text = "CEILING 12m"
+text = "CEILING 16m"
 font_size = 64
 outline_size = 14
 horizontal_alignment = 0
@@ -311,7 +391,7 @@ horizontal_alignment = 0
 [node name="Right" type="Node3D" parent="HeightMarkers"]
 
 [node name="Mark_1m" type="Label3D" parent="HeightMarkers/Right"]
-transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 7.48, 1.16, -0.12)
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 9.98, 1.16, -0.12)
 pixel_size = 0.006
 modulate = Color(0.45, 0.95, 0.25, 1)
 outline_modulate = Color(0.05, 0.08, 0.05, 1)
@@ -321,7 +401,7 @@ outline_size = 14
 horizontal_alignment = 2
 
 [node name="Mark_2m" type="Label3D" parent="HeightMarkers/Right"]
-transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 7.48, 2.16, -0.12)
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 9.98, 2.16, -0.12)
 pixel_size = 0.006
 modulate = Color(0.45, 0.95, 0.25, 1)
 outline_modulate = Color(0.05, 0.08, 0.05, 1)
@@ -331,7 +411,7 @@ outline_size = 14
 horizontal_alignment = 2
 
 [node name="Mark_3m" type="Label3D" parent="HeightMarkers/Right"]
-transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 7.48, 3.16, -0.12)
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 9.98, 3.16, -0.12)
 pixel_size = 0.006
 modulate = Color(0.45, 0.95, 0.25, 1)
 outline_modulate = Color(0.05, 0.08, 0.05, 1)
@@ -341,7 +421,7 @@ outline_size = 14
 horizontal_alignment = 2
 
 [node name="Mark_4m" type="Label3D" parent="HeightMarkers/Right"]
-transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 7.48, 4.16, -0.12)
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 9.98, 4.16, -0.12)
 pixel_size = 0.006
 modulate = Color(0.45, 0.95, 0.25, 1)
 outline_modulate = Color(0.05, 0.08, 0.05, 1)
@@ -351,7 +431,7 @@ outline_size = 14
 horizontal_alignment = 2
 
 [node name="Mark_5m" type="Label3D" parent="HeightMarkers/Right"]
-transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 7.48, 5.16, -0.12)
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 9.98, 5.16, -0.12)
 pixel_size = 0.006
 modulate = Color(0.45, 0.95, 0.25, 1)
 outline_modulate = Color(0.05, 0.08, 0.05, 1)
@@ -361,7 +441,7 @@ outline_size = 14
 horizontal_alignment = 2
 
 [node name="Mark_6m" type="Label3D" parent="HeightMarkers/Right"]
-transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 7.48, 6.16, -0.12)
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 9.98, 6.16, -0.12)
 pixel_size = 0.006
 modulate = Color(0.45, 0.95, 0.25, 1)
 outline_modulate = Color(0.05, 0.08, 0.05, 1)
@@ -371,7 +451,7 @@ outline_size = 14
 horizontal_alignment = 2
 
 [node name="Mark_7m" type="Label3D" parent="HeightMarkers/Right"]
-transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 7.48, 7.16, -0.12)
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 9.98, 7.16, -0.12)
 pixel_size = 0.006
 modulate = Color(0.45, 0.95, 0.25, 1)
 outline_modulate = Color(0.05, 0.08, 0.05, 1)
@@ -381,7 +461,7 @@ outline_size = 14
 horizontal_alignment = 2
 
 [node name="Mark_8m" type="Label3D" parent="HeightMarkers/Right"]
-transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 7.48, 8.16, -0.12)
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 9.98, 8.16, -0.12)
 pixel_size = 0.006
 modulate = Color(0.45, 0.95, 0.25, 1)
 outline_modulate = Color(0.05, 0.08, 0.05, 1)
@@ -391,7 +471,7 @@ outline_size = 14
 horizontal_alignment = 2
 
 [node name="Mark_9m" type="Label3D" parent="HeightMarkers/Right"]
-transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 7.48, 9.16, -0.12)
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 9.98, 9.16, -0.12)
 pixel_size = 0.006
 modulate = Color(0.45, 0.95, 0.25, 1)
 outline_modulate = Color(0.05, 0.08, 0.05, 1)
@@ -401,7 +481,7 @@ outline_size = 14
 horizontal_alignment = 2
 
 [node name="Mark_10m" type="Label3D" parent="HeightMarkers/Right"]
-transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 7.48, 10.16, -0.12)
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 9.98, 10.16, -0.12)
 pixel_size = 0.006
 modulate = Color(0.45, 0.95, 0.25, 1)
 outline_modulate = Color(0.05, 0.08, 0.05, 1)
@@ -411,7 +491,7 @@ outline_size = 14
 horizontal_alignment = 2
 
 [node name="Mark_11m" type="Label3D" parent="HeightMarkers/Right"]
-transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 7.48, 11.16, -0.12)
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 9.98, 11.16, -0.12)
 pixel_size = 0.006
 modulate = Color(0.45, 0.95, 0.25, 1)
 outline_modulate = Color(0.05, 0.08, 0.05, 1)
@@ -420,12 +500,52 @@ font_size = 64
 outline_size = 14
 horizontal_alignment = 2
 
+[node name="Mark_12m" type="Label3D" parent="HeightMarkers/Right"]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 9.98, 12.16, -0.12)
+pixel_size = 0.006
+modulate = Color(0.45, 0.95, 0.25, 1)
+outline_modulate = Color(0.05, 0.08, 0.05, 1)
+text = "12m"
+font_size = 64
+outline_size = 14
+horizontal_alignment = 2
+
+[node name="Mark_13m" type="Label3D" parent="HeightMarkers/Right"]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 9.98, 13.16, -0.12)
+pixel_size = 0.006
+modulate = Color(0.45, 0.95, 0.25, 1)
+outline_modulate = Color(0.05, 0.08, 0.05, 1)
+text = "13m"
+font_size = 64
+outline_size = 14
+horizontal_alignment = 2
+
+[node name="Mark_14m" type="Label3D" parent="HeightMarkers/Right"]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 9.98, 14.16, -0.12)
+pixel_size = 0.006
+modulate = Color(0.45, 0.95, 0.25, 1)
+outline_modulate = Color(0.05, 0.08, 0.05, 1)
+text = "14m"
+font_size = 64
+outline_size = 14
+horizontal_alignment = 2
+
+[node name="Mark_15m" type="Label3D" parent="HeightMarkers/Right"]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 9.98, 15.16, -0.12)
+pixel_size = 0.006
+modulate = Color(0.45, 0.95, 0.25, 1)
+outline_modulate = Color(0.05, 0.08, 0.05, 1)
+text = "15m"
+font_size = 64
+outline_size = 14
+horizontal_alignment = 2
+
 [node name="Ceiling" type="Label3D" parent="HeightMarkers/Right"]
-transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 7.48, 12.18, -0.12)
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 9.98, 16.18, -0.12)
 pixel_size = 0.006
 modulate = Color(1, 0.3, 0.25, 1)
 outline_modulate = Color(0.05, 0.08, 0.05, 1)
-text = "CEILING 12m"
+text = "CEILING 16m"
 font_size = 64
 outline_size = 14
 horizontal_alignment = 2

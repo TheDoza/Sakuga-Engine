@@ -23,6 +23,11 @@ namespace SakugaEngine.Resources
         /// (HitboxSettings.Pushbox) always win. For a state that should pass through on purpose, give its hitbox settings
         /// a pushbox with Size (0, 0) (Shared/HitboxPresets/Pushbox_None.tres). Empty = no fallback (old behaviour).</summary>
         [Export] public BoxShape DefaultPushbox;
+        /// <summary>[FF PATCH: state flash] Draw StateFlash's outline pass on this fighter (counter / armor / invincible
+        /// flashes). Turn it off for models that carry their own inverted-hull outline (Basic Bro and the rest of the
+        /// Unity fighter pack): the outline pass culls front faces, which on an inverted hull draws the hull's near side,
+        /// so the whole body turns the flash color. The tint still shows either way.</summary>
+        [Export] public bool StateFlashOutline = true;
 
         [Export] public AIData _aiData;
 

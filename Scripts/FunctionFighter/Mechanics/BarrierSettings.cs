@@ -55,6 +55,8 @@ namespace FunctionFighter.Mechanics
         [Export] public PackedScene ShieldScene;
         /// <summary>Shield position: distance in front of the fighter and height above the feet (game units).</summary>
         [Export] public Vector2I ShieldOffset = new Vector2I(3500, 9500);
+        /// <summary>Shield position while the fighter is in a crouching state (crouch barrier, crouch block): distance in front and height above the feet (game units).</summary>
+        [Export] public Vector2I CrouchShieldOffset = new Vector2I(3500, 6000);
 
         private static BarrierSettings _cached;
 

@@ -1,0 +1,54 @@
+[gd_resource type="Resource" script_class="FighterState" format=3 uid="uid://esh33glfbtqg"]
+
+[ext_resource type="Resource" uid="uid://dnasylr8hso85" path="res://Fighters/BasicBro/Universal/AnimationData/54_GuardBreak_Air_AnimationData.tres" id="1_m2oat"]
+[ext_resource type="Script" uid="uid://dcnb575mw2hwp" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/AddGravityAction.cs" id="2_3hdnt"]
+[ext_resource type="Script" uid="uid://c076jc3huncn2" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/FrameDataEvent.cs" id="3_jwpur"]
+[ext_resource type="Script" uid="uid://da4kqpf635oin" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/PlayStateAction.cs" id="4_allei"]
+[ext_resource type="Script" uid="uid://baguhnol5ww4w" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/OnGroundCondition.cs" id="5_8rjgr"]
+[ext_resource type="Script" uid="uid://bjhfta73s6pqs" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/CheckYVelocityCondition.cs" id="6_fu2hv"]
+[ext_resource type="Script" uid="uid://bf60srwkccsm8" path="res://Scripts/SakugaEngine/Resources/FighterState.cs" id="7_mg1y1"]
+
+[sub_resource type="Resource" id="Resource_m2oat"]
+script = ExtResource("2_3hdnt")
+SetValue = true
+UseDefault = true
+metadata/_custom_type_script = "uid://dcnb575mw2hwp"
+
+[sub_resource type="Resource" id="Resource_3hdnt"]
+script = ExtResource("3_jwpur")
+Conditions = null
+Actions = Array[Object]([SubResource("Resource_m2oat")])
+metadata/_custom_type_script = "uid://c076jc3huncn2"
+
+[sub_resource type="Resource" id="Resource_jwpur"]
+script = ExtResource("4_allei")
+StateIndex = 26
+metadata/_custom_type_script = "uid://da4kqpf635oin"
+
+[sub_resource type="Resource" id="Resource_allei"]
+script = ExtResource("5_8rjgr")
+metadata/_custom_type_script = "uid://baguhnol5ww4w"
+
+[sub_resource type="Resource" id="Resource_8rjgr"]
+script = ExtResource("6_fu2hv")
+CompareMode = 4
+metadata/_custom_type_script = "uid://bjhfta73s6pqs"
+
+[sub_resource type="Resource" id="Resource_fu2hv"]
+script = ExtResource("3_jwpur")
+Conditions = Array[Object]([SubResource("Resource_allei"), SubResource("Resource_8rjgr")])
+Actions = Array[Object]([SubResource("Resource_jwpur")])
+metadata/_custom_type_script = "uid://c076jc3huncn2"
+
+[resource]
+script = ExtResource("7_mg1y1")
+StateName = "GuardBreak_Air"
+Type = 4
+AnimationData = ExtResource("1_m2oat")
+TransitionEvents = Array[Object]([SubResource("Resource_fu2hv")])
+OnEnterEvents = null
+OnTickEvents = Array[Object]([SubResource("Resource_3hdnt")])
+OnExitEvents = null
+OnHitConfirmEvents = null
+OnHitReactionEvents = null
+metadata/_custom_type_script = "uid://bf60srwkccsm8"

@@ -10,6 +10,10 @@
 [ext_resource type="Script" uid="uid://c076jc3huncn2" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/FrameDataEvent.cs" id="3_d4e57"]
 [ext_resource type="Script" uid="uid://b4st7jmqq1vph" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/CheckSideChangeCondition.cs" id="3_elp06"]
 
+[ext_resource type="Script" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/RoundRunningCondition.cs" id="hb_round"]
+[ext_resource type="Script" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/CheckCustomVariableCondition.cs" id="hb_check"]
+[ext_resource type="Script" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/SetCustomVariableAction.cs" id="hb_setvar"]
+[ext_resource type="Script" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/PlayStateAction.cs" id="hb_play"]
 [sub_resource type="Resource" id="Resource_vo6yr"]
 script = ExtResource("2_ayr4o")
 metadata/_custom_type_script = "uid://n7xih8pqfpwo"
@@ -52,14 +56,58 @@ Conditions = Array[Object]([SubResource("Resource_ayr4o")])
 Actions = Array[Object]([SubResource("Resource_v4kv6")])
 metadata/_custom_type_script = "uid://c076jc3huncn2"
 
+[sub_resource type="Resource" id="Habit_Ended"]
+script = ExtResource("2_txpyi")
+
+[sub_resource type="Resource" id="Habit_Round"]
+script = ExtResource("hb_round")
+
+[sub_resource type="Resource" id="Habit_AddLoop"]
+script = ExtResource("hb_setvar")
+ByIndex = -1
+ByName = "IdleLoops"
+ChangeMode = 1
+NewValue = 1
+
+[sub_resource type="Resource" id="Habit_CountEvent"]
+script = ExtResource("3_d4e57")
+Conditions = Array[Object]([SubResource("Habit_Ended"), SubResource("Habit_Round")])
+Actions = Array[Object]([SubResource("Habit_AddLoop")])
+
+[sub_resource type="Resource" id="Habit_Enough"]
+script = ExtResource("hb_check")
+ByIndex = -1
+ByName = "IdleLoops"
+Value = 5
+CompareMode = 3
+
+[sub_resource type="Resource" id="Habit_Play"]
+script = ExtResource("hb_play")
+StateIndex = 73
+
+[sub_resource type="Resource" id="Habit_PlayEvent"]
+script = ExtResource("3_d4e57")
+Conditions = Array[Object]([SubResource("Habit_Ended"), SubResource("Habit_Enough")])
+Actions = Array[Object]([SubResource("Habit_Play")])
+
+[sub_resource type="Resource" id="Habit_ResetLoops"]
+script = ExtResource("hb_setvar")
+ByIndex = -1
+ByName = "IdleLoops"
+NewValue = 0
+
+[sub_resource type="Resource" id="Habit_ExitEvent"]
+script = ExtResource("3_d4e57")
+Actions = Array[Object]([SubResource("Habit_ResetLoops")])
+
 [resource]
 script = ExtResource("1_pgpoo")
 StateName = "Idle"
 Type = 1
 AnimationData = ExtResource("1_txpyi")
-TransitionEvents = Array[Object]([SubResource("Resource_elp06")])
+TransitionEvents = Array[Object]([SubResource("Habit_CountEvent"), SubResource("Habit_PlayEvent"), SubResource("Resource_elp06")])
 OnEnterEvents = null
 OnTickEvents = Array[Object]([SubResource("Resource_7pn88"), SubResource("Resource_5brlo")])
-OnExitEvents = null
+OnExitEvents = Array[Object]([SubResource("Habit_ExitEvent")])
 OnHitConfirmEvents = null
 OnHitReactionEvents = null

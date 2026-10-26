@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="AnimationData" format=3 uid="uid://b6j1ykg2pvgbu"]
+
+[ext_resource type="Script" uid="uid://b8vqwkv52qq3e" path="res://Scripts/SakugaEngine/Resources/AnimationSettings.cs" id="1_tqqxw"]
+[ext_resource type="Script" uid="uid://5qrsoteskjym" path="res://Scripts/SakugaEngine/Resources/HitboxState.cs" id="2_uaeyo"]
+[ext_resource type="Resource" uid="uid://c48mi2er3ao5h" path="res://Fighters/BasicBro/Hitboxes/BB_Hitbox_Stand.tres" id="3_kxdg8"]
+[ext_resource type="Script" uid="uid://ddkya5wrb53ly" path="res://Scripts/SakugaEngine/Resources/AnimationData.cs" id="4_cyffr"]
+
+[sub_resource type="Resource" id="Resource_tqqxw"]
+script = ExtResource("1_tqqxw")
+SourceAnimation = "Air_Recovery"
+
+[sub_resource type="Resource" id="Resource_uaeyo"]
+script = ExtResource("2_uaeyo")
+metadata/_custom_type_script = "uid://5qrsoteskjym"
+
+[sub_resource type="Resource" id="Resource_kxdg8"]
+script = ExtResource("2_uaeyo")
+AtFrame = 10
+animationStage = 2
+HitboxData = ExtResource("3_kxdg8")
+metadata/_custom_type_script = "uid://5qrsoteskjym"
+
+[resource]
+script = ExtResource("4_cyffr")
+Duration = 15
+Animations = [SubResource("Resource_tqqxw")]
+Hitboxes = [SubResource("Resource_uaeyo"), SubResource("Resource_kxdg8")]
+metadata/_custom_type_script = "uid://ddkya5wrb53ly"

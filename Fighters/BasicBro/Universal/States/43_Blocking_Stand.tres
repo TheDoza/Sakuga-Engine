@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="FighterState" format=3 uid="uid://dgeh8dlo1kqk6"]
+
+[ext_resource type="Resource" uid="uid://dusgtd86wjfpk" path="res://Fighters/BasicBro/Universal/AnimationData/43_Blocking_Stand_AnimationData.tres" id="1_uisbr"]
+[ext_resource type="Script" uid="uid://bgwrlqrhqb2a4" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/MoveXAction.cs" id="2_cljya"]
+[ext_resource type="Script" uid="uid://c076jc3huncn2" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/FrameDataEvent.cs" id="3_74j6h"]
+[ext_resource type="Script" uid="uid://bf60srwkccsm8" path="res://Scripts/SakugaEngine/Resources/FighterState.cs" id="4_akmks"]
+
+[sub_resource type="Resource" id="Resource_uisbr"]
+script = ExtResource("2_cljya")
+metadata/_custom_type_script = "uid://bgwrlqrhqb2a4"
+
+[sub_resource type="Resource" id="Resource_cljya"]
+script = ExtResource("3_74j6h")
+Conditions = null
+Actions = Array[Object]([SubResource("Resource_uisbr")])
+metadata/_custom_type_script = "uid://c076jc3huncn2"
+
+[resource]
+script = ExtResource("4_akmks")
+StateName = "Blocking_Stand"
+Type = 3
+AnimationData = ExtResource("1_uisbr")
+TransitionEvents = null
+OnEnterEvents = null
+OnTickEvents = Array[Object]([SubResource("Resource_cljya")])
+OnExitEvents = null
+OnHitConfirmEvents = null
+OnHitReactionEvents = null
+metadata/_custom_type_script = "uid://bf60srwkccsm8"

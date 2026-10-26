@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="AnimationData" format=3 uid="uid://dxxpkrgcwy21k"]
+
+[ext_resource type="Script" uid="uid://b8vqwkv52qq3e" path="res://Scripts/SakugaEngine/Resources/AnimationSettings.cs" id="1_838eq"]
+[ext_resource type="Resource" uid="uid://c48mi2er3ao5h" path="res://Fighters/BasicBro/Hitboxes/BB_Hitbox_Stand.tres" id="2_qsbbf"]
+[ext_resource type="Script" uid="uid://5qrsoteskjym" path="res://Scripts/SakugaEngine/Resources/HitboxState.cs" id="3_7mytu"]
+[ext_resource type="Script" uid="uid://ddkya5wrb53ly" path="res://Scripts/SakugaEngine/Resources/AnimationData.cs" id="4_d2386"]
+
+[sub_resource type="Resource" id="Resource_838eq"]
+script = ExtResource("1_838eq")
+SourceAnimation = "Falling"
+
+[sub_resource type="Resource" id="Resource_qsbbf"]
+script = ExtResource("3_7mytu")
+HitboxData = ExtResource("2_qsbbf")
+metadata/_custom_type_script = "uid://5qrsoteskjym"
+
+[resource]
+script = ExtResource("4_d2386")
+Duration = 40
+Animations = [SubResource("Resource_838eq")]
+Hitboxes = [SubResource("Resource_qsbbf")]
+metadata/_custom_type_script = "uid://ddkya5wrb53ly"

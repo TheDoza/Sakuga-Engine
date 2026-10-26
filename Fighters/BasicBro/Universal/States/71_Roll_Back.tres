@@ -1,0 +1,40 @@
+[gd_resource type="Resource" script_class="FighterState" format=3 uid="uid://bcdplrb5avkpg"]
+
+[ext_resource type="Resource" uid="uid://bwbxhyqjktuew" path="res://Fighters/BasicBro/Universal/AnimationData/71_Roll_Back_AnimationData.tres" id="1_ukrbd"]
+[ext_resource type="Script" uid="uid://2ay34rfl7jag" path="res://Scripts/FunctionFighter/Mechanics/LocomotionAction.cs" id="2_6hqis"]
+[ext_resource type="Script" uid="uid://c076jc3huncn2" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/FrameDataEvent.cs" id="3_k7dtk"]
+[ext_resource type="Script" uid="uid://da4kqpf635oin" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/PlayStateAction.cs" id="4_buqqp"]
+[ext_resource type="Script" uid="uid://bho4h38y7suxk" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/StateEndedCondition.cs" id="5_le5mu"]
+[ext_resource type="Script" uid="uid://bf60srwkccsm8" path="res://Scripts/SakugaEngine/Resources/FighterState.cs" id="6_7x8v4"]
+
+[sub_resource type="Resource" id="Resource_ukrbd"]
+script = ExtResource("2_6hqis")
+Mode = 11
+
+[sub_resource type="Resource" id="Resource_6hqis"]
+script = ExtResource("3_k7dtk")
+Conditions = null
+Actions = Array[Object]([SubResource("Resource_ukrbd")])
+
+[sub_resource type="Resource" id="Resource_k7dtk"]
+script = ExtResource("4_buqqp")
+
+[sub_resource type="Resource" id="Resource_buqqp"]
+script = ExtResource("5_le5mu")
+
+[sub_resource type="Resource" id="Resource_le5mu"]
+script = ExtResource("3_k7dtk")
+Conditions = Array[Object]([SubResource("Resource_buqqp")])
+Actions = Array[Object]([SubResource("Resource_k7dtk")])
+
+[resource]
+script = ExtResource("6_7x8v4")
+StateName = "Roll_Back"
+Type = 1
+AnimationData = ExtResource("1_ukrbd")
+TransitionEvents = Array[Object]([SubResource("Resource_le5mu")])
+OnEnterEvents = Array[Object]([SubResource("Resource_6hqis")])
+OnTickEvents = []
+OnExitEvents = []
+OnHitConfirmEvents = []
+OnHitReactionEvents = []

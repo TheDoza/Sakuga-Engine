@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="FighterState" format=3 uid="uid://c3ws73c32vgt8"]
+
+[ext_resource type="Resource" uid="uid://di71avqj20iwi" path="res://Fighters/BasicBro/Universal/AnimationData/48_Blocking_Crouch_AnimationData.tres" id="1_egfn3"]
+[ext_resource type="Script" uid="uid://bgwrlqrhqb2a4" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/MoveXAction.cs" id="2_0kks1"]
+[ext_resource type="Script" uid="uid://c076jc3huncn2" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/FrameDataEvent.cs" id="3_pel64"]
+[ext_resource type="Script" uid="uid://bf60srwkccsm8" path="res://Scripts/SakugaEngine/Resources/FighterState.cs" id="4_pnsdo"]
+
+[sub_resource type="Resource" id="Resource_egfn3"]
+script = ExtResource("2_0kks1")
+metadata/_custom_type_script = "uid://bgwrlqrhqb2a4"
+
+[sub_resource type="Resource" id="Resource_0kks1"]
+script = ExtResource("3_pel64")
+Conditions = null
+Actions = Array[Object]([SubResource("Resource_egfn3")])
+metadata/_custom_type_script = "uid://c076jc3huncn2"
+
+[resource]
+script = ExtResource("4_pnsdo")
+StateName = "Blocking_Crouch"
+BaseStance = 1
+Type = 3
+AnimationData = ExtResource("1_egfn3")
+TransitionEvents = null
+OnEnterEvents = null
+OnTickEvents = Array[Object]([SubResource("Resource_0kks1")])
+OnExitEvents = null
+OnHitConfirmEvents = null
+OnHitReactionEvents = null
+metadata/_custom_type_script = "uid://bf60srwkccsm8"

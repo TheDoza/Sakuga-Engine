@@ -6,12 +6,13 @@ using SakugaEngine.Global;
 namespace FunctionFighter.Mechanics
 {
     /// <summary>
-    /// Fantasy Strike-style state colors: a tint + outline on the fighter's model while something about them matters.
+    /// Fantasy Strike-style state colors: a strong color wash, a bright rim glow on the silhouette and (on fighters
+    /// without their own outline) a colored outline, while something about the fighter matters.
     /// Highest first:
     /// - Counter Hit (interrupted): red; Big Counter orange; Functional Counter gold (a short flash after the hit).
-    ///   Punish (hit in recovery): purple. Reversal (move on the first possible frame): cyan, on the one who reversed.
+    ///   Punish and Reversal do not flash (notification only). Purple is reserved for poison (PoisonColor, unused yet).
     /// - Parry: green (FrameProperties.PARRY, for future parry states; Barrier is not a parry and doesn't flash).
-    /// - Armor: blue (super armor up).
+    /// - Armor: blue (super armor up). Blue is reserved for armor.
     /// - Invincible: white (strike invincible frames, or an attack / locked state with no hurtbox, e.g. Burst).
     /// Visual only (drawn from LocomotionVisual.Update every rendered frame); in Training, Display → State Flashes.
     /// </summary>
@@ -23,20 +24,54 @@ namespace FunctionFighter.Mechanics
         public static Color ParryColor = new Color(0.2f, 1f, 0.35f);
         public static Color ArmorColor = new Color(0.25f, 0.55f, 1f);
         public static Color InvulnColor = new Color(1f, 1f, 1f);
-        /// <summary>[FF PATCH: indicators] Punish (on the punished fighter) and Reversal (on the fighter who reversed).</summary>
-        public static Color PunishColor = new Color(0.85f, 0.2f, 1f);
+        /// <summary>Reserved for a future poison state (Fantasy Strike purple). Nothing flashes purple yet.</summary>
+        public static Color PoisonColor = new Color(0.85f, 0.2f, 1f);
         public static Color ReversalColor = new Color(0.15f, 0.9f, 1f);
         /// <summary>How long a counter flash lasts, in rendered frames.</summary>
         public static int CounterFrames = 24;
-        /// <summary>Tint strength (0-1) and outline thickness (model units).</summary>
-        public static float TintAlpha = 0.35f, OutlineGrow = 0.025f;
+        /// <summary>How much of the model is covered by the flash color (0-1). White uses less, so an invincible
+        /// fighter reads as glowing rather than turning into a white silhouette.</summary>
+        public static float TintStrength = 0.5f, InvulnTintStrength = 0.3f;
+        /// <summary>Rim glow: brightness (0-1+), how tight it hugs the silhouette (higher = thinner), and how far
+        /// toward white its center goes (gives the hot edge Fantasy Strike has).</summary>
+        public static float RimStrength = 1.0f, RimPower = 2.2f, RimWhiten = 0.35f;
+        /// <summary>Outline thickness in world units (meters), the same on every fighter whatever its import scale.</summary>
+        public static float OutlineGrow = 0.03f;
+        /// <summary>Pulse depth (0 = steady, 0.3 = dips to 70%) and speed.</summary>
+        public static float PulseDepth = 0.2f, PulseSpeed = 0.37f;
+
+        /// <summary>Overlay shader: mixes the flash color over the model, plus a rim glow from how edge-on each pixel
+        /// is. abs() on the facing term so inverted-hull outlines (normals pointing in) still light up at the edge.
+        /// Works in the Compatibility renderer.</summary>
+        const string OverlayCode = @"
+shader_type spatial;
+render_mode unshaded, blend_mix, depth_draw_never, cull_back, shadows_disabled, fog_disabled;
+uniform vec4 flash_color : source_color = vec4(1.0);
+uniform float tint = 0.5;
+uniform float rim = 1.0;
+uniform float rim_power = 2.2;
+uniform float rim_whiten = 0.35;
+uniform float pulse = 1.0;
+void fragment() {
+	float facing = clamp(abs(dot(normalize(NORMAL), normalize(VIEW))), 0.0, 1.0);
+	float r = pow(1.0 - facing, rim_power) * rim;
+	ALBEDO = mix(flash_color.rgb, vec3(1.0), clamp(r * rim_whiten, 0.0, 1.0));
+	ALPHA = clamp((tint + r) * pulse, 0.0, 1.0);
+}
+";
+        static Shader _overlayShader;
+        static Shader OverlayShader => _overlayShader ??= new Shader { Code = OverlayCode };
 
         class Look
         {
-            public StandardMaterial3D Tint, Outline;
+            public ShaderMaterial Tint;
+            public StandardMaterial3D Outline;
             public ulong CounterUntil;
             public Color CounterTint;
             public bool Applied;
+            /// <summary>World scale of the fighter's mesh (0 = not measured yet). Grow is applied in the mesh's own
+            /// units, so a model imported at 0.01 scale (Basic Bro) needs 100x the grow of a 1.0 model (the Dummy).</summary>
+            public float MeshScale;
         }
 
         static readonly Dictionary<ulong, Look> _looks = new();
@@ -47,12 +82,7 @@ namespace FunctionFighter.Mechanics
             if (_looks.TryGetValue(id, out var l)) return l;
             l = new Look
             {
-                Tint = new StandardMaterial3D
-                {
-                    ShadingMode = BaseMaterial3D.ShadingModeEnum.Unshaded,
-                    Transparency = BaseMaterial3D.TransparencyEnum.Alpha,
-                    BlendMode = BaseMaterial3D.BlendModeEnum.Add,
-                },
+                Tint = new ShaderMaterial { Shader = OverlayShader },
                 Outline = new StandardMaterial3D
                 {
                     ShadingMode = BaseMaterial3D.ShadingModeEnum.Unshaded,
@@ -61,7 +91,8 @@ namespace FunctionFighter.Mechanics
                     GrowAmount = OutlineGrow,
                 },
             };
-            l.Tint.NextPass = l.Outline;
+            // Models with their own inverted-hull outline turn this off (DataContainer.StateFlashOutline).
+            l.Tint.NextPass = (a.Data?.StateFlashOutline ?? true) ? l.Outline : null;
             _looks[id] = l;
             return l;
         }
@@ -121,15 +152,48 @@ namespace FunctionFighter.Mechanics
             if (on)
             {
                 // Pulse a little so it reads as a flash, not a recolor.
-                float pulse = 0.65f + 0.35f * Mathf.Sin(Now * 0.37f);
-                l.Tint.AlbedoColor = new Color(c.R, c.G, c.B, TintAlpha * pulse);
+                float pulse = 1f - PulseDepth * 0.5f * (1f + Mathf.Sin(Now * PulseSpeed));
+                bool white = c.R > 0.95f && c.G > 0.95f && c.B > 0.95f;
+                l.Tint.SetShaderParameter("flash_color", new Color(c.R, c.G, c.B, 1f));
+                l.Tint.SetShaderParameter("tint", white ? InvulnTintStrength : TintStrength);
+                l.Tint.SetShaderParameter("rim", RimStrength);
+                l.Tint.SetShaderParameter("rim_power", RimPower);
+                l.Tint.SetShaderParameter("rim_whiten", white ? 0f : RimWhiten);
+                l.Tint.SetShaderParameter("pulse", pulse);
                 l.Outline.AlbedoColor = new Color(c.R, c.G, c.B);
-                l.Outline.GrowAmount = OutlineGrow;
+                if (l.MeshScale <= 0f) l.MeshScale = MeasureMeshScale(a);
+                l.Outline.GrowAmount = OutlineGrow / l.MeshScale;
             }
             if (on == l.Applied) return;
             l.Applied = on;
             foreach (Node3D g in a.GraphicsNodes)
                 if (g != null) SetOverlay(g, on ? l.Tint : null);
+        }
+
+        /// <summary>World scale of the first mesh under the fighter's graphics (1 if none found). Sign is ignored, so a
+        /// fighter mirrored to face left measures the same.</summary>
+        static float MeasureMeshScale(SakugaActor a)
+        {
+            foreach (Node3D g in a.GraphicsNodes)
+            {
+                var gi = g == null ? null : FindGeometry(g);
+                if (gi == null) continue;
+                Vector3 s = gi.GlobalTransform.Basis.Scale.Abs();
+                float avg = (s.X + s.Y + s.Z) / 3f;
+                if (avg > 0.000001f) return avg;
+            }
+            return 1f;
+        }
+
+        static GeometryInstance3D FindGeometry(Node n)
+        {
+            if (n is GeometryInstance3D gi && !n.Name.ToString().StartsWith("FF_")) return gi;
+            foreach (Node c in n.GetChildren())
+            {
+                var found = FindGeometry(c);
+                if (found != null) return found;
+            }
+            return null;
         }
 
         static void SetOverlay(Node n, Material m)

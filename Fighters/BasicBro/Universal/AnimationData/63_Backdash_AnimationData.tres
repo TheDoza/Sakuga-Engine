@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="AnimationData" format=3 uid="uid://eua6ncv3f7fa"]
+
+[ext_resource type="Script" uid="uid://b8vqwkv52qq3e" path="res://Scripts/SakugaEngine/Resources/AnimationSettings.cs" id="1_opp43"]
+[ext_resource type="Resource" uid="uid://c48mi2er3ao5h" path="res://Fighters/BasicBro/Hitboxes/BB_Hitbox_Stand.tres" id="2_6m544"]
+[ext_resource type="Script" uid="uid://5qrsoteskjym" path="res://Scripts/SakugaEngine/Resources/HitboxState.cs" id="3_rtgbf"]
+[ext_resource type="Script" uid="uid://ddkya5wrb53ly" path="res://Scripts/SakugaEngine/Resources/AnimationData.cs" id="4_l4riw"]
+
+[sub_resource type="Resource" id="Resource_opp43"]
+script = ExtResource("1_opp43")
+SourceAnimation = "Backdash"
+
+[sub_resource type="Resource" id="Resource_6m544"]
+script = ExtResource("3_rtgbf")
+HitboxData = ExtResource("2_6m544")
+metadata/_custom_type_script = "uid://5qrsoteskjym"
+
+[resource]
+script = ExtResource("4_l4riw")
+Duration = 22
+Animations = [SubResource("Resource_opp43")]
+Hitboxes = [SubResource("Resource_6m544")]

@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="AnimationData" format=3 uid="uid://cdtqu3bqsgp3b"]
+
+[ext_resource type="Script" uid="uid://b8vqwkv52qq3e" path="res://Scripts/SakugaEngine/Resources/AnimationSettings.cs" id="1_h0kxs"]
+[ext_resource type="Resource" uid="uid://c48mi2er3ao5h" path="res://Fighters/BasicBro/Hitboxes/BB_Hitbox_Stand.tres" id="2_l8v7w"]
+[ext_resource type="Script" uid="uid://5qrsoteskjym" path="res://Scripts/SakugaEngine/Resources/HitboxState.cs" id="3_x1ec6"]
+[ext_resource type="Script" uid="uid://ddkya5wrb53ly" path="res://Scripts/SakugaEngine/Resources/AnimationData.cs" id="4_ephwt"]
+
+[sub_resource type="Resource" id="Resource_h0kxs"]
+script = ExtResource("1_h0kxs")
+SourceAnimation = "Crouch_Exit"
+
+[sub_resource type="Resource" id="Resource_l8v7w"]
+script = ExtResource("3_x1ec6")
+HitboxData = ExtResource("2_l8v7w")
+metadata/_custom_type_script = "uid://5qrsoteskjym"
+
+[resource]
+script = ExtResource("4_ephwt")
+Duration = 3
+Animations = [SubResource("Resource_h0kxs")]
+Hitboxes = [SubResource("Resource_l8v7w")]
+metadata/_custom_type_script = "uid://ddkya5wrb53ly"

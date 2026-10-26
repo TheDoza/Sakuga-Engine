@@ -36,6 +36,7 @@ round ends (KO'd fighter lying still) --> winner's outro --> RESULTS --> Rematch
 | Colours of the rematch screen | `RematchScreen.cs` | `AccentColor`, `StripColor`, `GoldColor`, `WonColor`, `LostColor` | orange-red, navy, gold |
 | Input delay before picks count | `RematchScreen.cs` | `InputDelayFrames` | 30 |
 | Winner render / quote | `<Name>_Profile.tres` → `VictoryRender`; the outro's message | | |
+| Round-win pose / match-win outro animation | `<Name>_Data.tres` | `VictoryPoses` / `Outros` → StateIndex | 72 Outro (universal state, plays the fighter's `Outro` clip) |
 
 ## Known issues / gotchas
 - Online: Leave Match should go back to the lobby. Set the online mode's `LeaveMatchScene` to the lobby scene when online play is in.
@@ -49,3 +50,4 @@ SUITE=ko (KOTest): a KO'd fighter holding forward never walks and stays in Hit_D
 | Date | Change |
 |---|---|
 | 2026-10-18 | Created: KO launch and stay-down, KO'd fighters ignore inputs, rematch screen |
+| 2026-10-20 | Universal state 72 Outro for round-win and match-win poses (Basic Bro uses it) |

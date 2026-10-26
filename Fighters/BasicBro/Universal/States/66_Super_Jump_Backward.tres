@@ -1,0 +1,46 @@
+[gd_resource type="Resource" script_class="FighterState" format=3 uid="uid://brujg1ghrmhpg"]
+
+[ext_resource type="Resource" uid="uid://ycckph005b01" path="res://Fighters/BasicBro/Universal/AnimationData/66_Super_Jump_Backward_AnimationData.tres" id="1_sv7ge"]
+[ext_resource type="Script" uid="uid://n7xih8pqfpwo" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/ChangeSideAction.cs" id="2_6ocwi"]
+[ext_resource type="Script" uid="uid://2ay34rfl7jag" path="res://Scripts/FunctionFighter/Mechanics/LocomotionAction.cs" id="3_wpox3"]
+[ext_resource type="Script" uid="uid://c076jc3huncn2" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/FrameDataEvent.cs" id="4_7uou8"]
+[ext_resource type="Script" uid="uid://da4kqpf635oin" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/PlayStateAction.cs" id="5_2dg83"]
+[ext_resource type="Script" uid="uid://bho4h38y7suxk" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/StateEndedCondition.cs" id="6_eitui"]
+[ext_resource type="Script" uid="uid://bf60srwkccsm8" path="res://Scripts/SakugaEngine/Resources/FighterState.cs" id="7_k7wev"]
+
+[sub_resource type="Resource" id="Resource_sv7ge"]
+script = ExtResource("2_6ocwi")
+
+[sub_resource type="Resource" id="Resource_6ocwi"]
+script = ExtResource("3_wpox3")
+Mode = 6
+Direction = -1
+
+[sub_resource type="Resource" id="Resource_wpox3"]
+script = ExtResource("4_7uou8")
+Conditions = null
+Actions = Array[Object]([SubResource("Resource_sv7ge"), SubResource("Resource_6ocwi")])
+
+[sub_resource type="Resource" id="Resource_7uou8"]
+script = ExtResource("5_2dg83")
+StateIndex = 6
+
+[sub_resource type="Resource" id="Resource_2dg83"]
+script = ExtResource("6_eitui")
+
+[sub_resource type="Resource" id="Resource_eitui"]
+script = ExtResource("4_7uou8")
+Conditions = Array[Object]([SubResource("Resource_2dg83")])
+Actions = Array[Object]([SubResource("Resource_7uou8")])
+
+[resource]
+script = ExtResource("7_k7wev")
+StateName = "Super_Jump_Backward"
+Type = 1
+AnimationData = ExtResource("1_sv7ge")
+TransitionEvents = Array[Object]([SubResource("Resource_eitui")])
+OnEnterEvents = Array[Object]([SubResource("Resource_wpox3")])
+OnTickEvents = []
+OnExitEvents = []
+OnHitConfirmEvents = []
+OnHitReactionEvents = []

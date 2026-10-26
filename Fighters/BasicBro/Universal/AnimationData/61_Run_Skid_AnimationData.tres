@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="AnimationData" format=3 uid="uid://llwsrk6rjdx2"]
+
+[ext_resource type="Script" uid="uid://b8vqwkv52qq3e" path="res://Scripts/SakugaEngine/Resources/AnimationSettings.cs" id="1_xv122"]
+[ext_resource type="Resource" uid="uid://c48mi2er3ao5h" path="res://Fighters/BasicBro/Hitboxes/BB_Hitbox_Stand.tres" id="2_nw0at"]
+[ext_resource type="Script" uid="uid://5qrsoteskjym" path="res://Scripts/SakugaEngine/Resources/HitboxState.cs" id="3_ptgyx"]
+[ext_resource type="Script" uid="uid://ddkya5wrb53ly" path="res://Scripts/SakugaEngine/Resources/AnimationData.cs" id="4_qnqvk"]
+
+[sub_resource type="Resource" id="Resource_xv122"]
+script = ExtResource("1_xv122")
+SourceAnimation = "Run_Skid"
+
+[sub_resource type="Resource" id="Resource_nw0at"]
+script = ExtResource("3_ptgyx")
+HitboxData = ExtResource("2_nw0at")
+metadata/_custom_type_script = "uid://5qrsoteskjym"
+
+[resource]
+script = ExtResource("4_qnqvk")
+Duration = 14
+Animations = [SubResource("Resource_xv122")]
+Hitboxes = [SubResource("Resource_nw0at")]

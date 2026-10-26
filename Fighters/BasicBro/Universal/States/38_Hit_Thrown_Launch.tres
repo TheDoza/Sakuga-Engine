@@ -1,0 +1,111 @@
+[gd_resource type="Resource" script_class="FighterState" format=3 uid="uid://cvjieepi4vjx3"]
+
+[ext_resource type="Resource" uid="uid://cx1ht48g44i3g" path="res://Fighters/BasicBro/Universal/AnimationData/38_Hit_Thrown_Launch_AnimationData.tres" id="1_3vhux"]
+[ext_resource type="Script" uid="uid://n7xih8pqfpwo" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/ChangeSideAction.cs" id="2_f5gp7"]
+[ext_resource type="Script" uid="uid://cskl7b48rhhcd" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/AnimationDamageAction.cs" id="3_80i4o"]
+[ext_resource type="Script" uid="uid://6kbrdw6wei0q" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/StopKnockbackAction.cs" id="4_o7u7v"]
+[ext_resource type="Script" uid="uid://c076jc3huncn2" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/FrameDataEvent.cs" id="5_a2f6x"]
+[ext_resource type="Script" uid="uid://bgwrlqrhqb2a4" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/MoveXAction.cs" id="6_4g3y1"]
+[ext_resource type="Script" uid="uid://bw1835rb2hj7y" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/MoveYAction.cs" id="7_ffmkp"]
+[ext_resource type="Script" uid="uid://50grsd2r3wl8" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/AtFrameCondition.cs" id="8_w7fuj"]
+[ext_resource type="Script" uid="uid://dcnb575mw2hwp" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/AddGravityAction.cs" id="9_igryc"]
+[ext_resource type="Script" uid="uid://da4kqpf635oin" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/PlayStateAction.cs" id="10_beuw1"]
+[ext_resource type="Script" uid="uid://c42r1mjvviuhg" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/AtFrameRangeCondition.cs" id="11_oeuug"]
+[ext_resource type="Script" uid="uid://baguhnol5ww4w" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/OnGroundCondition.cs" id="12_ne8nu"]
+[ext_resource type="Script" uid="uid://bjhfta73s6pqs" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/CheckYVelocityCondition.cs" id="13_utt01"]
+[ext_resource type="Script" uid="uid://bf60srwkccsm8" path="res://Scripts/SakugaEngine/Resources/FighterState.cs" id="14_u8pnh"]
+
+[sub_resource type="Resource" id="Resource_3vhux"]
+script = ExtResource("2_f5gp7")
+metadata/_custom_type_script = "uid://n7xih8pqfpwo"
+
+[sub_resource type="Resource" id="Resource_f5gp7"]
+script = ExtResource("3_80i4o")
+Damage = 1500
+HitstunType = 3
+KillingBlow = true
+AffectDamageTracker = true
+metadata/_custom_type_script = "uid://cskl7b48rhhcd"
+
+[sub_resource type="Resource" id="Resource_80i4o"]
+script = ExtResource("4_o7u7v")
+metadata/_custom_type_script = "uid://6kbrdw6wei0q"
+
+[sub_resource type="Resource" id="Resource_o7u7v"]
+script = ExtResource("5_a2f6x")
+Conditions = null
+Actions = Array[Object]([SubResource("Resource_3vhux"), SubResource("Resource_f5gp7"), SubResource("Resource_80i4o")])
+metadata/_custom_type_script = "uid://c076jc3huncn2"
+
+[sub_resource type="Resource" id="Resource_a2f6x"]
+script = ExtResource("6_4g3y1")
+Velocity = -35000
+metadata/_custom_type_script = "uid://bgwrlqrhqb2a4"
+
+[sub_resource type="Resource" id="Resource_4g3y1"]
+script = ExtResource("7_ffmkp")
+Velocity = 55000
+metadata/_custom_type_script = "uid://bw1835rb2hj7y"
+
+[sub_resource type="Resource" id="Resource_ffmkp"]
+script = ExtResource("8_w7fuj")
+Frame = 1
+metadata/_custom_type_script = "uid://50grsd2r3wl8"
+
+[sub_resource type="Resource" id="Resource_w7fuj"]
+script = ExtResource("5_a2f6x")
+Conditions = Array[Object]([SubResource("Resource_ffmkp")])
+Actions = Array[Object]([SubResource("Resource_a2f6x"), SubResource("Resource_4g3y1")])
+metadata/_custom_type_script = "uid://c076jc3huncn2"
+
+[sub_resource type="Resource" id="Resource_igryc"]
+script = ExtResource("9_igryc")
+SetValue = true
+UseDefault = true
+metadata/_custom_type_script = "uid://dcnb575mw2hwp"
+
+[sub_resource type="Resource" id="Resource_beuw1"]
+script = ExtResource("5_a2f6x")
+Conditions = null
+Actions = Array[Object]([SubResource("Resource_igryc")])
+metadata/_custom_type_script = "uid://c076jc3huncn2"
+
+[sub_resource type="Resource" id="Resource_oeuug"]
+script = ExtResource("10_beuw1")
+StateIndex = 26
+metadata/_custom_type_script = "uid://da4kqpf635oin"
+
+[sub_resource type="Resource" id="Resource_ne8nu"]
+script = ExtResource("11_oeuug")
+MinFrame = 3
+MaxFrame = 9999
+metadata/_custom_type_script = "uid://c42r1mjvviuhg"
+
+[sub_resource type="Resource" id="Resource_utt01"]
+script = ExtResource("12_ne8nu")
+metadata/_custom_type_script = "uid://baguhnol5ww4w"
+
+[sub_resource type="Resource" id="Resource_u8pnh"]
+script = ExtResource("13_utt01")
+CompareMode = 4
+metadata/_custom_type_script = "uid://bjhfta73s6pqs"
+
+[sub_resource type="Resource" id="Resource_k8wd3"]
+script = ExtResource("5_a2f6x")
+Conditions = Array[Object]([SubResource("Resource_ne8nu"), SubResource("Resource_utt01"), SubResource("Resource_u8pnh")])
+Actions = Array[Object]([SubResource("Resource_oeuug")])
+metadata/_custom_type_script = "uid://c076jc3huncn2"
+
+[resource]
+script = ExtResource("14_u8pnh")
+StateName = "Hit_Thrown_Launch"
+BaseStance = 2
+Type = 4
+AnimationData = ExtResource("1_3vhux")
+TransitionEvents = Array[Object]([SubResource("Resource_k8wd3")])
+OnEnterEvents = Array[Object]([SubResource("Resource_o7u7v")])
+OnTickEvents = Array[Object]([SubResource("Resource_w7fuj"), SubResource("Resource_beuw1")])
+OnExitEvents = null
+OnHitConfirmEvents = null
+OnHitReactionEvents = null
+metadata/_custom_type_script = "uid://bf60srwkccsm8"

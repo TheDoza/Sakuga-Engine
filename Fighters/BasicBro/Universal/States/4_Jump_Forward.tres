@@ -1,0 +1,46 @@
+[gd_resource type="Resource" script_class="FighterState" format=3 uid="uid://bejml4gtbxx4j"]
+
+[ext_resource type="Resource" uid="uid://d3t6kosiljpml" path="res://Fighters/BasicBro/Universal/AnimationData/4_Jump_Forward_AnimationData.tres" id="1_hieoi"]
+[ext_resource type="Script" uid="uid://n7xih8pqfpwo" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/ChangeSideAction.cs" id="2_oauo5"]
+[ext_resource type="Script" uid="uid://2ay34rfl7jag" path="res://Scripts/FunctionFighter/Mechanics/LocomotionAction.cs" id="3_4hpel"]
+[ext_resource type="Script" uid="uid://c076jc3huncn2" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/FrameDataEvent.cs" id="4_eoddn"]
+[ext_resource type="Script" uid="uid://da4kqpf635oin" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/PlayStateAction.cs" id="5_b7hj7"]
+[ext_resource type="Script" uid="uid://bho4h38y7suxk" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/StateEndedCondition.cs" id="6_6phiq"]
+[ext_resource type="Script" uid="uid://bf60srwkccsm8" path="res://Scripts/SakugaEngine/Resources/FighterState.cs" id="7_okf53"]
+
+[sub_resource type="Resource" id="Resource_hieoi"]
+script = ExtResource("2_oauo5")
+
+[sub_resource type="Resource" id="Resource_oauo5"]
+script = ExtResource("3_4hpel")
+Mode = 5
+Direction = 1
+
+[sub_resource type="Resource" id="Resource_4hpel"]
+script = ExtResource("4_eoddn")
+Conditions = null
+Actions = Array[Object]([SubResource("Resource_hieoi"), SubResource("Resource_oauo5")])
+
+[sub_resource type="Resource" id="Resource_eoddn"]
+script = ExtResource("5_b7hj7")
+StateIndex = 6
+
+[sub_resource type="Resource" id="Resource_b7hj7"]
+script = ExtResource("6_6phiq")
+
+[sub_resource type="Resource" id="Resource_6phiq"]
+script = ExtResource("4_eoddn")
+Conditions = Array[Object]([SubResource("Resource_b7hj7")])
+Actions = Array[Object]([SubResource("Resource_eoddn")])
+
+[resource]
+script = ExtResource("7_okf53")
+StateName = "Jump_Forward"
+Type = 1
+AnimationData = ExtResource("1_hieoi")
+TransitionEvents = Array[Object]([SubResource("Resource_6phiq")])
+OnEnterEvents = Array[Object]([SubResource("Resource_4hpel")])
+OnTickEvents = []
+OnExitEvents = []
+OnHitConfirmEvents = []
+OnHitReactionEvents = []

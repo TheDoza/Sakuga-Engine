@@ -5,6 +5,7 @@
 [ext_resource type="Resource" uid="uid://c320twmibeytx" path="res://MatchSettings.tres" id="2_853f1"]
 [ext_resource type="Script" uid="uid://mxcelgrlkj2f" path="res://Scripts/SakugaEngine/UI/InputSelectMenu.cs" id="3_8saeu"]
 [ext_resource type="Script" uid="uid://by5fmdkhxe7ar" path="res://Scripts/SakugaEngine/UI/MatchSettingsMenu.cs" id="3_ghw46"]
+[ext_resource type="Script" path="res://Scripts/SakugaEngine/UI/OptionsMenu.cs" id="6_optmenu"]
 
 [node name="Control" type="Control" unique_id=626625648 node_paths=PackedStringArray("mainMenu", "inputMenu", "matchMenu")]
 layout_mode = 3
@@ -20,7 +21,7 @@ mainMenu = NodePath("MainMenu")
 inputMenu = NodePath("InputSelect")
 matchMenu = NodePath("MatchSettings")
 
-[node name="MainMenu" type="Control" parent="." unique_id=599429111 node_paths=PackedStringArray("Manager", "firstButton")]
+[node name="MainMenu" type="Control" parent="." unique_id=599429111 node_paths=PackedStringArray("Manager", "firstButton", "optionsMenu")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -30,6 +31,7 @@ grow_vertical = 2
 script = ExtResource("1_tt5f1")
 Manager = NodePath("..")
 firstButton = NodePath("VBoxContainer/Button_Online")
+optionsMenu = NodePath("../OptionsMenu")
 
 [node name="Label" type="Label" parent="MainMenu" unique_id=1213252608]
 layout_mode = 1
@@ -89,10 +91,26 @@ size_flags_vertical = 11
 disabled = true
 text = "Replay mode"
 
+[node name="Button_Options" type="Button" parent="MainMenu/VBoxContainer" unique_id=1948201337]
+layout_mode = 2
+size_flags_vertical = 11
+text = "Options"
+
 [node name="Button_Quit" type="Button" parent="MainMenu/VBoxContainer" unique_id=1270923890]
 layout_mode = 2
 size_flags_vertical = 11
 text = "Quit Game"
+
+[node name="OptionsMenu" type="Control" parent="." unique_id=2093847561 node_paths=PackedStringArray("ReturnTo")]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("6_optmenu")
+ReturnTo = NodePath("../MainMenu")
 
 [node name="MatchSettings" type="Control" parent="." unique_id=362901632 node_paths=PackedStringArray("Manager", "firstButton", "TimeLimitOp", "RoundsOp", "BotDiffOp", "PauseModeOp")]
 visible = false
@@ -700,6 +718,7 @@ vertical_alignment = 1
 [connection signal="pressed" from="MainMenu/VBoxContainer/Button_Versus" to="MainMenu" method="_OnVersusButtonPressed"]
 [connection signal="pressed" from="MainMenu/VBoxContainer/Button_Training" to="MainMenu" method="_OnTrainingButtonPressed"]
 [connection signal="pressed" from="MainMenu/VBoxContainer/Button_Replay" to="MainMenu" method="_OnReplayButtonPressed"]
+[connection signal="pressed" from="MainMenu/VBoxContainer/Button_Options" to="MainMenu" method="_OnOptionsButtonPressed"]
 [connection signal="pressed" from="MainMenu/VBoxContainer/Button_Quit" to="MainMenu" method="_OnQuitButtonPressed"]
 [connection signal="pressed" from="MatchSettings/Control/Button_Go" to="MatchSettings" method="_OnGoButtonPressed"]
 [connection signal="pressed" from="MatchSettings/Control/Button_Back" to="MatchSettings" method="_OnBackButtonPressed"]

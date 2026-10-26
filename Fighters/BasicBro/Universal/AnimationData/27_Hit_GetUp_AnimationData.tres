@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="AnimationData" format=3 uid="uid://co2koqslpdbwf"]
+
+[ext_resource type="Script" uid="uid://b8vqwkv52qq3e" path="res://Scripts/SakugaEngine/Resources/AnimationSettings.cs" id="1_128pf"]
+[ext_resource type="Script" uid="uid://ddkya5wrb53ly" path="res://Scripts/SakugaEngine/Resources/AnimationData.cs" id="2_8prv8"]
+
+[sub_resource type="Resource" id="Resource_128pf"]
+script = ExtResource("1_128pf")
+SourceAnimation = "Crouch_Exit"
+
+[resource]
+script = ExtResource("2_8prv8")
+Duration = 20
+Animations = [SubResource("Resource_128pf")]
+Hitboxes = []
+metadata/_custom_type_script = "uid://ddkya5wrb53ly"

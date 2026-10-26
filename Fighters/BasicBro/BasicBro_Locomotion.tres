@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="LocomotionSettings" format=3 uid="uid://cfph88v0dka1c"]
+
+[ext_resource type="Script" uid="uid://x0l0ge7ia87j" path="res://Scripts/FunctionFighter/Mechanics/LocomotionSettings.cs" id="1_b8jku"]
+
+[resource]
+script = ExtResource("1_b8jku")
+RunStartSpeed = 35000
+RunAcceleration = 4000
+RunMaxSpeed = 70000
+BackdashFrames = 20
+BackdashDistance = 12500
+BackdashMoveFrames = 20
+JumpVelocityY = 82000
+JumpForwardX = 20000
+JumpBackX = 20000
+SuperJumpVelocityY = 90000
+SuperJumpForwardX = 37000
+SuperJumpBackX = 34000
+DoubleJumpVelocityY = 70000
+DoubleJumpForwardX = 24000
+DoubleJumpBackX = 24000
+AirDashMinHeight = 5000
+BackJumpMomentumPercent = 50
+DoubleJumpSameDirectionPercent = 40

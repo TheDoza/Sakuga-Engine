@@ -1,0 +1,37 @@
+[gd_resource type="Resource" script_class="AnimationData" format=3 uid="uid://d28ux2vu7s4wy"]
+
+[ext_resource type="Script" uid="uid://b8vqwkv52qq3e" path="res://Scripts/SakugaEngine/Resources/AnimationSettings.cs" id="1_uvni3"]
+[ext_resource type="Resource" uid="uid://c48mi2er3ao5h" path="res://Fighters/BasicBro/Hitboxes/BB_Hitbox_Stand.tres" id="2_g7fra"]
+[ext_resource type="Script" uid="uid://5qrsoteskjym" path="res://Scripts/SakugaEngine/Resources/HitboxState.cs" id="3_oem4j"]
+[ext_resource type="Resource" uid="uid://n2gu4wd8h3k7" path="res://Fighters/BasicBro/Hitboxes/BB_Hitbox_AirThrow_Active.tres" id="4_mjpu4"]
+[ext_resource type="Script" uid="uid://ddkya5wrb53ly" path="res://Scripts/SakugaEngine/Resources/AnimationData.cs" id="5_uuqrg"]
+
+[sub_resource type="Resource" id="Resource_uvni3"]
+script = ExtResource("1_uvni3")
+SourceAnimation = "Falling"
+
+[sub_resource type="Resource" id="Resource_g7fra"]
+script = ExtResource("3_oem4j")
+HitboxData = ExtResource("2_g7fra")
+metadata/_custom_type_script = "uid://5qrsoteskjym"
+
+[sub_resource type="Resource" id="Resource_oem4j"]
+script = ExtResource("3_oem4j")
+AtFrame = 6
+animationStage = 1
+HitboxData = ExtResource("4_mjpu4")
+metadata/_custom_type_script = "uid://5qrsoteskjym"
+
+[sub_resource type="Resource" id="Resource_mjpu4"]
+script = ExtResource("3_oem4j")
+AtFrame = 9
+animationStage = 2
+HitboxData = ExtResource("2_g7fra")
+metadata/_custom_type_script = "uid://5qrsoteskjym"
+
+[resource]
+script = ExtResource("5_uuqrg")
+Duration = 33
+Animations = [SubResource("Resource_uvni3")]
+Hitboxes = [SubResource("Resource_g7fra"), SubResource("Resource_oem4j"), SubResource("Resource_mjpu4")]
+metadata/_custom_type_script = "uid://ddkya5wrb53ly"

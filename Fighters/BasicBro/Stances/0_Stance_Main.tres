@@ -1,0 +1,79 @@
+[gd_resource type="Resource" script_class="FighterStance" format=3 uid="uid://cl3vgisk1rsj4"]
+
+[ext_resource type="Resource" uid="uid://biqgn48x4ggwh" path="res://Fighters/Shared/Inputs/1_Input_4.tres" id="1_ebpdx"]
+[ext_resource type="Script" uid="uid://d0re6r8d145i6" path="res://Scripts/SakugaEngine/Resources/BlockSettings.cs" id="2_ym4sa"]
+[ext_resource type="Resource" uid="uid://j1w64hweu08j" path="res://Fighters/Shared/Inputs/8_Input_1.tres" id="3_b6agj"]
+[ext_resource type="Resource" uid="uid://dovk6n76rc55h" path="res://Fighters/Shared/Inputs/22_Input_BC.tres" id="4_hy68q"]
+[ext_resource type="Resource" path="res://Fighters/Shared/Universal/Moves/0_Walk_Forward.tres" id="4_vil8h"]
+[ext_resource type="Script" uid="uid://00dse0vp38l7" path="res://Scripts/SakugaEngine/Resources/FighterStance.cs" id="5_7qduw"]
+[ext_resource type="Resource" path="res://Fighters/Shared/Universal/Moves/1_Walk_Backward.tres" id="5_qyrmb"]
+[ext_resource type="Resource" path="res://Fighters/Shared/Universal/Moves/2_Jump_Neutral.tres" id="6_8iiwb"]
+[ext_resource type="Resource" path="res://Fighters/Shared/Universal/Moves/3_Jump_Forward.tres" id="7_gcd53"]
+[ext_resource type="Resource" path="res://Fighters/Shared/Universal/Moves/4_Jump_Backward.tres" id="8_27ltw"]
+[ext_resource type="Resource" uid="uid://bp0vxd5xr3hv" path="res://Fighters/Shared/Universal/Moves/5_AirDash_Forward.tres" id="9_ogffy"]
+[ext_resource type="Resource" uid="uid://crai6jnvipegf" path="res://Fighters/Shared/Universal/Moves/6_AirDash_Backward.tres" id="10_ng7la"]
+[ext_resource type="Resource" path="res://Fighters/Shared/Universal/Moves/7_Crouch.tres" id="11_6exnl"]
+[ext_resource type="Resource" path="res://Fighters/Shared/Universal/Moves/8_Uncrouch.tres" id="12_j31hp"]
+[ext_resource type="Resource" path="res://Fighters/Shared/Universal/Moves/9_Air_Recovery.tres" id="13_1c11p"]
+[ext_resource type="Resource" uid="uid://cu8ks30ntxi3b" path="res://Fighters/Shared/Universal/Moves/10_Ground_Recovery.tres" id="14_6aoc4"]
+[ext_resource type="Resource" path="res://Fighters/Shared/Universal/Moves/11_Throw_Forward.tres" id="15_fya8v"]
+[ext_resource type="Resource" path="res://Fighters/Shared/Universal/Moves/12_Throw_Back.tres" id="16_l32al"]
+[ext_resource type="Resource" path="res://Fighters/Shared/Universal/Moves/13_Throw_Air.tres" id="17_x7bgy"]
+[ext_resource type="Resource" uid="uid://cab75plhaw0wx" path="res://Fighters/Shared/Universal/Moves/14_Barrier_Guard.tres" id="18_mvhjc"]
+[ext_resource type="Resource" uid="uid://b1l2v7qc41yvi" path="res://Fighters/Shared/Universal/Moves/15_Barrier_Guard_Crouch.tres" id="19_wxsyr"]
+[ext_resource type="Resource" uid="uid://g5s2m4oos8dp" path="res://Fighters/Shared/Universal/Moves/16_Barrier_Guard_Air.tres" id="20_r5tev"]
+[ext_resource type="Resource" path="res://Fighters/Shared/Universal/Moves/17_Barrier_Fizzle.tres" id="21_wnlo5"]
+[ext_resource type="Resource" uid="uid://dhvfdk0ceb64r" path="res://Fighters/Shared/Universal/Moves/18_Burst.tres" id="22_isp06"]
+[ext_resource type="Resource" uid="uid://bm4snjxiatba1" path="res://Fighters/Shared/Universal/Moves/19_Run.tres" id="23_gwvhb"]
+[ext_resource type="Resource" uid="uid://p3v8figq7l6d" path="res://Fighters/Shared/Universal/Moves/20_Backdash.tres" id="24_6ecd1"]
+[ext_resource type="Resource" uid="uid://c0dk1773nr3k2" path="res://Fighters/Shared/Universal/Moves/21_Super_Jump_Neutral.tres" id="25_yjv6k"]
+[ext_resource type="Resource" uid="uid://cwqf2jbcpjbts" path="res://Fighters/Shared/Universal/Moves/22_Super_Jump_Forward.tres" id="26_d52e4"]
+[ext_resource type="Resource" uid="uid://c77vgf1cgbqyr" path="res://Fighters/Shared/Universal/Moves/23_Super_Jump_Backward.tres" id="27_13j84"]
+[ext_resource type="Resource" uid="uid://drkfword63vrd" path="res://Fighters/Shared/Universal/Moves/24_Double_Jump_Neutral.tres" id="28_0k54a"]
+[ext_resource type="Resource" uid="uid://ca4fdihik30dm" path="res://Fighters/Shared/Universal/Moves/25_Double_Jump_Forward.tres" id="29_mhhv2"]
+[ext_resource type="Resource" uid="uid://ch3onjx6pt10q" path="res://Fighters/Shared/Universal/Moves/26_Double_Jump_Backward.tres" id="30_d0ilc"]
+[ext_resource type="Resource" uid="uid://dmbm1gay2imy3" path="res://Fighters/Shared/Universal/Moves/27_Forward_Roll.tres" id="31_ug8gi"]
+[ext_resource type="Resource" uid="uid://bd11yw2q1x6jq" path="res://Fighters/Shared/Universal/Moves/28_Back_Roll.tres" id="32_boyq0"]
+
+[sub_resource type="Resource" id="Resource_vil8h"]
+script = ExtResource("2_ym4sa")
+BlockType = 3
+InputToCheck = ExtResource("1_ebpdx")
+EnterState = 40
+StunState = 41
+ExitState = 42
+GuardCrushState = 44
+metadata/_custom_type_script = "uid://d0re6r8d145i6"
+
+[sub_resource type="Resource" id="Resource_qyrmb"]
+script = ExtResource("2_ym4sa")
+ReferenceStance = 1
+BlockType = 6
+InputToCheck = ExtResource("3_b6agj")
+EnterState = 45
+StunState = 46
+ExitState = 47
+GuardCrushState = 49
+metadata/_custom_type_script = "uid://d0re6r8d145i6"
+
+[sub_resource type="Resource" id="Resource_8iiwb"]
+script = ExtResource("2_ym4sa")
+ReferenceStance = 2
+BlockType = 7
+InputToCheck = ExtResource("1_ebpdx")
+EnterState = 50
+StunState = 51
+ExitState = 52
+GuardCrushState = 54
+metadata/_custom_type_script = "uid://d0re6r8d145i6"
+
+[resource]
+script = ExtResource("5_7qduw")
+Moves = [ExtResource("4_vil8h"), ExtResource("5_qyrmb"), ExtResource("6_8iiwb"), ExtResource("7_gcd53"), ExtResource("8_27ltw"), ExtResource("9_ogffy"), ExtResource("10_ng7la"), ExtResource("11_6exnl"), ExtResource("12_j31hp"), ExtResource("13_1c11p"), ExtResource("14_6aoc4"), ExtResource("15_fya8v"), ExtResource("16_l32al"), ExtResource("17_x7bgy"), ExtResource("18_mvhjc"), ExtResource("19_wxsyr"), ExtResource("20_r5tev"), ExtResource("21_wnlo5"), ExtResource("22_isp06"), ExtResource("23_gwvhb"), ExtResource("24_6ecd1"), ExtResource("25_yjv6k"), ExtResource("26_d52e4"), ExtResource("27_13j84"), ExtResource("28_0k54a"), ExtResource("29_mhhv2"), ExtResource("30_d0ilc"), ExtResource("31_ug8gi"), ExtResource("32_boyq0")]
+HitReactions = PackedInt32Array(20, 21, 22, 23, 24, 24, 24, 24, 25, 26, 27, 24, 24, 21, 37, 25, 38)
+BlockReactions = [SubResource("Resource_vil8h"), SubResource("Resource_qyrmb"), SubResource("Resource_8iiwb")]
+ThrowEscapeInput = ExtResource("4_hy68q")
+GroundThrowEscapeState = 55
+AirThrowEscapeState = 56
+GroundThrowRejectedState = 57
+AirThrowRejectedState = 58

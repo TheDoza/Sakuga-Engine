@@ -1,0 +1,46 @@
+[gd_resource type="Resource" script_class="FighterState" format=3 uid="uid://de1668rah5t0x"]
+
+[ext_resource type="Resource" uid="uid://60i3o7pg51ik" path="res://Fighters/BasicBro/Universal/AnimationData/5_Jump_Backward_AnimationData.tres" id="1_wnkyx"]
+[ext_resource type="Script" uid="uid://n7xih8pqfpwo" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/ChangeSideAction.cs" id="2_tkvgv"]
+[ext_resource type="Script" uid="uid://2ay34rfl7jag" path="res://Scripts/FunctionFighter/Mechanics/LocomotionAction.cs" id="3_s5yha"]
+[ext_resource type="Script" uid="uid://c076jc3huncn2" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/FrameDataEvent.cs" id="4_rr3xc"]
+[ext_resource type="Script" uid="uid://da4kqpf635oin" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/PlayStateAction.cs" id="5_fm74n"]
+[ext_resource type="Script" uid="uid://bho4h38y7suxk" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/StateEndedCondition.cs" id="6_lehnb"]
+[ext_resource type="Script" uid="uid://bf60srwkccsm8" path="res://Scripts/SakugaEngine/Resources/FighterState.cs" id="7_831c5"]
+
+[sub_resource type="Resource" id="Resource_wnkyx"]
+script = ExtResource("2_tkvgv")
+
+[sub_resource type="Resource" id="Resource_tkvgv"]
+script = ExtResource("3_s5yha")
+Mode = 5
+Direction = -1
+
+[sub_resource type="Resource" id="Resource_s5yha"]
+script = ExtResource("4_rr3xc")
+Conditions = null
+Actions = Array[Object]([SubResource("Resource_wnkyx"), SubResource("Resource_tkvgv")])
+
+[sub_resource type="Resource" id="Resource_rr3xc"]
+script = ExtResource("5_fm74n")
+StateIndex = 6
+
+[sub_resource type="Resource" id="Resource_fm74n"]
+script = ExtResource("6_lehnb")
+
+[sub_resource type="Resource" id="Resource_lehnb"]
+script = ExtResource("4_rr3xc")
+Conditions = Array[Object]([SubResource("Resource_fm74n")])
+Actions = Array[Object]([SubResource("Resource_rr3xc")])
+
+[resource]
+script = ExtResource("7_831c5")
+StateName = "Jump_Backward"
+Type = 1
+AnimationData = ExtResource("1_wnkyx")
+TransitionEvents = Array[Object]([SubResource("Resource_lehnb")])
+OnEnterEvents = Array[Object]([SubResource("Resource_s5yha")])
+OnTickEvents = []
+OnExitEvents = []
+OnHitConfirmEvents = []
+OnHitReactionEvents = []

@@ -29,6 +29,7 @@ buses/default_bus_layout="uid://dub6t5kit651x"
 
 LoadingScreenManager="*uid://cejbemt1addi4"
 AudioManager="*uid://bckwjkc5ciw5y"
+GameSettings="*res://Scripts/SakugaEngine/Globals/GameSettings.cs"
 
 [display]
 

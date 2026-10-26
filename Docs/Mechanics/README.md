@@ -25,6 +25,7 @@ Start here, then open the mechanic's page.
 | Knockdowns & recovery | Wall & ground bounce | ✅ Working (tested 2026-10-11) | Dummy | [Bounce.md](Bounce.md) |
 | Knockdowns & recovery | Tech & wakeup (Emergency / Neutral Tech, rolls, air recovery, INVALID combos) | ✅ Working (tested 2026-10-12) | All fighters (per-fighter numbers) | [TechRecovery.md](TechRecovery.md) |
 | Throws | Throws & throw reject | ✅ Working (tested 2026-10-11) | Dummy (template) | [Throws.md](Throws.md) |
+| Visual feedback | Animation blending (crossfade between clips) | 🧪 Testing (added 2026-10-20) | Basic Bro (4 frames); others off | [AnimationBlending.md](AnimationBlending.md) |
 | Visual feedback | Visual indicators (state flashes, advantage hitsparks, punish / reversal, movement effects) | ✅ Working (tested 2026-10-17) | All fighters, all modes | [Visuals.md](Visuals.md) |
 | Match flow | KO and Rematch screen (Rematch / Character Select / Leave Match) | ✅ Working (tested 2026-10-18) | All fighters | [MatchFlow.md](MatchFlow.md) |
 | Training & testing | Training mode | ✅ Complete (tested 2026-10-12) | P2 is the dummy | [Training.md](Training.md) |

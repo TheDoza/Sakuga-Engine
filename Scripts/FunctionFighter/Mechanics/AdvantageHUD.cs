@@ -22,9 +22,14 @@ namespace FunctionFighter.Mechanics
 		/// <summary>Base size in HUD pixels (1280x720): the size of an even (0) spark.</summary>
 		public static float Size_ = 62f;
 		/// <summary>The size says how much: ±1 frame = SmallScale × base, ±BigFrames or more = BigScale × base, in between
-		/// grows evenly. Even (0) stays at the base size.</summary>
-		public static float SmallScale = 0.5f, BigScale = 1.65f;
-		public static int BigFrames = 10;
+		/// grows evenly. Even (0) stays at the base size. Wide range on purpose: +7 is about 1.1× and +11 about 1.55×,
+		/// so a few frames' difference is easy to see (it was 1.27× vs 1.65× with the old 0.5 / 1.65 / 10 values,
+		/// which the random spike lengths hid).</summary>
+		public static float SmallScale = 0.45f, BigScale = 2.1f;
+		public static int BigFrames = 16;
+		/// <summary>Training only: write the predicted advantage ("+7") under each spark, so you can check what the
+		/// spark thinks against the frame data display.</summary>
+		public static bool ShowNumbers = true;
 
 		struct SparkFx
 		{
@@ -157,7 +162,8 @@ namespace FunctionFighter.Mechanics
 				float ang = off + Mathf.Tau * i / n + rng.RandfRange(-0.12f, 0.12f);
 				var d = Vector2.Right.Rotated(ang);
 				float bias = 0.75f + 0.45f * Mathf.Max(0, d.Dot(fwd));
-				float len = size * (i % 2 == 0 ? rng.RandfRange(1.1f, 1.5f) : rng.RandfRange(0.6f, 0.9f)) * bias;
+				// Small length jitter only, so spikes don't blur the size difference between sparks.
+				float len = size * (i % 2 == 0 ? rng.RandfRange(1.25f, 1.4f) : rng.RandfRange(0.7f, 0.85f)) * bias;
 				float r0 = len * 0.7f * hollow;
 				float w = size * (i % 2 == 0 ? 0.26f : 0.18f) * (1f - 0.5f * hollow);
 				Spike(p, d, r0, len, w, deep);
@@ -202,6 +208,18 @@ namespace FunctionFighter.Mechanics
 
 			// white-hot core
 			DrawCircle(p, size * 0.38f * (1f - 0.8f * hollow), new Color(1, 1, 1, fade));
+
+			// Training: the predicted advantage under the spark.
+			if (ShowNumbers && Training.TrainingController.Active)
+			{
+				string txt = s.Adv > 0 ? "+" + s.Adv : s.Adv.ToString();
+				var font = ThemeDB.FallbackFont;
+				int fs = Mathf.Max(12, Mathf.RoundToInt(22 * scale));
+				float w = font.GetStringSize(txt, HorizontalAlignment.Left, -1, fs).X;
+				var at = p + new Vector2(-w / 2f, Size_ * scale * SizeScale(s.Adv) * 1.6f + fs);
+				DrawStringOutline(font, at, txt, HorizontalAlignment.Left, -1, fs, Mathf.Max(2, Mathf.RoundToInt(5 * scale)), new Color(0, 0, 0, 0.9f * fade));
+				DrawString(font, at, txt, HorizontalAlignment.Left, -1, fs, new Color(hot.R, hot.G, hot.B, fade));
+			}
 		}
 	}
 }

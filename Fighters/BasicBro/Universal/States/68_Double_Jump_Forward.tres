@@ -1,0 +1,42 @@
+[gd_resource type="Resource" script_class="FighterState" format=3 uid="uid://6mrpd2sj1bmb"]
+
+[ext_resource type="Resource" uid="uid://g1optpmef6ff" path="res://Fighters/BasicBro/Universal/AnimationData/68_Double_Jump_Forward_AnimationData.tres" id="1_q55aj"]
+[ext_resource type="Script" uid="uid://2ay34rfl7jag" path="res://Scripts/FunctionFighter/Mechanics/LocomotionAction.cs" id="2_n8cdq"]
+[ext_resource type="Script" uid="uid://c076jc3huncn2" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/FrameDataEvent.cs" id="3_2mn2t"]
+[ext_resource type="Script" uid="uid://da4kqpf635oin" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/PlayStateAction.cs" id="4_nesps"]
+[ext_resource type="Script" uid="uid://bho4h38y7suxk" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/StateEndedCondition.cs" id="5_j3wss"]
+[ext_resource type="Script" uid="uid://bf60srwkccsm8" path="res://Scripts/SakugaEngine/Resources/FighterState.cs" id="6_267tc"]
+
+[sub_resource type="Resource" id="Resource_q55aj"]
+script = ExtResource("2_n8cdq")
+Mode = 7
+Direction = 1
+
+[sub_resource type="Resource" id="Resource_n8cdq"]
+script = ExtResource("3_2mn2t")
+Conditions = null
+Actions = Array[Object]([SubResource("Resource_q55aj")])
+
+[sub_resource type="Resource" id="Resource_2mn2t"]
+script = ExtResource("4_nesps")
+StateIndex = 6
+
+[sub_resource type="Resource" id="Resource_nesps"]
+script = ExtResource("5_j3wss")
+
+[sub_resource type="Resource" id="Resource_j3wss"]
+script = ExtResource("3_2mn2t")
+Conditions = Array[Object]([SubResource("Resource_nesps")])
+Actions = Array[Object]([SubResource("Resource_2mn2t")])
+
+[resource]
+script = ExtResource("6_267tc")
+StateName = "Double_Jump_Forward"
+Type = 1
+AnimationData = ExtResource("1_q55aj")
+TransitionEvents = Array[Object]([SubResource("Resource_j3wss")])
+OnEnterEvents = Array[Object]([SubResource("Resource_n8cdq")])
+OnTickEvents = []
+OnExitEvents = []
+OnHitConfirmEvents = []
+OnHitReactionEvents = []

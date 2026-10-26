@@ -18,8 +18,9 @@ namespace FunctionFighter.Mechanics
     }
 
     /// <summary>
-    /// Punish and Reversal indicators, in the same style as the counter indicators: a hit notification on the player's
-    /// side ("Punish" / "Reversal"), a flash VFX and a short color flash on the fighter.
+    /// Punish, Reversal and Hard Knockdown indicators: an on-screen notification on the player's side ("Punish" /
+    /// "Reversal" / "Hard Knockdown"). No color flash or VFX for any of them: purple is reserved for poison and blue
+    /// for armor, and a Punish flash would land on the same frames as a Counter flash.
     ///
     /// - PUNISH: a hit that lands while the opponent is in the recovery frames of a move (a blocked or whiffed attack,
     ///   a whiffed throw...). Visual only: damage and hitstun don't change. A counter hit (startup / active) stays a
@@ -63,17 +64,29 @@ namespace FunctionFighter.Mechanics
         public static string LastReversalState = "";
 
         /// <summary>A Punish landed on <paramref name="defender"/> (from Counter.OnHit).</summary>
-        /// <param name="effects">false on a counter hit in recovery: the red counter bubble and flash win, only the
-        /// "Punish" notification is added.</param>
+        /// <param name="effects">Kept for callers (Counter.OnHit); a Punish is notification-only either way.</param>
         public static void OnPunish(SakugaActor attacker, SakugaActor defender, bool effects = true)
         {
             PunishCount++;
             if (!PunishOn) return;
-            var s = Counter.Settings;
-            Notify(attacker, s.PunishNotificationIndex);
-            if (!effects) return;
-            SpawnVFX(defender, s.PunishVFXIndex, s.VFXHeight);
-            StateFlash.Flash(defender, StateFlash.PunishColor);
+            Notify(attacker, Counter.Settings.PunishNotificationIndex);
+        }
+
+        /// <summary>For tests / displays.</summary>
+        public static int HardKnockdownCount;
+
+        /// <summary>
+        /// <paramref name="defender"/> just landed in a hard knockdown (can't tech: throws, hard sweeps...). Called by
+        /// Locomotion.KnockdownTick on the landing frame. The notification goes on the attacker's side, like Punish.
+        /// </summary>
+        public static void OnHardKnockdown(SakugaActor defender)
+        {
+            if (defender == null) return;
+            HardKnockdownCount++;
+            int index = Counter.Settings.HardKnockdownNotificationIndex;
+            var gm = GameManager.Instance;
+            if (index < 0 || gm?.notifications?.Elements == null || index >= gm.notifications.Elements.Length) return;
+            gm.PlayHitNotificationByIndex(1 - (int)defender.playerID, index);
         }
 
         /// <summary>Every frame, after both fighters have moved (GameManager, next to Advantage.AfterTick).</summary>
@@ -172,10 +185,9 @@ namespace FunctionFighter.Mechanics
             LastReversalPlayer = (int)a.playerID;
             LastReversalState = a.StateManager.GetCurrentState()?.StateName ?? "";
             if (!ReversalOn) return;
+            // On-screen notification only. No state flash or VFX: blue is reserved for armor.
             var s = Counter.Settings;
             Notify(a, s.ReversalNotificationIndex);
-            SpawnVFX(a, s.ReversalVFXIndex, s.VFXHeight);
-            StateFlash.Flash(a, StateFlash.ReversalColor);
         }
 
         static void Notify(SakugaActor a, int index)

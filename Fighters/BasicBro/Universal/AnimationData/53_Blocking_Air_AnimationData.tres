@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="AnimationData" format=3 uid="uid://bbsir5q5hpfue"]
+
+[ext_resource type="Script" uid="uid://b8vqwkv52qq3e" path="res://Scripts/SakugaEngine/Resources/AnimationSettings.cs" id="1_mcl04"]
+[ext_resource type="Resource" uid="uid://c48mi2er3ao5h" path="res://Fighters/BasicBro/Hitboxes/BB_Hitbox_Stand.tres" id="2_qsfuw"]
+[ext_resource type="Script" uid="uid://5qrsoteskjym" path="res://Scripts/SakugaEngine/Resources/HitboxState.cs" id="3_wdc04"]
+[ext_resource type="Script" uid="uid://ddkya5wrb53ly" path="res://Scripts/SakugaEngine/Resources/AnimationData.cs" id="4_wwc6a"]
+
+[sub_resource type="Resource" id="Resource_mcl04"]
+script = ExtResource("1_mcl04")
+SourceAnimation = "Barrier_Air"
+
+[sub_resource type="Resource" id="Resource_qsfuw"]
+script = ExtResource("3_wdc04")
+HitboxData = ExtResource("2_qsfuw")
+metadata/_custom_type_script = "uid://5qrsoteskjym"
+
+[resource]
+script = ExtResource("4_wwc6a")
+Duration = 8
+Animations = [SubResource("Resource_mcl04")]
+Hitboxes = [SubResource("Resource_qsfuw")]
+metadata/_custom_type_script = "uid://ddkya5wrb53ly"

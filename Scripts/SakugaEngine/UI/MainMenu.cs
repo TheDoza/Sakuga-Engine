@@ -6,6 +6,7 @@ namespace SakugaEngine.UI
     {
         [Export] private MainMenuManager Manager;
         [Export] private Button firstButton;
+        [Export] private OptionsMenu optionsMenu;
 
         private Button lastButton;
 
@@ -68,6 +69,13 @@ namespace SakugaEngine.UI
             Manager.matchSettings.P1SelectedDevice = -1;
             Manager.matchSettings.P2SelectedDevice = -1;
             Manager.matchSettings.TimeLimit = 99;
+        }
+
+        public void _OnOptionsButtonPressed()
+        {
+            Visible = false;
+            optionsMenu.GoTo();
+            AudioManager.Instance.PlayMenuClip(1);
         }
 
         public void _OnQuitButtonPressed()

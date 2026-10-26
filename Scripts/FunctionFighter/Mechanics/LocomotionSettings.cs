@@ -96,6 +96,8 @@ namespace FunctionFighter.Mechanics
         /// <summary>Air dash 66 / 44: most frames the first tap, the gap between taps and the second tap may each last.
         /// Bigger = easier air dashes.</summary>
         [Export] public int AirDashInputWindow = 6;
+        /// <summary>Lowest height (world units, SimulationScale 10000 = 1m, measured from the ground) an air dash can start from. 0 = no minimum.</summary>
+        [Export] public int AirDashMinHeight = 10000;
 
         [ExportGroup("Running momentum (run, skid and step dash)")]
         /// <summary>Percent of the run speed carried into a jump (dash jump).</summary>
@@ -103,6 +105,9 @@ namespace FunctionFighter.Mechanics
         /// <summary>Back jump (7) out of a run / skid / step dash: percent of that carried momentum it keeps. 0 = a normal
         /// back jump (the run's forward speed is dropped); 100 = full forward carry, which can cancel the back jump out.</summary>
         [Export] public int BackJumpMomentumPercent = 0;
+        /// <summary>Super jump (2 then 7/8/9): percent of the running momentum carried into the jump. Separate from JumpMomentumPercent so
+        /// normal jumps are unaffected when tuning super jumps.</summary>
+        [Export] public int SuperJumpMomentumPercent = 25;
         /// <summary>Double jump after a dash jump, in the same direction it's travelling: percent of the momentum kept.</summary>
         [Export] public int DoubleJumpSameDirectionPercent = 100;
         /// <summary>...straight up (8).</summary>

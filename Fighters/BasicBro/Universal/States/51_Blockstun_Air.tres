@@ -1,0 +1,64 @@
+[gd_resource type="Resource" script_class="FighterState" format=3 uid="uid://bfa4n7pd3fb10"]
+
+[ext_resource type="Resource" uid="uid://chlk5mikkvvae" path="res://Fighters/BasicBro/Universal/AnimationData/51_Blockstun_Air_AnimationData.tres" id="1_7alpx"]
+[ext_resource type="Script" uid="uid://dcnb575mw2hwp" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/AddGravityAction.cs" id="2_1yhpo"]
+[ext_resource type="Script" uid="uid://c076jc3huncn2" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/FrameDataEvent.cs" id="3_4361k"]
+[ext_resource type="Script" uid="uid://da4kqpf635oin" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/PlayStateAction.cs" id="4_yac7h"]
+[ext_resource type="Script" uid="uid://baguhnol5ww4w" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/OnGroundCondition.cs" id="5_u43nn"]
+[ext_resource type="Script" uid="uid://bho4h38y7suxk" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/StateEndedCondition.cs" id="6_qmgs7"]
+[ext_resource type="Script" uid="uid://bf60srwkccsm8" path="res://Scripts/SakugaEngine/Resources/FighterState.cs" id="7_le1l4"]
+
+[sub_resource type="Resource" id="Resource_7alpx"]
+script = ExtResource("2_1yhpo")
+SetValue = true
+UseDefault = true
+metadata/_custom_type_script = "uid://dcnb575mw2hwp"
+
+[sub_resource type="Resource" id="Resource_1yhpo"]
+script = ExtResource("3_4361k")
+Conditions = null
+Actions = Array[Object]([SubResource("Resource_7alpx")])
+metadata/_custom_type_script = "uid://c076jc3huncn2"
+
+[sub_resource type="Resource" id="Resource_4361k"]
+script = ExtResource("4_yac7h")
+StateIndex = 43
+metadata/_custom_type_script = "uid://da4kqpf635oin"
+
+[sub_resource type="Resource" id="Resource_yac7h"]
+script = ExtResource("5_u43nn")
+metadata/_custom_type_script = "uid://baguhnol5ww4w"
+
+[sub_resource type="Resource" id="Resource_u43nn"]
+script = ExtResource("3_4361k")
+Conditions = Array[Object]([SubResource("Resource_yac7h")])
+Actions = Array[Object]([SubResource("Resource_4361k")])
+metadata/_custom_type_script = "uid://c076jc3huncn2"
+
+[sub_resource type="Resource" id="Resource_qmgs7"]
+script = ExtResource("4_yac7h")
+StateIndex = 53
+metadata/_custom_type_script = "uid://da4kqpf635oin"
+
+[sub_resource type="Resource" id="Resource_le1l4"]
+script = ExtResource("6_qmgs7")
+metadata/_custom_type_script = "uid://bho4h38y7suxk"
+
+[sub_resource type="Resource" id="Resource_ldugt"]
+script = ExtResource("3_4361k")
+Conditions = Array[Object]([SubResource("Resource_le1l4")])
+Actions = Array[Object]([SubResource("Resource_qmgs7")])
+metadata/_custom_type_script = "uid://c076jc3huncn2"
+
+[resource]
+script = ExtResource("7_le1l4")
+StateName = "Blockstun_Air"
+Type = 3
+AnimationData = ExtResource("1_7alpx")
+TransitionEvents = Array[Object]([SubResource("Resource_u43nn"), SubResource("Resource_ldugt")])
+OnEnterEvents = null
+OnTickEvents = Array[Object]([SubResource("Resource_1yhpo")])
+OnExitEvents = null
+OnHitConfirmEvents = null
+OnHitReactionEvents = null
+metadata/_custom_type_script = "uid://bf60srwkccsm8"

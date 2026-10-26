@@ -1,0 +1,52 @@
+[gd_resource type="Resource" script_class="FighterState" format=3]
+
+[ext_resource type="Script" path="res://Scripts/SakugaEngine/Resources/FighterState.cs" id="1_state"]
+[ext_resource type="Resource" path="res://Fighters/Dummy/Universal/AnimationData/73_Habit_AnimationData.tres" id="2_anim"]
+[ext_resource type="Script" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/FrameDataEvent.cs" id="3_event"]
+[ext_resource type="Script" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/StateEndedCondition.cs" id="4_ended"]
+[ext_resource type="Script" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/PlayStateAction.cs" id="5_play"]
+[ext_resource type="Script" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/CheckSideChangeCondition.cs" id="6_sidecheck"]
+[ext_resource type="Script" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/ChangeSideAction.cs" id="7_side"]
+[ext_resource type="Script" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/MoveXAction.cs" id="8_movex"]
+[ext_resource type="Script" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/MoveYAction.cs" id="9_movey"]
+
+[sub_resource type="Resource" id="Ended"]
+script = ExtResource("4_ended")
+
+[sub_resource type="Resource" id="ToIdle"]
+script = ExtResource("5_play")
+StateIndex = 0
+
+[sub_resource type="Resource" id="EndEvent"]
+script = ExtResource("3_event")
+Conditions = Array[Object]([SubResource("Ended")])
+Actions = Array[Object]([SubResource("ToIdle")])
+
+[sub_resource type="Resource" id="SideCheck"]
+script = ExtResource("6_sidecheck")
+
+[sub_resource type="Resource" id="Side"]
+script = ExtResource("7_side")
+
+[sub_resource type="Resource" id="SideEvent"]
+script = ExtResource("3_event")
+Conditions = Array[Object]([SubResource("SideCheck")])
+Actions = Array[Object]([SubResource("Side")])
+
+[sub_resource type="Resource" id="StopX"]
+script = ExtResource("8_movex")
+
+[sub_resource type="Resource" id="StopY"]
+script = ExtResource("9_movey")
+
+[sub_resource type="Resource" id="StopEvent"]
+script = ExtResource("3_event")
+Actions = Array[Object]([SubResource("StopX"), SubResource("StopY")])
+
+[resource]
+script = ExtResource("1_state")
+StateName = "Habit"
+Type = 1
+AnimationData = ExtResource("2_anim")
+TransitionEvents = Array[Object]([SubResource("EndEvent")])
+OnTickEvents = Array[Object]([SubResource("SideEvent"), SubResource("StopEvent")])

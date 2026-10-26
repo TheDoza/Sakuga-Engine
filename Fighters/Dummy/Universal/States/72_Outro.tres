@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="FighterState" format=3]
+
+[ext_resource type="Script" path="res://Scripts/SakugaEngine/Resources/FighterState.cs" id="1_state"]
+[ext_resource type="Resource" path="res://Fighters/Dummy/Universal/AnimationData/72_Outro_AnimationData.tres" id="2_anim"]
+[ext_resource type="Script" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/FrameDataEvent.cs" id="3_event"]
+[ext_resource type="Script" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/MoveXAction.cs" id="4_movex"]
+[ext_resource type="Script" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/MoveYAction.cs" id="5_movey"]
+
+[sub_resource type="Resource" id="StopX"]
+script = ExtResource("4_movex")
+
+[sub_resource type="Resource" id="StopY"]
+script = ExtResource("5_movey")
+
+[sub_resource type="Resource" id="StopEvent"]
+script = ExtResource("3_event")
+Actions = Array[Object]([SubResource("StopX"), SubResource("StopY")])
+
+[resource]
+script = ExtResource("1_state")
+StateName = "Outro"
+Type = 5
+AnimationData = ExtResource("2_anim")
+OnEnterEvents = Array[Object]([SubResource("StopEvent")])
+OnTickEvents = Array[Object]([SubResource("StopEvent")])

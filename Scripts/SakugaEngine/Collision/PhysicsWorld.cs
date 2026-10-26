@@ -454,7 +454,7 @@ namespace SakugaEngine.Collision
             bool aRight = bodyA.FixedPosition.X > bodyB.FixedPosition.X ||
                           (bodyA.FixedPosition.X == bodyB.FixedPosition.X && !bodyA.IsLeftSide);
             PhysicsBody right = aRight ? bodyA : bodyB, left = aRight ? bodyB : bodyA;
-            if (GlobalVariables.WallLimit - right.FixedPosition.X < left.Pushbox.Size.X && !JumpingOut(right, left))
+            if (right.MaxX - right.FixedPosition.X < left.Pushbox.Size.X && !JumpingOut(right, left))
             {
                 // left must stay entirely on the left of right's pushbox
                 int depth = (left.Pushbox.Center.X + left.Pushbox.Size.X / 2) - (right.Pushbox.Center.X - right.Pushbox.Size.X / 2);
@@ -462,7 +462,7 @@ namespace SakugaEngine.Collision
                 return true;
             }
             // Left wall: the fighter further left is the one that could be pinned.
-            if (left.FixedPosition.X + GlobalVariables.WallLimit < right.Pushbox.Size.X && !JumpingOut(left, right))
+            if (left.MaxX + left.FixedPosition.X < right.Pushbox.Size.X && !JumpingOut(left, right))
             {
                 int depth = (left.Pushbox.Center.X + left.Pushbox.Size.X / 2) - (right.Pushbox.Center.X - right.Pushbox.Size.X / 2);
                 if (depth > 0) right.Resolve(new Vector2I(-depth, 0));

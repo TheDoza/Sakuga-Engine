@@ -1,0 +1,37 @@
+[gd_resource type="Resource" script_class="AnimationData" format=3 uid="uid://dtnos5gmkvelt"]
+
+[ext_resource type="Script" uid="uid://b8vqwkv52qq3e" path="res://Scripts/SakugaEngine/Resources/AnimationSettings.cs" id="1_rctre"]
+[ext_resource type="Resource" uid="uid://c48mi2er3ao5h" path="res://Fighters/BasicBro/Hitboxes/BB_Hitbox_Stand.tres" id="2_s2lft"]
+[ext_resource type="Script" uid="uid://5qrsoteskjym" path="res://Scripts/SakugaEngine/Resources/HitboxState.cs" id="3_5wbkm"]
+[ext_resource type="Resource" uid="uid://4i87evh46egv" path="res://Fighters/BasicBro/Hitboxes/BB_Hitbox_Throw_Active.tres" id="4_0ibil"]
+[ext_resource type="Script" uid="uid://ddkya5wrb53ly" path="res://Scripts/SakugaEngine/Resources/AnimationData.cs" id="5_d3dsi"]
+
+[sub_resource type="Resource" id="Resource_rctre"]
+script = ExtResource("1_rctre")
+SourceAnimation = "Idle"
+
+[sub_resource type="Resource" id="Resource_s2lft"]
+script = ExtResource("3_5wbkm")
+HitboxData = ExtResource("2_s2lft")
+metadata/_custom_type_script = "uid://5qrsoteskjym"
+
+[sub_resource type="Resource" id="Resource_5wbkm"]
+script = ExtResource("3_5wbkm")
+AtFrame = 6
+animationStage = 1
+HitboxData = ExtResource("4_0ibil")
+metadata/_custom_type_script = "uid://5qrsoteskjym"
+
+[sub_resource type="Resource" id="Resource_0ibil"]
+script = ExtResource("3_5wbkm")
+AtFrame = 9
+animationStage = 2
+HitboxData = ExtResource("2_s2lft")
+metadata/_custom_type_script = "uid://5qrsoteskjym"
+
+[resource]
+script = ExtResource("5_d3dsi")
+Duration = 33
+Animations = [SubResource("Resource_rctre")]
+Hitboxes = [SubResource("Resource_s2lft"), SubResource("Resource_5wbkm"), SubResource("Resource_0ibil")]
+metadata/_custom_type_script = "uid://ddkya5wrb53ly"

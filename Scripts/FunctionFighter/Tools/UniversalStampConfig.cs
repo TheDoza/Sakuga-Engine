@@ -13,6 +13,10 @@ namespace FunctionFighter.Tools
 	/// The target's own states (100+) and own moves (anything not in Fighters/Shared/Universal/Moves)
 	/// are kept. Re-stamping is safe: it only rewrites the universal part.
 	///
+	/// Loop lengths: when ModelScene is set, every universal state that loops itself (state ends -> go to frame 0,
+	/// e.g. Idle, Walk, Crouching, the Barrier stances) gets its Duration set to its clip's length in frames, so the
+	/// loop restarts exactly where the clip does and doesn't pop. Recalculated on every stamp, so it survives re-stamping.
+	///
 	/// Note: Sakuga's resource scripts are not [Tool] scripts, so in the editor they load as
 	/// placeholders. This tool therefore reads and writes them through Get()/Set() by property
 	/// name instead of casting to FighterState, DataContainer, etc.
@@ -59,6 +63,14 @@ namespace FunctionFighter.Tools
 		[Export] public bool UseAnimations = true;
 		[Export] public Dictionary<string, string> AnimationNames = DefaultAnimationNames();
 
+		[ExportGroup("Loop Lengths")]
+		/// <summary>The fighter's model (its .glb, or a scene containing its AnimationPlayer). Used to read clip lengths.</summary>
+		[Export] public PackedScene ModelScene;
+		/// <summary>When on (and ModelScene is set), self-looping universal states get Duration = their clip's length in frames.</summary>
+		[Export] public bool MatchLoopDurations = true;
+		/// <summary>Other universal states whose Duration should always be their clip's length (one-shot clips that end into another state).</summary>
+		[Export] public string[] ClipLengthStates = { "Habit", "Outro" };
+
 		[ExportToolButton("Stamp Universal States")]
 		public Callable StampButton => Callable.From(Stamp);
 
@@ -94,6 +106,7 @@ namespace FunctionFighter.Tools
 			{ "Run", "Run" }, { "Run_Skid", "Run_Stop" }, { "Step_Dash", "Dash_Forward" }, { "Backdash", "Dash_Backwards" },
 			{ "Super_Jump_Neutral", "Jump_Neutral" }, { "Super_Jump_Forward", "Jump_Forward" }, { "Super_Jump_Backward", "Jump_Backwards" },
 			{ "Double_Jump_Neutral", "Jump_Neutral" }, { "Double_Jump_Forward", "Jump_Forward" }, { "Double_Jump_Backward", "Jump_Backwards" },
+			{ "Outro", "Outro" }, { "Habit", "Habit" },
 		};
 
 		private const string DummyStand = "res://Fighters/Dummy/Hitboxes/0_Hitbox_Basic.tres";
@@ -152,6 +165,11 @@ namespace FunctionFighter.Tools
 			DirAccess.MakeDirRecursiveAbsolute(ProjectSettings.GlobalizePath(statesDir));
 			DirAccess.MakeDirRecursiveAbsolute(ProjectSettings.GlobalizePath(animDir));
 
+			// Clip name -> length in frames, read from the fighter's model (null = don't touch loop durations).
+			var clipFrames = (UseAnimations && MatchLoopDurations) ? ReadClipFrames() : null;
+			int loopsMatched = 0;
+			var loopsMissing = new System.Collections.Generic.List<string>();
+
 			var universal = new Array();
 			int written = 0, missingClips = 0;
 			for (int i = 0; i < UniversalCount; i++)
@@ -187,10 +205,25 @@ namespace FunctionFighter.Tools
 					if (UseAnimations)
 					{
 						var clips = new Array();
-						if (AnimationNames != null && AnimationNames.TryGetValue(stateName, out string clip) && !string.IsNullOrEmpty(clip))
+						string clip = null;
+						if (AnimationNames != null && AnimationNames.TryGetValue(stateName, out string named) && !string.IsNullOrEmpty(named))
+						{
+							clip = named;
 							clips.Add(new SakugaEngine.Resources.AnimationSettings { SourceAnimation = clip });
+						}
 						else missingClips++;
 						anim.Set("Animations", clips);
+
+						// Self-looping state: make its length match the clip so the loop doesn't pop.
+						if (clipFrames != null && clip != null && (IsSelfLooping(t) || (ClipLengthStates != null && System.Array.IndexOf(ClipLengthStates, stateName) >= 0)))
+						{
+							if (clipFrames.TryGetValue(clip, out int frames) && frames > 0)
+							{
+								anim.Set("Duration", frames);
+								loopsMatched++;
+							}
+							else loopsMissing.Add($"{stateName} ({clip})");
+						}
 					}
 
 					string animPath = $"{animDir}/{fileName}_AnimationData.tres";
@@ -279,12 +312,82 @@ namespace FunctionFighter.Tools
 			ResourceSaver.Save(TargetData);
 
 			string report = $"[UniversalStamp] Stamped {written} universal states and {universalMoves} universal moves onto {TargetData.ResourcePath}." +
-				(UseAnimations && missingClips > 0 ? $" {missingClips} states have no clip name (they'll show no animation)." : "") + note;
+				(UseAnimations && missingClips > 0 ? $" {missingClips} states have no clip name (they'll show no animation)." : "") +
+				(clipFrames != null ? $" {loopsMatched} looping / clip-length states matched to their clip length." : "") +
+				(loopsMissing.Count > 0 ? $" Clip not found in ModelScene for: {string.Join(", ", loopsMissing)}." : "") +
+				(UseAnimations && MatchLoopDurations && ModelScene == null ? " ModelScene is empty, so loop lengths were left as the template's." : "") + note;
 			GD.Print(report);
 #if TOOLS
 			if (Engine.IsEditorHint()) EditorInterface.Singleton.GetResourceFilesystem().Scan();
 #endif
 			return report;
+		}
+
+		/// <summary>
+		/// Reads every clip in ModelScene's AnimationPlayer and returns name -> length in game frames.
+		/// Clips in a named library are listed as "library/clip" (the default library has no prefix).
+		/// </summary>
+		private System.Collections.Generic.Dictionary<string, int> ReadClipFrames()
+		{
+			if (ModelScene == null) return null;
+			var result = new System.Collections.Generic.Dictionary<string, int>();
+			Node root = ModelScene.Instantiate();
+			try
+			{
+				AnimationPlayer player = root as AnimationPlayer;
+				if (player == null)
+					foreach (Node n in root.FindChildren("*", "AnimationPlayer", true, false)) { player = n as AnimationPlayer; if (player != null) break; }
+				if (player == null)
+				{
+					GD.PushWarning("[UniversalStamp] ModelScene has no AnimationPlayer; loop lengths left as the template's.");
+					return null;
+				}
+				foreach (StringName lib in player.GetAnimationLibraryList())
+				{
+					AnimationLibrary library = player.GetAnimationLibrary(lib);
+					foreach (StringName name in library.GetAnimationList())
+					{
+						string key = string.IsNullOrEmpty(lib) ? (string)name : $"{lib}/{name}";
+						int frames = Mathf.RoundToInt(library.GetAnimation(name).Length * SakugaEngine.Global.GlobalVariables.TicksPerSecond);
+						result[key] = frames;
+					}
+				}
+			}
+			finally
+			{
+				root.Free();
+			}
+			return result;
+		}
+
+		/// <summary>True if the state restarts itself when it ends (state ended -> go to frame 0), like Idle or Walk.</summary>
+		private static bool IsSelfLooping(Resource state)
+		{
+			Variant eventsV = state.Get("TransitionEvents");
+			if (eventsV.VariantType == Variant.Type.Nil) return false;
+			foreach (var ev in eventsV.AsGodotArray())
+			{
+				var e = ev.As<Resource>();
+				if (e == null) continue;
+				Variant condsV = e.Get("Conditions"), actsV = e.Get("Actions");
+				if (condsV.VariantType == Variant.Type.Nil || actsV.VariantType == Variant.Type.Nil) continue;
+				var conds = condsV.AsGodotArray();
+				var acts = actsV.AsGodotArray();
+				if (conds.Count != 1 || acts.Count != 1) continue;
+				if (!ScriptIs(conds[0].As<Resource>(), "StateEndedCondition.cs")) continue;
+				var act = acts[0].As<Resource>();
+				if (!ScriptIs(act, "GoToFrameActions.cs")) continue;
+				Variant frame = act.Get("Frame");
+				if (frame.VariantType == Variant.Type.Nil || (int)frame == 0) return true;
+			}
+			return false;
+		}
+
+		private static bool ScriptIs(Resource r, string fileName)
+		{
+			if (r == null) return false;
+			var script = r.GetScript().As<Script>();
+			return script != null && script.ResourcePath.EndsWith(fileName);
 		}
 
 		private static bool IsUniversal(Resource r) =>

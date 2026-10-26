@@ -244,6 +244,7 @@ namespace FunctionFighter.Mechanics
         public static bool AirDashInput(SakugaActor a, bool back)
         {
             if (!IsFighter(a)) return false;
+            if (a.Body.FixedPosition.Y < Settings(a).AirDashMinHeight) return false;
             int window = Settings(a).AirDashInputWindow;
             PlayerInputs dir = back ? BackBit(a) : ForwardBit(a);
             PlayerInputs cur = Raw(a, 0);
@@ -280,6 +281,7 @@ namespace FunctionFighter.Mechanics
             if (l.AirActionsUsed >= s.AirActions) return false;
             if (jump && s.MaxAirJumps >= 0 && l.AirJumpsUsed >= s.MaxAirJumps) return false;
             if (!jump && s.MaxAirDashes >= 0 && l.AirDashesUsed >= s.MaxAirDashes) return false;
+            if (!jump && s.AirDashMinHeight > 0 && a.Body.FixedPosition.Y < s.AirDashMinHeight) return false;
             if (jump && !Training.Reversal.IsForcing(a))
             {
                 // Up must be freshly pressed: holding up from the first jump doesn't double jump.
@@ -316,7 +318,8 @@ namespace FunctionFighter.Mechanics
                     l.PrejumpLeft = System.Math.Max(0, s.PrejumpFrames);
                     l.Launched = false;
                     l.DashJump = wasDashing;
-                    l.Momentum = (int)((long)carried * s.JumpMomentumPercent / 100);
+                    int momentumPercent = mode == LocoMode.SuperJump ? s.SuperJumpMomentumPercent : s.JumpMomentumPercent;
+                    l.Momentum = (int)((long)carried * momentumPercent / 100);
                     // A back jump against the run's direction keeps only BackJumpMomentumPercent of it.
                     if (dir < 0 && System.Math.Sign(carried) == facing) l.Momentum = (int)((long)l.Momentum * s.BackJumpMomentumPercent / 100);
                     l.AirActionsUsed = l.AirJumpsUsed = l.AirDashesUsed = 0;
@@ -539,7 +542,7 @@ namespace FunctionFighter.Mechanics
             if (l.SlideLeft > 0 && s.SlideFrames > 0)
             {
                 int step = l.SlideVelocity / GlobalVariables.TicksPerSecond * l.SlideLeft / s.SlideFrames;
-                a.Body.FixedPosition.X = Mathf.Clamp(a.Body.FixedPosition.X + step, -GlobalVariables.WallLimit, GlobalVariables.WallLimit);
+                a.Body.FixedPosition.X = Mathf.Clamp(a.Body.FixedPosition.X + step, -a.Body.MaxX, a.Body.MaxX);
                 l.SlideLeft--;
             }
 
@@ -637,6 +640,7 @@ namespace FunctionFighter.Mechanics
             int f = KnockdownFrame(a);
             if (IsHardKnockdown(a))
             {
+                if (f == 1 && !a.OnHitstop()) Indicators.OnHardKnockdown(a); // "Hard Knockdown" on landing
                 if (f >= s.HardKnockdownFrames) a.StateManager.PlayState(HitGetUp, true);
                 return;
             }

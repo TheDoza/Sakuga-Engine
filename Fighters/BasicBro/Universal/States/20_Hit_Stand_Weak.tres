@@ -1,0 +1,45 @@
+[gd_resource type="Resource" script_class="FighterState" format=3 uid="uid://bs3ycfc84wssu"]
+
+[ext_resource type="Resource" uid="uid://dfufmidvpepmk" path="res://Fighters/BasicBro/Universal/AnimationData/20_Hit_Stand_Weak_AnimationData.tres" id="1_4iqcr"]
+[ext_resource type="Script" uid="uid://bgwrlqrhqb2a4" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/MoveXAction.cs" id="2_m8khm"]
+[ext_resource type="Script" uid="uid://c076jc3huncn2" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/FrameDataEvent.cs" id="3_23dk7"]
+[ext_resource type="Script" uid="uid://da4kqpf635oin" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/PlayStateAction.cs" id="4_2pj5p"]
+[ext_resource type="Script" uid="uid://bho4h38y7suxk" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/StateEndedCondition.cs" id="5_nxhne"]
+[ext_resource type="Script" uid="uid://bf60srwkccsm8" path="res://Scripts/SakugaEngine/Resources/FighterState.cs" id="6_6tkjq"]
+
+[sub_resource type="Resource" id="Resource_4iqcr"]
+script = ExtResource("2_m8khm")
+metadata/_custom_type_script = "uid://bgwrlqrhqb2a4"
+
+[sub_resource type="Resource" id="Resource_m8khm"]
+script = ExtResource("3_23dk7")
+Conditions = null
+Actions = Array[Object]([SubResource("Resource_4iqcr")])
+metadata/_custom_type_script = "uid://c076jc3huncn2"
+
+[sub_resource type="Resource" id="Resource_23dk7"]
+script = ExtResource("4_2pj5p")
+metadata/_custom_type_script = "uid://da4kqpf635oin"
+
+[sub_resource type="Resource" id="Resource_2pj5p"]
+script = ExtResource("5_nxhne")
+metadata/_custom_type_script = "uid://bho4h38y7suxk"
+
+[sub_resource type="Resource" id="Resource_nxhne"]
+script = ExtResource("3_23dk7")
+Conditions = Array[Object]([SubResource("Resource_2pj5p")])
+Actions = Array[Object]([SubResource("Resource_23dk7")])
+metadata/_custom_type_script = "uid://c076jc3huncn2"
+
+[resource]
+script = ExtResource("6_6tkjq")
+StateName = "Hit_Stand_Weak"
+Type = 4
+AnimationData = ExtResource("1_4iqcr")
+TransitionEvents = Array[Object]([SubResource("Resource_nxhne")])
+OnEnterEvents = null
+OnTickEvents = Array[Object]([SubResource("Resource_m8khm")])
+OnExitEvents = null
+OnHitConfirmEvents = null
+OnHitReactionEvents = null
+metadata/_custom_type_script = "uid://bf60srwkccsm8"

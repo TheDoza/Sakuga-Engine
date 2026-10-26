@@ -1,0 +1,50 @@
+[gd_resource type="Resource" script_class="FighterState" format=3 uid="uid://b86ckffdk1slu"]
+
+[ext_resource type="Resource" uid="uid://ii0iquw8qtei" path="res://Fighters/BasicBro/Universal/AnimationData/12_Crouch_Exit_AnimationData.tres" id="1_dteh6"]
+[ext_resource type="Script" uid="uid://bgwrlqrhqb2a4" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/MoveXAction.cs" id="2_3ocou"]
+[ext_resource type="Script" uid="uid://bw1835rb2hj7y" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/MoveYAction.cs" id="3_iwojk"]
+[ext_resource type="Script" uid="uid://c076jc3huncn2" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/FrameDataEvent.cs" id="4_1ixtd"]
+[ext_resource type="Script" uid="uid://da4kqpf635oin" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/PlayStateAction.cs" id="5_r73fc"]
+[ext_resource type="Script" uid="uid://bho4h38y7suxk" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/StateEndedCondition.cs" id="6_v1lph"]
+[ext_resource type="Script" uid="uid://bf60srwkccsm8" path="res://Scripts/SakugaEngine/Resources/FighterState.cs" id="7_c2hsl"]
+
+[sub_resource type="Resource" id="Resource_dteh6"]
+script = ExtResource("2_3ocou")
+metadata/_custom_type_script = "uid://bgwrlqrhqb2a4"
+
+[sub_resource type="Resource" id="Resource_3ocou"]
+script = ExtResource("3_iwojk")
+metadata/_custom_type_script = "uid://bw1835rb2hj7y"
+
+[sub_resource type="Resource" id="Resource_iwojk"]
+script = ExtResource("4_1ixtd")
+Conditions = null
+Actions = Array[Object]([SubResource("Resource_dteh6"), SubResource("Resource_3ocou")])
+metadata/_custom_type_script = "uid://c076jc3huncn2"
+
+[sub_resource type="Resource" id="Resource_1ixtd"]
+script = ExtResource("5_r73fc")
+metadata/_custom_type_script = "uid://da4kqpf635oin"
+
+[sub_resource type="Resource" id="Resource_r73fc"]
+script = ExtResource("6_v1lph")
+metadata/_custom_type_script = "uid://bho4h38y7suxk"
+
+[sub_resource type="Resource" id="Resource_v1lph"]
+script = ExtResource("4_1ixtd")
+Conditions = Array[Object]([SubResource("Resource_r73fc")])
+Actions = Array[Object]([SubResource("Resource_1ixtd")])
+metadata/_custom_type_script = "uid://c076jc3huncn2"
+
+[resource]
+script = ExtResource("7_c2hsl")
+StateName = "Crouch_Exit"
+Type = 1
+AnimationData = ExtResource("1_dteh6")
+TransitionEvents = Array[Object]([SubResource("Resource_v1lph")])
+OnEnterEvents = Array[Object]([SubResource("Resource_iwojk")])
+OnTickEvents = null
+OnExitEvents = null
+OnHitConfirmEvents = null
+OnHitReactionEvents = null
+metadata/_custom_type_script = "uid://bf60srwkccsm8"
