@@ -153,7 +153,8 @@ namespace FunctionFighter.UI
             half.AddChild(score);
 
             var name = MakeLabel((f.Data?.Profile?.ShortName ?? "").ToUpper() + (f.UseAI ? "  (CPU)" : ""), 16, new Color(0.85f, 0.9f, 1f), left ? HorizontalAlignment.Right : HorizontalAlignment.Left);
-            name.AnchorLeft = left ? 0.36f : 0.20f; name.AnchorRight = left ? 0.98f : 0.64f; name.AnchorTop = 0.62f; name.AnchorBottom = 0.95f;
+            // Mirror of P1's span (0.36-0.98), so both names start / end at the centre line under the score.
+            name.AnchorLeft = left ? 0.36f : 0.02f; name.AnchorRight = left ? 0.98f : 0.64f; name.AnchorTop = 0.62f; name.AnchorBottom = 0.95f;
             half.AddChild(name);
         }
 
@@ -209,7 +210,11 @@ namespace FunctionFighter.UI
 
         void ReadInput(int p)
         {
-            string k = p == 0 ? "k1_" : "k2_";
+            // The device this player picked for the match (keyboard 1/2 or gamepad 1/2), so a controller works here
+            // too. Falls back to keyboard 1 / 2 when no device is set.
+            var match = GameManager.Instance?.Match;
+            int device = match == null ? -1 : (p == 0 ? match.P1SelectedDevice : match.P2SelectedDevice);
+            string k = device >= 0 ? SakugaEngine.Global.GlobalFunctions.GetPlayerPrefix(device) + "_" : (p == 0 ? "k1_" : "k2_");
             bool Pressed(string a) => InputMap.HasAction(k + a) && Godot.Input.IsActionJustPressed(k + a);
             if (_picked[p] == Choice.None)
             {

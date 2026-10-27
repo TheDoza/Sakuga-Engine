@@ -1,18 +1,8 @@
-[gd_resource type="Resource" script_class="BurstSettings" format=3]
+[gd_resource type="Resource" script_class="BurstSettings" format=3 uid="uid://bfj0q6swk005w"]
 
-[ext_resource type="Script" path="res://Scripts/FunctionFighter/Mechanics/BurstSettings.cs" id="1_burst"]
+[ext_resource type="Script" uid="uid://b8l1dmq558vyo" path="res://Scripts/FunctionFighter/Mechanics/BurstSettings.cs" id="1_burst"]
 
 [resource]
 script = ExtResource("1_burst")
-MaxValue = 10000
-HighHealthPercent = 55
-HighHealthGain = 10
-MidHealthGain = 15
-LowHealthPercent = 40
-LowHealthGain = 20
-PassiveSpeedPercent = 50
-GainMode = 0
-HitGainBase = 100
-HitGainDamageMultiplier = 10
-BurstVFXIndex = 6
-BurstVFXHeight = 9000
+PassiveSpeedPercent = 15
+GainMode = 2

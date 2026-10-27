@@ -133,7 +133,8 @@ namespace FunctionFighter.Mechanics
             LastPredicted = predicted;
             LastBand = Band(predicted);
             SparkCount++;
-            if (SparksOn) AdvantageHUD.Spark(contact, predicted, attacker, blocked);
+            // Blocked hits only show the block effect; the advantage is still measured (and learned) above.
+            if (SparksOn && !blocked) AdvantageHUD.Spark(contact, predicted, attacker, blocked);
         }
 
         static bool Free(SakugaActor a) => Training.FrameMeter.Classify(a).Kind == Training.FrameKind.Free;
