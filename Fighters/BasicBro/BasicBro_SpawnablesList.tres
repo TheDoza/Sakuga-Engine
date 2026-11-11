@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="SpawnsList" format=3 uid="uid://dj0i6cyikbcp8"]
+
+[ext_resource type="Script" uid="uid://k0lh4a8ntjdo" path="res://Scripts/SakugaEngine/Resources/SpawnsList.cs" id="1_list"]
+[ext_resource type="Script" uid="uid://fshoagbsdqd4" path="res://Scripts/SakugaEngine/Resources/SpawnObject.cs" id="2_obj"]
+[ext_resource type="PackedScene" path="res://Fighters/BasicBro/Moves/Fireball/BB_Fireball.tscn" id="3_fireball"]
+[ext_resource type="PackedScene" path="res://Fighters/BasicBro/Moves/FireballEX/BB_FireballEX.tscn" id="4_fireball_ex"]
+
+[sub_resource type="Resource" id="Resource_fireball"]
+script = ExtResource("2_obj")
+Key = "BB_Fireball"
+Instance = ExtResource("3_fireball")
+PoolSize = 2
+
+[sub_resource type="Resource" id="Resource_fireball_ex"]
+script = ExtResource("2_obj")
+Key = "BB_FireballEX"
+Instance = ExtResource("4_fireball_ex")
+PoolSize = 1
+
+[resource]
+script = ExtResource("1_list")
+SpawnObjects = Array[Object]([SubResource("Resource_fireball"), SubResource("Resource_fireball_ex")])

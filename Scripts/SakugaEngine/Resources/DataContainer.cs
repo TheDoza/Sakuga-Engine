@@ -28,6 +28,9 @@ namespace SakugaEngine.Resources
         /// Unity fighter pack): the outline pass culls front faces, which on an inverted hull draws the hull's near side,
         /// so the whole body turns the flash color. The tint still shows either way.</summary>
         [Export] public bool StateFlashOutline = true;
+        /// <summary>[FF PATCH: signature color] The fighter's own color. VFX with TintWithOwnerColor ticked (the heavy normal
+        /// streaks) are tinted with it, so one effect works for the whole roster.</summary>
+        [Export] public Color SignatureColor = Colors.White;
 
         [Export] public AIData _aiData;
 

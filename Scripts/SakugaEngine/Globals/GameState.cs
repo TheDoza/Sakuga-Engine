@@ -29,6 +29,7 @@ namespace SakugaEngine.GameState
         [Key(17)] public FunctionFighter.Mechanics.BurstState Burst; // [FF PATCH: burst]
         [Key(18)] public FunctionFighter.Mechanics.CounterState Counter; // [FF PATCH: counter]
         [Key(19)] public FunctionFighter.Mechanics.LocomotionState Locomotion; // [FF PATCH: locomotion]
+        [Key(20)] public FunctionFighter.Mechanics.WallStickState WallStick; // [FF PATCH: wall stick]
 
         public void GetStateData(ref SakugaActor reference)
         {
@@ -54,6 +55,7 @@ namespace SakugaEngine.GameState
             Burst = reference.Burst; // [FF PATCH: burst]
             Counter = reference.Counter; // [FF PATCH: counter]
             Locomotion = reference.Locomotion; // [FF PATCH: locomotion]
+            WallStick = reference.WallStick; // [FF PATCH: wall stick]
         }
 
         public void SetStateData(ref SakugaActor reference)
@@ -80,6 +82,7 @@ namespace SakugaEngine.GameState
             reference.Burst = Burst; // [FF PATCH: burst]
             reference.Counter = Counter; // [FF PATCH: counter]
             reference.Locomotion = Locomotion; // [FF PATCH: locomotion]
+            reference.WallStick = WallStick; // [FF PATCH: wall stick]
         }
     }
 
@@ -91,6 +94,8 @@ namespace SakugaEngine.GameState
         [Key(2)] public Vector2IState FixedPosition;
         [Key(3)] public int Frame;
         [Key(4)] public int Side;
+        [Key(5)] public int RotationDegrees; // [FF PATCH: vfx transform]
+        [Key(6)] public int ScalePercent;
 
         public void GetStateData(ref SakugaVFX reference)
         {
@@ -101,6 +106,8 @@ namespace SakugaEngine.GameState
             FixedPosition.GetStateData(ref reference.FixedPosition);
             Frame = reference.Frame;
             Side = reference.Side;
+            RotationDegrees = reference.RotationDegrees;
+            ScalePercent = reference.ScalePercent;
         }
 
         public void SetStateData(ref SakugaVFX reference)
@@ -112,6 +119,8 @@ namespace SakugaEngine.GameState
             FixedPosition.SetStateData(ref reference.FixedPosition);
             reference.Frame = Frame;
             reference.Side = Side;
+            reference.RotationDegrees = RotationDegrees;
+            reference.ScalePercent = ScalePercent > 0 ? ScalePercent : 100;
         }
     }
 

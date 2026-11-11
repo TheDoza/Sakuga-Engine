@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="AnimationData" format=3 uid="uid://c25ydhbhofoe4"]
+
+[ext_resource type="Script" uid="uid://b8vqwkv52qq3e" path="res://Scripts/SakugaEngine/Resources/AnimationSettings.cs" id="1_fhwor"]
+[ext_resource type="Resource" uid="uid://c48mi2er3ao5h" path="res://Fighters/BasicBro/Hitboxes/BB_Hitbox_Stand.tres" id="2_ud1ro"]
+[ext_resource type="Script" uid="uid://5qrsoteskjym" path="res://Scripts/SakugaEngine/Resources/HitboxState.cs" id="3_615b0"]
+[ext_resource type="Script" uid="uid://ddkya5wrb53ly" path="res://Scripts/SakugaEngine/Resources/AnimationData.cs" id="4_46sl6"]
+
+[sub_resource type="Resource" id="Resource_fhwor"]
+script = ExtResource("1_fhwor")
+SourceAnimation = "Hit_Crumple"
+
+[sub_resource type="Resource" id="Resource_ud1ro"]
+script = ExtResource("3_615b0")
+HitboxData = ExtResource("2_ud1ro")
+metadata/_custom_type_script = "uid://5qrsoteskjym"
+
+[resource]
+script = ExtResource("4_46sl6")
+Duration = 30
+HitstunHold = 2
+Animations = [SubResource("Resource_fhwor")]
+Hitboxes = [SubResource("Resource_ud1ro")]
+metadata/_custom_type_script = "uid://ddkya5wrb53ly"

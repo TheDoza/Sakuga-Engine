@@ -14,6 +14,9 @@ namespace SakugaEngine.Resources
         [Export] public bool LimitRange;
         [Export] public Vector2I AnimationRange;
         [Export] public Vector3 Offset = Vector3.Zero;
+        /// <summary>[FF PATCH: animation rotation] Rotation in degrees applied to the model while this clip plays,
+        /// for clips authored facing a different direction. Visual only.</summary>
+        [Export] public Vector3 Rotation = Vector3.Zero;
         /// <summary>[FF PATCH: animation blending] Frames to crossfade into this clip from the previous one.
         /// -1 = use the fighter's AnimationViewer.BlendFrames, 0 = snap (no blend). Visual only.</summary>
         [Export] public int BlendInFrames = -1;

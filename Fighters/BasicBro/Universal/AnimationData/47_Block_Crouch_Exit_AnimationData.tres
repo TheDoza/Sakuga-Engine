@@ -7,7 +7,7 @@
 
 [sub_resource type="Resource" id="Resource_2ows5"]
 script = ExtResource("1_2ows5")
-SourceAnimation = "Barrier_Crouch"
+SourceAnimation = "Block_Crouch_Exit"
 
 [sub_resource type="Resource" id="Resource_aml2c"]
 script = ExtResource("3_85o0u")

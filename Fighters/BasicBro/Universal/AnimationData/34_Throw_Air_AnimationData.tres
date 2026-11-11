@@ -8,7 +8,7 @@
 
 [sub_resource type="Resource" id="Resource_uvni3"]
 script = ExtResource("1_uvni3")
-SourceAnimation = "Falling"
+SourceAnimation = "Throw_Air"
 
 [sub_resource type="Resource" id="Resource_g7fra"]
 script = ExtResource("3_oem4j")

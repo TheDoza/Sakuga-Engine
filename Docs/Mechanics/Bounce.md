@@ -21,6 +21,19 @@ A hitbox arms a bounce for `BounceTime` frames. Touching a wall or the floor whi
 
 Measured: Test Wall Bounce from 12,000 off the wall flew back about 45,000 units. Lower `BounceXIntensity` if too far.
 
+## Wall stick
+A hitbox with `WallStickFrames` > 0 arms a wall stick. If the victim reaches the stage wall (the corner, not the camera edge)
+while still flying from that hit, they stop on the wall with no gravity for that many frames, then fall with normal gravity.
+Hitstun is extended to the stick length + 30 so it can't be teched. Landing first, leaving hitstun or another hit clears it.
+Code: `Scripts/FunctionFighter/Mechanics/WallStick.cs` (saved for rollback as SakugaActorState key 20).
+
+Keep `BounceXIntensity` at 0 on a wall-stick hitbox, or the wall bounce happens instead.
+
+| Move | Knockback | Stick |
+|---|---|---|
+| Basic Bro 22C~236C (Straight Punch) | (-90000, 25000), gravity 100000, Hit_KnockedBack | 20 frames |
+
 | Date | Change |
 |---|---|
+| 2026-11-09 | Wall stick (`HitboxElement.WallStickFrames`) |
 | 2026-10-11 | Created; Hit_Air and Hit_Air_Weak check for bounces before landing |

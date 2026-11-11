@@ -110,6 +110,8 @@ Files: `Scripts/FunctionFighter/Mechanics/MovementVFX.cs` (when and where each s
 ## Change log
 | Date | Change |
 |---|---|
+| 2026-11-07 | Heavy streak / lightning slash placed on the striking limb (SpawnVFXAction `RotationDegrees` / `ScalePercent`, saved with the VFX state); the rising / falling streak variants are gone (one streak, rotated per move); Basic Bro's streak uses his light blue. Clip Offset / Rotation now blend with the same clips and weight as the pose (fixes Basic Bro sinking into the floor when landing from j.B into crouch) |
+| 2026-11-07 | Heavy normal streaks (VFX 26 flat / 27 rising / 28 falling, `Heavy/Heavy_Streak.png`) tinted with the fighter's `SignatureColor` (DataContainer) through SakugaVFX `TintWithOwnerColor`; Basic Bro 5C / 2C / j.C / 6C use them (navy). Lightning slash (VFX 25) on Basic Bro j.214C |
 | 2026-10-18 | Backdash plays the Dash effect, mirrored |
 | 2026-10-18 | Movement effects: jump, landing, run, skid, step dash, air dash / double jump sprite-sheet effects (MovementVFX, VFX_12–18) |
 | 2026-10-17 | Reversal indicator only for specials (motion-input moves), set per move with **Reversal Indicator** (Auto / Always / Never). Dummy's test normals set to Always until it has specials |

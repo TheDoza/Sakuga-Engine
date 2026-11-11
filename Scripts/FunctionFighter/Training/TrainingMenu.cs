@@ -109,8 +109,18 @@ namespace FunctionFighter.Training
             var a = Reversal.SelectedAction(DummyActor());
             return a == null ? "(none)" : a.Label;
         }
-        static string CounterName(CounterMode m) =>
-            m == CounterMode.Counter ? "Always Counter" : m == CounterMode.BigCounter ? "Always Big Counter" : m == CounterMode.Off ? "Never" : "Normal";
+        static string CounterName(CounterMode m)
+        {
+            switch (m)
+            {
+                case CounterMode.Counter: return "Always Counter";
+                case CounterMode.BigCounter: return "Always Big Counter";
+                case CounterMode.FirstHitCounter: return "First Hit Counter";
+                case CounterMode.FirstHitBigCounter: return "First Hit Big Counter";
+                case CounterMode.Off: return "Never";
+                default: return "Normal";
+            }
+        }
         static string PositionName(ResetPosition p)
         {
             switch (p)
@@ -137,6 +147,7 @@ namespace FunctionFighter.Training
 
             Header("GUARD & TECH");
             Option("Guard", () => GuardName(TrainingSettings.Guard), d => TrainingSettings.Guard = Cycle(TrainingSettings.Guard, d));
+            Option("Guard Type", () => TrainingSettings.GuardType.ToString(), d => TrainingSettings.GuardType = Cycle(TrainingSettings.GuardType, d));
             Option("Guard Hits  (Block X Hits)", () => TrainingSettings.GuardHits.ToString(),
                 d => TrainingSettings.GuardHits = ((TrainingSettings.GuardHits - 1 + d) % TrainingSettings.MaxGuardHits + TrainingSettings.MaxGuardHits) % TrainingSettings.MaxGuardHits + 1);
             Option("Air Tech", () => AirTechName(TrainingSettings.AirTech), d => TrainingSettings.AirTech = Cycle(TrainingSettings.AirTech, d));

@@ -5,17 +5,17 @@
 [ext_resource type="Script" uid="uid://5qrsoteskjym" path="res://Scripts/SakugaEngine/Resources/HitboxState.cs" id="3_y75l1"]
 [ext_resource type="Script" uid="uid://ddkya5wrb53ly" path="res://Scripts/SakugaEngine/Resources/AnimationData.cs" id="4_pn8qo"]
 
-[sub_resource type="Resource" id="Resource_ie2fr"]
+[sub_resource type="Resource" id="Resource_jdwdh"]
 script = ExtResource("1_jdwdh")
 SourceAnimation = "Habit"
 
-[sub_resource type="Resource" id="Resource_pnkph"]
+[sub_resource type="Resource" id="Resource_sn6uu"]
 script = ExtResource("3_y75l1")
 HitboxData = ExtResource("2_sn6uu")
 metadata/_custom_type_script = "uid://5qrsoteskjym"
 
 [resource]
 script = ExtResource("4_pn8qo")
-Duration = 60
-Animations = [SubResource("Resource_ie2fr")]
-Hitboxes = [SubResource("Resource_pnkph")]
+Duration = 90
+Animations = [SubResource("Resource_jdwdh")]
+Hitboxes = [SubResource("Resource_sn6uu")]

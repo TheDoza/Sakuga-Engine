@@ -2,7 +2,7 @@
 
 **Status:** ✅ Working (tested 2026-10-11) · **Template fighter:** Dummy · **Rollback-safe:** Yes (data only; the tool runs in the editor)
 
-States **0–99 mean the same thing on every fighter** (0–73 used, 74–99 reserved for future universal mechanics). A fighter's own moves (normals, specials, supers) start at **100**.
+States **0–99 mean the same thing on every fighter** (0–79 used, 80–99 reserved for future universal mechanics). A fighter's own moves (normals, specials, supers) start at **100**.
 The Dummy is the template: change a universal state on the Dummy, then re-stamp other fighters to copy the change.
 
 ## The layout
@@ -28,7 +28,7 @@ The Dummy is the template: change a universal state on the Dummy, then re-stamp 
 | 17 | Barrier_Air | 37 | Hit_Thrown | 57 | Throw_Rejected_Ground |
 | 18 | Burst | 38 | Hit_Thrown_Launch | 58 | Throw_Rejected_Air |
 | 19 | *reserved* | | | | |
-| | | 39 | *reserved (crumple, KO…)* | 59 | *reserved* |
+| | | 39 | *reserved (KO…)* | 59 | *reserved* |
 
 | # | State | # | State |
 |---|---|---|---|
@@ -39,15 +39,18 @@ The Dummy is the template: change a universal state on the Dummy, then re-stamp 
 | 64 | Super_Jump_Neutral | 69 | Double_Jump_Backward |
 | 70 | Roll_Forward | 71 | Roll_Back |
 | 72 | Outro (round win + match win pose) | 73 | Habit (idle fidget) |
-| 74–99 | *reserved* | | |
+| 74 | Hit_Crumple (long standing stun → Hit_Down) | 75 | Hit_Trip (swept, short hop → Hit_Down) |
+| 76 | Hit_Spin (airborne spin, juggleable → Hit_Down) | 77 | Hit_Launch (anti-air launch, air-techable after hitstun → Hit_Down) |
+| 78 | Hit_Down_FaceDown (lying face down after Hit_Crumple / Hit_Trip / Hit_Spin; same as 26) | 79 | Hit_KnockedBack (blown far back, lands face up in Hit_Down) |
+| 80–99 | *reserved* | | |
 
-See [Locomotion.md](Locomotion.md) for how they behave.
+See [Locomotion.md](Locomotion.md) for how they behave. Hit states 74–79: [HitStates.md](HitStates.md).
 
 Reserved slots point at `Fighters/Shared/Universal/States/Reserved.tres` (returns to Idle after 1 frame).
 
 **Universal moves** (shared files in `Fighters/Shared/Universal/Moves/`, always first in a stance's move list):
 0 Walk_Forward · 1 Walk_Backward · 2 Jump_Neutral · 3 Jump_Forward · 4 Jump_Backward · 5 AirDash_Forward · 6 AirDash_Backward · 7 Crouch · 8 Uncrouch · 9 Air_Recovery · 10 Ground_Recovery · 11 Throw_Forward · 12 Throw_Back · 13 Throw_Air · 14 Barrier_Guard · 15 Barrier_Guard_Crouch · 16 Barrier_Guard_Air · 17 Barrier_Fizzle · 18 Burst · 19 Run (or `19_StepDash_Alt`) · 20 Backdash · 21–23 Super_Jump (neutral / forward / back) · 24–26 Double_Jump (neutral / forward / back) · 27 Forward_Roll · 28 Back_Roll.
-A fighter's own moves come after them (Dummy: Slide Kick, Test Mid, Test Wall Bounce, Test Ground Bounce, then the 2A–2D knockdown tests).
+A fighter's own moves come after them (Dummy: Slide Kick, Test Mid, Test Wall Bounce, Test Ground Bounce, the 2A–2D knockdown tests (Hard Sweep now on 1C), Test Launch 2C (placed before Hard Sweep so 1C and 3C win their ties), then Test Crumple 4C, Test Trip 3C, Test Spin 6C).
 
 ## Outro and Habit (72–73)
 - **72 Outro** plays the fighter's `Outro` clip and holds its last frame (state type Locked, no movement). It's used for both the round-win pose and the match-win outro: point the fighter's Data → `VictoryPoses` (round win) and `Outros` (match win, with its quote in `FinalMessage`) at state 72. The stamp doesn't fill those two lists, so set them once per fighter.
@@ -120,6 +123,10 @@ The Dummy's own states moved: 60 Slide Kick → **100**, 61 Test Mid → **101**
 | 2026-10-12 | Universal block expanded to 0–99; locomotion states 60–69, moves 19–26; own states from 100; stamp copies `Locomotion` |
 | 2026-10-12 | Burst added: state 18, move 18 |
 | 2026-10-12 | Barrier added: states 15–17, moves 14–17 |
+| 2026-11-04 | State 79 Hit_KnockedBack; hit reaction slot 18 → 79; Dummy Test KnockedBack on 6B |
+| 2026-11-03 | State 78 Hit_Down_FaceDown (Hit_Crumple, Hit_Trip and Hit_Spin end in it); wakeup moves and Burst accept / ignore 78 like 26 |
+| 2026-11-02 | State 77 Hit_Launch; hit reaction slot 17 → 77; Dummy Test Hard Sweep moved to 1C, Test Launch on 2C |
+| 2026-11-01 | States 74 Hit_Crumple, 75 Hit_Trip, 76 Hit_Spin; hit reaction slots 5/6 → 76, 11/12 → 75, 13 → 74 (see HitStates.md) |
 | 2026-10-20 | States 72 Outro and 73 Habit; Idle counts its loops into IdleLoops and plays Habit after 5; stamp `ClipLengthStates` |
 | 2026-10-20 | Loop lengths: `ModelScene` + `MatchLoopDurations` set self-looping states' Duration from the clip length |
 | 2026-10-11 | Throws added: states 30–38 and 55–58, moves 11–13; stamp tool copies throw boxes, rejected states and throw clip names; re-stamping no longer prints "another resource is loaded" errors |

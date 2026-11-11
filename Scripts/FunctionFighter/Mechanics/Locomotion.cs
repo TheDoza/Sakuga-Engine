@@ -45,6 +45,10 @@ namespace FunctionFighter.Mechanics
         [Key(19)] public int SpecialLanding;
         /// <summary>Special landing recovery running now: frames left of being unable to act.</summary>
         [Key(20)] public int SpecialLandLeft;
+        /// <summary>[FF PATCH: air dash momentum] Attack / throw out of an air dash: frames left of flat flight, and the
+        /// horizontal world velocity it keeps.</summary>
+        [Key(21)] public int AirCarryLeft;
+        [Key(22)] public int AirCarryVelocity;
     }
 
     /// <summary>
@@ -62,6 +66,10 @@ namespace FunctionFighter.Mechanics
         static readonly int[] BarrierStates = { 15, 16, 17 };
         // Tech & wakeup (universal states)
         public const int AirRecovery = 13, NeutralTechState = 14, HitDown = 26, HitGetUp = 27, RollForward = 70, RollBack = 71;
+        /// <summary>Lying face down (after Hit_Crumple, Hit_Trip or Hit_Spin). Same timeline as Hit_Down; only the clip differs.</summary>
+        public const int HitDownFaceDown = 78;
+        /// <summary>True for either lying-down state (Hit_Down or Hit_Down_FaceDown).</summary>
+        public static bool IsLyingState(int state) => state == HitDown || state == HitDownFaceDown;
         /// <summary>Throw connected / rejected: the throw sets the positions, so a momentum slide stops here.</summary>
         static readonly int[] SlideStopStates = { 31, 33, 35, 36, 55, 56, 57, 58 };
 
@@ -332,6 +340,9 @@ namespace FunctionFighter.Mechanics
                     break;
                 case LocoMode.AirDash:
                     l.AirActionsUsed++; l.AirDashesUsed++;
+                    // An air dash keeps the facing it started with, even after crossing over the opponent, until landing
+                    // (or a double jump, which faces the opponent again).
+                    l.AutoFaceInAir = false;
                     break;
                 case LocoMode.NeutralTech:
                     a.Body.SetLateralVelocity(0);
@@ -360,7 +371,8 @@ namespace FunctionFighter.Mechanics
             MovementVFX.OnEnter(a, mode, dir);
             if (mode == LocoMode.Jump || mode == LocoMode.SuperJump)
             {
-                if (l.PrejumpLeft > 0) SetProps(a, FrameProperties.THROW_IMUNITY | FrameProperties.BURST_IMUNITY | FrameProperties.NO_GUARD);
+                // [FF PATCH: prejump lock] LOCK_MOVE: nothing (backdash, normals...) can come out of the prejump, it always leaves the ground
+                if (l.PrejumpLeft > 0) SetProps(a, FrameProperties.THROW_IMUNITY | FrameProperties.BURST_IMUNITY | FrameProperties.NO_GUARD | FrameProperties.LOCK_MOVE);
                 else Launch(a, s);
             }
         }
@@ -440,6 +452,10 @@ namespace FunctionFighter.Mechanics
                 if (l.AutoFaceInAir) AutoFace(a);
             }
 
+            // [FF PATCH: crouch turn] Crouching (and crouch enter / exit) turns to face the opponent after a cross-up, the same
+            // as standing (Idle does it with its own side change event; the crouch states never had one).
+            if (a.Body.IsOnGround && a.StateManager.CurrentStateType() == StateType.MOVEMENT && a.IsCrouchState()) a.Body.FlipSide();
+
             switch (l.Mode)
             {
                 case LocoMode.Run:
@@ -491,7 +507,7 @@ namespace FunctionFighter.Mechanics
                         // Prejump: a dash jump keeps sliding, otherwise stand still.
                         a.Body.SetVelocity(new Vector2I(l.Momentum, 0));
                         if (--l.PrejumpLeft <= 0) Launch(a, s);
-                        else props |= FrameProperties.THROW_IMUNITY | FrameProperties.BURST_IMUNITY | FrameProperties.NO_GUARD;
+                        else props |= FrameProperties.THROW_IMUNITY | FrameProperties.BURST_IMUNITY | FrameProperties.NO_GUARD | FrameProperties.LOCK_MOVE; // [FF PATCH: prejump lock]
                         break;
                     }
                     Gravity(a);
@@ -535,7 +551,23 @@ namespace FunctionFighter.Mechanics
 
             // Lying down after a knockdown (BBCF timeline): Emergency Tech window, then nothing, then wakeup options,
             // then a forced Neutral Tech. Hard knockdowns (throws) can't tech: they get up after a fixed time.
-            if (l.Mode == LocoMode.None && cur == HitDown) KnockdownTick(a, s);
+            if (l.Mode == LocoMode.None && IsLyingState(cur)) KnockdownTick(a, s);
+
+            // [FF PATCH: air dash momentum] An attack / throw out of an air dash keeps the dash's speed and flies flat for what
+            // is left of the dash. Runs before the state's own OnTick, so a move that sets its own movement still wins.
+            if (l.AirCarryLeft > 0)
+            {
+                if (a.Body.IsOnGround || a.StateManager.CurrentStateType() != StateType.COMBAT || StopsSlide(a, cur) ||
+                    System.Array.Exists(BarrierStates, x => x == cur))
+                    l.AirCarryLeft = 0;
+                else
+                {
+                    a.Body.SetLateralVelocity(l.AirCarryVelocity);
+                    // Cancels the default gravity the air move adds this frame, so the height stays where the dash left it.
+                    a.Body.SetVerticalVelocity(GlobalVariables.DefaultGravity / GlobalVariables.TicksPerSecond);
+                    l.AirCarryLeft--;
+                }
+            }
 
             // Running momentum carried into an attack, throw or Barrier. Getting hit, blocking, or a throw connecting ends it.
             if (l.SlideLeft > 0 && StopsSlide(a, cur)) l.SlideLeft = 0;
@@ -562,12 +594,12 @@ namespace FunctionFighter.Mechanics
 
         /// <summary>Lying in Hit_Down from a soft knockdown, inside the Emergency Tech window.</summary>
         public static bool InEmergencyWindow(SakugaActor a) =>
-            IsFighter(a) && a.StateManager.CurrentState == HitDown && !IsHardKnockdown(a) && KnockdownFrame(a) <= Settings(a).EmergencyTechWindow;
+            IsFighter(a) && IsLyingState(a.StateManager.CurrentState) && !IsHardKnockdown(a) && KnockdownFrame(a) <= Settings(a).EmergencyTechWindow;
 
         /// <summary>Lying in Hit_Down from a soft knockdown, inside the wakeup window (Neutral Tech / rolls allowed).</summary>
         public static bool InWakeupWindow(SakugaActor a)
         {
-            if (!IsFighter(a) || a.StateManager.CurrentState != HitDown || IsHardKnockdown(a)) return false;
+            if (!IsFighter(a) || !IsLyingState(a.StateManager.CurrentState) || IsHardKnockdown(a)) return false;
             var s = Settings(a);
             int f = KnockdownFrame(a);
             return f > s.WakeupLockUntil && f < s.ForcedTechFrame;
@@ -614,7 +646,7 @@ namespace FunctionFighter.Mechanics
         {
             if (!IsFighter(a) || sm == null || a.StateManager.CurrentStateType() != StateType.HIT_REACTION) return false;
             if (!TechButtonHeld(a)) return false;
-            string[] moves = !a.Body.IsOnGround ? AirTechMoves : a.StateManager.CurrentState == HitDown ? GroundTechMoves : null;
+            string[] moves = !a.Body.IsOnGround ? AirTechMoves : IsLyingState(a.StateManager.CurrentState) ? GroundTechMoves : null;
             if (moves == null) return false;
             foreach (var name in moves)
             {
@@ -678,9 +710,26 @@ namespace FunctionFighter.Mechanics
                 if (attack || barrier)
                 {
                     l.SlideLeft = s.SlideFrames;
-                    l.SlideVelocity = (int)((long)l.DashVelocity * s.SlidePercent / 100);
+                    // [FF PATCH: special momentum] specials keep part of the run / skid speed (SpecialSlidePercent)
+                    var sm = a.StanceManager;
+                    var move = sm != null && sm.CurrentMove >= 0 ? sm.GetCurrentMove() : null;
+                    bool special = attack && move != null && move.MoveState == newState && Indicators.IsSpecialInput(move.Inputs);
+                    int percent = special ? s.SpecialSlidePercent : s.SlidePercent;
+                    l.SlideVelocity = (int)((long)l.DashVelocity * percent / 100);
                 }
             }
+            // [FF PATCH: air dash momentum] attack or throw out of an air dash (not Barrier): keep the dash going
+            if (l.Mode == LocoMode.AirDash && !a.Body.IsOnGround && a.StateManager.CurrentStateType() == StateType.COMBAT &&
+                !System.Array.Exists(BarrierStates, x => x == newState))
+            {
+                var dash = l.State >= 0 ? a.StateManager.GetState(l.State) : null;
+                int left = dash != null && dash.AnimationData != null ? dash.AnimationData.Duration - l.Frame : 0;
+                l.AirCarryLeft = System.Math.Clamp(left, 0, System.Math.Max(0, s.AirDashCarryFrames));
+                l.AirCarryVelocity = (int)((long)a.Body.FixedVelocity.X * s.AirDashCarryPercent / 100);
+                a.Body.SetLateralVelocity(l.AirCarryVelocity);
+            }
+            else l.AirCarryLeft = 0;
+
             l.Mode = LocoMode.None;
             l.State = -1;
             SetProps(a, 0);
@@ -699,7 +748,8 @@ namespace FunctionFighter.Mechanics
             a.Body.AddGravity();
         }
 
-        /// <summary>Double jumps and super jumps turn to face the opponent after crossing over them. Normal jumps don't.</summary>
+        /// <summary>Double jumps and super jumps turn to face the opponent after crossing over them. Normal jumps and air
+        /// dashes don't (an air dash turns it off until landing).</summary>
         static void AutoFace(SakugaActor a)
         {
             int side = a.Body.IsLeftSide ? 1 : -1;

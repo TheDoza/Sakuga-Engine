@@ -9,8 +9,10 @@ namespace FunctionFighter.Training
     public enum AirTechMode { Off, Neutral, Forward, Back, Random }
     public enum GroundTechMode { Off, Neutral, ForwardRoll, BackRoll, Emergency, Random }
     public enum PlayOnResetMode { Off, Immediately, AfterRoundCall }
-    public enum CounterMode { Normal, Counter, BigCounter, Off }
+    public enum CounterMode { Normal, Counter, BigCounter, Off, FirstHitCounter, FirstHitBigCounter }
     public enum DummyBarrierMode { Normal, Infinite, Danger }
+    /// <summary>How the dummy guards when the Guard setting has it guard: a normal block, or a Barrier block (no chip, extra pushback, uses its Barrier gauge).</summary>
+    public enum GuardTypeMode { Normal, Barrier }
     public enum FunctionalCounterMode { Default, On, Off }
     /// <summary>LeftCorner / RightCorner = the dummy (P2) inside the corner; P1LeftCorner / P1RightCorner = P1 inside. CenterSwapped = P1 on the right.</summary>
     /// <summary>Normal = the meter works as in a match. Infinite = always full. RefillAfterCombo = goes back to the refill
@@ -32,6 +34,7 @@ namespace FunctionFighter.Training
         // Dummy
         public static DummyMode Dummy = DummyMode.Controller;
         public static GuardMode Guard = GuardMode.None;
+        public static GuardTypeMode GuardType = GuardTypeMode.Normal;
         public static CounterMode Counter = CounterMode.Normal;
         public static FunctionalCounterMode FunctionalCounter = FunctionalCounterMode.Default;
         public static DummyBarrierMode DummyBarrier = DummyBarrierMode.Normal;
@@ -104,6 +107,7 @@ namespace FunctionFighter.Training
         {
             Dummy = DummyMode.Controller;
             Guard = GuardMode.None;
+            GuardType = GuardTypeMode.Normal;
             Counter = CounterMode.Normal;
             FunctionalCounter = FunctionalCounterMode.Default;
             DummyBarrier = DummyBarrierMode.Normal;
@@ -141,6 +145,7 @@ namespace FunctionFighter.Training
             if (cfg.Load(FilePath) != Error.Ok) return;
             Dummy = (DummyMode)(int)cfg.GetValue(Section, "dummy", (int)Dummy);
             Guard = (GuardMode)(int)cfg.GetValue(Section, "guard", (int)Guard);
+            GuardType = (GuardTypeMode)(int)cfg.GetValue(Section, "guard_type", (int)GuardType);
             Counter = (CounterMode)(int)cfg.GetValue(Section, "counter", (int)Counter);
             FunctionalCounter = (FunctionalCounterMode)(int)cfg.GetValue(Section, "functional_counter", (int)FunctionalCounter);
             DummyBarrier = (DummyBarrierMode)(int)cfg.GetValue(Section, "dummy_barrier", (int)DummyBarrier);
@@ -187,6 +192,7 @@ namespace FunctionFighter.Training
             var cfg = new ConfigFile();
             cfg.SetValue(Section, "dummy", (int)Dummy);
             cfg.SetValue(Section, "guard", (int)Guard);
+            cfg.SetValue(Section, "guard_type", (int)GuardType);
             cfg.SetValue(Section, "counter", (int)Counter);
             cfg.SetValue(Section, "functional_counter", (int)FunctionalCounter);
             cfg.SetValue(Section, "dummy_barrier", (int)DummyBarrier);

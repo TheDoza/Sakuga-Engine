@@ -1,0 +1,154 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" uid="uid://4gcoao7bwdlg" path="res://Scripts/SakugaEngine/Components/SakugaActor.cs" id="1_actor"]
+[ext_resource type="Resource" path="res://Fighters/BasicBro/Moves/Fireball/BB_Fireball_Data.tres" id="2_data"]
+[ext_resource type="Resource" uid="uid://k31pv0ejfv2s" path="res://Fighters/Shared/Shared_SFXList.tres" id="3_sfx"]
+[ext_resource type="Resource" uid="uid://c8h8jltu6u5pb" path="res://Fighters/Shared/Shared_VoiceLines.tres" id="4_voice"]
+[ext_resource type="Script" uid="uid://bx452hpssiy38" path="res://Scripts/SakugaEngine/Components/AnimationViewer.cs" id="5_viewer"]
+[ext_resource type="Script" uid="uid://3uu6r0mhj3p3" path="res://Scripts/SakugaEngine/Components/SoundQueue.cs" id="6_sound"]
+[ext_resource type="Script" uid="uid://cs4qq3wx8q0pc" path="res://Scripts/SakugaEngine/Components/StateManager.cs" id="7_states"]
+[ext_resource type="Script" uid="uid://7t4e8g74liln" path="res://Scripts/SakugaEngine/Components/SakugaParameters.cs" id="8_params"]
+[ext_resource type="PackedScene" uid="uid://dduf0jsq56ggk" path="res://Scenes/Instances/HitboxViewer.tscn" id="9_hbview"]
+[ext_resource type="Script" uid="uid://hg0vcp1gy2ny" path="res://Scripts/SakugaEngine/Collision/PhysicsBody.cs" id="10_body"]
+[ext_resource type="Script" uid="uid://cmq3cp1n0copp" path="res://Scripts/SakugaEngine/Components/FrameTimer.cs" id="11_timer"]
+
+[sub_resource type="StandardMaterial3D" id="Mat_fireball"]
+shading_mode = 0
+albedo_color = Color(0.35, 0.75, 1, 1)
+emission_enabled = true
+emission = Color(0.35, 0.75, 1, 1)
+emission_energy_multiplier = 2.0
+
+[sub_resource type="SphereMesh" id="Mesh_fireball"]
+material = SubResource("Mat_fireball")
+radius = 0.25
+height = 0.5
+
+[sub_resource type="Animation" id="Anim_spawn"]
+resource_name = "Spawn"
+length = 0.1
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Fireball:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.3, 0.3, 0.3), Vector3(1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Anim_travel"]
+resource_name = "Travel"
+length = 0.2
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Fireball:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(1, 1, 1), Vector3(1.12, 0.9, 1.12), Vector3(1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Anim_death"]
+resource_name = "Death"
+length = 0.2
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Fireball:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(1, 1, 1), Vector3(1.5, 1.5, 1.5), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimLib_fireball"]
+_data = {
+&"Death": SubResource("Anim_death"),
+&"Spawn": SubResource("Anim_spawn"),
+&"Travel": SubResource("Anim_travel")
+}
+
+[node name="BB_Fireball" type="Node" node_paths=PackedStringArray("Body", "Parameters", "StateManager", "Animator", "Graphics", "Hitstop")]
+process_mode = 4
+script = ExtResource("1_actor")
+Body = NodePath("Body")
+Parameters = NodePath("SakugaParameters")
+StateManager = NodePath("StateManager")
+AllowHit = 4
+Animator = NodePath("Graphics/Mesh")
+Graphics = [NodePath("Graphics")]
+Data = ExtResource("2_data")
+SFXList = ExtResource("3_sfx")
+VoiceLines = ExtResource("4_voice")
+Hitstop = NodePath("SakugaParameters/Timers/Hitstop")
+metadata/_custom_type_script = "uid://4gcoao7bwdlg"
+
+[node name="Graphics" type="Node3D" parent="."]
+process_mode = 3
+
+[node name="HitboxViewer" parent="Graphics" node_paths=PackedStringArray("body") instance=ExtResource("9_hbview")]
+body = NodePath("../../Body")
+
+[node name="Sounds" type="Node3D" parent="Graphics"]
+
+[node name="SFX_0" type="AudioStreamPlayer3D" parent="Graphics/Sounds"]
+script = ExtResource("6_sound")
+
+[node name="Mesh" type="Node3D" parent="Graphics" node_paths=PackedStringArray("players", "OffsetNode")]
+script = ExtResource("5_viewer")
+players = [NodePath("ProjectileGraphics/AnimationPlayer")]
+OffsetNode = NodePath("ProjectileGraphics")
+
+[node name="ProjectileGraphics" type="Node3D" parent="Graphics/Mesh"]
+
+[node name="Fireball" type="MeshInstance3D" parent="Graphics/Mesh/ProjectileGraphics"]
+layers = 3
+cast_shadow = 0
+mesh = SubResource("Mesh_fireball")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Graphics/Mesh/ProjectileGraphics"]
+libraries/ = SubResource("AnimLib_fireball")
+speed_scale = 0.0
+
+[node name="Body" type="Node" parent="."]
+script = ExtResource("10_body")
+StayOnBounds = true
+HitboxesLimit = 3
+metadata/_custom_type_script = "uid://hg0vcp1gy2ny"
+
+[node name="StateManager" type="Node" parent="."]
+script = ExtResource("7_states")
+metadata/_custom_type_script = "uid://cs4qq3wx8q0pc"
+
+[node name="SakugaParameters" type="Node" parent="." node_paths=PackedStringArray("Timers", "Variables", "SoundSources")]
+script = ExtResource("8_params")
+Timers = [NodePath("Timers/Hitstop"), NodePath("Timers/Lifetime")]
+Variables = []
+SoundSources = [NodePath("../Graphics/Sounds/SFX_0")]
+metadata/_custom_type_script = "uid://7t4e8g74liln"
+
+[node name="Timers" type="Node" parent="SakugaParameters"]
+
+[node name="Hitstop" type="Node" parent="SakugaParameters/Timers"]
+script = ExtResource("11_timer")
+Manual = true
+metadata/_custom_type_script = "uid://cmq3cp1n0copp"
+
+[node name="Lifetime" type="Node" parent="SakugaParameters/Timers"]
+script = ExtResource("11_timer")
+WaitTime = 180
+metadata/_custom_type_script = "uid://cmq3cp1n0copp"

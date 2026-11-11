@@ -58,6 +58,7 @@ metadata/_custom_type_script = "uid://c076jc3huncn2"
 [resource]
 script = ExtResource("8_s")
 StateName = "Block_Air_Exit"
+Type = 1
 AnimationData = ExtResource("7_r")
 TransitionEvents = Array[Object]([SubResource("Sub_4"), SubResource("Sub_7")])
 OnEnterEvents = null

@@ -1,0 +1,36 @@
+[gd_resource type="Resource" script_class="AnimationData" format=3 uid="uid://cy5xlfe8l827i"]
+
+[ext_resource type="Script" uid="uid://ddkya5wrb53ly" path="res://Scripts/SakugaEngine/Resources/AnimationData.cs" id="ad"]
+[ext_resource type="Script" uid="uid://b8vqwkv52qq3e" path="res://Scripts/SakugaEngine/Resources/AnimationSettings.cs" id="as"]
+[ext_resource type="Resource" uid="uid://crmsdlc2i4el1" path="res://Fighters/BasicBro/Moves/Hitboxes/BB_Hitbox_22C_236C_Active.tres" id="hb_act"]
+[ext_resource type="Resource" uid="uid://c48mi2er3ao5h" path="res://Fighters/BasicBro/Hitboxes/BB_Hitbox_Stand.tres" id="hb_stand"]
+[ext_resource type="Script" uid="uid://5qrsoteskjym" path="res://Scripts/SakugaEngine/Resources/HitboxState.cs" id="hst"]
+
+[sub_resource type="Resource" id="R1"]
+script = ExtResource("as")
+SourceAnimation = "BB_22X_C_6C"
+Speed = 0.71
+LimitRange = true
+AnimationRange = Vector2i(0, 44)
+
+[sub_resource type="Resource" id="R2"]
+script = ExtResource("hst")
+HitboxData = ExtResource("hb_stand")
+
+[sub_resource type="Resource" id="R3"]
+script = ExtResource("hst")
+AtFrame = 14
+animationStage = 1
+HitboxData = ExtResource("hb_act")
+
+[sub_resource type="Resource" id="R4"]
+script = ExtResource("hst")
+AtFrame = 17
+animationStage = 2
+HitboxData = ExtResource("hb_stand")
+
+[resource]
+script = ExtResource("ad")
+Duration = 120
+Animations = [SubResource("R1")]
+Hitboxes = [SubResource("R2"), SubResource("R3"), SubResource("R4")]

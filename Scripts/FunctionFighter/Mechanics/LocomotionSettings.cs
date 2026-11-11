@@ -99,6 +99,13 @@ namespace FunctionFighter.Mechanics
         /// <summary>Lowest height (world units, SimulationScale 10000 = 1m, measured from the ground) an air dash can start from. 0 = no minimum.</summary>
         [Export] public int AirDashMinHeight = 10000;
 
+        [ExportGroup("Air dash momentum")]
+        /// <summary>Attacks and throws out of an air dash keep flying flat (no gravity) for what is left of the dash, at most
+        /// this many frames, then fall normally. 0 = gravity starts right away. Barrier doesn't get this.</summary>
+        [Export] public int AirDashCarryFrames = 12;
+        /// <summary>Percent of the air dash's horizontal speed kept by an attack / throw out of it (kept until landing).</summary>
+        [Export] public int AirDashCarryPercent = 100;
+
         [ExportGroup("Running momentum (run, skid and step dash)")]
         /// <summary>Percent of the run speed carried into a jump (dash jump).</summary>
         [Export] public int JumpMomentumPercent = 50;
@@ -118,6 +125,9 @@ namespace FunctionFighter.Mechanics
         /// fading to 0 over SlideFrames (Barrier Brake). Getting hit or blocking ends the slide.</summary>
         [Export] public int SlidePercent = 100;
         [Export] public int SlideFrames = 20;
+        /// <summary>Special moves (motion input: 236, 214, 22...) out of a run / skid keep this percent of the speed
+        /// instead of SlidePercent.</summary>
+        [Export] public int SpecialSlidePercent = 50;
 
         [ExportGroup("Knockdown & wakeup (BBCF timeline, frame 1 = landing)")]
         /// <summary>Emergency Tech: A/B/C on frames 1..this after landing = Neutral Tech right away.</summary>

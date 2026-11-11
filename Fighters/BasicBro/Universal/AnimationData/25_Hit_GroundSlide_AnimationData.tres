@@ -7,7 +7,7 @@
 
 [sub_resource type="Resource" id="Resource_u547a"]
 script = ExtResource("1_u547a")
-SourceAnimation = "Crouching"
+SourceAnimation = "Hit_GroundSlide"
 
 [sub_resource type="Resource" id="Resource_jrsuk"]
 script = ExtResource("3_onw3a")

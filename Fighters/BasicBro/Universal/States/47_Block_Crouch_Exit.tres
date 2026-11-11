@@ -25,6 +25,7 @@ metadata/_custom_type_script = "uid://c076jc3huncn2"
 script = ExtResource("5_2pxqp")
 StateName = "Block_Crouch_Exit"
 BaseStance = 1
+Type = 1
 AnimationData = ExtResource("1_nqy5b")
 TransitionEvents = Array[Object]([SubResource("Resource_tbwrq")])
 OnEnterEvents = null

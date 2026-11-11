@@ -49,10 +49,12 @@ Search for `[FF PATCH`.
 
 ## Known issues
 - Training's frame meter shows blockstun (orange) and the exit frames (teal).
-- Exit adds 4 frames after blockstun where the blocker can't act.
+- Block exit states (42 / 47 / 52) are MOVEMENT (since 2026-11-09): the blocker can act on any exit frame, so on-block numbers are blockstun minus the attacker's remaining frames.
+- Attacks, jumps, throws and specials can come straight out of guard states once blockstun ends (`[FF PATCH: act from guard]` in `StanceManager.CheckAllowedStateType`). Pressed during blockstun, they are buffered and come out on the first free frame. Walking and crouching (priority 0) don't interrupt guard.
 - After any upstream Sakuga merge, re-check the three `[FF PATCH` lines.
 
 ## Change log
 | Date | Change |
 |---|---|
+| 2026-11-09 | Block exit states 42 / 47 / 52 set to MOVEMENT (were NULL: 4 frames where the blocker couldn't act). Moves can come out of guard states after blockstun (StanceManager patch) |
 | 2026-10-11 | Stand/crouch/air block on Dummy; Test Mid (5B); proximity + block values on Slide Kick; blockstun engine patch |

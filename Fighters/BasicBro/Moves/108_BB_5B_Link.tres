@@ -1,0 +1,109 @@
+[gd_resource type="Resource" script_class="MoveSettings" format=3 uid="uid://chdxrkna63dyh"]
+
+[ext_resource type="Script" uid="uid://culfsmxfb5o0x" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/CheckInputCondition.cs" id="ci"]
+[ext_resource type="Script" uid="uid://gk1rkw667o4n" path="res://Scripts/SakugaEngine/Resources/MoveSettings.cs" id="e1"]
+[ext_resource type="Resource" uid="uid://bdy2tcfv6ov1v" path="res://Fighters/Shared/Inputs/12_Input_5B.tres" id="e2"]
+[ext_resource type="Script" uid="uid://dpgs1fcn5u351" path="res://Scripts/SakugaEngine/Resources/MoveCancelSettings.cs" id="e3"]
+[ext_resource type="Resource" uid="uid://bal0pkpy02e2l" path="res://Fighters/Shared/Inputs/16_Input_2B.tres" id="i2b"]
+
+[sub_resource type="Resource" id="R1"]
+script = ExtResource("e3")
+MoveIndex = 38
+Conditions = 6
+FrameThreshold = Vector2i(0, 999)
+
+[sub_resource type="Resource" id="R2"]
+script = ExtResource("e3")
+MoveIndex = 41
+Conditions = 6
+FrameThreshold = Vector2i(0, 999)
+
+[sub_resource type="Resource" id="R3"]
+script = ExtResource("e3")
+MoveIndex = 49
+Conditions = 6
+FrameThreshold = Vector2i(0, 999)
+
+[sub_resource type="Resource" id="R4"]
+script = ExtResource("e3")
+MoveIndex = 46
+Conditions = 6
+FrameThreshold = Vector2i(0, 999)
+
+[sub_resource type="Resource" id="R5"]
+script = ExtResource("e3")
+MoveIndex = 29
+Conditions = 6
+FrameThreshold = Vector2i(0, 999)
+
+[sub_resource type="Resource" id="R6"]
+script = ExtResource("e3")
+MoveIndex = 30
+Conditions = 6
+FrameThreshold = Vector2i(0, 999)
+
+[sub_resource type="Resource" id="R7"]
+script = ExtResource("e3")
+MoveIndex = 31
+Conditions = 6
+FrameThreshold = Vector2i(0, 999)
+
+[sub_resource type="Resource" id="R8"]
+script = ExtResource("e3")
+MoveIndex = 32
+Conditions = 6
+FrameThreshold = Vector2i(0, 999)
+
+[sub_resource type="Resource" id="R9"]
+script = ExtResource("e3")
+MoveIndex = 33
+Conditions = 6
+FrameThreshold = Vector2i(0, 999)
+
+[sub_resource type="Resource" id="R10"]
+script = ExtResource("e3")
+MoveIndex = 34
+Conditions = 6
+FrameThreshold = Vector2i(0, 999)
+
+[sub_resource type="Resource" id="R11"]
+script = ExtResource("e3")
+MoveIndex = 35
+Conditions = 6
+FrameThreshold = Vector2i(0, 999)
+
+[sub_resource type="Resource" id="R12"]
+script = ExtResource("e3")
+MoveIndex = 50
+Conditions = 6
+FrameThreshold = Vector2i(0, 999)
+
+[sub_resource type="Resource" id="R13"]
+script = ExtResource("e3")
+MoveIndex = 51
+Conditions = 6
+FrameThreshold = Vector2i(0, 999)
+
+[sub_resource type="Resource" id="N2B"]
+script = ExtResource("ci")
+Input = ExtResource("i2b")
+Not = true
+
+[resource]
+script = ExtResource("e1")
+MoveName = "5B (Link)"
+MoveState = 108
+Inputs = ExtResource("e2")
+Priority = 4
+MoveEnd = 2
+CanCancelTo = Array[Object]([SubResource("R1"), SubResource("R2"), SubResource("R3"), SubResource("R4"), SubResource("R5"), SubResource("R6"), SubResource("R7"), SubResource("R8"), SubResource("R9"), SubResource("R10"), SubResource("R11"), SubResource("R12"), SubResource("R13")])
+VariablesRequirement = null
+VariablesChange = null
+Conditions = Array[Object]([SubResource("N2B")])
+SkipCheck = true
+CanBeOverrided = true
+IgnoreSamePriority = false
+AcceptNullStates = true
+AcceptCombatStates = true
+UseOnGround = true
+FakeoutBlockedFrames = null

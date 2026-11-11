@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://n7xih8pqfpwo" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/ChangeSideAction.cs" id="10_s"]
 [ext_resource type="Script" uid="uid://bf60srwkccsm8" path="res://Scripts/SakugaEngine/Resources/FighterState.cs" id="11_s"]
 
+[ext_resource type="Script" path="res://Scripts/FunctionFighter/Mechanics/ThrowSparkAction.cs" id="xvfx"]
 [sub_resource type="Resource" id="Sub_4"]
 script = ExtResource("5_s")
 metadata/_custom_type_script = "uid://6kbrdw6wei0q"
@@ -109,6 +110,18 @@ Conditions = Array[Object]([SubResource("Sub_1")])
 Actions = Array[Object]([SubResource("Sub_2")])
 metadata/_custom_type_script = "uid://c076jc3huncn2"
 
+[sub_resource type="Resource" id="TS_A"]
+script = ExtResource("xvfx")
+
+[sub_resource type="Resource" id="TS_C"]
+script = ExtResource("8_s")
+Frame = 10
+
+[sub_resource type="Resource" id="TS_E"]
+script = ExtResource("4_s")
+Conditions = Array[Object]([SubResource("TS_C")])
+Actions = Array[Object]([SubResource("TS_A")])
+
 [resource]
 script = ExtResource("11_s")
 StateName = "Throw_Back_Hit"
@@ -116,7 +129,7 @@ Type = 2
 AnimationData = ExtResource("1_r")
 TransitionEvents = Array[Object]([SubResource("Sub_3")])
 OnEnterEvents = Array[Object]([SubResource("Sub_7")])
-OnTickEvents = Array[Object]([SubResource("Sub_10"), SubResource("Sub_13"), SubResource("Sub_16"), SubResource("Sub_19")])
+OnTickEvents = Array[Object]([SubResource("Sub_10"), SubResource("Sub_13"), SubResource("Sub_16"), SubResource("Sub_19"), SubResource("TS_E")])
 OnExitEvents = null
 OnHitConfirmEvents = null
 OnHitReactionEvents = null

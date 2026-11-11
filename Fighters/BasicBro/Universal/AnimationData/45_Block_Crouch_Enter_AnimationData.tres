@@ -7,7 +7,7 @@
 
 [sub_resource type="Resource" id="Resource_ysbt4"]
 script = ExtResource("1_ysbt4")
-SourceAnimation = "Barrier_Crouch"
+SourceAnimation = "Block_Crouch_Enter"
 
 [sub_resource type="Resource" id="Resource_tyofi"]
 script = ExtResource("3_bgtfo")

@@ -23,3 +23,4 @@ VariablesRequirement = null
 VariablesChange = null
 Conditions = Array[Object]([SubResource("Sub_ffair"), SubResource("Sub_ffdash")])
 UseOnAir = true
+FakeoutBlockedFrames = null

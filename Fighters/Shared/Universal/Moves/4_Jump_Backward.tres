@@ -5,6 +5,7 @@
 
 [resource]
 script = ExtResource("2_qovlc")
+AcceptCombatStates = true
 SideCheck = 1
 MoveName = "Backwards Jump"
 MoveState = 5

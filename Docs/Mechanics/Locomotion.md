@@ -13,7 +13,7 @@
 | **Backdash** | 44 | Fully invincible early, throw-invincible a bit longer, fixed distance, can't be cancelled, vulnerable recovery at the end. |
 | **Jump** | 7 / 8 / 9 | 4-frame **prejump**: still on the ground, can't guard, throw and Burst invincible. Normal jumps **don't** turn around if you cross over the opponent. |
 | **Dash jump** | jump out of a run or step dash | Carries `JumpMomentumPercent` of the run speed, so it goes farther. |
-| **Super Jump** | 2, then 7 / 8 / 9 (within 10 frames) | Higher and faster. Turns to face the opponent in the air. Can still double jump or air dash. Faint blue afterimages trail the fighter. |
+| **Super Jump** | 2, then 7 / 8 / 9 (within 10 frames) | Higher and faster. Turns to face the opponent in the air, until an air dash: after an air dash it keeps its facing until landing (or a double jump). Can still double jump or air dash. Faint blue afterimages trail the fighter. |
 | **Double Jump** | 7 / 8 / 9 in the air (a fresh press) | Turns to face the opponent. Out of a normal jump, it goes whichever way you choose. |
 | **Double jump after a dash jump** | | Keeps forward momentum whatever you press: same direction = 100%, straight up (8) = 60%, against the momentum = 25% (it still goes that way, just less far). After a 669 cross-up, **9** keeps full momentum, **7** (toward the opponent, against the momentum) gets the reduced amount. |
 | **Air dash / air backdash** | 66 / 44 in the air | Uses the same air-action pool. White speed lines stream past the fighter. |
@@ -81,6 +81,7 @@ Velocities: 60,000 = 1,000 units per frame.
 | Back jump out of a run (how much run momentum a 7 keeps) | `BackJumpMomentumPercent` 0 (0 = a normal back jump; 100 = full forward carry, which cancels most of the back jump) |
 | Dash jump momentum | `JumpMomentumPercent` 50, `DoubleJumpSameDirectionPercent` 100, `DoubleJumpNeutralPercent` 60, `DoubleJumpReversePercent` 25 |
 | Running momentum slide (attacks, throws, Barrier) | `SlidePercent` 100, `SlideFrames` 20 |
+| Running momentum for special moves (motion inputs) | `SpecialSlidePercent` 50 |
 | Afterimage / speed line look | `LocomotionVisual` → `AfterimageInterval`, `AfterimageFade`, `AfterimageColor`, `SpeedLineColor` |
 | Movement dust / puffs on or off, run puff rate | `MovementEffects` on, `RunDustInterval` 12 (see Visuals.md → Movement effects) |
 
@@ -96,6 +97,11 @@ All 23 locomotion checks pass (2026-10-12): Barrier Brake from a run and from a 
 ## Change log
 | Date | Change |
 |---|---|
+| 2026-11-08 | Prejump is move-locked (LOCK_MOVE): a jump, including a jump cancel, can no longer be cancelled into a backdash or other ground move before it leaves the ground |
+| 2026-11-07 | Crouching (and crouch enter / exit) turns to face the opponent after a cross-up |
+| 2026-11-07 | Air dash momentum: attacks and throws out of an air dash keep its horizontal speed (`AirDashCarryPercent`) and fly flat for what is left of the dash, at most `AirDashCarryFrames` (12), then fall. Barrier doesn't get it. Ends on landing, getting hit or blocking |
+| 2026-11-07 | Special moves out of a run / skid keep `SpecialSlidePercent` (50) of the speed instead of the full slide |
+| 2026-11-06 | Fixed: a super jump followed by an air dash turned around when passing over the opponent. An air dash now keeps its facing until landing (a double jump still turns) |
 | 2026-10-18 | Movement effects (dust on jumps, landings, run, skid, step dash; puffs on air dash and double jump), per fighter `MovementEffects` / `RunDustInterval` |
 | 2026-10-18 | Air dash input window is per fighter: `AirDashInputWindow` (6, same as before). Universal air dash moves now use `DashInputCondition` with **Air** ticked instead of the shared 66 / 44 input files |
 | 2026-10-18 | Fixed: back jump out of a run didn't go back (the run's forward momentum outweighed it). New `BackJumpMomentumPercent` (0 = normal back jump) |

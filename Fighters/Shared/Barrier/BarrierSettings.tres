@@ -5,6 +5,7 @@
 
 [resource]
 script = ExtResource("1_bar")
+ActivationCost = 225
 RegenAmount = 60
 DangerFrames = 1800
 ShieldScene = ExtResource("2_shield")

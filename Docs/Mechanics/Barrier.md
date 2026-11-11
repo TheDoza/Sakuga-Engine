@@ -136,6 +136,7 @@ All barrier checks pass (2026-10-12), on the Dummy and on a freshly stamped figh
 ## Change log
 | Date | Change |
 |---|---|
+| 2026-11-07 | Barrier now also blocks projectile chip (projectiles weren't counted as attackers); the extra pushback from a projectile all goes to the defender |
 | 2026-10-12 | Created (barrier while blocking) |
 | 2026-10-12 | Neutral barrier: states 15–17, hold inputs, Barrier Fizzle move, move-conditions patch; extra push based on knockback only |
 | 2026-10-12 | A+B alone keeps a barrier up (and guarding) after letting go of back; input 34 |

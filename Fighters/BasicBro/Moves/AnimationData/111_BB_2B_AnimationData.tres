@@ -1,0 +1,42 @@
+[gd_resource type="Resource" script_class="AnimationData" format=3 uid="uid://hrtj6fb2sh4n"]
+
+[ext_resource type="Script" uid="uid://b8vqwkv52qq3e" path="res://Scripts/SakugaEngine/Resources/AnimationSettings.cs" id="e1"]
+[ext_resource type="Script" uid="uid://5qrsoteskjym" path="res://Scripts/SakugaEngine/Resources/HitboxState.cs" id="e2"]
+[ext_resource type="Script" uid="uid://ddkya5wrb53ly" path="res://Scripts/SakugaEngine/Resources/AnimationData.cs" id="e3"]
+[ext_resource type="Resource" uid="uid://yljhp5bp8g8u" path="res://Fighters/BasicBro/Hitboxes/BB_Hitbox_Crouch.tres" id="e4"]
+[ext_resource type="Resource" uid="uid://bdvdvwvwym08l" path="res://Fighters/BasicBro/Moves/Hitboxes/BB_Hitbox_2B_Active.tres" id="e5"]
+
+[sub_resource type="Resource" id="R1"]
+script = ExtResource("e1")
+SourceAnimation = "2B"
+Speed = 0.875
+
+[sub_resource type="Resource" id="R1b"]
+script = ExtResource("e1")
+AtFrame = 8
+SourceAnimation = "2B"
+Speed = 1.4
+LimitRange = true
+AnimationRange = Vector2i(5, 9999)
+
+[sub_resource type="Resource" id="R2"]
+script = ExtResource("e2")
+HitboxData = ExtResource("e4")
+
+[sub_resource type="Resource" id="R3"]
+script = ExtResource("e2")
+AtFrame = 8
+animationStage = 1
+HitboxData = ExtResource("e5")
+
+[sub_resource type="Resource" id="R4"]
+script = ExtResource("e2")
+AtFrame = 10
+animationStage = 2
+HitboxData = ExtResource("e4")
+
+[resource]
+script = ExtResource("e3")
+Duration = 25
+Animations = [SubResource("R1"), SubResource("R1b")]
+Hitboxes = [SubResource("R2"), SubResource("R3"), SubResource("R4")]

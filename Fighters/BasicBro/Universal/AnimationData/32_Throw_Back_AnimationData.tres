@@ -8,7 +8,7 @@
 
 [sub_resource type="Resource" id="Resource_dtn20"]
 script = ExtResource("1_dtn20")
-SourceAnimation = "Idle"
+SourceAnimation = "Throw_Back"
 
 [sub_resource type="Resource" id="Resource_pch1p"]
 script = ExtResource("3_jpkxl")

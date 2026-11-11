@@ -71,6 +71,16 @@ namespace SakugaEngine.Resources
         [Export] public int AirBlockstun = 8;
         
 
+        //Counter hit overrides
+        /// <summary>[FF PATCH: counter hit overrides] Values used instead of the normal hit values when this hitbox lands as a counter hit.
+        /// Leave a field at its default (-1, zero vector, NONE, 0) to keep the normal value.</summary>
+        [ExportGroup("Counter Hit Settings")]
+        [Export] public int CounterHitReaction = -1;
+        [Export] public Vector2I CounterHitKnockback = Vector2I.Zero;
+        [Export] public int CounterHitKnockbackGravity = 0;
+        [Export] public Global.HitstunType CounterHitstunType = Global.HitstunType.NONE;
+        [Export] public int CounterHitstun = 0;
+
         //Throw settings
         [ExportGroup("Throw Hit Settings")]
         [Export] public bool GroundThrow;
@@ -90,5 +100,8 @@ namespace SakugaEngine.Resources
         [Export] public int BounceTime = 0;
         [Export] public int BounceXIntensity = 100;
         [Export] public int BounceYIntensity = 100;
+        /// <summary>[FF PATCH: wall stick] If the victim reaches the stage wall (corner) while still flying from this hit,
+        /// they stick to it for this many frames, then fall. 0 = no wall stick.</summary>
+        [Export] public int WallStickFrames = 0;
     }
 }

@@ -1,32 +1,20 @@
-[gd_resource type="Resource" script_class="FighterState" format=3]
+[gd_resource type="Resource" script_class="FighterState" format=3 uid="uid://3f4welhauqji"]
 
-[ext_resource type="Script" path="res://Scripts/SakugaEngine/Resources/FighterState.cs" id="1_state"]
-[ext_resource type="Resource" path="res://Fighters/Dummy/Universal/AnimationData/73_Habit_AnimationData.tres" id="2_anim"]
-[ext_resource type="Script" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/FrameDataEvent.cs" id="3_event"]
-[ext_resource type="Script" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/StateEndedCondition.cs" id="4_ended"]
-[ext_resource type="Script" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/PlayStateAction.cs" id="5_play"]
-[ext_resource type="Script" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/CheckSideChangeCondition.cs" id="6_sidecheck"]
-[ext_resource type="Script" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/ChangeSideAction.cs" id="7_side"]
-[ext_resource type="Script" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/MoveXAction.cs" id="8_movex"]
-[ext_resource type="Script" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/MoveYAction.cs" id="9_movey"]
-
-[sub_resource type="Resource" id="Ended"]
-script = ExtResource("4_ended")
-
-[sub_resource type="Resource" id="ToIdle"]
-script = ExtResource("5_play")
-StateIndex = 0
-
-[sub_resource type="Resource" id="EndEvent"]
-script = ExtResource("3_event")
-Conditions = Array[Object]([SubResource("Ended")])
-Actions = Array[Object]([SubResource("ToIdle")])
-
-[sub_resource type="Resource" id="SideCheck"]
-script = ExtResource("6_sidecheck")
+[ext_resource type="Script" uid="uid://bf60srwkccsm8" path="res://Scripts/SakugaEngine/Resources/FighterState.cs" id="1_state"]
+[ext_resource type="Resource" uid="uid://b7esoifovtg00" path="res://Fighters/Dummy/Universal/AnimationData/73_Habit_AnimationData.tres" id="2_anim"]
+[ext_resource type="Script" uid="uid://c076jc3huncn2" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/FrameDataEvent.cs" id="3_event"]
+[ext_resource type="Script" uid="uid://bho4h38y7suxk" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/StateEndedCondition.cs" id="4_ended"]
+[ext_resource type="Script" uid="uid://da4kqpf635oin" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/PlayStateAction.cs" id="5_play"]
+[ext_resource type="Script" uid="uid://b4st7jmqq1vph" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/CheckSideChangeCondition.cs" id="6_sidecheck"]
+[ext_resource type="Script" uid="uid://n7xih8pqfpwo" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/ChangeSideAction.cs" id="7_side"]
+[ext_resource type="Script" uid="uid://bgwrlqrhqb2a4" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/MoveXAction.cs" id="8_movex"]
+[ext_resource type="Script" uid="uid://bw1835rb2hj7y" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/MoveYAction.cs" id="9_movey"]
 
 [sub_resource type="Resource" id="Side"]
 script = ExtResource("7_side")
+
+[sub_resource type="Resource" id="SideCheck"]
+script = ExtResource("6_sidecheck")
 
 [sub_resource type="Resource" id="SideEvent"]
 script = ExtResource("3_event")
@@ -41,7 +29,19 @@ script = ExtResource("9_movey")
 
 [sub_resource type="Resource" id="StopEvent"]
 script = ExtResource("3_event")
+Conditions = null
 Actions = Array[Object]([SubResource("StopX"), SubResource("StopY")])
+
+[sub_resource type="Resource" id="ToIdle"]
+script = ExtResource("5_play")
+
+[sub_resource type="Resource" id="Ended"]
+script = ExtResource("4_ended")
+
+[sub_resource type="Resource" id="EndEvent"]
+script = ExtResource("3_event")
+Conditions = Array[Object]([SubResource("Ended")])
+Actions = Array[Object]([SubResource("ToIdle")])
 
 [resource]
 script = ExtResource("1_state")
@@ -49,4 +49,8 @@ StateName = "Habit"
 Type = 1
 AnimationData = ExtResource("2_anim")
 TransitionEvents = Array[Object]([SubResource("EndEvent")])
+OnEnterEvents = null
 OnTickEvents = Array[Object]([SubResource("SideEvent"), SubResource("StopEvent")])
+OnExitEvents = null
+OnHitConfirmEvents = null
+OnHitReactionEvents = null

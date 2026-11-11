@@ -51,6 +51,9 @@ namespace FunctionFighter.Training
         static bool _wasNeutral;
         /// <summary>Hits the dummy has blocked in the current string (reset when it gets hit or is left alone).</summary>
         static int _blockedInString;
+        /// <summary>Counter Hit "First Hit" modes: the forced counter was already used in the current string.
+        /// Cleared once the dummy has been left alone for AfterHitGuardFrames (the string is over).</summary>
+        static bool _firstHitCounterUsed;
         static int _countdown;
         static int _roundCall;
         /// <summary>Frames both fighters have been free (Refill After Combo).</summary>
@@ -121,6 +124,7 @@ namespace FunctionFighter.Training
             _afterHitGuard = false;
             _freeFrames = 0;
             _blockedInString = 0;
+            _firstHitCounterUsed = false;
             _roundCall = 0;
             Reversal.Reset();
             DummyMovement.Reset();
@@ -137,6 +141,7 @@ namespace FunctionFighter.Training
             _afterHitGuard = false;
             _freeFrames = 0;
             _blockedInString = 0;
+            _firstHitCounterUsed = false;
         }
 
         // ---------------------------------------------------------------- inputs
@@ -394,7 +399,7 @@ namespace FunctionFighter.Training
             else if (neutral)
             {
                 _freeFrames++;
-                if (_freeFrames > AfterHitGuardFrames) { _afterHitGuard = false; _blockedInString = 0; }
+                if (_freeFrames > AfterHitGuardFrames) { _afterHitGuard = false; _blockedInString = 0; _firstHitCounterUsed = false; }
             }
             if (neutral && !_wasNeutral) _randomGuard = _random.Next(2) == 0;
             _wasNeutral = neutral;
@@ -418,6 +423,13 @@ namespace FunctionFighter.Training
                 default: return false;
             }
         }
+
+        /// <summary>
+        /// The dummy guards with Barrier right now (Guard Type: Barrier, and the Guard setting has it guarding).
+        /// Read by Barrier.ButtonsHeld: the dummy counts as holding A+B, so its blocks are barrier blocks while it has gauge.
+        /// </summary>
+        public static bool DummyBarrierGuards(SakugaActor a) =>
+            TrainingSettings.GuardType == GuardTypeMode.Barrier && DummyGuards(a);
 
         /// <summary>
         /// Which way the dummy guards this hit, or GuardOverride.None to not guard. Normally the right way (stand for
@@ -448,7 +460,9 @@ namespace FunctionFighter.Training
             }
         }
 
-        /// <summary>0 = rules as normal, 1 = every hit on the dummy is a Counter Hit, 2 = a Big Counter, -1 = never a counter.</summary>
+        /// <summary>0 = rules as normal, 1 = every hit on the dummy is a Counter Hit, 2 = a Big Counter, -1 = never a counter.
+        /// The First Hit modes force it only on the hit that starts a combo (dummy not already in hitstun); the rest of the
+        /// combo follows the normal rules (Counter Hit carry, Big Counter combo bonus).</summary>
         public static int ForcedCounter(SakugaActor defender)
         {
             if (!Active || defender == null || defender.playerID != DummyIndex) return 0;
@@ -457,8 +471,23 @@ namespace FunctionFighter.Training
                 case CounterMode.Counter: return 1;
                 case CounterMode.BigCounter: return 2;
                 case CounterMode.Off: return -1;
+                case CounterMode.FirstHitCounter: return FirstHitOfString(defender) ? 1 : 0;
+                case CounterMode.FirstHitBigCounter: return FirstHitOfString(defender) ? 2 : 0;
                 default: return 0;
             }
+        }
+
+        static bool InCombo(SakugaActor a) =>
+            a.OnHitstun() || (a.StateManager != null && a.StateManager.CurrentStateType() == StateType.HIT_REACTION);
+
+        /// <summary>The hit that starts a string: the dummy isn't in a combo and hasn't been hit or made to block since it was
+        /// last left alone for AfterHitGuardFrames. Only the first such hit is forced; later hits in the string (a 214B after
+        /// a dropped or blocked 5C, a reset) follow the normal rules.</summary>
+        static bool FirstHitOfString(SakugaActor a)
+        {
+            if (_firstHitCounterUsed || InCombo(a)) return false;
+            _firstHitCounterUsed = true;
+            return true;
         }
 
         /// <summary>Functional Counter on/off: the Training setting, or CounterSettings.FunctionalCounterEnabled.</summary>
@@ -515,6 +544,7 @@ namespace FunctionFighter.Training
             if (Recording == RecordState.Playing) Recording = RecordState.Idle;
             _blockedInString = 0;
             _afterHitGuard = false;
+            _firstHitCounterUsed = false;
             Reversal.Reset();
             DummyMovement.Reset();
 

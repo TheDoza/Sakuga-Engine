@@ -99,8 +99,25 @@ All checks pass (2026-10-12):
 | Combo drops / time up | ends; the last hit keeps the long hitstun and ends it |
 | Rollback save/load | restored exactly |
 
+## Counter hit overrides (per hitbox)
+A hitbox can react differently when it lands as a Counter, Big Counter or Functional Counter (not on carry hits).
+Set these in the hitbox's **Counter Hit Settings** group. A field left at its default keeps the normal value.
+
+| Field | Default (= unchanged) | Use |
+|---|---|---|
+| CounterHitReaction | -1 | Hit reaction slot on counter (e.g. 17 = launch) |
+| CounterHitKnockback | (0, 0) | Knockback on counter |
+| CounterHitKnockbackGravity | 0 | Gravity for that knockback (set it for ground hits, they default to 0) |
+| CounterHitstunType | NONE | Hitstun type on counter |
+| CounterHitstun | 0 | Hitstun on counter (the normal counter bonus is still added) |
+
+Example: Basic Bro's 236A fireball launches on counter hit (slot 17, knockback (-4000, 80000), gravity 230000, hitstun 45),
+so 5B can follow from about 5C range, like Jin's 236A.
+
 ## Change log
 | Date | Change |
 |---|---|
+| 2026-11-09 | Counter hit overrides on HitboxElement (reaction, knockback, gravity, hitstun type, hitstun) |
+| 2026-11-07 | Basic Bro 6C (both hits) is a Big Counter attack. Training: Counter Hit "First Hit Counter" / "First Hit Big Counter" |
 | 2026-10-17 | Counter Hit Recovery flag (`HitboxState.CounterHitInRecovery`): Counter + Punish notification |
 | 2026-10-12 | Created: Counter Hit + carry, Big Counter, Functional Counter |

@@ -1,0 +1,92 @@
+[gd_resource type="Resource" script_class="FighterState" format=3 uid="uid://ctt2qjvymyinq"]
+
+[ext_resource type="Resource" uid="uid://bn6x4yuf0sr7q" path="res://Fighters/BasicBro/Moves/AnimationData/102_BB_214A_AnimationData.tres" id="1_anim"]
+[ext_resource type="Script" uid="uid://bf60srwkccsm8" path="res://Scripts/SakugaEngine/Resources/FighterState.cs" id="2_state"]
+[ext_resource type="Script" uid="uid://c076jc3huncn2" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/FrameDataEvent.cs" id="3_event"]
+[ext_resource type="Script" uid="uid://bgwrlqrhqb2a4" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/MoveXAction.cs" id="4_movex"]
+[ext_resource type="Script" uid="uid://bw1835rb2hj7y" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/MoveYAction.cs" id="5_movey"]
+[ext_resource type="Script" uid="uid://c42r1mjvviuhg" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/AtFrameRangeCondition.cs" id="6_range"]
+[ext_resource type="Script" uid="uid://da4kqpf635oin" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/PlayStateAction.cs" id="7_play"]
+[ext_resource type="Script" uid="uid://bho4h38y7suxk" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/StateEndedCondition.cs" id="8_ended"]
+[ext_resource type="Script" uid="uid://gx2c16shb4hs" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/SpawnVFXAction.cs" id="9_vfx"]
+[ext_resource type="Script" uid="uid://50grsd2r3wl8" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/AtFrameCondition.cs" id="10_atframe"]
+
+[sub_resource type="Resource" id="Resource_friction"]
+script = ExtResource("4_movex")
+UseInertia = true
+metadata/_custom_type_script = "uid://bgwrlqrhqb2a4"
+
+[sub_resource type="Resource" id="Resource_movey"]
+script = ExtResource("5_movey")
+metadata/_custom_type_script = "uid://bw1835rb2hj7y"
+
+[sub_resource type="Resource" id="Resource_outside_dash"]
+script = ExtResource("6_range")
+MinFrame = 9
+MaxFrame = 25
+Not = true
+
+[sub_resource type="Resource" id="Resource_slow_down"]
+script = ExtResource("3_event")
+Conditions = Array[Object]([SubResource("Resource_outside_dash")])
+Actions = Array[Object]([SubResource("Resource_friction"), SubResource("Resource_movey")])
+metadata/_custom_type_script = "uid://c076jc3huncn2"
+
+[sub_resource type="Resource" id="Resource_dash_speed"]
+script = ExtResource("4_movex")
+Velocity = 50000
+metadata/_custom_type_script = "uid://bgwrlqrhqb2a4"
+
+[sub_resource type="Resource" id="Resource_dash_window"]
+script = ExtResource("6_range")
+MinFrame = 9
+MaxFrame = 25
+
+[sub_resource type="Resource" id="Resource_dash"]
+script = ExtResource("3_event")
+Conditions = Array[Object]([SubResource("Resource_dash_window")])
+Actions = Array[Object]([SubResource("Resource_dash_speed"), SubResource("Resource_movey")])
+metadata/_custom_type_script = "uid://c076jc3huncn2"
+
+[sub_resource type="Resource" id="Resource_dust"]
+script = ExtResource("9_vfx")
+xRelativeTo = 1
+yRelativeTo = 1
+Index = 14
+
+[sub_resource type="Resource" id="Resource_at_settle"]
+script = ExtResource("10_atframe")
+Frame = 27
+
+[sub_resource type="Resource" id="Resource_settle_dust"]
+script = ExtResource("3_event")
+Conditions = Array[Object]([SubResource("Resource_at_settle")])
+Actions = Array[Object]([SubResource("Resource_dust")])
+
+[sub_resource type="Resource" id="Resource_to_idle"]
+script = ExtResource("7_play")
+metadata/_custom_type_script = "uid://da4kqpf635oin"
+
+[sub_resource type="Resource" id="Resource_state_ended"]
+script = ExtResource("8_ended")
+metadata/_custom_type_script = "uid://bho4h38y7suxk"
+
+[sub_resource type="Resource" id="Resource_trans_idle"]
+script = ExtResource("3_event")
+Conditions = Array[Object]([SubResource("Resource_state_ended")])
+Actions = Array[Object]([SubResource("Resource_to_idle")])
+metadata/_custom_type_script = "uid://c076jc3huncn2"
+
+[resource]
+script = ExtResource("2_state")
+StateName = "214A"
+Type = 2
+AnimationData = ExtResource("1_anim")
+TransitionEvents = Array[Object]([SubResource("Resource_trans_idle")])
+OnEnterEvents = null
+OnTickEvents = Array[Object]([SubResource("Resource_slow_down"), SubResource("Resource_dash"), SubResource("Resource_settle_dust")])
+OnExitEvents = null
+OnHitConfirmEvents = null
+OnHitReactionEvents = null
+AIFlags = 2066
+metadata/_custom_type_script = "uid://bf60srwkccsm8"

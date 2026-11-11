@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="MotionInputs" format=3 uid="uid://cxtocwklmf8lw"]
+
+[ext_resource type="Script" uid="uid://87xpa7lbksa8" path="res://Scripts/SakugaEngine/Resources/InputSequence.cs" id="1_seq"]
+[ext_resource type="Script" uid="uid://ce6shsv0dij5v" path="res://Scripts/SakugaEngine/Resources/InputOption.cs" id="2_opt"]
+[ext_resource type="Script" uid="uid://di4jwsd3y2x8w" path="res://Scripts/SakugaEngine/Resources/MotionInputs.cs" id="3_motion"]
+
+[sub_resource type="Resource" id="Seq_down"]
+script = ExtResource("1_seq")
+Directional = 1
+DirectionalMode = 1
+
+[sub_resource type="Resource" id="Seq_neutral"]
+script = ExtResource("1_seq")
+
+[sub_resource type="Resource" id="Seq_press_c"]
+script = ExtResource("1_seq")
+Buttons = 4
+
+[sub_resource type="Resource" id="Opt_2_5_2_C"]
+script = ExtResource("2_opt")
+Inputs = Array[Object]([SubResource("Seq_down"), SubResource("Seq_neutral"), SubResource("Seq_down"), SubResource("Seq_press_c")])
+
+[sub_resource type="Resource" id="Seq_down_c"]
+script = ExtResource("1_seq")
+Directional = 1
+DirectionalMode = 1
+Buttons = 4
+
+[sub_resource type="Resource" id="Opt_2_5_2C"]
+script = ExtResource("2_opt")
+Inputs = Array[Object]([SubResource("Seq_down"), SubResource("Seq_neutral"), SubResource("Seq_down_c")])
+
+[resource]
+script = ExtResource("3_motion")
+ValidInputs = Array[Object]([SubResource("Opt_2_5_2_C"), SubResource("Opt_2_5_2C")])

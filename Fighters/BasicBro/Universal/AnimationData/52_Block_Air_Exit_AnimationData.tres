@@ -7,7 +7,7 @@
 
 [sub_resource type="Resource" id="Resource_tcuol"]
 script = ExtResource("1_tcuol")
-SourceAnimation = "Barrier_Air"
+SourceAnimation = "Block_Air_Exit"
 
 [sub_resource type="Resource" id="Resource_ygkgp"]
 script = ExtResource("3_is22p")

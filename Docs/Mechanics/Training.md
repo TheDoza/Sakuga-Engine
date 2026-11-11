@@ -61,6 +61,7 @@ The bindable rows are in every button config page (gamepad: right above Easy Spe
 | **Block X Hits** | blocks **Guard Hits** (1–10) hits, then lets the rest hit |
 | **Switch: Stand > Crouch / Crouch > Stand** | fuzzy testing: blocks the first hit in the first stance if it can, then stays in the other stance for the rest of the string, right or wrong |
 
+- **Guard Type** (Normal / Barrier): with Barrier, every hit the dummy guards is a Barrier block (no chip, extra pushback, drains its Barrier gauge). With an empty gauge or in Danger it blocks normally. Combine with **Dummy Barrier: Infinite** to keep it barriering.
 - Guard works in every dummy mode except Controller and CPU.
 - A string ends when the dummy gets hit, or is left alone for 20 frames.
 - Switch modes set the dummy's posture themselves (they ignore Stand / Crouch).
@@ -68,7 +69,7 @@ The bindable rows are in every button config page (gamepad: right above Easy Spe
 ### Counters & Barrier (Dummy Settings page)
 | Option | Choices |
 |---|---|
-| **Counter Hit** | Normal (the rules) · Always Counter · Always Big Counter · Never |
+| **Counter Hit** | Normal (the rules) · Always Counter · Always Big Counter · Never · First Hit Counter · First Hit Big Counter (only the hit that starts a combo is forced) |
 | **Functional Counter** | Default (what `CounterSettings.tres` says) · On · Off |
 | **Dummy Barrier** | Normal · Infinite · Danger (keeps the dummy in Danger, for testing Functional Counters) |
 
@@ -96,8 +97,13 @@ Hold down + a button with P1 (keyboard: hold S):
 |---|---|
 | **2A** Test Launcher | air hit, air-techable after the untechable part |
 | **2B** Test Air Knockdown | soft knockdown: Emergency Tech, rolls, Neutral Tech |
-| **2C** Test Hard Sweep | low, hard knockdown: no tech, just gets up |
+| **1C** Test Hard Sweep | low, hard knockdown: no tech, just gets up (hold down-back) |
+| **2C** Test Launch | anti-air launcher: Hit_Launch, air-techable after hitstun |
+| **6B** Test KnockedBack | blown far back (Hit_KnockedBack), lands face up, soft knockdown |
 | **2D** Test Fast Knockdown | pops up and lands right away: wakeup / meaty practice |
+
+### Function Fakeout test moves (Dummy)
+**236A** Test Fakeout Special (Blue / Red) · **623C** Test Fakeout Risky (Purple / Red) · **236B+C** Test Fakeout Super (Gold, costs 50%). Fakeout = A+B+C or the **G** macro (P1 keyboard: L). They all look like 5B. See [Fakeout.md](Fakeout.md).
 
 Hitting a dummy that could have teched (lying after a soft knockdown, or in the air after the untechable part) turns the combo counter red with **INVALID**, in every mode.
 
@@ -327,6 +333,9 @@ All checks pass (2026-10-12):
 ### Change log
 | Date | Change |
 |---|---|
+| 2026-11-07 | Counter Hit: First Hit Counter / First Hit Big Counter (forced only on the hit that starts a combo, normal rules after) |
+| 2026-11-07 | Guard Type option (Normal / Barrier) on the Guard & Tech page |
+| 2026-11-05 | Function Fakeout test moves (236A / 623C / 236B+C) listed under the knockdown test moves |
 | 2026-10-12 | Doc reorganised by topic (dummy, knockdowns & techs, reversals, recording, meters, resets & save states, frame data tools, displays) |
 | 2026-10-12 | Frame advance (bindable Frame Advance / Step Frame); 5 recording slots + Random Slot playback; meters: Refill After Combo + Super Refill Amount |
 | 2026-10-12 | Save / Load State are bindable buttons in the button config |

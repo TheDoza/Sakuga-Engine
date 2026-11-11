@@ -275,13 +275,15 @@ namespace SakugaEngine.Collision
                         {
                             if (!bodyA.CanHitBody(bodyB)) return;
 
-                            bodyB.Parent.ProximityBlock(boxSettingsA);
+                            if (!SameOwner(bodyA, bodyB))
+                                bodyB.Parent.ProximityBlock(boxSettingsA);
                         }
                         else if (otType == HitboxType.PROXIMITY_BLOCK && myType == HitboxType.HURTBOX)
                         {
                             if (!bodyB.CanHitBody(bodyA)) return;
 
-                            bodyA.Parent.ProximityBlock(boxSettingsB);
+                            if (!SameOwner(bodyA, bodyB))
+                                bodyA.Parent.ProximityBlock(boxSettingsB);
                         }
 
 						//Throws
@@ -350,6 +352,13 @@ namespace SakugaEngine.Collision
                 SakugaActor actor2 = currentHit.p2 as SakugaActor;
                 if (!actor1.CanHitTarget(actor2)) continue;
                 if (!actor2.CanHitTarget(actor1)) continue;
+
+                //Anti-air immunity: drop hits from airborne attackers on targets in an anti-air window
+                if (currentHit.p1HitType == 0 && AntiAirRules.IgnoresHit(actor1, actor2, currentHit.p1Hitbox))
+                    currentHit.p1HitType = -1;
+                if (currentHit.p2HitType == 0 && AntiAirRules.IgnoresHit(actor2, actor1, currentHit.p2Hitbox))
+                    currentHit.p2HitType = -1;
+                if (currentHit.p1HitType < 0 && currentHit.p2HitType < 0) continue;
                 
                 //Basic damage
                 if (currentHit.p1HitType == 0 && currentHit.p2HitType != 0) {
@@ -475,6 +484,16 @@ namespace SakugaEngine.Collision
         /// corner, which is allowed (normal pushbox rules apply).</summary>
         private static bool JumpingOut(PhysicsBody pinned, PhysicsBody other) =>
             !pinned.IsOnGround && pinned.FixedPosition.Y > other.FixedPosition.Y;
+
+        /// <summary>[FF PATCH: proximity owner] True when both bodies belong to the same fighter (the fighter itself or
+        /// one of its spawnables), so a fighter never proximity-guards against its own projectile.</summary>
+        private static bool SameOwner(PhysicsBody bodyA, PhysicsBody bodyB)
+        {
+            if (bodyA.Parent is not SakugaActor actorA || bodyB.Parent is not SakugaActor actorB) return false;
+            SakugaActor ownerA = actorA.GetMaster() ?? actorA;
+            SakugaActor ownerB = actorB.GetMaster() ?? actorB;
+            return ownerA == ownerB;
+        }
 
         private bool Unpushable(PhysicsBody bodyA, PhysicsBody bodyB)
         {

@@ -88,6 +88,7 @@ namespace FunctionFighter.Tools
 			{ "Hit_Stand_Weak", "Hit_Weak" }, { "Hit_Stand_Strong", "Hit_Strong" }, { "Hit_Crouch", "Hit_Crouch_Weak" },
 			{ "Hit_Air_Weak", "Hit_Air_Weak" }, { "Hit_Air", "Hit_Air_Strong" }, { "Hit_GroundSlide", "Hit_OnTheGround_1" },
 			{ "Hit_Down", "Hit_Down" }, { "Hit_GetUp", "Hit_GetUp" }, { "Hit_WallBounce", "Hit_WallBounce" }, { "Hit_GroundBounce", "Hit_GroundBounce" },
+			{ "Hit_Crumple", "Hit_Crumple" }, { "Hit_Trip", "Hit_Trip" }, { "Hit_Spin", "Hit_Spin" }, { "Hit_Launch", "Hit_Launch" }, { "Hit_Down_FaceDown", "Hit_Down_FaceDown" }, { "Hit_KnockedBack", "Hit_KnockedBack" },
 			{ "Block_Stand_Enter", "Block_Neutral_Enter" }, { "Blockstun_Stand", "Blockstun_Neutral" }, { "Block_Stand_Exit", "Block_Neutral_Exit" },
 			{ "Blocking_Stand", "Blocking_Neutral" }, { "GuardBreak_Stand", "Guard_Break_Neutral" },
 			{ "Block_Crouch_Enter", "Block_Crouch_Enter" }, { "Blockstun_Crouch", "Blockstun_Crouch" }, { "Block_Crouch_Exit", "Block_Crouch_Exit" },

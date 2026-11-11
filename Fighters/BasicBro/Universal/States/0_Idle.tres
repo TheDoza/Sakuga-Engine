@@ -14,90 +14,90 @@
 [ext_resource type="Script" uid="uid://da4kqpf635oin" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/PlayStateAction.cs" id="10_f6132"]
 [ext_resource type="Script" uid="uid://db5vw4w884ji5" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/CheckCustomVariableCondition.cs" id="11_a0pux"]
 
-[sub_resource type="Resource" id="Resource_6rllr"]
+[sub_resource type="Resource" id="Resource_og7hc"]
 script = ExtResource("2_og7hc")
 ByIndex = -1
 ByName = "IdleLoops"
 
-[sub_resource type="Resource" id="Resource_ol8ey"]
+[sub_resource type="Resource" id="Resource_cmvs6"]
 script = ExtResource("4_0q13p")
 Conditions = null
-Actions = Array[Object]([SubResource("Resource_6rllr")])
+Actions = Array[Object]([SubResource("Resource_og7hc")])
 
-[sub_resource type="Resource" id="Resource_6d47f"]
+[sub_resource type="Resource" id="Resource_f6132"]
 script = ExtResource("2_yrmta")
 metadata/_custom_type_script = "uid://n7xih8pqfpwo"
 
-[sub_resource type="Resource" id="Resource_f2owa"]
+[sub_resource type="Resource" id="Resource_a0pux"]
 script = ExtResource("3_dtoh0")
 metadata/_custom_type_script = "uid://b4st7jmqq1vph"
 
-[sub_resource type="Resource" id="Resource_hcxoj"]
+[sub_resource type="Resource" id="Resource_6rllr"]
 script = ExtResource("4_0q13p")
-Conditions = Array[Object]([SubResource("Resource_f2owa")])
-Actions = Array[Object]([SubResource("Resource_6d47f")])
+Conditions = Array[Object]([SubResource("Resource_a0pux")])
+Actions = Array[Object]([SubResource("Resource_f6132")])
 metadata/_custom_type_script = "uid://c076jc3huncn2"
 
-[sub_resource type="Resource" id="Resource_q0is8"]
+[sub_resource type="Resource" id="Resource_ol8ey"]
 script = ExtResource("5_og7hc")
 metadata/_custom_type_script = "uid://bgwrlqrhqb2a4"
 
-[sub_resource type="Resource" id="Resource_5fgo7"]
+[sub_resource type="Resource" id="Resource_6d47f"]
 script = ExtResource("6_cmvs6")
 metadata/_custom_type_script = "uid://bw1835rb2hj7y"
 
-[sub_resource type="Resource" id="Resource_01wjo"]
+[sub_resource type="Resource" id="Resource_f2owa"]
 script = ExtResource("4_0q13p")
 Conditions = null
-Actions = Array[Object]([SubResource("Resource_q0is8"), SubResource("Resource_5fgo7")])
+Actions = Array[Object]([SubResource("Resource_ol8ey"), SubResource("Resource_6d47f")])
 metadata/_custom_type_script = "uid://c076jc3huncn2"
 
-[sub_resource type="Resource" id="Resource_jlkus"]
+[sub_resource type="Resource" id="Resource_hcxoj"]
 script = ExtResource("2_og7hc")
 ByIndex = -1
 ByName = "IdleLoops"
 ChangeMode = 1
 NewValue = 1
 
-[sub_resource type="Resource" id="Resource_lkpbk"]
+[sub_resource type="Resource" id="Resource_q0is8"]
 script = ExtResource("8_a0pux")
 
-[sub_resource type="Resource" id="Resource_uei28"]
+[sub_resource type="Resource" id="Resource_5fgo7"]
 script = ExtResource("9_cmvs6")
 
-[sub_resource type="Resource" id="Resource_mab5m"]
+[sub_resource type="Resource" id="Resource_01wjo"]
 script = ExtResource("4_0q13p")
-Conditions = Array[Object]([SubResource("Resource_lkpbk"), SubResource("Resource_uei28")])
-Actions = Array[Object]([SubResource("Resource_jlkus")])
+Conditions = Array[Object]([SubResource("Resource_q0is8"), SubResource("Resource_5fgo7")])
+Actions = Array[Object]([SubResource("Resource_hcxoj")])
 
-[sub_resource type="Resource" id="Resource_qggth"]
+[sub_resource type="Resource" id="Resource_jlkus"]
 script = ExtResource("10_f6132")
 StateIndex = 73
 
-[sub_resource type="Resource" id="Resource_dg03s"]
+[sub_resource type="Resource" id="Resource_lkpbk"]
 script = ExtResource("11_a0pux")
 ByIndex = -1
 ByName = "IdleLoops"
 Value = 5
 CompareMode = 3
 
-[sub_resource type="Resource" id="Resource_h3tkr"]
+[sub_resource type="Resource" id="Resource_uei28"]
 script = ExtResource("4_0q13p")
-Conditions = Array[Object]([SubResource("Resource_lkpbk"), SubResource("Resource_dg03s")])
-Actions = Array[Object]([SubResource("Resource_qggth")])
+Conditions = Array[Object]([SubResource("Resource_q0is8"), SubResource("Resource_lkpbk")])
+Actions = Array[Object]([SubResource("Resource_jlkus")])
 
-[sub_resource type="Resource" id="Resource_xsf6q"]
+[sub_resource type="Resource" id="Resource_mab5m"]
 script = ExtResource("7_f6132")
 metadata/_custom_type_script = "uid://b1wnmgsdqaa50"
 
-[sub_resource type="Resource" id="Resource_xlblo"]
+[sub_resource type="Resource" id="Resource_qggth"]
 script = ExtResource("8_a0pux")
 metadata/_custom_type_script = "uid://bho4h38y7suxk"
 
-[sub_resource type="Resource" id="Resource_ev586"]
+[sub_resource type="Resource" id="Resource_dg03s"]
 script = ExtResource("4_0q13p")
-Conditions = Array[Object]([SubResource("Resource_xlblo")])
-Actions = Array[Object]([SubResource("Resource_xsf6q")])
+Conditions = Array[Object]([SubResource("Resource_qggth")])
+Actions = Array[Object]([SubResource("Resource_mab5m")])
 metadata/_custom_type_script = "uid://c076jc3huncn2"
 
 [resource]
@@ -105,9 +105,9 @@ script = ExtResource("9_6rllr")
 StateName = "Idle"
 Type = 1
 AnimationData = ExtResource("1_1a7lu")
-TransitionEvents = Array[Object]([SubResource("Resource_mab5m"), SubResource("Resource_h3tkr"), SubResource("Resource_ev586")])
+TransitionEvents = Array[Object]([SubResource("Resource_01wjo"), SubResource("Resource_uei28"), SubResource("Resource_dg03s")])
 OnEnterEvents = null
-OnTickEvents = Array[Object]([SubResource("Resource_hcxoj"), SubResource("Resource_01wjo")])
-OnExitEvents = Array[Object]([SubResource("Resource_ol8ey")])
+OnTickEvents = Array[Object]([SubResource("Resource_6rllr"), SubResource("Resource_f2owa")])
+OnExitEvents = Array[Object]([SubResource("Resource_cmvs6")])
 OnHitConfirmEvents = null
 OnHitReactionEvents = null

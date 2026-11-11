@@ -17,5 +17,7 @@ CanCancelTo = null
 VariablesRequirement = null
 VariablesChange = null
 Conditions = Array[Object]([SubResource("Sub_1")])
+Unlockable = true
 UseOnAir = true
+FakeoutBlockedFrames = null
 metadata/_custom_type_script = "uid://gk1rkw667o4n"

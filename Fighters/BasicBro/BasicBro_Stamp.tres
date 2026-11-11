@@ -1,14 +1,14 @@
-[gd_resource type="Resource" script_class="UniversalStampConfig" format=3]
+[gd_resource type="Resource" script_class="UniversalStampConfig" format=3 uid="uid://bwlqxs5sp5f1q"]
 
-[ext_resource type="Script" path="res://Scripts/FunctionFighter/Tools/UniversalStampConfig.cs" id="1_script"]
-[ext_resource type="Resource" path="res://Fighters/Dummy/Dummy_Data.tres" id="2_template"]
-[ext_resource type="Resource" path="res://Fighters/BasicBro/BasicBro_Data.tres" id="3_target"]
-[ext_resource type="Resource" path="res://Fighters/BasicBro/Hitboxes/BB_Hitbox_Stand.tres" id="4_stand"]
-[ext_resource type="Resource" path="res://Fighters/BasicBro/Hitboxes/BB_Hitbox_Crouch.tres" id="5_crouch"]
-[ext_resource type="Resource" path="res://Fighters/BasicBro/Hitboxes/BB_Hitbox_Lying.tres" id="6_lying"]
-[ext_resource type="Resource" path="res://Fighters/BasicBro/Hitboxes/BB_Hitbox_Throw_Active.tres" id="7_throw"]
-[ext_resource type="Resource" path="res://Fighters/BasicBro/Hitboxes/BB_Hitbox_AirThrow_Active.tres" id="8_airthrow"]
-[ext_resource type="PackedScene" path="res://Fighters/BasicBro/Model/BasicBro.glb" id="9_model"]
+[ext_resource type="Script" uid="uid://b7utabloh3c1r" path="res://Scripts/FunctionFighter/Tools/UniversalStampConfig.cs" id="1_script"]
+[ext_resource type="Resource" uid="uid://cgfa1xwppjfy2" path="res://Fighters/Dummy/Dummy_Data.tres" id="2_template"]
+[ext_resource type="Resource" uid="uid://ci8svhn8m5hgs" path="res://Fighters/BasicBro/BasicBro_Data.tres" id="3_target"]
+[ext_resource type="Resource" uid="uid://c48mi2er3ao5h" path="res://Fighters/BasicBro/Hitboxes/BB_Hitbox_Stand.tres" id="4_stand"]
+[ext_resource type="Resource" uid="uid://yljhp5bp8g8u" path="res://Fighters/BasicBro/Hitboxes/BB_Hitbox_Crouch.tres" id="5_crouch"]
+[ext_resource type="Resource" uid="uid://bx66au3l86gyv" path="res://Fighters/BasicBro/Hitboxes/BB_Hitbox_Lying.tres" id="6_lying"]
+[ext_resource type="Resource" uid="uid://4i87evh46egv" path="res://Fighters/BasicBro/Hitboxes/BB_Hitbox_Throw_Active.tres" id="7_throw"]
+[ext_resource type="Resource" uid="uid://n2gu4wd8h3k7" path="res://Fighters/BasicBro/Hitboxes/BB_Hitbox_AirThrow_Active.tres" id="8_airthrow"]
+[ext_resource type="PackedScene" uid="uid://cayge0wh23m0c" path="res://Fighters/BasicBro/Model/BasicBro.glb" id="9_model"]
 
 [resource]
 script = ExtResource("1_script")
@@ -20,78 +20,82 @@ CrouchHurtbox = ExtResource("5_crouch")
 LyingHurtbox = ExtResource("6_lying")
 GroundThrowBox = ExtResource("7_throw")
 AirThrowBox = ExtResource("8_airthrow")
-UseAnimations = true
-ModelScene = ExtResource("9_model")
-MatchLoopDurations = true
 AnimationNames = Dictionary[String, String]({
-"Idle": "Idle",
-"Walk_Forward": "Walk_Forward",
-"Walk_Backward": "Walk_Backward",
-"Jump_Neutral": "Jump_Neutral",
-"Jump_Forward": "Jump_Forward",
-"Jump_Backward": "Jump_Backward",
-"Falling": "Falling",
-"AirDash_Forward": "AirDash_Forward",
 "AirDash_Backward": "AirDash_Backward",
-"Crouch_Enter": "Crouch_Enter",
-"Crouching": "Crouching",
-"Crouch_Exit": "Crouch_Exit",
+"AirDash_Forward": "AirDash_Forward",
 "Air_Recovery": "Air_Recovery",
-"Ground_Recovery": "Ground_Recovery",
-"Hit_Stand_Weak": "Idle",
-"Hit_Stand_Strong": "Idle",
-"Hit_Crouch": "Crouching",
-"Hit_Air_Weak": "Falling",
-"Hit_Air": "Falling",
-"Hit_GroundSlide": "Crouching",
-"Hit_Down": "Crouching",
-"Hit_GetUp": "Crouch_Exit",
-"Hit_WallBounce": "Falling",
-"Hit_GroundBounce": "Falling",
-"Block_Stand_Enter": "Barrier_Stand",
-"Blockstun_Stand": "Barrier_Stand",
-"Block_Stand_Exit": "Barrier_Stand",
-"Blocking_Stand": "Barrier_Stand",
-"GuardBreak_Stand": "Barrier_Stand",
-"Block_Crouch_Enter": "Barrier_Crouch",
-"Blockstun_Crouch": "Barrier_Crouch",
-"Block_Crouch_Exit": "Barrier_Crouch",
-"Blocking_Crouch": "Barrier_Crouch",
-"GuardBreak_Crouch": "Barrier_Crouch",
-"Block_Air_Enter": "Barrier_Air",
-"Blockstun_Air": "Barrier_Air",
-"Block_Air_Exit": "Barrier_Air",
-"Blocking_Air": "Barrier_Air",
-"GuardBreak_Air": "Barrier_Air",
-"Throw_Forward": "Idle",
-"Throw_Forward_Hit": "Idle",
-"Throw_Back": "Idle",
-"Throw_Back_Hit": "Idle",
-"Throw_Air": "Falling",
-"Throw_Air_Hit": "Falling",
-"Throw_Air_Landing": "Crouch_Exit",
-"Hit_Thrown": "Idle",
-"Hit_Thrown_Launch": "Falling",
-"Throw_Reject_Ground": "Idle",
-"Throw_Reject_Air": "Falling",
-"Throw_Rejected_Ground": "Idle",
-"Throw_Rejected_Air": "Falling",
-"Barrier_Stand": "Barrier_Stand",
-"Barrier_Crouch": "Barrier_Crouch",
+"Backdash": "Backdash",
 "Barrier_Air": "Barrier_Air",
-"Burst": "Barrier_Stand",
-"Roll_Forward": "Crouching",
-"Roll_Back": "Crouching",
+"Barrier_Crouch": "Barrier_Crouch",
+"Barrier_Stand": "Barrier_Stand",
+"Block_Air_Enter": "Block_Air_Enter",
+"Block_Air_Exit": "Block_Air_Exit",
+"Block_Crouch_Enter": "Block_Crouch_Enter",
+"Block_Crouch_Exit": "Block_Crouch_Exit",
+"Block_Stand_Enter": "Block_Stand_Enter",
+"Block_Stand_Exit": "Block_Stand_Exit",
+"Blocking_Air": "Blocking_Air",
+"Blocking_Crouch": "Blocking_Crouch",
+"Blocking_Stand": "Blocking_Stand",
+"Blockstun_Air": "Blockstun_Air",
+"Blockstun_Crouch": "Blocking_Crouch",
+"Blockstun_Stand": "Blocking_Stand",
+"Burst": "Burst",
+"Crouch_Enter": "Crouch_Enter",
+"Crouch_Exit": "Crouch_Exit",
+"Crouching": "Crouching",
+"Double_Jump_Backward": "Double_Jump_Backward",
+"Double_Jump_Forward": "Double_Jump_Forward",
+"Double_Jump_Neutral": "Double_Jump_Neutral",
+"Falling": "Falling",
+"Ground_Recovery": "Ground_Recovery",
+"GuardBreak_Air": "GuardBreak_Air",
+"GuardBreak_Crouch": "GuardBreak_Crouch",
+"GuardBreak_Stand": "GuardBreak_Stand",
+"Habit": "Habit",
+"Hit_Air": "Hit_Air",
+"Hit_Air_Weak": "Hit_Air_Weak",
+"Hit_Crouch": "Hit_Crouch",
+"Hit_Crumple": "Hit_Crumple",
+"Hit_Down": "Hit_Down",
+"Hit_Down_FaceDown": "Hit_Down_FaceDown",
+"Hit_GetUp": "Hit_GetUp",
+"Hit_GroundBounce": "Hit_GroundBounce",
+"Hit_GroundSlide": "Hit_GroundSlide",
+"Hit_KnockedBack": "Hit_KnockedBack",
+"Hit_Launch": "Hit_Thrown_Launch",
+"Hit_Spin": "Hit_Spin",
+"Hit_Stand_Strong": "Hit_Stand_Strong",
+"Hit_Stand_Weak": "Hit_Stand_Weak",
+"Hit_Thrown": "Hit_Thrown",
+"Hit_Thrown_Launch": "Hit_Thrown_Launch",
+"Hit_Trip": "Hit_Trip",
+"Hit_WallBounce": "Hit_WallBounce",
+"Idle": "Idle",
+"Jump_Backward": "Jump_Backward",
+"Jump_Forward": "Jump_Forward",
+"Jump_Neutral": "Jump_Neutral",
+"Outro": "Outro",
+"Roll_Back": "Roll_Back",
+"Roll_Forward": "Roll_Forward",
 "Run": "Run",
 "Run_Skid": "Run_Skid",
 "Step_Dash": "AirDash_Forward",
-"Backdash": "Backdash",
-"Super_Jump_Neutral": "Jump_Neutral",
-"Super_Jump_Forward": "Jump_Forward",
-"Super_Jump_Backward": "Jump_Backward",
-"Double_Jump_Neutral": "Jump_Neutral",
-"Double_Jump_Forward": "Jump_Forward",
-"Double_Jump_Backward": "Jump_Backward",
-"Outro": "Outro",
-"Habit": "Habit"
+"Super_Jump_Backward": "Super_Jump_Backward",
+"Super_Jump_Forward": "Super_Jump_Forward",
+"Super_Jump_Neutral": "Super_Jump_Neutral",
+"Throw_Air": "Throw_Air",
+"Throw_Air_Hit": "Throw_Air_Hit",
+"Throw_Air_Landing": "Throw_Air_Landing",
+"Throw_Back": "Throw_Back",
+"Throw_Back_Hit": "Throw_Back_Hit",
+"Throw_Forward": "Throw_Forward",
+"Throw_Forward_Hit": "Throw_Forward_Hit",
+"Throw_Reject_Air": "Throw_Reject_Air",
+"Throw_Reject_Ground": "Throw_Reject_Ground",
+"Throw_Rejected_Air": "Throw_Rejected_Air",
+"Throw_Rejected_Ground": "Throw_Rejected_Ground",
+"Walk_Backward": "Walk_Backward",
+"Walk_Forward": "Walk_Forward"
 })
+ModelScene = ExtResource("9_model")

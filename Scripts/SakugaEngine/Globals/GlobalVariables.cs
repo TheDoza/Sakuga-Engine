@@ -36,5 +36,9 @@ namespace SakugaEngine.Global
         public const ushort CornerMaxDamageScaling = 120;
         public const int MoveBufferLength = 10;
         public const int NotificationDuration = 60;
+
+        //Anti-air immunity window (1-based frames, inclusive) for states flagged with AntiAirImmunity
+        public const int AntiAirImmunityStartFrame = 4;
+        public const int AntiAirImmunityEndFrame = 13;
     }
 }

@@ -1,0 +1,60 @@
+[gd_resource type="Resource" script_class="AnimationData" format=3 uid="uid://ysyuxy6wvuia"]
+
+[ext_resource type="Script" uid="uid://b8vqwkv52qq3e" path="res://Scripts/SakugaEngine/Resources/AnimationSettings.cs" id="1_as"]
+[ext_resource type="Script" uid="uid://5qrsoteskjym" path="res://Scripts/SakugaEngine/Resources/HitboxState.cs" id="2_hst"]
+[ext_resource type="Script" uid="uid://ddkya5wrb53ly" path="res://Scripts/SakugaEngine/Resources/AnimationData.cs" id="3_ad"]
+[ext_resource type="Resource" uid="uid://c48mi2er3ao5h" path="res://Fighters/BasicBro/Hitboxes/BB_Hitbox_Stand.tres" id="4_stand"]
+[ext_resource type="Resource" uid="uid://befdqudttc2ln" path="res://Fighters/BasicBro/Moves/Hitboxes/BB_Hitbox_214D_Active.tres" id="5_active"]
+
+[sub_resource type="Resource" id="Resource_anim"]
+script = ExtResource("1_as")
+SourceAnimation = "BB_214X"
+Speed = 2.1
+Rotation = Vector3(0, -60, 0)
+metadata/_custom_type_script = "uid://b8vqwkv52qq3e"
+
+[sub_resource type="Resource" id="Resource_okgfr"]
+script = ExtResource("1_as")
+AtFrame = 28
+SourceAnimation = "BB_214X"
+Speed = 2.5
+LimitRange = true
+AnimationRange = Vector2i(34, 37)
+Rotation = Vector3(0, -60, 0)
+metadata/_custom_type_script = "uid://b8vqwkv52qq3e"
+
+[sub_resource type="Resource" id="Resource_hxcv5"]
+script = ExtResource("1_as")
+AtFrame = 32
+SourceAnimation = "BB_214X"
+Speed = 1.1
+LimitRange = true
+AnimationRange = Vector2i(123, 150)
+Rotation = Vector3(0, -60, 0)
+metadata/_custom_type_script = "uid://b8vqwkv52qq3e"
+
+[sub_resource type="Resource" id="Resource_startup"]
+script = ExtResource("2_hst")
+HitboxData = ExtResource("4_stand")
+metadata/_custom_type_script = "uid://5qrsoteskjym"
+
+[sub_resource type="Resource" id="Resource_active"]
+script = ExtResource("2_hst")
+AtFrame = 19
+animationStage = 1
+HitboxData = ExtResource("5_active")
+metadata/_custom_type_script = "uid://5qrsoteskjym"
+
+[sub_resource type="Resource" id="Resource_recovery"]
+script = ExtResource("2_hst")
+AtFrame = 28
+animationStage = 2
+HitboxData = ExtResource("4_stand")
+metadata/_custom_type_script = "uid://5qrsoteskjym"
+
+[resource]
+script = ExtResource("3_ad")
+Duration = 58
+Animations = [SubResource("Resource_anim"), SubResource("Resource_okgfr"), SubResource("Resource_hxcv5")]
+Hitboxes = [SubResource("Resource_startup"), SubResource("Resource_active"), SubResource("Resource_recovery")]
+metadata/_custom_type_script = "uid://ddkya5wrb53ly"

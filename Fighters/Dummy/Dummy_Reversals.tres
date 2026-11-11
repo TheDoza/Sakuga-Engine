@@ -35,7 +35,7 @@ MoveName = "Test Air Knockdown"
 
 [sub_resource type="Resource" id="Act_6"]
 script = ExtResource("1_a")
-Label = "2C  Test Hard Sweep"
+Label = "1C  Test Hard Sweep"
 MoveName = "Test Hard Sweep"
 
 [sub_resource type="Resource" id="Act_7"]

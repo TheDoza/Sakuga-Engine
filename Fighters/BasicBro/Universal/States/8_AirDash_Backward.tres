@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://da4kqpf635oin" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/PlayStateAction.cs" id="7_q3db4"]
 [ext_resource type="Script" uid="uid://bho4h38y7suxk" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/StateEndedCondition.cs" id="8_x16yb"]
 [ext_resource type="Script" uid="uid://bf60srwkccsm8" path="res://Scripts/SakugaEngine/Resources/FighterState.cs" id="9_84ety"]
+[ext_resource type="Script" uid="uid://cfq32y8apqltb" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/SetFramePropertiesAction.cs" id="ff_lock"]
 
 [sub_resource type="Resource" id="Resource_aci6p"]
 script = ExtResource("2_cr7g8")
@@ -33,6 +34,30 @@ Conditions = null
 Actions = Array[Object]([SubResource("Resource_k1un7"), SubResource("Resource_ufhi6")])
 metadata/_custom_type_script = "uid://c076jc3huncn2"
 
+[sub_resource type="Resource" id="Lock_Add"]
+script = ExtResource("ff_lock")
+Properties = 16
+ChangeMode = 1
+metadata/_custom_type_script = "uid://cfq32y8apqltb"
+
+[sub_resource type="Resource" id="Lock_AddEvent"]
+script = ExtResource("3_k1un7")
+Conditions = null
+Actions = Array[Object]([SubResource("Lock_Add")])
+metadata/_custom_type_script = "uid://c076jc3huncn2"
+
+[sub_resource type="Resource" id="Lock_RemoveExit"]
+script = ExtResource("ff_lock")
+Properties = 16
+ChangeMode = 2
+metadata/_custom_type_script = "uid://cfq32y8apqltb"
+
+[sub_resource type="Resource" id="Lock_ExitEvent"]
+script = ExtResource("3_k1un7")
+Conditions = null
+Actions = Array[Object]([SubResource("Lock_RemoveExit")])
+metadata/_custom_type_script = "uid://c076jc3huncn2"
+
 [sub_resource type="Resource" id="Resource_uob7k"]
 script = ExtResource("4_ufhi6")
 Velocity = -50000
@@ -47,6 +72,23 @@ metadata/_custom_type_script = "uid://50grsd2r3wl8"
 script = ExtResource("3_k1un7")
 Conditions = Array[Object]([SubResource("Resource_q3db4")])
 Actions = Array[Object]([SubResource("Resource_uob7k")])
+metadata/_custom_type_script = "uid://c076jc3huncn2"
+
+[sub_resource type="Resource" id="Lock_Remove"]
+script = ExtResource("ff_lock")
+Properties = 16
+ChangeMode = 2
+metadata/_custom_type_script = "uid://cfq32y8apqltb"
+
+[sub_resource type="Resource" id="Lock_AtFrame"]
+script = ExtResource("6_uob7k")
+Frame = 8
+metadata/_custom_type_script = "uid://50grsd2r3wl8"
+
+[sub_resource type="Resource" id="Lock_TickEvent"]
+script = ExtResource("3_k1un7")
+Conditions = Array[Object]([SubResource("Lock_AtFrame")])
+Actions = Array[Object]([SubResource("Lock_Remove")])
 metadata/_custom_type_script = "uid://c076jc3huncn2"
 
 [sub_resource type="Resource" id="Resource_84ety"]
@@ -70,8 +112,8 @@ StateName = "AirDash_Backward"
 Type = 1
 AnimationData = ExtResource("1_aci6p")
 TransitionEvents = Array[Object]([SubResource("Resource_og15l")])
-OnEnterEvents = Array[Object]([SubResource("Resource_cr7g8"), SubResource("Resource_s0rkg")])
-OnTickEvents = Array[Object]([SubResource("Resource_x16yb")])
-OnExitEvents = null
+OnEnterEvents = Array[Object]([SubResource("Resource_cr7g8"), SubResource("Resource_s0rkg"), SubResource("Lock_AddEvent")])
+OnTickEvents = Array[Object]([SubResource("Resource_x16yb"), SubResource("Lock_TickEvent")])
+OnExitEvents = Array[Object]([SubResource("Lock_ExitEvent")])
 OnHitConfirmEvents = null
 OnHitReactionEvents = null

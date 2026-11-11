@@ -54,5 +54,14 @@ namespace SakugaEngine.Resources
         // [FF PATCH: indicators] Does starting this move on the first possible frame show the Reversal indicator?
         // Auto = only specials (a COMBAT move with a motion input like 236 / 214 / 623 / [4]6). Always / Never override it.
         [Export] public FunctionFighter.Mechanics.ReversalIndicatorMode ReversalIndicator = FunctionFighter.Mechanics.ReversalIndicatorMode.Auto;
+        // [FF PATCH: fakeout] Which Function Fakeout rules this move follows. Auto = Super if it costs meter, Special if it
+        // has a motion input, Normal otherwise. Set Risky on invincible reversals and command grabs, None to forbid it.
+        [Export] public FunctionFighter.Mechanics.FakeoutMoveType Fakeout = FunctionFighter.Mechanics.FakeoutMoveType.Auto;
+        // [FF PATCH: fakeout] Risky moves only: off = Purple only after the move was blocked, never in whiff recovery.
+        [Export] public bool FakeoutPurpleOnWhiff = true;
+        // [FF PATCH: fakeout] Parts of the move that can't be Fakeout cancelled: frame ranges (X to Y, inclusive) of the
+        // move's own MoveState, and follow-up states (e.g. a command grab's hit animation) where it's never allowed.
+        [Export] public Godot.Collections.Array<Vector2I> FakeoutBlockedFrames;
+        [Export] public int[] FakeoutBlockedStates;
     }
 }

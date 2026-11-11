@@ -5,7 +5,7 @@
 
 [sub_resource type="Resource" id="Resource_128pf"]
 script = ExtResource("1_128pf")
-SourceAnimation = "Crouch_Exit"
+SourceAnimation = "Hit_GetUp"
 
 [resource]
 script = ExtResource("2_8prv8")

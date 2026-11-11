@@ -18,11 +18,15 @@ Start here, then open the mechanic's page.
 | Defense | Crouching | ✅ Working (tested 2026-10-11) | Dummy | [Crouching.md](Crouching.md) |
 | Defense | Barrier | ✅ Working (tested 2026-10-12) | All fighters (engine-level + states 15–17) | [Barrier.md](Barrier.md) |
 | Defense | Burst | ✅ Working (tested 2026-10-12) | All fighters (engine-level + state 18) | [Burst.md](Burst.md) |
+| Defense | Counter Crash (guard cancel: 6+A+B in blockstun, 50% meter) | 🧪 Testing (added 2026-11-07) | Basic Bro (state 80) | [CounterCrash.md](CounterCrash.md) |
 | Hits & counters | Basic hitstun | ✅ Working (tested 2026-10-11) | Dummy | [BasicHitstun.md](BasicHitstun.md) |
 | Hits & counters | Clashes (hitbox meets hitbox) | ✅ Working (tested 2026-10-17) | All fighters (engine-level) | [Clash.md](Clash.md) |
 | Hits & counters | Counter hits (Counter, Big, Functional) | ✅ Working (tested 2026-10-12) | All fighters (engine-level) | [Counter.md](Counter.md) |
+| Offense | Function Fakeout (A+B+C cancel to neutral: Blue / Red / Purple / Gold) | 🧪 Testing (added 2026-11-05) | All fighters (engine-level) | [Fakeout.md](Fakeout.md) |
+| Hits & counters | Crumple, Trip, Spin, Launch, KnockedBack (hit states 74–79) | 🧪 Testing (added 2026-11-01) | All fighters (universal, via stamp) | [HitStates.md](HitStates.md) |
 | Knockdowns & recovery | Sliding knockdown | ✅ Working (tested 2026-10-05) | Dummy | [SlidingKnockdown.md](SlidingKnockdown.md) |
 | Knockdowns & recovery | Wall & ground bounce | ✅ Working (tested 2026-10-11) | Dummy | [Bounce.md](Bounce.md) |
+| Knockdowns & recovery | Wall stick | 🧪 Testing (added 2026-11-09) | All fighters (engine-level), Basic Bro 22C~236C | [Bounce.md](Bounce.md) |
 | Knockdowns & recovery | Tech & wakeup (Emergency / Neutral Tech, rolls, air recovery, INVALID combos) | ✅ Working (tested 2026-10-12) | All fighters (per-fighter numbers) | [TechRecovery.md](TechRecovery.md) |
 | Throws | Throws & throw reject | ✅ Working (tested 2026-10-11) | Dummy (template) | [Throws.md](Throws.md) |
 | Visual feedback | Animation blending (crossfade between clips) | 🧪 Testing (added 2026-10-20) | Basic Bro (4 frames); others off | [AnimationBlending.md](AnimationBlending.md) |
@@ -54,18 +58,20 @@ Each fighter's stance (`Stances/..._Stance_Main.tres` → `HitReactions`) maps s
 | 2 | Crouch hit | 19 | 22 Hit_Crouch |
 | 3 | Air hit, weak (lands on feet) | 20 | 23 Hit_Air_Weak |
 | 4 | Air hit, strong (knockdown) | 21 | 24 Hit_Air |
-| 5 | Spin (horizontal) | 22 | 24 Hit_Air |
-| 6 | Spin (vertical) | 23 | 24 Hit_Air |
+| 5 | Spin (horizontal) | 22 | 76 Hit_Spin |
+| 6 | Spin (vertical) | 23 | 76 Hit_Spin |
 | 7 | Falling | 24 | 24 Hit_Air |
 | 8 | On the ground | 25 | 25 Hit_GroundSlide |
 | 9 | Down | 26 | 26 Hit_Down |
 | 10 | Get up | 27 | 27 Hit_GetUp |
-| 11 | Sweep 1 | 28 | 24 Hit_Air |
-| 12 | Sweep 2 | 29 | 24 Hit_Air |
-| 13 | Faint | 30 | 21 Hit_Stand_Strong (placeholder) |
+| 11 | Sweep 1 (trip) | 28 | 75 Hit_Trip |
+| 12 | Sweep 2 (heavier trip) | 29 | 75 Hit_Trip |
+| 13 | Faint (crumple) | 30 | 74 Hit_Crumple |
 | 14 | Throw reaction (held, "!") | 61 | 37 Hit_Thrown |
 | **15** | **Ground slide** *(new)* | ⚠️ **missing** | 25 Hit_GroundSlide |
 | **16** | **Thrown launch** *(new: damage + hard knockdown)* | ⚠️ **missing** | 38 Hit_Thrown_Launch |
+| **17** | **Launch** *(new: anti-air launcher, e.g. a 2C)* | ⚠️ **missing** | 77 Hit_Launch |
+| **18** | **Knocked back** *(new: sent far backwards)* | ⚠️ **missing** | 79 Hit_KnockedBack |
 
 ### 2. State numbers = position in the list (fixed universal layout)
 

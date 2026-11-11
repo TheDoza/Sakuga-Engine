@@ -21,6 +21,14 @@
 [ext_resource type="PackedScene" path="res://Fighters/Shared/VFX/VFX_16.tscn" id="18_move"]
 [ext_resource type="PackedScene" path="res://Fighters/Shared/VFX/VFX_17.tscn" id="19_move"]
 [ext_resource type="PackedScene" path="res://Fighters/Shared/VFX/VFX_18.tscn" id="20_move"]
+[ext_resource type="PackedScene" path="res://Fighters/Shared/VFX/VFX_19.tscn" id="21_fakeout"]
+[ext_resource type="PackedScene" path="res://Fighters/Shared/VFX/VFX_20.tscn" id="22_fakeout"]
+[ext_resource type="PackedScene" path="res://Fighters/Shared/VFX/VFX_21.tscn" id="23_fakeout"]
+[ext_resource type="PackedScene" path="res://Fighters/Shared/VFX/VFX_22.tscn" id="24_fakeout"]
+[ext_resource type="PackedScene" path="res://Fighters/Shared/VFX/VFX_23.tscn" id="25_fakeoutfail"]
+[ext_resource type="PackedScene" path="res://Fighters/Shared/VFX/VFX_24.tscn" id="26_exelectric"]
+[ext_resource type="PackedScene" path="res://Fighters/Shared/VFX/VFX_25.tscn" id="27_lightningslash"]
+[ext_resource type="PackedScene" path="res://Fighters/Shared/VFX/VFX_26.tscn" id="28_heavyflat"]
 
 [sub_resource type="Resource" id="Resource_2floy"]
 script = ExtResource("2_0kwyy")
@@ -136,6 +144,54 @@ Key = "MovePuff"
 Instance = ExtResource("20_move")
 PoolSize = 2
 
+[sub_resource type="Resource" id="Resource_FakeoutBlue"]
+script = ExtResource("2_0kwyy")
+Key = "FakeoutBlue"
+Instance = ExtResource("21_fakeout")
+PoolSize = 1
+
+[sub_resource type="Resource" id="Resource_FakeoutRed"]
+script = ExtResource("2_0kwyy")
+Key = "FakeoutRed"
+Instance = ExtResource("22_fakeout")
+PoolSize = 1
+
+[sub_resource type="Resource" id="Resource_FakeoutPurple"]
+script = ExtResource("2_0kwyy")
+Key = "FakeoutPurple"
+Instance = ExtResource("23_fakeout")
+PoolSize = 1
+
+[sub_resource type="Resource" id="Resource_FakeoutGold"]
+script = ExtResource("2_0kwyy")
+Key = "FakeoutGold"
+Instance = ExtResource("24_fakeout")
+PoolSize = 1
+
+[sub_resource type="Resource" id="Resource_FakeoutFail"]
+script = ExtResource("2_0kwyy")
+Key = "FakeoutFail"
+Instance = ExtResource("25_fakeoutfail")
+PoolSize = 2
+
+[sub_resource type="Resource" id="Resource_EXElectric"]
+script = ExtResource("2_0kwyy")
+Key = "EXElectric"
+Instance = ExtResource("26_exelectric")
+PoolSize = 3
+
+[sub_resource type="Resource" id="Resource_LightningSlash"]
+script = ExtResource("2_0kwyy")
+Key = "LightningSlash"
+Instance = ExtResource("27_lightningslash")
+PoolSize = 2
+
+[sub_resource type="Resource" id="Resource_HeavyStreakFlat"]
+script = ExtResource("2_0kwyy")
+Key = "HeavyStreakFlat"
+Instance = ExtResource("28_heavyflat")
+PoolSize = 2
+
 [resource]
 script = ExtResource("1_r1fnx")
-SpawnObjects = Array[Object]([SubResource("Resource_2floy"), SubResource("Resource_6t0f1"), SubResource("Resource_widxw"), SubResource("Resource_55vjd"), SubResource("Resource_alert"), SubResource("Resource_barrier"), SubResource("Resource_burst"), SubResource("Resource_counter"), SubResource("Resource_fcstart"), SubResource("Resource_fcend"), SubResource("Resource_punish"), SubResource("Resource_reversal"), SubResource("Resource_MoveJumpStraight"), SubResource("Resource_MoveJumpTilted"), SubResource("Resource_MoveLanding"), SubResource("Resource_MoveRun"), SubResource("Resource_MoveBreak"), SubResource("Resource_MoveDash"), SubResource("Resource_MovePuff")])
+SpawnObjects = Array[Object]([SubResource("Resource_2floy"), SubResource("Resource_6t0f1"), SubResource("Resource_widxw"), SubResource("Resource_55vjd"), SubResource("Resource_alert"), SubResource("Resource_barrier"), SubResource("Resource_burst"), SubResource("Resource_counter"), SubResource("Resource_fcstart"), SubResource("Resource_fcend"), SubResource("Resource_punish"), SubResource("Resource_reversal"), SubResource("Resource_MoveJumpStraight"), SubResource("Resource_MoveJumpTilted"), SubResource("Resource_MoveLanding"), SubResource("Resource_MoveRun"), SubResource("Resource_MoveBreak"), SubResource("Resource_MoveDash"), SubResource("Resource_MovePuff"), SubResource("Resource_FakeoutBlue"), SubResource("Resource_FakeoutRed"), SubResource("Resource_FakeoutPurple"), SubResource("Resource_FakeoutGold"), SubResource("Resource_FakeoutFail"), SubResource("Resource_EXElectric"), SubResource("Resource_LightningSlash"), SubResource("Resource_HeavyStreakFlat")])

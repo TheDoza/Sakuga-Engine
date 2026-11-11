@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="MoveSettings" format=3 uid="uid://blux1dqy5woyq"]
+
+[ext_resource type="Resource" uid="uid://cxbefdoq5df5p" path="res://Fighters/Shared/Inputs/19_Input_236A.tres" id="input"]
+[ext_resource type="Script" uid="uid://gk1rkw667o4n" path="res://Scripts/SakugaEngine/Resources/MoveSettings.cs" id="move"]
+[ext_resource type="Script" uid="uid://bkfbdm3w3bsu2" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/CheckSpawnActiveCondition.cs" id="spawncheck"]
+
+[sub_resource type="Resource" id="R1"]
+script = ExtResource("spawncheck")
+Not = true
+
+[sub_resource type="Resource" id="R2"]
+script = ExtResource("spawncheck")
+Index = 1
+Not = true
+
+[resource]
+script = ExtResource("move")
+MoveName = "j236A"
+MoveState = 121
+Inputs = ExtResource("input")
+Priority = 7
+MoveEnd = 2
+CanCancelTo = null
+VariablesRequirement = null
+VariablesChange = null
+Conditions = Array[Object]([SubResource("R1"), SubResource("R2")])
+CanBeOverrided = true
+IgnoreSamePriority = false
+AcceptNullStates = true
+AcceptCombatStates = true
+UseOnAir = true
+FakeoutBlockedFrames = null

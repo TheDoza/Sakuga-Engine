@@ -7,7 +7,7 @@
 
 [sub_resource type="Resource" id="Resource_76if7"]
 script = ExtResource("1_76if7")
-SourceAnimation = "Jump_Backward"
+SourceAnimation = "Double_Jump_Backward"
 
 [sub_resource type="Resource" id="Resource_4nw03"]
 script = ExtResource("3_5gqnw")

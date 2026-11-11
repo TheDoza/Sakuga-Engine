@@ -1,0 +1,59 @@
+[gd_resource type="Resource" script_class="AnimationData" format=3 uid="uid://dgi5agnhe7vyj"]
+
+[ext_resource type="Script" uid="uid://ddkya5wrb53ly" path="res://Scripts/SakugaEngine/Resources/AnimationData.cs" id="ad"]
+[ext_resource type="Script" uid="uid://b8vqwkv52qq3e" path="res://Scripts/SakugaEngine/Resources/AnimationSettings.cs" id="as"]
+[ext_resource type="Resource" uid="uid://cp7purpepk5vc" path="res://Fighters/BasicBro/Moves/Hitboxes/BB_Hitbox_j214D_Hit1.tres" id="hb_1"]
+[ext_resource type="Resource" uid="uid://byudn6a6xcrk0" path="res://Fighters/BasicBro/Moves/Hitboxes/BB_Hitbox_j214D_Hit2.tres" id="hb_2"]
+[ext_resource type="Resource" uid="uid://c48mi2er3ao5h" path="res://Fighters/BasicBro/Hitboxes/BB_Hitbox_Stand.tres" id="hb_stand"]
+[ext_resource type="Script" uid="uid://5qrsoteskjym" path="res://Scripts/SakugaEngine/Resources/HitboxState.cs" id="hst"]
+
+[sub_resource type="Resource" id="R1"]
+script = ExtResource("as")
+SourceAnimation = "j_5B"
+Speed = 1.2
+LimitRange = true
+AnimationRange = Vector2i(0, 10)
+Offset = Vector3(0, -1.28, 0)
+
+[sub_resource type="Resource" id="R2"]
+script = ExtResource("as")
+AtFrame = 10
+SourceAnimation = "BB_j214C_B"
+Speed = 0.9
+LimitRange = true
+AnimationRange = Vector2i(0, 18)
+Rotation = Vector3(0, 0, -40)
+
+[sub_resource type="Resource" id="R3"]
+script = ExtResource("hst")
+HitboxData = ExtResource("hb_stand")
+
+[sub_resource type="Resource" id="R4"]
+script = ExtResource("hst")
+AtFrame = 8
+animationStage = 1
+HitboxData = ExtResource("hb_1")
+
+[sub_resource type="Resource" id="R5"]
+script = ExtResource("hst")
+AtFrame = 9
+animationStage = 2
+HitboxData = ExtResource("hb_stand")
+
+[sub_resource type="Resource" id="R6"]
+script = ExtResource("hst")
+AtFrame = 18
+animationStage = 1
+HitboxData = ExtResource("hb_2")
+
+[sub_resource type="Resource" id="R7"]
+script = ExtResource("hst")
+AtFrame = 21
+animationStage = 2
+HitboxData = ExtResource("hb_stand")
+
+[resource]
+script = ExtResource("ad")
+Duration = 43
+Animations = [SubResource("R1"), SubResource("R2")]
+Hitboxes = [SubResource("R3"), SubResource("R4"), SubResource("R5"), SubResource("R6"), SubResource("R7")]

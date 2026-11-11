@@ -42,6 +42,10 @@ namespace FunctionFighter.Mechanics
         /// <summary>The last state of that reaction (getup, tech, roll...) and whether its one free grace frame was used.</summary>
         [Key(11)] public int ReactionState;
         [Key(12)] public bool ReactionGrace;
+
+        // Function Fakeout
+        /// <summary>[FF PATCH: fakeout] Frames left on a buffered A+B+C press (Fakeout); a red X shows if it runs out.</summary>
+        [Key(13)] public int FakeoutBuffer;
     }
 
     /// <summary>What a hit gets from counter rules. Applied in SakugaActor.HitDamage ([FF PATCH: counter]).</summary>

@@ -10,47 +10,47 @@
 [ext_resource type="Script" uid="uid://bho4h38y7suxk" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/StateEndedCondition.cs" id="8_w2fpa"]
 [ext_resource type="Script" uid="uid://bf60srwkccsm8" path="res://Scripts/SakugaEngine/Resources/FighterState.cs" id="9_1ow2m"]
 
-[sub_resource type="Resource" id="Resource_wi7wu"]
+[sub_resource type="Resource" id="Resource_rcuc0"]
 script = ExtResource("2_uj418")
 
-[sub_resource type="Resource" id="Resource_01jx4"]
+[sub_resource type="Resource" id="Resource_uj418"]
 script = ExtResource("3_0ruwg")
 
-[sub_resource type="Resource" id="Resource_638eu"]
+[sub_resource type="Resource" id="Resource_0ruwg"]
 script = ExtResource("4_mfuq6")
-Conditions = Array[Object]([SubResource("Resource_01jx4")])
-Actions = Array[Object]([SubResource("Resource_wi7wu")])
+Conditions = Array[Object]([SubResource("Resource_uj418")])
+Actions = Array[Object]([SubResource("Resource_rcuc0")])
 
-[sub_resource type="Resource" id="Resource_4cy7v"]
+[sub_resource type="Resource" id="Resource_mfuq6"]
 script = ExtResource("5_duohy")
 
-[sub_resource type="Resource" id="Resource_segpr"]
+[sub_resource type="Resource" id="Resource_duohy"]
 script = ExtResource("6_h2lv5")
 
-[sub_resource type="Resource" id="Resource_4ui1b"]
+[sub_resource type="Resource" id="Resource_h2lv5"]
 script = ExtResource("4_mfuq6")
 Conditions = null
-Actions = Array[Object]([SubResource("Resource_4cy7v"), SubResource("Resource_segpr")])
+Actions = Array[Object]([SubResource("Resource_mfuq6"), SubResource("Resource_duohy")])
 
-[sub_resource type="Resource" id="Resource_wsrg6"]
+[sub_resource type="Resource" id="Resource_1e41u"]
 script = ExtResource("7_1e41u")
 
-[sub_resource type="Resource" id="Resource_4654k"]
+[sub_resource type="Resource" id="Resource_w2fpa"]
 script = ExtResource("8_w2fpa")
 
-[sub_resource type="Resource" id="Resource_xgqgy"]
+[sub_resource type="Resource" id="Resource_1ow2m"]
 script = ExtResource("4_mfuq6")
-Conditions = Array[Object]([SubResource("Resource_4654k")])
-Actions = Array[Object]([SubResource("Resource_wsrg6")])
+Conditions = Array[Object]([SubResource("Resource_w2fpa")])
+Actions = Array[Object]([SubResource("Resource_1e41u")])
 
 [resource]
 script = ExtResource("9_1ow2m")
 StateName = "Habit"
 Type = 1
 AnimationData = ExtResource("1_rcuc0")
-TransitionEvents = Array[Object]([SubResource("Resource_xgqgy")])
+TransitionEvents = Array[Object]([SubResource("Resource_1ow2m")])
 OnEnterEvents = null
-OnTickEvents = Array[Object]([SubResource("Resource_638eu"), SubResource("Resource_4ui1b")])
+OnTickEvents = Array[Object]([SubResource("Resource_0ruwg"), SubResource("Resource_h2lv5")])
 OnExitEvents = null
 OnHitConfirmEvents = null
 OnHitReactionEvents = null

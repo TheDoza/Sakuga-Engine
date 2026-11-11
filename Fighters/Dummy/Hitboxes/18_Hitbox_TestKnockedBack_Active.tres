@@ -1,0 +1,58 @@
+[gd_resource type="Resource" script_class="HitboxSettings" format=3 uid="uid://rfj88qh0kn3k"]
+
+[ext_resource type="Script" uid="uid://c0y740kryylcs" path="res://Scripts/SakugaEngine/Resources/HitboxElement.cs" id="1_s"]
+[ext_resource type="Script" uid="uid://dxuwyhds75mce" path="res://Scripts/SakugaEngine/Resources/HitboxSettings.cs" id="2_s"]
+[ext_resource type="Resource" uid="uid://bwffnan18ibt8" path="res://Fighters/Shared/HitboxPresets/Pushbox_Idle.tres" id="pb_push"]
+
+[sub_resource type="Resource" id="Sub_1"]
+script = ExtResource("1_s")
+Center = Vector2i(0, 5000)
+Size = Vector2i(5000, 10000)
+metadata/_custom_type_script = "uid://c0y740kryylcs"
+
+[sub_resource type="Resource" id="Sub_2"]
+script = ExtResource("1_s")
+Center = Vector2i(9000, 6000)
+Size = Vector2i(10000, 3000)
+HitboxType = 1
+HitType = 1
+BaseDamage = 700
+ChipDamage = 70
+GroundHitstunType = 2
+GroundHitReaction = 18
+CrouchHitReaction = 18
+GroundHitKnockback = Vector2i(-120000, 35000)
+GroundHitKnockbackGravity = 230000
+GroundHitKnockbackTime = 6
+GroundHitstun = 40
+GroundBlockKnockback = Vector2i(-40000, 0)
+GroundBlockKnockbackTime = 6
+GroundBlockstun = 14
+AirHitstunType = 2
+AirHitReaction = 18
+AirHitKnockback = Vector2i(-120000, 35000)
+AirHitKnockbackGravity = 230000
+AirHitstun = 40
+AirBlockKnockback = Vector2i(-40000, 0)
+AirBlockKnockbackGravity = 230000
+AirBlockKnockbackTime = 6
+AirBlockstun = 14
+SelfPushbackForce = 0
+SelfPushbackDuration = 0
+BounceXIntensity = 0
+BounceYIntensity = 0
+metadata/_custom_type_script = "uid://c0y740kryylcs"
+
+[sub_resource type="Resource" id="Sub_3"]
+script = ExtResource("1_s")
+Center = Vector2i(14000, 5000)
+Size = Vector2i(24000, 12000)
+HitboxType = 2
+HitType = 1
+metadata/_custom_type_script = "uid://c0y740kryylcs"
+
+[resource]
+script = ExtResource("2_s")
+Pushbox = ExtResource("pb_push")
+Hitboxes = [SubResource("Sub_1"), SubResource("Sub_2"), SubResource("Sub_3")]
+metadata/_custom_type_script = "uid://dxuwyhds75mce"

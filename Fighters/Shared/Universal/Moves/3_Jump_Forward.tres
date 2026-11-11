@@ -5,6 +5,7 @@
 
 [resource]
 script = ExtResource("2_oij7r")
+AcceptCombatStates = true
 SideCheck = 1
 MoveName = "Forward Jump"
 MoveState = 4

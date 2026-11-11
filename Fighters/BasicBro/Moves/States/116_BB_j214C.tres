@@ -1,0 +1,113 @@
+[gd_resource type="Resource" script_class="FighterState" format=3 uid="uid://dxmdsjocxas55"]
+
+[ext_resource type="Script" uid="uid://bf60srwkccsm8" path="res://Scripts/SakugaEngine/Resources/FighterState.cs" id="e1"]
+[ext_resource type="Script" uid="uid://c076jc3huncn2" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/FrameDataEvent.cs" id="e2"]
+[ext_resource type="Script" uid="uid://da4kqpf635oin" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/PlayStateAction.cs" id="e3"]
+[ext_resource type="Script" uid="uid://bho4h38y7suxk" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/StateEndedCondition.cs" id="e4"]
+[ext_resource type="Resource" uid="uid://c05c0rhv1be4v" path="res://Fighters/BasicBro/Moves/AnimationData/116_BB_j214C_AnimationData.tres" id="e5"]
+[ext_resource type="Script" uid="uid://dcnb575mw2hwp" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/AddGravityAction.cs" id="e6"]
+[ext_resource type="Script" uid="uid://baguhnol5ww4w" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/OnGroundCondition.cs" id="e7"]
+[ext_resource type="Script" uid="uid://bjhfta73s6pqs" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/CheckYVelocityCondition.cs" id="e8"]
+[ext_resource type="Script" uid="uid://bgwrlqrhqb2a4" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/MoveXAction.cs" id="e9"]
+[ext_resource type="Script" uid="uid://bw1835rb2hj7y" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/MoveYAction.cs" id="e10"]
+[ext_resource type="Script" uid="uid://c42r1mjvviuhg" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/AtFrameRangeCondition.cs" id="e11"]
+[ext_resource type="Script" uid="uid://ct6l0l1glytii" path="res://Scripts/FunctionFighter/Mechanics/SetLandingRecoveryAction.cs" id="e12"]
+[ext_resource type="Script" uid="uid://50grsd2r3wl8" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/AtFrameCondition.cs" id="xat"]
+[ext_resource type="Script" uid="uid://gx2c16shb4hs" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/SpawnVFXAction.cs" id="xvfx"]
+
+[sub_resource type="Resource" id="R15"]
+script = ExtResource("e12")
+Frames = 7
+
+[sub_resource type="Resource" id="R16"]
+script = ExtResource("e2")
+Conditions = null
+Actions = Array[Object]([SubResource("R15")])
+
+[sub_resource type="Resource" id="R8"]
+script = ExtResource("e9")
+
+[sub_resource type="Resource" id="R9"]
+script = ExtResource("e10")
+
+[sub_resource type="Resource" id="R10"]
+script = ExtResource("e11")
+MaxFrame = 11
+
+[sub_resource type="Resource" id="R11"]
+script = ExtResource("e2")
+Conditions = Array[Object]([SubResource("R10")])
+Actions = Array[Object]([SubResource("R8"), SubResource("R9")])
+
+[sub_resource type="Resource" id="R12"]
+script = ExtResource("e6")
+SetValue = true
+UseDefault = true
+
+[sub_resource type="Resource" id="R13"]
+script = ExtResource("e11")
+MaxFrame = 11
+Not = true
+
+[sub_resource type="Resource" id="R14"]
+script = ExtResource("e2")
+Conditions = Array[Object]([SubResource("R13")])
+Actions = Array[Object]([SubResource("R12")])
+
+[sub_resource type="Resource" id="FX0A"]
+script = ExtResource("xvfx")
+TargetPosition = Vector2i(5900, 7200)
+xRelativeTo = 1
+yRelativeTo = 1
+Index = 25
+AttachToParent = true
+RotationDegrees = 3
+ScalePercent = 55
+
+[sub_resource type="Resource" id="FX0C"]
+script = ExtResource("xat")
+Frame = 11
+
+[sub_resource type="Resource" id="FX0E"]
+script = ExtResource("e2")
+Conditions = Array[Object]([SubResource("FX0C")])
+Actions = Array[Object]([SubResource("FX0A")])
+
+[sub_resource type="Resource" id="R3"]
+script = ExtResource("e3")
+
+[sub_resource type="Resource" id="R1"]
+script = ExtResource("e7")
+
+[sub_resource type="Resource" id="R2"]
+script = ExtResource("e8")
+CompareMode = 4
+
+[sub_resource type="Resource" id="R4"]
+script = ExtResource("e2")
+Conditions = Array[Object]([SubResource("R1"), SubResource("R2")])
+Actions = Array[Object]([SubResource("R3")])
+
+[sub_resource type="Resource" id="R6"]
+script = ExtResource("e3")
+StateIndex = 6
+
+[sub_resource type="Resource" id="R5"]
+script = ExtResource("e4")
+
+[sub_resource type="Resource" id="R7"]
+script = ExtResource("e2")
+Conditions = Array[Object]([SubResource("R5")])
+Actions = Array[Object]([SubResource("R6")])
+
+[resource]
+script = ExtResource("e1")
+StateName = "j214C"
+Type = 2
+AnimationData = ExtResource("e5")
+TransitionEvents = Array[Object]([SubResource("R4"), SubResource("R7")])
+OnEnterEvents = Array[Object]([SubResource("R16")])
+OnTickEvents = Array[Object]([SubResource("R11"), SubResource("R14"), SubResource("FX0E")])
+OnExitEvents = null
+OnHitConfirmEvents = null
+OnHitReactionEvents = null

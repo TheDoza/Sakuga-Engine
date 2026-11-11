@@ -14,7 +14,17 @@ SelfPushbackDuration = 0
 BounceXIntensity = 0
 BounceYIntensity = 0
 
+[sub_resource type="Resource" id="Resource_7iqxg"]
+script = ExtResource("1_a68yr")
+Center = Vector2i(0, 12500)
+Size = Vector2i(3000, 5000)
+AirBlockKnockbackGravity = 300000
+SelfPushbackForce = 0
+SelfPushbackDuration = 0
+BounceXIntensity = 0
+BounceYIntensity = 0
+
 [resource]
 script = ExtResource("1_7s4vp")
 Pushbox = ExtResource("pb_push")
-Hitboxes = [SubResource("Resource_tm223")]
+Hitboxes = [SubResource("Resource_tm223"), SubResource("Resource_7iqxg")]

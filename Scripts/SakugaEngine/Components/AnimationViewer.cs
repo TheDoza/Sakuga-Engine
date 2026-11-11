@@ -28,6 +28,9 @@ namespace SakugaEngine
         private float[] previousTime;
         private int[] blendStartFrame;
         private int[] blendLength;
+        // [FF PATCH: offset blending] per-player blend weight shown last render, and each clip's Offset / Rotation
+        private float[] lastWeight;
+        private Vector3[] currentOffset, previousOffset, currentRotation, previousRotation;
 
         public void SetDepth(int LayerSorting)
         {
@@ -69,7 +72,7 @@ namespace SakugaEngine
                 if (prefix != null && prefix.Length > a) prfx = prefix[a];
                 string clip = prfx + anim.SourceAnimation;
 
-                if (useTree) ViewBlended(a, clip, time, blend, Frame);
+                if (useTree) ViewBlended(a, clip, time, blend, Frame, anim);
                 else
                 {
                     players[a].Play(clip);
@@ -77,13 +80,27 @@ namespace SakugaEngine
                 }
             }
 
+            // [FF PATCH: offset blending] The clip's Offset / Rotation blend with exactly the same From / To clips and
+            // weight as the pose, so a clip authored at a different height (e.g. j_5B) never drifts away from its pose.
             if (OffsetNode != null)
-                OffsetNode.Position = anim.Offset;
+            {
+                if (useTree && trees != null && currentClip != null && currentClip[0] != null)
+                {
+                    float w = previousClip[0] != null ? lastWeight[0] : 1f;
+                    OffsetNode.Position = previousOffset[0].Lerp(currentOffset[0], w);
+                    OffsetNode.RotationDegrees = previousRotation[0].Lerp(currentRotation[0], w);
+                }
+                else
+                {
+                    OffsetNode.Position = anim.Offset;
+                    OffsetNode.RotationDegrees = anim.Rotation; // [FF PATCH: animation rotation]
+                }
+            }
         }
 
         // [FF PATCH: animation blending] Shows `clip` at `time`, crossfading from the previous clip over `blend` frames.
         // The previous clip is held on the frame it was showing when the switch happened.
-        private void ViewBlended(int a, string clip, float time, int blend, int frame)
+        private void ViewBlended(int a, string clip, float time, int blend, int frame, AnimationSettings anim)
         {
             EnsureBlendState();
             AnimationPlayer player = players[a];
@@ -93,14 +110,24 @@ namespace SakugaEngine
             {
                 if (currentClip[a] != null && blend > 0)
                 {
-                    previousClip[a] = currentClip[a];
-                    previousTime[a] = currentTime[a];
+                    // [FF PATCH: offset blending] A clip that was only on screen for a frame or two (j.B > landing > crouch)
+                    // isn't what the player sees yet: keep blending from the clip that still dominates the screen.
+                    bool keepFrom = previousClip[a] != null && lastWeight[a] < 0.5f;
+                    if (!keepFrom)
+                    {
+                        previousClip[a] = currentClip[a];
+                        previousTime[a] = currentTime[a];
+                        previousOffset[a] = currentOffset[a];
+                        previousRotation[a] = currentRotation[a];
+                    }
                     blendStartFrame[a] = frame;
                     blendLength[a] = blend;
                 }
                 else previousClip[a] = null;
                 currentClip[a] = clip;
             }
+            currentOffset[a] = anim.Offset;
+            currentRotation[a] = anim.Rotation;
 
             float weight = 1f;
             if (previousClip[a] != null)
@@ -111,6 +138,7 @@ namespace SakugaEngine
                 else weight = (elapsed + 1) / (float)(blendLength[a] + 1);
             }
             currentTime[a] = time;
+            lastWeight[a] = weight;
 
             AnimationTree tree = trees[a] ?? CreateTree(a);
             var root = (AnimationNodeBlendTree)tree.TreeRoot;
@@ -142,6 +170,11 @@ namespace SakugaEngine
             previousTime = new float[n];
             blendStartFrame = new int[n];
             blendLength = new int[n];
+            lastWeight = new float[n];
+            currentOffset = new Vector3[n];
+            previousOffset = new Vector3[n];
+            currentRotation = new Vector3[n];
+            previousRotation = new Vector3[n];
         }
 
         // Builds From -> FromSeek \

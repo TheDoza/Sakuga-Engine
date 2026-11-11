@@ -1,0 +1,63 @@
+[gd_resource type="Resource" script_class="HitboxSettings" format=3 uid="uid://blfitll3fmmly"]
+
+[ext_resource type="Script" uid="uid://c0y740kryylcs" path="res://Scripts/SakugaEngine/Resources/HitboxElement.cs" id="1_5j20d"]
+[ext_resource type="Resource" uid="uid://bwffnan18ibt8" path="res://Fighters/Shared/HitboxPresets/Pushbox_Idle.tres" id="2_i8ikc"]
+[ext_resource type="Script" uid="uid://dxuwyhds75mce" path="res://Scripts/SakugaEngine/Resources/HitboxSettings.cs" id="3_eoyds"]
+
+[sub_resource type="Resource" id="R1"]
+script = ExtResource("1_5j20d")
+Center = Vector2i(0, 5000)
+Size = Vector2i(5000, 10000)
+
+[sub_resource type="Resource" id="R2"]
+script = ExtResource("1_5j20d")
+Center = Vector2i(6200, 7406)
+Size = Vector2i(7000, 3500)
+HitboxType = 1
+BaseDamage = 450
+ChipDamage = 45
+GroundHitstunType = 1
+GroundHitKnockback = Vector2i(-20000, 0)
+GroundHitstun = 15
+GroundBlockKnockback = Vector2i(-15000, 0)
+GroundBlockstun = 12
+AirHitstunType = 1
+AirHitReaction = 3
+AirHitKnockback = Vector2i(-20000, 30000)
+AirHitKnockbackGravity = 230000
+AirHitstun = 15
+AirBlockKnockback = Vector2i(-15000, 0)
+AirBlockKnockbackGravity = 230000
+AirBlockstun = 12
+
+[sub_resource type="Resource" id="R3"]
+script = ExtResource("1_5j20d")
+Center = Vector2i(12000, 6000)
+Size = Vector2i(20000, 12000)
+HitboxType = 2
+
+[sub_resource type="Resource" id="Resource_5j20d"]
+script = ExtResource("1_5j20d")
+Center = Vector2i(-959, 7149)
+Size = Vector2i(7000, 3500)
+HitboxType = 1
+BaseDamage = 450
+ChipDamage = 45
+GroundHitstunType = 1
+GroundHitKnockback = Vector2i(-20000, 0)
+GroundHitstun = 15
+GroundBlockKnockback = Vector2i(-15000, 0)
+GroundBlockstun = 12
+AirHitstunType = 1
+AirHitReaction = 3
+AirHitKnockback = Vector2i(-20000, 30000)
+AirHitKnockbackGravity = 230000
+AirHitstun = 15
+AirBlockKnockback = Vector2i(-15000, 0)
+AirBlockKnockbackGravity = 230000
+AirBlockstun = 12
+
+[resource]
+script = ExtResource("3_eoyds")
+Pushbox = ExtResource("2_i8ikc")
+Hitboxes = [SubResource("R1"), SubResource("R2"), SubResource("R3"), SubResource("Resource_5j20d")]

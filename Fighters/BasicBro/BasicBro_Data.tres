@@ -77,8 +77,42 @@
 [ext_resource type="Resource" uid="uid://cjarssd2mjnuw" path="res://Fighters/Kaede/AI/Kaede_AIData.tres" id="74_7jkk4"]
 [ext_resource type="Resource" uid="uid://cbpvrystu60hl" path="res://Fighters/BasicBro/Universal/States/72_Outro.tres" id="75_2h6sw"]
 [ext_resource type="Resource" uid="uid://cgkteffg8ydu" path="res://Fighters/BasicBro/Universal/States/73_Habit.tres" id="76_4g83i"]
+[ext_resource type="Resource" uid="uid://bu0q4gqomhtiu" path="res://Fighters/BasicBro/Universal/States/74_Hit_Crumple.tres" id="77_1e4wg"]
+[ext_resource type="Resource" uid="uid://be78hmeto3jy1" path="res://Fighters/BasicBro/Universal/States/75_Hit_Trip.tres" id="78_3dhxm"]
+[ext_resource type="Resource" uid="uid://dhd0w4am85ysr" path="res://Fighters/BasicBro/Universal/States/76_Hit_Spin.tres" id="79_31f3g"]
+[ext_resource type="Resource" uid="uid://p5akh06xi5hw" path="res://Fighters/BasicBro/Universal/States/77_Hit_Launch.tres" id="80_7tubm"]
+[ext_resource type="Resource" uid="uid://c76dulo1kufe3" path="res://Fighters/BasicBro/Universal/States/78_Hit_Down_FaceDown.tres" id="81_c4bvd"]
+[ext_resource type="Resource" uid="uid://cfag3ydbpbus3" path="res://Fighters/BasicBro/Universal/States/79_Hit_KnockedBack.tres" id="82_x1ggp"]
+[ext_resource type="Resource" uid="uid://ctt2qjvymyinq" path="res://Fighters/BasicBro/Moves/States/102_BB_214A.tres" id="85_7tubm"]
+[ext_resource type="Resource" uid="uid://ciuyi0a0as8n7" path="res://Fighters/BasicBro/Moves/States/100_BB_236A.tres" id="100_bb236a"]
+[ext_resource type="Resource" uid="uid://dy4hh3mu78t7e" path="res://Fighters/BasicBro/Moves/States/101_BB_236D.tres" id="101_bb236d"]
+[ext_resource type="Resource" uid="uid://c2ump7jhvw248" path="res://Fighters/BasicBro/Moves/States/103_BB_214B.tres" id="103_bb214b"]
+[ext_resource type="Resource" uid="uid://uabqopx6uxuk" path="res://Fighters/BasicBro/Moves/States/104_BB_214C.tres" id="104_bb214c"]
+[ext_resource type="Resource" uid="uid://bbkw2qssv330a" path="res://Fighters/BasicBro/Moves/States/105_BB_214D.tres" id="105_bb214d"]
+[ext_resource type="Resource" uid="uid://brc7g7rqr6kvq" path="res://Fighters/BasicBro/Moves/States/106_BB_623C.tres" id="106_bb623c"]
+[ext_resource type="Resource" uid="uid://dicbfod5s0kiv" path="res://Fighters/BasicBro/Universal/States/80_Counter_Crash.tres" id="cc_state"]
 [ext_resource type="Script" uid="uid://dfimvn5rd5jts" path="res://Scripts/SakugaEngine/Resources/FighterIntro.cs" id="ff_intro"]
 [ext_resource type="Script" uid="uid://bne635raru5sj" path="res://Scripts/SakugaEngine/Resources/FighterOutro.cs" id="ff_outro"]
+[ext_resource type="Resource" uid="uid://bm01l468ur4mu" path="res://Fighters/BasicBro/Moves/States/107_BB_5A.tres" id="st_107"]
+[ext_resource type="Resource" uid="uid://doe54enpdqhpk" path="res://Fighters/BasicBro/Moves/States/108_BB_5B.tres" id="st_108"]
+[ext_resource type="Resource" uid="uid://dutccatx6s1bv" path="res://Fighters/BasicBro/Moves/States/109_BB_5C.tres" id="st_109"]
+[ext_resource type="Resource" uid="uid://dysa1rd7dispc" path="res://Fighters/BasicBro/Moves/States/110_BB_2A.tres" id="st_110"]
+[ext_resource type="Resource" uid="uid://bcbucicyys0ks" path="res://Fighters/BasicBro/Moves/States/111_BB_2B.tres" id="st_111"]
+[ext_resource type="Resource" uid="uid://o6jvqxstenkv" path="res://Fighters/BasicBro/Moves/States/112_BB_2C.tres" id="st_112"]
+[ext_resource type="Resource" uid="uid://ubc3lgrsurgo" path="res://Fighters/BasicBro/Moves/States/113_BB_j5A.tres" id="st_113"]
+[ext_resource type="Resource" uid="uid://cyltecemu2w0p" path="res://Fighters/BasicBro/Moves/States/114_BB_j5B.tres" id="st_114"]
+[ext_resource type="Resource" uid="uid://bvhl1onm4dexd" path="res://Fighters/BasicBro/Moves/States/115_BB_j5C.tres" id="st_115"]
+[ext_resource type="Resource" uid="uid://dxmdsjocxas55" path="res://Fighters/BasicBro/Moves/States/116_BB_j214C.tres" id="st_116"]
+[ext_resource type="Resource" uid="uid://dfkbn6v7nooo4" path="res://Fighters/BasicBro/Moves/States/117_BB_2D.tres" id="st_117"]
+[ext_resource type="Resource" uid="uid://bcvv7reijnhjp" path="res://Fighters/BasicBro/Moves/States/118_BB_5D.tres" id="st_118"]
+[ext_resource type="Resource" uid="uid://bsfb7amyx1dkj" path="res://Fighters/BasicBro/Moves/States/119_BB_6A.tres" id="st_119"]
+[ext_resource type="Resource" uid="uid://bcp7fa7giihxt" path="res://Fighters/BasicBro/Moves/States/120_BB_6C.tres" id="st_120"]
+[ext_resource type="Resource" uid="uid://b6f8cq1mk1mwr" path="res://Fighters/BasicBro/Moves/States/121_BB_j236A.tres" id="st_121"]
+[ext_resource type="Resource" uid="uid://qt4jtca3tn4d" path="res://Fighters/BasicBro/Moves/States/122_BB_j236D.tres" id="st_122"]
+[ext_resource type="Resource" uid="uid://di0pcp7cctvn1" path="res://Fighters/BasicBro/Moves/States/123_BB_22C_6C.tres" id="st_123"]
+[ext_resource type="Resource" uid="uid://be4l53ur3ystj" path="res://Fighters/BasicBro/Moves/States/124_BB_22C_2C.tres" id="st_124"]
+[ext_resource type="Resource" uid="uid://de03x2lu5vgwl" path="res://Fighters/BasicBro/Moves/States/125_BB_22C_236C.tres" id="st_125"]
+[ext_resource type="Resource" uid="uid://cex1woqp1vu65" path="res://Fighters/BasicBro/Moves/States/126_BB_j214D.tres" id="st_126"]
 
 [sub_resource type="Resource" id="BB_Outro"]
 script = ExtResource("ff_outro")
@@ -92,12 +126,13 @@ StateIndex = 72
 [resource]
 script = ExtResource("1_script")
 Profile = ExtResource("2_profile")
-States = [ExtResource("5_0pgbr"), ExtResource("6_6bkve"), ExtResource("7_2h6sw"), ExtResource("8_4g83i"), ExtResource("9_iig5j"), ExtResource("10_xqaso"), ExtResource("11_h63uv"), ExtResource("12_w5r0r"), ExtResource("13_1e4wg"), ExtResource("14_3dhxm"), ExtResource("15_31f3g"), ExtResource("16_7tubm"), ExtResource("17_c4bvd"), ExtResource("18_x1ggp"), ExtResource("19_su45d"), ExtResource("20_rc743"), ExtResource("21_7wswb"), ExtResource("22_dbdt3"), ExtResource("23_4gc0s"), ExtResource("14_3dhxm"), ExtResource("24_axvrc"), ExtResource("25_1tgqj"), ExtResource("26_ao1x1"), ExtResource("27_tev02"), ExtResource("28_jcvn8"), ExtResource("29_akuwy"), ExtResource("30_wjlel"), ExtResource("31_yfk0e"), ExtResource("32_j4heo"), ExtResource("33_h5vc3"), ExtResource("34_aaefd"), ExtResource("35_yp08m"), ExtResource("36_mwwpg"), ExtResource("37_obluu"), ExtResource("38_wfess"), ExtResource("39_ynqmd"), ExtResource("40_oe860"), ExtResource("41_hmeew"), ExtResource("42_eg5dh"), ExtResource("14_3dhxm"), ExtResource("43_qbyea"), ExtResource("44_npjtt"), ExtResource("45_medra"), ExtResource("46_oo6lb"), ExtResource("47_ai2pm"), ExtResource("48_wgabm"), ExtResource("49_4ikjy"), ExtResource("50_7f4di"), ExtResource("51_x2con"), ExtResource("52_4u678"), ExtResource("53_780hd"), ExtResource("54_1jyhk"), ExtResource("55_h75v0"), ExtResource("56_434xq"), ExtResource("57_vg4ou"), ExtResource("58_bla0o"), ExtResource("59_orix4"), ExtResource("60_4cueo"), ExtResource("61_j0kxn"), ExtResource("14_3dhxm"), ExtResource("62_lqi00"), ExtResource("63_klvv6"), ExtResource("64_v7nbp"), ExtResource("65_fi3u3"), ExtResource("66_t8nse"), ExtResource("67_ejet4"), ExtResource("68_csq5q"), ExtResource("69_pbn6n"), ExtResource("70_bk0ji"), ExtResource("71_bfvje"), ExtResource("72_lowuc"), ExtResource("73_heq6t"), ExtResource("75_2h6sw"), ExtResource("76_4g83i"), ExtResource("14_3dhxm"), ExtResource("14_3dhxm"), ExtResource("14_3dhxm"), ExtResource("14_3dhxm"), ExtResource("14_3dhxm"), ExtResource("14_3dhxm"), ExtResource("14_3dhxm"), ExtResource("14_3dhxm"), ExtResource("14_3dhxm"), ExtResource("14_3dhxm"), ExtResource("14_3dhxm"), ExtResource("14_3dhxm"), ExtResource("14_3dhxm"), ExtResource("14_3dhxm"), ExtResource("14_3dhxm"), ExtResource("14_3dhxm"), ExtResource("14_3dhxm"), ExtResource("14_3dhxm"), ExtResource("14_3dhxm"), ExtResource("14_3dhxm"), ExtResource("14_3dhxm"), ExtResource("14_3dhxm"), ExtResource("14_3dhxm"), ExtResource("14_3dhxm"), ExtResource("14_3dhxm"), ExtResource("14_3dhxm")]
+States = [ExtResource("5_0pgbr"), ExtResource("6_6bkve"), ExtResource("7_2h6sw"), ExtResource("8_4g83i"), ExtResource("9_iig5j"), ExtResource("10_xqaso"), ExtResource("11_h63uv"), ExtResource("12_w5r0r"), ExtResource("13_1e4wg"), ExtResource("14_3dhxm"), ExtResource("15_31f3g"), ExtResource("16_7tubm"), ExtResource("17_c4bvd"), ExtResource("18_x1ggp"), ExtResource("19_su45d"), ExtResource("20_rc743"), ExtResource("21_7wswb"), ExtResource("22_dbdt3"), ExtResource("23_4gc0s"), ExtResource("14_3dhxm"), ExtResource("24_axvrc"), ExtResource("25_1tgqj"), ExtResource("26_ao1x1"), ExtResource("27_tev02"), ExtResource("28_jcvn8"), ExtResource("29_akuwy"), ExtResource("30_wjlel"), ExtResource("31_yfk0e"), ExtResource("32_j4heo"), ExtResource("33_h5vc3"), ExtResource("34_aaefd"), ExtResource("35_yp08m"), ExtResource("36_mwwpg"), ExtResource("37_obluu"), ExtResource("38_wfess"), ExtResource("39_ynqmd"), ExtResource("40_oe860"), ExtResource("41_hmeew"), ExtResource("42_eg5dh"), ExtResource("14_3dhxm"), ExtResource("43_qbyea"), ExtResource("44_npjtt"), ExtResource("45_medra"), ExtResource("46_oo6lb"), ExtResource("47_ai2pm"), ExtResource("48_wgabm"), ExtResource("49_4ikjy"), ExtResource("50_7f4di"), ExtResource("51_x2con"), ExtResource("52_4u678"), ExtResource("53_780hd"), ExtResource("54_1jyhk"), ExtResource("55_h75v0"), ExtResource("56_434xq"), ExtResource("57_vg4ou"), ExtResource("58_bla0o"), ExtResource("59_orix4"), ExtResource("60_4cueo"), ExtResource("61_j0kxn"), ExtResource("14_3dhxm"), ExtResource("62_lqi00"), ExtResource("63_klvv6"), ExtResource("64_v7nbp"), ExtResource("65_fi3u3"), ExtResource("66_t8nse"), ExtResource("67_ejet4"), ExtResource("68_csq5q"), ExtResource("69_pbn6n"), ExtResource("70_bk0ji"), ExtResource("71_bfvje"), ExtResource("72_lowuc"), ExtResource("73_heq6t"), ExtResource("75_2h6sw"), ExtResource("76_4g83i"), ExtResource("77_1e4wg"), ExtResource("78_3dhxm"), ExtResource("79_31f3g"), ExtResource("80_7tubm"), ExtResource("81_c4bvd"), ExtResource("82_x1ggp"), ExtResource("cc_state"), ExtResource("14_3dhxm"), ExtResource("14_3dhxm"), ExtResource("14_3dhxm"), ExtResource("14_3dhxm"), ExtResource("14_3dhxm"), ExtResource("14_3dhxm"), ExtResource("14_3dhxm"), ExtResource("14_3dhxm"), ExtResource("14_3dhxm"), ExtResource("14_3dhxm"), ExtResource("14_3dhxm"), ExtResource("14_3dhxm"), ExtResource("14_3dhxm"), ExtResource("14_3dhxm"), ExtResource("14_3dhxm"), ExtResource("14_3dhxm"), ExtResource("14_3dhxm"), ExtResource("14_3dhxm"), ExtResource("14_3dhxm"), ExtResource("100_bb236a"), ExtResource("101_bb236d"), ExtResource("85_7tubm"), ExtResource("103_bb214b"), ExtResource("104_bb214c"), ExtResource("105_bb214d"), ExtResource("106_bb623c"), ExtResource("st_107"), ExtResource("st_108"), ExtResource("st_109"), ExtResource("st_110"), ExtResource("st_111"), ExtResource("st_112"), ExtResource("st_113"), ExtResource("st_114"), ExtResource("st_115"), ExtResource("st_116"), ExtResource("st_117"), ExtResource("st_118"), ExtResource("st_119"), ExtResource("st_120"), ExtResource("st_121"), ExtResource("st_122"), ExtResource("st_123"), ExtResource("st_124"), ExtResource("st_125"), ExtResource("st_126")]
 Stances = [ExtResource("4_2diq2")]
 MaxHealth = 11000
 Locomotion = ExtResource("2_7tcjy")
 DefaultPushbox = ExtResource("3_pushbox")
 StateFlashOutline = false
+SignatureColor = Color(0.2, 0.709804, 1, 1)
 _aiData = ExtResource("74_7jkk4")
 Intros = null
 Outros = Array[Object]([SubResource("BB_Outro")])

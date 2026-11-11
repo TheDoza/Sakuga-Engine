@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="FakeoutSettings" format=3]
+
+[ext_resource type="Script" path="res://Scripts/FunctionFighter/Mechanics/FakeoutSettings.cs" id="1_fakeout"]
+
+[resource]
+script = ExtResource("1_fakeout")
+Enabled = true
+InputBufferFrames = 3
+GroundState = 0
+AirState = 6
+KeepAirMomentum = true
+VFXHeight = 6000
+FailVFXIndex = 23
+FailVFXHeight = 18500
+BlueCost = 2500
+BlueNotificationIndex = 14
+BlueVFXIndex = 19
+RedCost = 5000
+RedNotificationIndex = 15
+RedVFXIndex = 20
+PurpleCost = 7500
+PurpleNotificationIndex = 16
+PurpleVFXIndex = 21
+GoldCost = 5000
+GoldNotificationIndex = 17
+GoldVFXIndex = 22

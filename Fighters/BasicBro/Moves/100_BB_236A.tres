@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="MoveSettings" format=3 uid="uid://bpjbju2luyhht"]
+
+[ext_resource type="Resource" uid="uid://cxbefdoq5df5p" path="res://Fighters/Shared/Inputs/19_Input_236A.tres" id="1_input"]
+[ext_resource type="Script" uid="uid://gk1rkw667o4n" path="res://Scripts/SakugaEngine/Resources/MoveSettings.cs" id="2_move"]
+[ext_resource type="Script" uid="uid://bkfbdm3w3bsu2" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/CheckSpawnActiveCondition.cs" id="3_spawncheck"]
+
+[sub_resource type="Resource" id="Resource_one_on_screen"]
+script = ExtResource("3_spawncheck")
+Not = true
+
+[sub_resource type="Resource" id="Resource_no_fireball_ex"]
+script = ExtResource("3_spawncheck")
+Index = 1
+Not = true
+
+[resource]
+script = ExtResource("2_move")
+MoveName = "236A"
+MoveState = 100
+Inputs = ExtResource("1_input")
+Priority = 7
+MoveEnd = 2
+CanCancelTo = null
+VariablesRequirement = null
+VariablesChange = null
+Conditions = Array[Object]([SubResource("Resource_one_on_screen"), SubResource("Resource_no_fireball_ex")])
+CanBeOverrided = true
+IgnoreSamePriority = false
+AcceptNullStates = true
+AcceptCombatStates = true
+UseOnGround = true
+FakeoutBlockedFrames = null
+metadata/_custom_type_script = "uid://gk1rkw667o4n"

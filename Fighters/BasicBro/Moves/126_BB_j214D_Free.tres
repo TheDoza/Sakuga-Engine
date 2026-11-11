@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="MoveSettings" format=3 uid="uid://cwocoun3t52yw"]
+
+[ext_resource type="Resource" uid="uid://bkmrq67adfhw3" path="res://Fighters/Shared/Inputs/44_Input_214D.tres" id="input"]
+[ext_resource type="Script" uid="uid://gk1rkw667o4n" path="res://Scripts/SakugaEngine/Resources/MoveSettings.cs" id="move"]
+[ext_resource type="Script" uid="uid://dh03r2nvy3pmu" path="res://Scripts/SakugaEngine/Resources/CustomVariableChange.cs" id="vchange"]
+[ext_resource type="Script" uid="uid://cuch5yr7c7dag" path="res://Scripts/SakugaEngine/Resources/CustomVariableCondition.cs" id="vcond"]
+
+[sub_resource type="Resource" id="R2"]
+script = ExtResource("vchange")
+ByIndex = 4
+
+[sub_resource type="Resource" id="R1"]
+script = ExtResource("vcond")
+ByIndex = 4
+Value = 1
+
+[resource]
+script = ExtResource("move")
+MoveName = "j214D (Free)"
+MoveState = 126
+Inputs = ExtResource("input")
+Priority = 9
+MoveEnd = 2
+CanCancelTo = null
+VariablesRequirement = Array[Object]([SubResource("R1")])
+VariablesChange = Array[Object]([SubResource("R2")])
+Conditions = null
+CanBeOverrided = true
+IgnoreSamePriority = false
+AcceptNullStates = true
+AcceptCombatStates = true
+UseOnAir = true
+Fakeout = 3
+FakeoutBlockedFrames = null

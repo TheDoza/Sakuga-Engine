@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="MoveSettings" format=3 uid="uid://b44ovhp7gxace"]
+
+[ext_resource type="Resource" uid="uid://ceak3kopd0qqb" path="res://Fighters/Shared/Inputs/24_Input_623C.tres" id="1_input"]
+[ext_resource type="Script" uid="uid://gk1rkw667o4n" path="res://Scripts/SakugaEngine/Resources/MoveSettings.cs" id="2_move"]
+[ext_resource type="Script" uid="uid://dpgs1fcn5u351" path="res://Scripts/SakugaEngine/Resources/MoveCancelSettings.cs" id="3_cancel"]
+
+[sub_resource type="Resource" id="Rekka_6C"]
+script = ExtResource("3_cancel")
+MoveIndex = 60
+Conditions = 2
+FrameThreshold = Vector2i(13, 999)
+
+[resource]
+script = ExtResource("2_move")
+MoveName = "623C"
+MoveState = 106
+Inputs = ExtResource("1_input")
+Priority = 9
+MoveEnd = 2
+CanCancelTo = Array[Object]([SubResource("Rekka_6C")])
+VariablesRequirement = null
+VariablesChange = null
+Conditions = null
+CanBeOverrided = true
+IgnoreSamePriority = false
+AcceptNullStates = true
+AcceptCombatStates = true
+UseOnGround = true
+Fakeout = 4
+FakeoutPurpleOnWhiff = false
+FakeoutBlockedFrames = null
+metadata/_custom_type_script = "uid://gk1rkw667o4n"

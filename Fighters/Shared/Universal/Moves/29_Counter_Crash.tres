@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="MoveSettings" format=3 uid="uid://1thgv6wkxi5q"]
+
+[ext_resource type="Script" uid="uid://gk1rkw667o4n" path="res://Scripts/SakugaEngine/Resources/MoveSettings.cs" id="1_move"]
+[ext_resource type="Resource" uid="uid://c7pf4v4e5befv" path="res://Fighters/Shared/Inputs/47_Input_6AB.tres" id="2_input"]
+[ext_resource type="Script" uid="uid://ceoqefty16hbe" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/OnHitstunCondition.cs" id="3_stun"]
+
+[sub_resource type="Resource" id="InBlockstun"]
+script = ExtResource("3_stun")
+
+[resource]
+script = ExtResource("1_move")
+MoveName = "Counter Crash"
+MoveState = 80
+SideCheck = 1
+Inputs = ExtResource("2_input")
+Priority = 10
+SuperGaugeRequired = 5000
+CanCancelTo = null
+VariablesRequirement = null
+VariablesChange = null
+Conditions = Array[Object]([SubResource("InBlockstun")])
+CanBeOverrided = true
+AcceptMovementStates = false
+AcceptBlockingStates = true
+IgnoreHitstun = true
+UseOnGround = true
+Fakeout = 1
+FakeoutBlockedFrames = null

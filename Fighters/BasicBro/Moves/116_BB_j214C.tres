@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="MoveSettings" format=3]
+
+[ext_resource type="Script" uid="uid://gk1rkw667o4n" path="res://Scripts/SakugaEngine/Resources/MoveSettings.cs" id="e1"]
+[ext_resource type="Resource" path="res://Fighters/Shared/Inputs/43_Input_214C.tres" id="e2"]
+
+[resource]
+script = ExtResource("e1")
+MoveName = "j214C"
+MoveState = 116
+Inputs = ExtResource("e2")
+Priority = 7
+MoveEnd = 2
+Fakeout = 3
+CanCancelTo = null
+CanBeOverrided = true
+IgnoreSamePriority = false
+AcceptNullStates = true
+AcceptCombatStates = true
+UseOnAir = true

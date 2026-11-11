@@ -8,6 +8,7 @@
 [sub_resource type="Resource" id="Resource_cv8cn"]
 script = ExtResource("1_cv8cn")
 SourceAnimation = "AirDash_Backward"
+Speed = 0.5
 
 [sub_resource type="Resource" id="Resource_41fpx"]
 script = ExtResource("3_2sifn")

@@ -8,8 +8,6 @@
 [ext_resource type="Script" uid="uid://baguhnol5ww4w" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/OnGroundCondition.cs" id="6_oxxpu"]
 [ext_resource type="Script" uid="uid://bjhfta73s6pqs" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/CheckYVelocityCondition.cs" id="7_8htul"]
 [ext_resource type="Script" uid="uid://dw3ss4x3jfcl4" path="res://Scripts/FunctionFighter/Mechanics/BarrierHeldCondition.cs" id="8_133qs"]
-[ext_resource type="Script" uid="uid://b1wnmgsdqaa50" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/GoToFrameActions.cs" id="9_swbax"]
-[ext_resource type="Script" uid="uid://bho4h38y7suxk" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/StateEndedCondition.cs" id="10_joxye"]
 [ext_resource type="Script" uid="uid://bf60srwkccsm8" path="res://Scripts/SakugaEngine/Resources/FighterState.cs" id="11_oebjx"]
 
 [sub_resource type="Resource" id="Resource_haoay"]
@@ -84,26 +82,12 @@ Conditions = Array[Object]([SubResource("Resource_gg8x0")])
 Actions = Array[Object]([SubResource("Resource_n5tgi")])
 metadata/_custom_type_script = "uid://c076jc3huncn2"
 
-[sub_resource type="Resource" id="Resource_ukqhe"]
-script = ExtResource("9_swbax")
-metadata/_custom_type_script = "uid://b1wnmgsdqaa50"
-
-[sub_resource type="Resource" id="Resource_23r6a"]
-script = ExtResource("10_joxye")
-metadata/_custom_type_script = "uid://bho4h38y7suxk"
-
-[sub_resource type="Resource" id="Resource_7xejo"]
-script = ExtResource("4_c04og")
-Conditions = Array[Object]([SubResource("Resource_23r6a")])
-Actions = Array[Object]([SubResource("Resource_ukqhe")])
-metadata/_custom_type_script = "uid://c076jc3huncn2"
-
 [resource]
 script = ExtResource("11_oebjx")
 StateName = "Barrier_Air"
 Type = 1
 AnimationData = ExtResource("1_haoay")
-TransitionEvents = Array[Object]([SubResource("Resource_133qs"), SubResource("Resource_82h7b"), SubResource("Resource_qa73o"), SubResource("Resource_7xejo")])
+TransitionEvents = Array[Object]([SubResource("Resource_133qs"), SubResource("Resource_82h7b"), SubResource("Resource_qa73o")])
 OnEnterEvents = null
 OnTickEvents = Array[Object]([SubResource("Resource_v6xk7")])
 OnExitEvents = null

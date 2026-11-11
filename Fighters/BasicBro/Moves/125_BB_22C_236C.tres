@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="MoveSettings" format=3]
+
+[ext_resource type="Resource" uid="uid://bf2yf165njdfy" path="res://Fighters/Shared/Inputs/37_Input_6C.tres" id="input"]
+[ext_resource type="Script" uid="uid://gk1rkw667o4n" path="res://Scripts/SakugaEngine/Resources/MoveSettings.cs" id="move"]
+
+[resource]
+script = ExtResource("move")
+MoveName = "623C~6C~6C"
+MoveState = 125
+Inputs = ExtResource("input")
+Priority = 11
+MoveEnd = 2
+CanCancelTo = null
+VariablesRequirement = null
+VariablesChange = null
+Conditions = null
+SkipCheck = true
+CanBeOverrided = true
+IgnoreSamePriority = false
+AcceptNullStates = true
+AcceptCombatStates = true
+UseOnGround = true
+UseOnAir = true
+Fakeout = 3
+FakeoutBlockedFrames = null

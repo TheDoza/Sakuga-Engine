@@ -23,13 +23,17 @@ namespace SakugaEngine
             CurrentStance = 0;
         }
 
-        public bool CheckMoveConditions(int index)
+        /// <param name="buffering">[FF PATCH: self buffer] True from CheckMoves' normal (non-cancel) input matching. A move with
+        /// IgnoreSelf still can't cancel into itself, but pressing it again during its own attack now buffers it for when the
+        /// attack ends (mashing 2B gives 2B, 2B). Before, it was skipped, so a lower move sharing the button (5B) came out.</param>
+        public bool CheckMoveConditions(int index, bool buffering = false)
         {
             if (!CheckAllowedStateType(index)) return false;
 
             if (CurrentMove >= 0)
             {
-                if (CurrentMove == index && GetMove(index).IgnoreSelf) return false;
+                if (CurrentMove == index && GetMove(index).IgnoreSelf &&
+                    !(buffering && _owner.StateManager.CurrentStateType() == StateType.COMBAT)) return false;
                 if (GetMove(index).PriorityBuffer && GetMove(index).Priority < GetCurrentMove().Priority) return false;
             }
             if (GetMove(index).AcceptHitReactionStates && GetMove(index).IgnoreKnockdownHits && _owner.HitstunType >= HitstunType.KNOCKDOWN) return false;
@@ -73,7 +77,9 @@ namespace SakugaEngine
 
             // [FF PATCH: training reversal] The training dummy's tech / reversal action starts here, on the same frame a
             // perfectly timed input would. When it does, normal input matching is skipped for this frame.
-            bool forced = FunctionFighter.Training.Reversal.Run(_owner, this) ||
+            // [FF PATCH: fakeout] A+B+C during a move: Function Fakeout cancels it to neutral (skips input matching this frame).
+            bool forced = FunctionFighter.Mechanics.Fakeout.Try(_owner, this) ||
+                          FunctionFighter.Training.Reversal.Run(_owner, this) ||
                           FunctionFighter.Mechanics.Locomotion.TryHeldTech(_owner, this); // [FF PATCH: tech] hold A/B/C to tech asap
 
             // [FF PATCH: move priority] When several moves match on the same frame, the highest Priority wins
@@ -88,7 +94,7 @@ namespace SakugaEngine
                 // [FF PATCH: landing] landing recovery: walks / jumps / backdash locked for a few frames, everything during special landing
                 if (FunctionFighter.Mechanics.Locomotion.LandingBlocks(_owner, GetMove(i))) continue;
                 if (bestMove >= 0 && GetMove(i).Priority <= GetMove(bestMove).Priority) continue;
-                if (!CheckMoveConditions(i)) continue;
+                if (!CheckMoveConditions(i, true)) continue;
                 if (_owner.Inputs.CheckMotionInputs(GetMove(i).Inputs, _owner.InputSide(GetMove(i).SideCheck)))
                     bestMove = i;
             }
@@ -111,6 +117,10 @@ namespace SakugaEngine
 
         public void ExecuteMove(int moveIndex)
         {
+            // [FF PATCH: face on move] A move started on the ground faces the opponent first, so running under them and then
+            // attacking doesn't play the move backwards (specials, projectiles and forward-moving moves all go the right way).
+            if (_owner.Body != null && _owner.Body.IsOnGround) _owner.Body.FlipSide();
+
             _owner.Parameters.SuperGauge.CurrentValue -= GetMove(moveIndex).SuperGaugeRequired;
 
             if (GetMove(moveIndex).SuperFlash > 0 && !_owner.SuperFlashing)
@@ -139,16 +149,20 @@ namespace SakugaEngine
             if (GetCurrentMove().CanCancelTo == null) return;
             if (GetCurrentMove().CanCancelTo.Length <= 0) return;
 
+            // [FF PATCH: cancel priority] When several cancels match on the same frame, the highest Priority wins (same rule
+            // as CheckMoves), so 2B beats 5B, 2C beats 5C and specials beat normals whatever order the list is in.
+            // Ties go to the cancel higher in the list. Upstream took the first match in the list.
+            int bestCancel = -1;
             foreach (MoveCancelSettings cancel in GetCurrentMove().CanCancelTo)
             {
+                if (cancel == null) continue;
+                if (bestCancel >= 0 && GetMove(cancel.MoveIndex).Priority <= GetMove(bestCancel).Priority) continue;
                 if (!CheckCancelConditions(cancel)) continue;
                 if (!CheckMoveConditions(cancel.MoveIndex)) continue;
                 if (_owner.Inputs.CheckMotionInputs(GetMove(cancel.MoveIndex).Inputs, _owner.InputSide(GetMove(cancel.MoveIndex).SideCheck)))
-                {                    
-                    BufferMove(cancel.MoveIndex, true);
-                    break;
-                }
+                    bestCancel = cancel.MoveIndex;
             }
+            if (bestCancel >= 0) BufferMove(bestCancel, true);
         }
 
         /// <summary>[FF PATCH: training reversal] Would this move come out right now if its input were pressed?
@@ -213,11 +227,17 @@ namespace SakugaEngine
             bool checkMovementState = GetMove(moveIndex).AcceptMovementStates && _owner.StateManager.GetCurrentState().Type == StateType.MOVEMENT;
             bool checkCombatState = GetMove(moveIndex).AcceptCombatStates && _owner.StateManager.GetCurrentState().Type == StateType.COMBAT;
             bool checkBlockingState = GetMove(moveIndex).AcceptBlockingStates && _owner.StateManager.GetCurrentState().Type == StateType.BLOCKING;
+            // [FF PATCH: act from guard] Guard states (guard pose, blockstun, holding guard) also accept everything a movement
+            // state accepts, so a fighter can attack, jump or throw straight out of guard. It can be pressed during blockstun
+            // and is buffered: ProcessMoveBuffer holds it until the blockstun (hitstun timer) ends, unless the move has
+            // IgnoreHitstun. Walking / crouching (priority 0) are left out: guarding handles those itself.
+            bool checkGuardState = GetMove(moveIndex).AcceptMovementStates && GetMove(moveIndex).Priority > 0 &&
+                _owner.StateManager.GetCurrentState().Type == StateType.BLOCKING;
             // [FF PATCH: burst] AcceptHardKnockdownHits lets a move (Burst) come out of hard knockdown hits too (wall bounce...)
             bool checkHitReactionState = GetMove(moveIndex).AcceptHitReactionStates && _owner.StateManager.GetCurrentState().Type == StateType.HIT_REACTION &&
                 (_owner.HitstunType < HitstunType.HARD_KNOCKDOWN || GetMove(moveIndex).AcceptHardKnockdownHits && _owner.HitstunType == HitstunType.HARD_KNOCKDOWN);
 
-            return notLockedState && (checkNullState || checkMovementState || checkCombatState || checkBlockingState || checkHitReactionState);
+            return notLockedState && (checkNullState || checkMovementState || checkCombatState || checkBlockingState || checkGuardState || checkHitReactionState);
         }
 
         private void CheckMoveEndCondition()
@@ -378,4 +398,4 @@ namespace SakugaEngine
         public MoveSettings GetBufferedMove() => GetMove(BufferedMove);
         public int GetMoveListLength() => GetCurrentStance().Moves.Length;
     }
-}
+}

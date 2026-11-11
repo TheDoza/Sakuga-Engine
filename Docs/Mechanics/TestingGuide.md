@@ -8,7 +8,7 @@ To see state names, open `GameModes/GM_Training.tres` and tick `AllowShowDebugEl
 | Player 1 | W A S D | U | I | J | K |
 | Player 2 | Arrow keys | Numpad 4 | Numpad 5 | Numpad 1 | Numpad 2 |
 
-P1 test moves: **A** Test Wall Bounce · **B** Test Mid · **C** Slide Kick · **D** Test Ground Bounce · knockdown tests (hold S = down): **2A** Test Launcher (air hit, air-techable) · **2B** Test Air Knockdown (soft knockdown: Emergency Tech / rolls) · **2C** Test Hard Sweep (low, hard knockdown: no tech) · **2D** Test Fast Knockdown (pops and lands right away: wakeup / meaty practice) · **B+C** throw (**4+B+C** back throw, **B+C** in the air = air throw). P2 faces left, so P2's "back" is the **Right arrow**.
+P1 test moves: **A** Test Wall Bounce · **B** Test Mid · **C** Slide Kick · **D** Test Ground Bounce · knockdown tests (hold S = down): **2A** Test Launcher (air hit, air-techable) · **2B** Test Air Knockdown (soft knockdown: Emergency Tech / rolls) · **1C** Test Hard Sweep (low, hard knockdown: no tech) · **2C** Test Launch (anti-air launcher → Hit_Launch, air-techable after hitstun) · **6B** Test KnockedBack (blown far back → Hit_KnockedBack, lands face up) · **2D** Test Fast Knockdown (pops and lands right away: wakeup / meaty practice) · **B+C** throw (**4+B+C** back throw, **B+C** in the air = air throw). P2 faces left, so P2's "back" is the **Right arrow**.
 No numpad? Remap `k2_face_a`…`k2_face_d` in Project → Project Settings → Input Map.
 Macro buttons: **E** = A+B, **F** = B+C, **G** = A+B+C, **H** = A+B+C+D (P1 keyboard: O / P / L / ; · P2 keyboard: Numpad 6 / 3 / 0 / . by default).
 Training Settings: pause → **Training**. The steps below assume **Dummy: Controller** (the default), so player 2 plays the dummy.
@@ -74,6 +74,23 @@ The checks are grouped in the same order as the mechanics reference.
 - [ ] **Functional Counter:** Training Settings → Dummy Barrier: **Danger**, Counter Hit: **Always Big Counter**. P1 presses B → "Functional Counter", gold burst; P1 auto-dashes forward after the attack; hits stun much longer; after 5 s the next hit shows a green spark and "Functional End". Functional Counter: **Off** → it never starts.
 - [ ] **Clash:** P1 and P2 both press B about two character-lengths apart → both freeze, no damage, clash effect. Up close → they trade.
 
+## Offense: Function Fakeout
+
+P1 presses **L** (G macro = A+B+C) for the Fakeout. P1 faces right, so **236** = S, S+D, D and **623** = D, S, S+D. Super Meter is Infinite in Training by default; set it to **Normal** to watch the cost come off.
+
+- [ ] **Red on hit:** P1 presses I (5B Test Mid); as it hits, press L → "Red Fakeout", red ring, P1 is standing in Idle at once. P2 keeps full speed (no slowdown). Super Meter Normal at 100% → 50% left.
+- [ ] **Red on block:** Guard All. I, then L as it's blocked → Red. P1 recovers before P2 leaves blockstun.
+- [ ] **No Fakeout on a whiffed normal:** far from P2, I then L → red X over P1; the move finishes.
+- [ ] **Blue:** far from P2, 236 + U (Test Fakeout Special), L during the startup → "Blue Fakeout", blue ring, 25%. Again, L during the recovery → Blue. L during the active frames → nothing.
+- [ ] **Special that hits → Red, not Blue:** 236 + U next to P2, L on the hit → Red.
+- [ ] **Purple:** far from P2, 623 + J (Test Fakeout Risky), L late in the recovery → "Purple Fakeout", 75%. L right after the active frames (blocked frames 10–17) → red X. Guard All, 623 + J blocked, L → Purple. On hit → Red. L during its startup on a whiff → nothing.
+- [ ] **Gold:** Super Meter Normal at 100%. 236 + I + J (Test Fakeout Super, costs 50%), L during the active or recovery frames → "Gold Fakeout", gold ring, meter at 0. L during the startup → nothing.
+- [ ] **Not enough meter:** Super Meter Normal, drain it (or Refill After Combo at 0%). I on hit, L → red X.
+- [ ] **Throws:** B+C throw (whiffed or connected), L during it → red X, never a Fakeout.
+- [ ] **Air momentum:** needs an air attack (none on the Dummy yet): jump forward, attack, L on hit → the fighter keeps drifting forward and falls instead of stopping.
+- [ ] **Neutral press:** L while standing → no X, no Fakeout.
+- [ ] **During hitstop:** press L on the exact hit frame → it still comes out (no need to wait for hitstop).
+
 ## Knockdowns & Recovery
 
 - [ ] **Slide:** P1 presses C → P2 slides into Hit_Down, then techs up on its own at frame 64.
@@ -87,7 +104,7 @@ The checks are grouped in the same order as the mechanics reference.
 - [ ] **Emergency Tech:** P1 presses C; P2 presses Numpad 4 just before or as it lands → it gets straight up (no lying down).
 - [ ] **Forced tech:** P1 presses C, P2 does nothing → it lies about a second, then techs on its own.
 - [ ] **Rolls:** after a knockdown, P2 holds Left (toward P1) + Numpad 4 → Forward Roll, rolls through P1 to the other side. Right + Numpad 4 → Back Roll away.
-- [ ] **Knockdown moves:** 2A → P2 can air tech. 2B → P2 lands lying, Emergency Tech / rolls work. 2C → crouch-block it; unblocked P2 can't tech and just gets up. 2D → P2 is down almost instantly.
+- [ ] **Knockdown moves:** 2A → P2 can air tech. 2B → P2 lands lying, Emergency Tech / rolls work. 1C → crouch-block it; unblocked P2 can't tech and just gets up. 2C → P2 launches into Hit_Launch; juggle before hitstun ends, or P2 air techs (otherwise lands in Hit_Down). 2D → P2 is down almost instantly.
 - [ ] **INVALID combo:** 2B, then hit P2 while it lies on the ground (C) → the combo counter turns red and says INVALID (any mode).
 - [ ] **Hold to tech:** P2 holds Numpad 4 before getting hit by 2A → air techs the instant it can. Holding it through a 2B landing → Emergency Tech.
 

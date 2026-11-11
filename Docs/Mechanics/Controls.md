@@ -9,7 +9,7 @@ The four extra buttons are **macros**. The input mapping menu shows them by what
 |---|---|---|
 | E | A+B | Barrier (with back) |
 | F | B+C | Throw |
-| G | A+B+C | (free for now) |
+| G | A+B+C | Function Fakeout (during a move; see Fakeout.md) |
 | H | A+B+C+D | Burst |
 
 Holding a macro is exactly the same as holding those buttons, so it works with every move. The fighter never sees E–H themselves.
@@ -52,6 +52,8 @@ E + back → barrier; F → throw; H in hitstun → Burst; G gives A+B+C and no 
 ## Change log
 | Date | Change |
 |---|---|
+| 2026-11-07 | Pressing a move again during its own attack buffers that move (mashing 2B gives 2B, 2B, not 2B, 5B); when several cancels match, the highest Priority wins |
+| 2026-11-05 | G (A+B+C) is the Function Fakeout button |
 | 2026-10-12 | Frame Advance / Step Frame rows |
 | 2026-10-12 | Save State / Load State rows (bindable, used by Training) |
 | 2026-10-12 | Controls page in the pause menu; hold Right to disable a button |

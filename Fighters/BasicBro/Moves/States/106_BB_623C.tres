@@ -1,0 +1,167 @@
+[gd_resource type="Resource" script_class="FighterState" format=3 uid="uid://brc7g7rqr6kvq"]
+
+[ext_resource type="Resource" uid="uid://colk31xvfpuxv" path="res://Fighters/BasicBro/Moves/AnimationData/106_BB_623C_AnimationData.tres" id="1_anim"]
+[ext_resource type="Script" uid="uid://50grsd2r3wl8" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/AtFrameCondition.cs" id="at"]
+[ext_resource type="Script" uid="uid://bho4h38y7suxk" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/StateEndedCondition.cs" id="ended"]
+[ext_resource type="Script" uid="uid://c076jc3huncn2" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/FrameDataEvent.cs" id="ev"]
+[ext_resource type="Script" uid="uid://dcnb575mw2hwp" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/AddGravityAction.cs" id="grav"]
+[ext_resource type="Script" uid="uid://baguhnol5ww4w" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/OnGroundCondition.cs" id="ground"]
+[ext_resource type="Script" uid="uid://ct6l0l1glytii" path="res://Scripts/FunctionFighter/Mechanics/SetLandingRecoveryAction.cs" id="land"]
+[ext_resource type="Script" uid="uid://bgwrlqrhqb2a4" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/MoveXAction.cs" id="mx"]
+[ext_resource type="Script" uid="uid://bw1835rb2hj7y" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/MoveYAction.cs" id="my"]
+[ext_resource type="Script" uid="uid://da4kqpf635oin" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/PlayStateAction.cs" id="play"]
+[ext_resource type="Script" uid="uid://cfq32y8apqltb" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/SetFramePropertiesAction.cs" id="props"]
+[ext_resource type="Script" uid="uid://c42r1mjvviuhg" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/AtFrameRangeCondition.cs" id="range"]
+[ext_resource type="Script" uid="uid://bw56p1f6qccsb" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/ResetHitAction.cs" id="reset"]
+[ext_resource type="Script" uid="uid://bf60srwkccsm8" path="res://Scripts/SakugaEngine/Resources/FighterState.cs" id="st"]
+[ext_resource type="Script" uid="uid://bjhfta73s6pqs" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/CheckYVelocityCondition.cs" id="yvel"]
+
+[sub_resource type="Resource" id="Resource_invuln_on"]
+script = ExtResource("props")
+Properties = 7
+ChangeMode = 1
+
+[sub_resource type="Resource" id="R2"]
+script = ExtResource("land")
+Frames = 24
+
+[sub_resource type="Resource" id="R3"]
+script = ExtResource("ev")
+Conditions = null
+Actions = Array[Object]([SubResource("Resource_invuln_on"), SubResource("R2")])
+
+[sub_resource type="Resource" id="Resource_invuln_off"]
+script = ExtResource("props")
+Properties = 7
+ChangeMode = 2
+
+[sub_resource type="Resource" id="R5"]
+script = ExtResource("ev")
+Conditions = null
+Actions = Array[Object]([SubResource("Resource_invuln_off")])
+
+[sub_resource type="Resource" id="R6"]
+script = ExtResource("range")
+MaxFrame = 12
+
+[sub_resource type="Resource" id="R7"]
+script = ExtResource("ev")
+Conditions = Array[Object]([SubResource("R6")])
+Actions = Array[Object]([SubResource("Resource_invuln_on")])
+
+[sub_resource type="Resource" id="R9"]
+script = ExtResource("reset")
+
+[sub_resource type="Resource" id="R8"]
+script = ExtResource("at")
+Frame = 13
+
+[sub_resource type="Resource" id="R10"]
+script = ExtResource("ev")
+Conditions = Array[Object]([SubResource("R8")])
+Actions = Array[Object]([SubResource("Resource_invuln_off"), SubResource("R9")])
+
+[sub_resource type="Resource" id="R12"]
+script = ExtResource("mx")
+UseInertia = true
+
+[sub_resource type="Resource" id="R13"]
+script = ExtResource("my")
+
+[sub_resource type="Resource" id="R11"]
+script = ExtResource("range")
+MaxFrame = 3
+
+[sub_resource type="Resource" id="R14"]
+script = ExtResource("ev")
+Conditions = Array[Object]([SubResource("R11")])
+Actions = Array[Object]([SubResource("R12"), SubResource("R13")])
+
+[sub_resource type="Resource" id="R16"]
+script = ExtResource("mx")
+Velocity = 20000
+
+[sub_resource type="Resource" id="R17"]
+script = ExtResource("my")
+
+[sub_resource type="Resource" id="R15"]
+script = ExtResource("range")
+MinFrame = 4
+MaxFrame = 7
+
+[sub_resource type="Resource" id="R18"]
+script = ExtResource("ev")
+Conditions = Array[Object]([SubResource("R15")])
+Actions = Array[Object]([SubResource("R16"), SubResource("R17")])
+
+[sub_resource type="Resource" id="R20"]
+script = ExtResource("mx")
+Velocity = 12000
+
+[sub_resource type="Resource" id="R21"]
+script = ExtResource("my")
+Velocity = 92000
+
+[sub_resource type="Resource" id="R19"]
+script = ExtResource("at")
+Frame = 8
+
+[sub_resource type="Resource" id="R22"]
+script = ExtResource("ev")
+Conditions = Array[Object]([SubResource("R19")])
+Actions = Array[Object]([SubResource("R20"), SubResource("R21")])
+
+[sub_resource type="Resource" id="R24"]
+script = ExtResource("grav")
+SetValue = true
+UseDefault = true
+
+[sub_resource type="Resource" id="R23"]
+script = ExtResource("range")
+MinFrame = 9
+MaxFrame = 9999
+
+[sub_resource type="Resource" id="R25"]
+script = ExtResource("ev")
+Conditions = Array[Object]([SubResource("R23")])
+Actions = Array[Object]([SubResource("R24")])
+
+[sub_resource type="Resource" id="R28"]
+script = ExtResource("play")
+
+[sub_resource type="Resource" id="R26"]
+script = ExtResource("ground")
+
+[sub_resource type="Resource" id="R27"]
+script = ExtResource("yvel")
+CompareMode = 4
+
+[sub_resource type="Resource" id="R29"]
+script = ExtResource("ev")
+Conditions = Array[Object]([SubResource("R26"), SubResource("R27")])
+Actions = Array[Object]([SubResource("R28")])
+
+[sub_resource type="Resource" id="R31"]
+script = ExtResource("play")
+StateIndex = 6
+
+[sub_resource type="Resource" id="R30"]
+script = ExtResource("ended")
+
+[sub_resource type="Resource" id="R32"]
+script = ExtResource("ev")
+Conditions = Array[Object]([SubResource("R30")])
+Actions = Array[Object]([SubResource("R31")])
+
+[resource]
+script = ExtResource("st")
+StateName = "623C"
+Type = 2
+AnimationData = ExtResource("1_anim")
+TransitionEvents = Array[Object]([SubResource("R29"), SubResource("R32")])
+OnEnterEvents = Array[Object]([SubResource("R3")])
+OnTickEvents = Array[Object]([SubResource("R7"), SubResource("R10"), SubResource("R14"), SubResource("R18"), SubResource("R22"), SubResource("R25")])
+OnExitEvents = Array[Object]([SubResource("R5")])
+OnHitConfirmEvents = null
+OnHitReactionEvents = null
+AIFlags = 2066

@@ -6,16 +6,16 @@
 [ext_resource type="Script" uid="uid://c076jc3huncn2" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/FrameDataEvent.cs" id="4_ibjfn"]
 [ext_resource type="Script" uid="uid://bf60srwkccsm8" path="res://Scripts/SakugaEngine/Resources/FighterState.cs" id="5_8aooj"]
 
-[sub_resource type="Resource" id="Resource_qwnpb"]
+[sub_resource type="Resource" id="Resource_5m7vl"]
 script = ExtResource("2_8f3hl")
 
-[sub_resource type="Resource" id="Resource_tcrbv"]
+[sub_resource type="Resource" id="Resource_8f3hl"]
 script = ExtResource("3_c2ore")
 
-[sub_resource type="Resource" id="Resource_d0ffu"]
+[sub_resource type="Resource" id="Resource_c2ore"]
 script = ExtResource("4_ibjfn")
 Conditions = null
-Actions = Array[Object]([SubResource("Resource_qwnpb"), SubResource("Resource_tcrbv")])
+Actions = Array[Object]([SubResource("Resource_5m7vl"), SubResource("Resource_8f3hl")])
 
 [resource]
 script = ExtResource("5_8aooj")
@@ -23,8 +23,8 @@ StateName = "Outro"
 Type = 5
 AnimationData = ExtResource("1_5m7vl")
 TransitionEvents = null
-OnEnterEvents = Array[Object]([SubResource("Resource_d0ffu")])
-OnTickEvents = Array[Object]([SubResource("Resource_d0ffu")])
+OnEnterEvents = Array[Object]([SubResource("Resource_c2ore")])
+OnTickEvents = Array[Object]([SubResource("Resource_c2ore")])
 OnExitEvents = null
 OnHitConfirmEvents = null
 OnHitReactionEvents = null

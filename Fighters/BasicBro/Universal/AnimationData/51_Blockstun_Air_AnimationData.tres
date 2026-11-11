@@ -7,7 +7,7 @@
 
 [sub_resource type="Resource" id="Resource_rssjb"]
 script = ExtResource("1_rssjb")
-SourceAnimation = "Barrier_Air"
+SourceAnimation = "Blockstun_Air"
 
 [sub_resource type="Resource" id="Resource_78edu"]
 script = ExtResource("3_vnb4e")

@@ -7,7 +7,7 @@
 
 [sub_resource type="Resource" id="Resource_838eq"]
 script = ExtResource("1_838eq")
-SourceAnimation = "Falling"
+SourceAnimation = "Throw_Air_Hit"
 
 [sub_resource type="Resource" id="Resource_qsbbf"]
 script = ExtResource("3_7mytu")

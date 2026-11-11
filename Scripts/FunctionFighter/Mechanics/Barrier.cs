@@ -46,9 +46,11 @@ namespace FunctionFighter.Mechanics
             GameManager.Instance == null || GameManager.Instance.Monitor == null ||
             GameManager.Instance.Monitor.MatchState == MatchState.ROUND_RUNNING;
 
+        /// <summary>A+B held. The training dummy set to Guard Type: Barrier counts as holding them while it guards.</summary>
         public static bool ButtonsHeld(SakugaActor a) =>
-            a.Inputs.IsBeingPressed(a.Inputs.CurrentHistory, PlayerInputs.FACE_A) &&
-            a.Inputs.IsBeingPressed(a.Inputs.CurrentHistory, PlayerInputs.FACE_B);
+            (a.Inputs.IsBeingPressed(a.Inputs.CurrentHistory, PlayerInputs.FACE_A) &&
+             a.Inputs.IsBeingPressed(a.Inputs.CurrentHistory, PlayerInputs.FACE_B)) ||
+            Training.TrainingController.DummyBarrierGuards(a);
 
         /// <summary>Barrier meter available (not empty, not in Danger), buttons aside.</summary>
         public static bool HasMeter(SakugaActor a) => IsFighter(a) && !a.Barrier.Danger && a.Barrier.Value > 0;
@@ -73,8 +75,10 @@ namespace FunctionFighter.Mechanics
         /// <summary>
         /// Barrier is up but back isn't held: the fighter still guards (standing, crouching or air guard, by stance).
         /// Read by StanceManager.GetBlockState ([FF PATCH: barrier]).
+        /// The training dummy's Barrier guard is left to its Guard setting instead, so it still guards each hit the right way.
         /// </summary>
-        public static bool GuardsWithoutBack(SakugaActor a) => IsFighter(a) && a.Barrier.Held && CanBarrier(a);
+        public static bool GuardsWithoutBack(SakugaActor a) => IsFighter(a) && a.Barrier.Held && CanBarrier(a) &&
+                                                               !Training.TrainingController.DummyBarrierGuards(a);
 
         /// <summary>Full gauge, no Danger. Called at match start and every round.</summary>
         public static void Reset(SakugaActor a)
@@ -177,7 +181,10 @@ namespace FunctionFighter.Mechanics
         /// </summary>
         public static bool OnBlock(SakugaActor defender, SakugaActor attacker, int knockbackX, int knockbackTime, int rawDamage)
         {
-            if (!CanBarrier(defender) || !IsFighter(attacker)) return false;
+            // [FF PATCH: barrier chip] Projectiles count too (they have no inputs, so they aren't "fighters"): no chip, and the
+            // extra pushback all goes to the defender.
+            if (!CanBarrier(defender) || attacker == null || attacker.Body == null) return false;
+            bool attackerIsFighter = IsFighter(attacker);
             var s = Settings;
             ref BarrierState b = ref defender.Barrier;
             if (!b.WasActive) b.Value -= s.ActivationCost;
@@ -199,14 +206,14 @@ namespace FunctionFighter.Mechanics
                 int dx = defender.Body.FixedPosition.X - attacker.Body.FixedPosition.X;
                 int dir = dx != 0 ? System.Math.Sign(dx) : -defender.Body.PlayerSide; // direction away from the attacker
                 int roomDef = System.Math.Max(0, GlobalVariables.WallLimit - dir * defender.Body.FixedPosition.X - (int)normal);
-                int roomAtt = System.Math.Max(0, GlobalVariables.WallLimit + dir * attacker.Body.FixedPosition.X);
+                int roomAtt = attackerIsFighter ? System.Math.Max(0, GlobalVariables.WallLimit + dir * attacker.Body.FixedPosition.X) : 0;
 
                 int defShare = System.Math.Min(extra / 2, roomDef);
                 int attShare = System.Math.Min(extra - defShare, roomAtt);
                 defShare = System.Math.Min(extra - attShare, roomDef); // a cornered attacker hands its share back
 
                 Queue(defender, defShare * dir);
-                Queue(attacker, -attShare * dir);
+                if (attackerIsFighter) Queue(attacker, -attShare * dir);
             }
 
             if (s.FlashVFXIndex >= 0 && defender.Pool != null)

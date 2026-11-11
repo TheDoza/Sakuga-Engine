@@ -8,6 +8,7 @@
 [sub_resource type="Resource" id="Resource_opp43"]
 script = ExtResource("1_opp43")
 SourceAnimation = "Backdash"
+Speed = 0.5
 
 [sub_resource type="Resource" id="Resource_6m544"]
 script = ExtResource("3_rtgbf")

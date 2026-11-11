@@ -182,12 +182,15 @@ namespace SakugaEngine
             //GD.Print(objectToSpawn.Name + " Spawned!");
         }
 
-        public void SpawnVFX(int index, Vector2I position, int side, bool attached)
+        public void SpawnVFX(int index, Vector2I position, int side, bool attached) => SpawnVFX(index, position, side, attached, 0, 100);
+
+        /// <summary>[FF PATCH: vfx transform] Same, with a rotation (degrees, facing right) and size (percent).</summary>
+        public void SpawnVFX(int index, Vector2I position, int side, bool attached, int rotationDegrees, int scalePercent)
         {
             if (VFXReferences.Count == 0) return;
             VFXPoolReference spawnElement = GetVFXReference(index);
             SakugaVFX objectToSpawn = GetNextInactiveVFXElement(spawnElement);
-            objectToSpawn.Spawn(position, side, attached);
+            objectToSpawn.Spawn(position, side, attached, rotationDegrees, scalePercent);
 
             //GD.Print(objectToSpawn.Name + " Spawned!");
         }

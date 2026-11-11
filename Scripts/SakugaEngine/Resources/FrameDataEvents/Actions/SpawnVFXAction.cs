@@ -14,6 +14,10 @@ namespace SakugaEngine.Resources
         [Export] private string Key;
         [Export] private int FromExtraVariable = -1;
         [Export] private bool AttachToParent;
+        /// <summary>[FF PATCH: vfx transform] Rotation in degrees for a fighter facing right (mirrored when facing left).</summary>
+        [Export] private int RotationDegrees;
+        /// <summary>[FF PATCH: vfx transform] Size in percent (100 = as authored).</summary>
+        [Export] private int ScalePercent = 100;
         public override void Execute(ref SakugaActor Actor)
         {
             if (Actor.Pool == null) return;
@@ -28,7 +32,7 @@ namespace SakugaEngine.Resources
             }
             
             if (ind >= 0)
-                Actor.Pool.SpawnVFX(ind, dst, Actor.InputSide(), AttachToParent);
+                Actor.Pool.SpawnVFX(ind, dst, Actor.InputSide(), AttachToParent, RotationDegrees, ScalePercent);
             else if (Key != "")
                 Actor.Pool.SpawnVFX(ind, dst, Actor.InputSide(), AttachToParent);
         }

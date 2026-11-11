@@ -61,6 +61,7 @@ namespace SakugaEngine
         public FunctionFighter.Mechanics.CounterState Counter;
         // [FF PATCH: locomotion] run / dash / jump state, air actions, momentum (saved for rollback)
         public FunctionFighter.Mechanics.LocomotionState Locomotion;
+        public FunctionFighter.Mechanics.WallStickState WallStick; // [FF PATCH: wall stick]
 
         // References
         private SakugaActor actor;
@@ -216,6 +217,7 @@ namespace SakugaEngine
             FunctionFighter.Mechanics.Burst.Init(this); // [FF PATCH: burst] full at match start only, carries over between rounds
             FunctionFighter.Mechanics.Counter.Reset(this); // [FF PATCH: counter]
             FunctionFighter.Mechanics.Locomotion.Reset(this); // [FF PATCH: locomotion]
+            FunctionFighter.Mechanics.WallStick.Reset(this); // [FF PATCH: wall stick]
         }
         
         public void InitializePool()
@@ -253,6 +255,7 @@ namespace SakugaEngine
             FunctionFighter.Mechanics.Barrier.Reset(this); // [FF PATCH: barrier]
             FunctionFighter.Mechanics.Counter.Reset(this); // [FF PATCH: counter]
             FunctionFighter.Mechanics.Locomotion.Reset(this); // [FF PATCH: locomotion]
+            FunctionFighter.Mechanics.WallStick.Reset(this); // [FF PATCH: wall stick]
         }
 
         public override void PreTick()
@@ -304,6 +307,7 @@ namespace SakugaEngine
             FunctionFighter.Mechanics.Barrier.Tick(this); // [FF PATCH: barrier] meter drain/refill + barrier pushback
             FunctionFighter.Mechanics.Counter.Tick(this); // [FF PATCH: counter] carry, combo flags, Functional Counter timer + auto-dash
             FunctionFighter.Mechanics.Locomotion.Tick(this); // [FF PATCH: locomotion] run, skid, dashes, jumps, air actions, momentum
+            FunctionFighter.Mechanics.WallStick.Tick(this); // [FF PATCH: wall stick] hold on the corner wall, then fall
 
             foreach(FrameDataEvent tickEvent in StateManager.GetCurrentState().OnTickEvents)
                 tickEvent.RunEvent(ref actor);
@@ -398,6 +402,17 @@ namespace SakugaEngine
             bool canTech = StateManager != null && StateManager.CurrentStateType() == StateType.HIT_REACTION && !OnHitstun() && ValidTechState();
             // [FF PATCH: counter] Counter Hit / Big Counter / Functional Counter bonuses for this hit
             var counterHit = FunctionFighter.Mechanics.Counter.OnHit(this, target, box, isGroundHit);
+            // [FF PATCH: counter hit overrides] a counter hit can use its own reaction, knockback and hitstun (e.g. a launching fireball)
+            if (counterHit.Kind == FunctionFighter.Mechanics.CounterKind.Counter ||
+                counterHit.Kind == FunctionFighter.Mechanics.CounterKind.BigCounter ||
+                counterHit.Kind == FunctionFighter.Mechanics.CounterKind.Functional)
+            {
+                if (box.CounterHitReaction >= 0) finalHitReaction = box.CounterHitReaction;
+                if (box.CounterHitKnockback != Vector2I.Zero) finalDamageKnockback = box.CounterHitKnockback;
+                if (box.CounterHitKnockbackGravity > 0) finalKnockbackGravity = box.CounterHitKnockbackGravity;
+                if (box.CounterHitstunType != HitstunType.NONE) HitstunType = box.CounterHitstunType;
+                if (box.CounterHitstun > 0) finalHitstun = box.CounterHitstun;
+            }
             finalHitstun = counterHit.Hitstun(finalHitstun);
             finalKnockbackGravity = counterHit.Gravity(finalKnockbackGravity);
             
@@ -446,6 +461,7 @@ namespace SakugaEngine
                 finalDamageKnockback.Y - decayingKnockback, 
                 finalKnockbackGravity
             );
+            FunctionFighter.Mechanics.WallStick.OnHit(this, box); // [FF PATCH: wall stick] arm (or clear) the wall stick for this hit
 
             if (Parameters != null)
             {

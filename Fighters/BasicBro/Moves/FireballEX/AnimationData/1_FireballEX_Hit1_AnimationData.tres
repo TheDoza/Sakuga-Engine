@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="AnimationData" format=3 uid="uid://closqo4ji6u8"]
+
+[ext_resource type="Script" uid="uid://b8vqwkv52qq3e" path="res://Scripts/SakugaEngine/Resources/AnimationSettings.cs" id="1_as"]
+[ext_resource type="Script" uid="uid://5qrsoteskjym" path="res://Scripts/SakugaEngine/Resources/HitboxState.cs" id="2_hst"]
+[ext_resource type="Script" uid="uid://ddkya5wrb53ly" path="res://Scripts/SakugaEngine/Resources/AnimationData.cs" id="3_ad"]
+[ext_resource type="Resource" uid="uid://vu0d5v6wocel" path="res://Fighters/BasicBro/Moves/FireballEX/Hitboxes/BB_Hitbox_FireballEX_Multi.tres" id="4_hb"]
+
+[sub_resource type="Resource" id="Resource_anim"]
+script = ExtResource("1_as")
+SourceAnimation = "Active"
+metadata/_custom_type_script = "uid://b8vqwkv52qq3e"
+
+[sub_resource type="Resource" id="Resource_hb"]
+script = ExtResource("2_hst")
+animationStage = 1
+HitboxData = ExtResource("4_hb")
+metadata/_custom_type_script = "uid://5qrsoteskjym"
+
+[resource]
+script = ExtResource("3_ad")
+Duration = 36
+Animations = [SubResource("Resource_anim")]
+Hitboxes = [SubResource("Resource_hb")]
+metadata/_custom_type_script = "uid://ddkya5wrb53ly"

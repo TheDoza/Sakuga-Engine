@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="MoveSettings" format=3]
+
+[ext_resource type="Resource" uid="uid://bkmrq67adfhw3" path="res://Fighters/Shared/Inputs/44_Input_214D.tres" id="input"]
+[ext_resource type="Script" uid="uid://gk1rkw667o4n" path="res://Scripts/SakugaEngine/Resources/MoveSettings.cs" id="move"]
+
+[resource]
+script = ExtResource("move")
+MoveName = "j214D"
+MoveState = 126
+Inputs = ExtResource("input")
+Priority = 8
+MoveEnd = 2
+SuperGaugeRequired = 2500
+CanCancelTo = null
+VariablesRequirement = null
+VariablesChange = null
+Conditions = null
+CanBeOverrided = true
+IgnoreSamePriority = false
+AcceptNullStates = true
+AcceptCombatStates = true
+UseOnAir = true
+Fakeout = 3
+FakeoutBlockedFrames = null

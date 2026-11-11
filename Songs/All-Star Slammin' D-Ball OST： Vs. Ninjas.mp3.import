@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bbw2tfcvku0h8"
+path="res://.godot/imported/All-Star Slammin' D-Ball OST： Vs. Ninjas.mp3-a739be9b10cd111147040d9392cd28f1.mp3str"
+
+[deps]
+
+source_file="res://Songs/All-Star Slammin' D-Ball OST： Vs. Ninjas.mp3"
+dest_files=["res://.godot/imported/All-Star Slammin' D-Ball OST： Vs. Ninjas.mp3-a739be9b10cd111147040d9392cd28f1.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

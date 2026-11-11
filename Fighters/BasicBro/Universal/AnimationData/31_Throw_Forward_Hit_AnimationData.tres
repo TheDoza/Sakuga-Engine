@@ -7,7 +7,7 @@
 
 [sub_resource type="Resource" id="Resource_uy2sd"]
 script = ExtResource("1_uy2sd")
-SourceAnimation = "Idle"
+SourceAnimation = "Throw_Forward_Hit"
 
 [sub_resource type="Resource" id="Resource_no3td"]
 script = ExtResource("3_k7alp")

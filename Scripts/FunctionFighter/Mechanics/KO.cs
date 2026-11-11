@@ -20,7 +20,7 @@ namespace FunctionFighter.Mechanics
         /// <summary>KO'd and lying still in Hit_Down (the round can end).</summary>
         public static bool IsDown(SakugaActor a)
         {
-            if (!IsKO(a) || a.Body == null || !a.Body.IsOnGround || a.StateManager.CurrentState != Locomotion.HitDown) return false;
+            if (!IsKO(a) || a.Body == null || !a.Body.IsOnGround || !Locomotion.IsLyingState(a.StateManager.CurrentState)) return false;
             var anim = a.StateManager.GetCurrentState().AnimationData;
             return anim == null || a.StateManager.CurrentStateFrame >= System.Math.Max(0, anim.Duration - 2);
         }

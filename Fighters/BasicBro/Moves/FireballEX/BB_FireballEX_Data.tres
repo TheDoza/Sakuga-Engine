@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="DataContainer" format=3]
+
+[ext_resource type="Resource" path="res://Fighters/BasicBro/Moves/FireballEX/States/0_Spawn.tres" id="1_spawn"]
+[ext_resource type="Resource" path="res://Fighters/BasicBro/Moves/FireballEX/States/1_Hit1.tres" id="2_hit1"]
+[ext_resource type="Resource" path="res://Fighters/BasicBro/Moves/FireballEX/States/2_Hit2.tres" id="3_hit2"]
+[ext_resource type="Resource" path="res://Fighters/BasicBro/Moves/FireballEX/States/3_Hit3.tres" id="4_hit3"]
+[ext_resource type="Resource" path="res://Fighters/BasicBro/Moves/FireballEX/States/2_Death.tres" id="5_death"]
+[ext_resource type="Script" uid="uid://bsbjg1nuyall1" path="res://Scripts/SakugaEngine/Resources/DataContainer.cs" id="6_dc"]
+
+[resource]
+script = ExtResource("6_dc")
+States = Array[Object]([ExtResource("1_spawn"), ExtResource("2_hit1"), ExtResource("3_hit2"), ExtResource("4_hit3"), ExtResource("5_death")])
+Stances = null
+Intros = null
+Outros = null
+VictoryPoses = null
+metadata/_custom_type_script = "uid://bsbjg1nuyall1"

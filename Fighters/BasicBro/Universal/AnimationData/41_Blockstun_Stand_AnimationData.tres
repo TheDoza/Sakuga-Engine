@@ -7,7 +7,7 @@
 
 [sub_resource type="Resource" id="Resource_f1k66"]
 script = ExtResource("1_f1k66")
-SourceAnimation = "Barrier_Stand"
+SourceAnimation = "Blocking_Stand"
 
 [sub_resource type="Resource" id="Resource_oegp5"]
 script = ExtResource("3_aq6kf")

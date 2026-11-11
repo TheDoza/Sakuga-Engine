@@ -1,0 +1,66 @@
+[gd_resource type="Resource" script_class="MoveSettings" format=3 uid="uid://bvbgx2h24tp88"]
+
+[ext_resource type="Script" uid="uid://gk1rkw667o4n" path="res://Scripts/SakugaEngine/Resources/MoveSettings.cs" id="e1"]
+[ext_resource type="Resource" uid="uid://d0wfxlb0qkmur" path="res://Fighters/Shared/Inputs/11_Input_5A.tres" id="e2"]
+[ext_resource type="Script" uid="uid://dpgs1fcn5u351" path="res://Scripts/SakugaEngine/Resources/MoveCancelSettings.cs" id="e3"]
+
+[sub_resource type="Resource" id="S1"]
+script = ExtResource("e3")
+MoveIndex = 42
+Conditions = 6
+FrameThreshold = Vector2i(0, 999)
+
+[sub_resource type="Resource" id="R1"]
+script = ExtResource("e3")
+MoveIndex = 43
+Conditions = 6
+FrameThreshold = Vector2i(0, 999)
+
+[sub_resource type="Resource" id="R2"]
+script = ExtResource("e3")
+MoveIndex = 44
+Conditions = 6
+FrameThreshold = Vector2i(0, 999)
+
+[sub_resource type="Resource" id="R3"]
+script = ExtResource("e3")
+MoveIndex = 45
+Conditions = 6
+FrameThreshold = Vector2i(0, 999)
+
+[sub_resource type="Resource" id="J1"]
+script = ExtResource("e3")
+MoveIndex = 25
+Conditions = 6
+FrameThreshold = Vector2i(0, 999)
+
+[sub_resource type="Resource" id="J2"]
+script = ExtResource("e3")
+MoveIndex = 26
+Conditions = 6
+FrameThreshold = Vector2i(0, 999)
+
+[sub_resource type="Resource" id="J3"]
+script = ExtResource("e3")
+MoveIndex = 24
+Conditions = 6
+FrameThreshold = Vector2i(0, 999)
+
+[resource]
+script = ExtResource("e1")
+MoveName = "j5A"
+MoveState = 113
+Inputs = ExtResource("e2")
+Priority = 4
+MoveEnd = 2
+CanCancelTo = Array[Object]([SubResource("S1"), SubResource("R1"), SubResource("R2"), SubResource("R3"), SubResource("J1"), SubResource("J2"), SubResource("J3")])
+VariablesRequirement = null
+VariablesChange = null
+Conditions = null
+CanBeOverrided = true
+IgnoreSelf = false
+IgnoreSamePriority = false
+AcceptNullStates = true
+AcceptCombatStates = true
+UseOnAir = true
+FakeoutBlockedFrames = null

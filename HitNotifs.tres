@@ -87,7 +87,31 @@ NotificationName = "Reversal"
 Description = "A move on the very first frame after blockstun, hitstun or wakeup"
 metadata/_custom_type_script = "uid://bqear64xdcxwm"
 
+[sub_resource type="Resource" id="Resource_fo_blue"]
+script = ExtResource("1_apjgi")
+NotificationName = "Blue Fakeout"
+Description = "Function Fakeout during the startup or recovery of a special (25% meter)"
+metadata/_custom_type_script = "uid://bqear64xdcxwm"
+
+[sub_resource type="Resource" id="Resource_fo_red"]
+script = ExtResource("1_apjgi")
+NotificationName = "Red Fakeout"
+Description = "Function Fakeout while the opponent is in hitstun or blockstun (50% meter)"
+metadata/_custom_type_script = "uid://bqear64xdcxwm"
+
+[sub_resource type="Resource" id="Resource_fo_purple"]
+script = ExtResource("1_apjgi")
+NotificationName = "Purple Fakeout"
+Description = "Function Fakeout of a blocked or whiffed risky move (75% meter)"
+metadata/_custom_type_script = "uid://bqear64xdcxwm"
+
+[sub_resource type="Resource" id="Resource_fo_gold"]
+script = ExtResource("1_apjgi")
+NotificationName = "Gold Fakeout"
+Description = "Function Fakeout during the active or recovery frames of a super (50% meter)"
+metadata/_custom_type_script = "uid://bqear64xdcxwm"
+
 [resource]
 script = ExtResource("1_wmhdv")
-Elements = Array[Object]([SubResource("Resource_jobs6"), SubResource("Resource_xxvg2"), SubResource("Resource_l1fn6"), SubResource("Resource_qokn8"), SubResource("Resource_ccn70"), SubResource("Resource_xlgnu"), SubResource("Resource_apjgi"), SubResource("Resource_oiim8"), SubResource("Resource_7mfca"), SubResource("Resource_danger"), SubResource("Resource_bigcounter"), SubResource("Resource_fcstart"), SubResource("Resource_fcend"), SubResource("Resource_reversal")])
+Elements = Array[Object]([SubResource("Resource_jobs6"), SubResource("Resource_xxvg2"), SubResource("Resource_l1fn6"), SubResource("Resource_qokn8"), SubResource("Resource_ccn70"), SubResource("Resource_xlgnu"), SubResource("Resource_apjgi"), SubResource("Resource_oiim8"), SubResource("Resource_7mfca"), SubResource("Resource_danger"), SubResource("Resource_bigcounter"), SubResource("Resource_fcstart"), SubResource("Resource_fcend"), SubResource("Resource_reversal"), SubResource("Resource_fo_blue"), SubResource("Resource_fo_red"), SubResource("Resource_fo_purple"), SubResource("Resource_fo_gold")])
 metadata/_custom_type_script = "uid://b6fu34fkx6cj7"

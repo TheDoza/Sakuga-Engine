@@ -19,7 +19,9 @@ then return it to Idle (ground) or Falling (air).
 | 21 Hit_Stand_Strong | 1 | hitstun ends → Idle | Basic |
 | 22 Hit_Crouch | 2 | hitstun ends → Crouching | Crouch |
 | 23 Hit_Air_Weak | 3 | lands → Idle, or air tech after hitstun | Basic |
-| 24 Hit_Air | 4–7, 11, 12 | lands → Hit_Down | Basic |
+| 24 Hit_Air | 4, 7 | lands → Hit_Down | Basic |
+
+Crumple (slot 13), Trip (slots 11–12) and Spin (slots 5–6) have their own states: see [HitStates.md](HitStates.md).
 
 ## Test results
 | Test | Result |

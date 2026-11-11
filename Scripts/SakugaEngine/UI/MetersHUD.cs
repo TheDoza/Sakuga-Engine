@@ -27,6 +27,20 @@ namespace SakugaEngine.UI
         [Export] public int PurplePercent = 75;
         [Export] public int GoldPercent = 100;
 
+        // [FF PATCH: ex buff] Icon next to the super meter for fighters with a free-EX buff variable (Basic Bro's 5D).
+        // Colored while the buff is stocked, grey while it isn't, hidden for fighters without the variable.
+        [ExportGroup("EX Buff Icon")]
+        [Export] public Texture2D BuffIconStocked;
+        [Export] public Texture2D BuffIconEmpty;
+        [Export] public string BuffVariableName = "EXFree";
+        [Export] public Vector2 BuffIconSize = new Vector2(48, 48);
+        /// <summary>Space between the meter bar and the icon (P1: left of the bar, P2: right of the bar).</summary>
+        [Export] public float BuffIconGap = 10f;
+        /// <summary>Extra nudge after placing the icon beside the bar (x is mirrored for P2, so + moves both away from the bar).</summary>
+        [Export] public Vector2 BuffIconOffset = Vector2.Zero;
+        private TextureRect P1BuffIcon;
+        private TextureRect P2BuffIcon;
+
         private int CurrentFrameAdvantage;
 
         /*public override void _Ready()
@@ -41,6 +55,61 @@ namespace SakugaEngine.UI
         {
             P1Meter.MaxValue = fighters[0].Data.MaxSuperGauge;
             P2Meter.MaxValue = fighters[1].Data.MaxSuperGauge;
+
+            // [FF PATCH: ex buff]
+            BuffIconStocked ??= GD.Load<Texture2D>("res://Sprites/UI/BB_ExBuff.png");
+            BuffIconEmpty ??= GD.Load<Texture2D>("res://Sprites/UI/BB_ExBuff_Grey.png");
+            P1BuffIcon ??= MakeBuffIcon(P1Meter, false);
+            P2BuffIcon ??= MakeBuffIcon(P2Meter, true);
+        }
+
+        // [FF PATCH: ex buff] The icon is a sibling of the meter, not a child: the meter bar is scaled down (0.14 x 0.07)
+        // and a child would be scaled with it to almost nothing.
+        private TextureRect MakeBuffIcon(TextureProgressBar meter, bool mirrored)
+        {
+            if (meter == null) return null;
+            var icon = new TextureRect
+            {
+                Name = mirrored ? "P2EXBuffIcon" : "P1EXBuffIcon",
+                ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize,
+                StretchMode = TextureRect.StretchModeEnum.KeepAspectCentered,
+                MouseFilter = MouseFilterEnum.Ignore,
+                Size = BuffIconSize,
+                Visible = false,
+            };
+            Node parent = meter.GetParent() ?? this;
+            parent.CallDeferred(Node.MethodName.AddChild, icon); // deferred: Setup can run while the HUD is still being built
+            PlaceBuffIcon(icon, meter, mirrored);
+            return icon;
+        }
+
+        // [FF PATCH: ex buff] P1: left of the bar, P2: right of the bar, centred on the bar's height. Done every update so it
+        // follows the bar if the layout changes (window resize, anchors).
+        private void PlaceBuffIcon(TextureRect icon, TextureProgressBar meter, bool mirrored)
+        {
+            if (icon == null || meter == null) return;
+            Vector2 barSize = meter.Size * meter.Scale;
+            Vector2 barPos = meter.Position;
+            // A negative scale draws the bar to the left / above its position.
+            if (barSize.X < 0) { barPos.X += barSize.X; barSize.X = -barSize.X; }
+            if (barSize.Y < 0) { barPos.Y += barSize.Y; barSize.Y = -barSize.Y; }
+            icon.Size = BuffIconSize;
+            float x = mirrored ? barPos.X + barSize.X + BuffIconGap + BuffIconOffset.X
+                               : barPos.X - BuffIconSize.X - BuffIconGap - BuffIconOffset.X;
+            float y = barPos.Y + (barSize.Y - BuffIconSize.Y) * 0.5f + BuffIconOffset.Y;
+            icon.Position = new Vector2(x, y);
+        }
+
+        // [FF PATCH: ex buff]
+        private void UpdateBuffIcon(TextureRect icon, SakugaActor fighter)
+        {
+            if (icon == null) return;
+            PlaceBuffIcon(icon, icon == P2BuffIcon ? P2Meter : P1Meter, icon == P2BuffIcon);
+            var parameters = fighter?.Parameters;
+            CustomVariable buff = parameters != null && parameters.HasVariables() ? parameters.GetVariable(BuffVariableName) : null;
+            icon.Visible = buff != null;
+            if (buff == null) return;
+            icon.Texture = buff.CurrentValue > 0 ? BuffIconStocked : BuffIconEmpty;
         }
 
         public void UpdateMeters(SakugaActor[] fighters)
@@ -52,6 +121,8 @@ namespace SakugaEngine.UI
             P2Meter.Value = p2Super;
             P1Meter.TintProgress = GetSuperTint(p1Super, fighters[0].Data.MaxSuperGauge);
             P2Meter.TintProgress = GetSuperTint(p2Super, fighters[1].Data.MaxSuperGauge);
+            UpdateBuffIcon(P1BuffIcon, fighters[0]); // [FF PATCH: ex buff]
+            UpdateBuffIcon(P2BuffIcon, fighters[1]);
 
             GetFrameAdvantage(fighters);
 

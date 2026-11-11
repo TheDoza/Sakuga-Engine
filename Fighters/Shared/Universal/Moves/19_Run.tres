@@ -19,4 +19,5 @@ VariablesChange = null
 Conditions = Array[Object]([SubResource("Sub_1")])
 CanBeOverrided = true
 UseOnGround = true
+FakeoutBlockedFrames = null
 metadata/_custom_type_script = "uid://gk1rkw667o4n"

@@ -90,7 +90,7 @@ namespace FunctionFighter.Training
             if (dummy == null) return;
             if (dummy.StateManager.CurrentStateType() != StateType.HIT_REACTION) { _airPick = _groundPick = -1; _techDelayStarted = false; }
             int st = dummy.StateManager.CurrentState;
-            bool knockedDown = dummy.HitstunType >= HitstunType.KNOCKDOWN || st == HitGroundSlide || st == HitDown || st == HitGetUp;
+            bool knockedDown = dummy.HitstunType >= HitstunType.KNOCKDOWN || st == HitGroundSlide || FunctionFighter.Mechanics.Locomotion.IsLyingState(st) || st == HitGetUp;
             // Knocked down without a normal hit event (e.g. thrown): still arm the wakeup reversal.
             if (!_armed && knockedDown && dummy.StateManager.CurrentStateType() == StateType.HIT_REACTION) Arm(block: false);
             if (!_armed) return;
@@ -220,7 +220,7 @@ namespace FunctionFighter.Training
                 return true;
             }
 
-            if (a.StateManager.CurrentState != FunctionFighter.Mechanics.Locomotion.HitDown) return false;
+            if (!FunctionFighter.Mechanics.Locomotion.IsLyingState(a.StateManager.CurrentState)) return false;
             var g = TrainingSettings.GroundTech;
             if (g == GroundTechMode.Off) return false;
             if (g == GroundTechMode.Random) { if (_groundPick < 0) _groundPick = _techRandom.Next(4); g = (GroundTechMode)(1 + _groundPick); }

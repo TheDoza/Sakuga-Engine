@@ -7,7 +7,7 @@
 
 [sub_resource type="Resource" id="Resource_mhh1k"]
 script = ExtResource("1_mhh1k")
-SourceAnimation = "Crouching"
+SourceAnimation = "Roll_Forward"
 
 [sub_resource type="Resource" id="Resource_ss1nx"]
 script = ExtResource("3_p23bp")

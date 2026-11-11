@@ -1,0 +1,50 @@
+[gd_resource type="Resource" script_class="FighterState" format=3 uid="uid://ckmvpwd5yqhem"]
+
+[ext_resource type="Resource" uid="uid://t7jn2choecm0" path="res://Fighters/BasicBro/Moves/FireballEX/AnimationData/0_FireballEX_Spawn_AnimationData.tres" id="1_anim"]
+[ext_resource type="Script" uid="uid://bho4h38y7suxk" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Conditions/StateEndedCondition.cs" id="s_ended"]
+[ext_resource type="Script" uid="uid://c076jc3huncn2" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/FrameDataEvent.cs" id="s_event"]
+[ext_resource type="Script" uid="uid://bgwrlqrhqb2a4" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/MoveXAction.cs" id="s_movex"]
+[ext_resource type="Script" uid="uid://bw1835rb2hj7y" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/MoveYAction.cs" id="s_movey"]
+[ext_resource type="Script" uid="uid://da4kqpf635oin" path="res://Scripts/SakugaEngine/Resources/FrameDataEvents/Actions/PlayStateAction.cs" id="s_play"]
+[ext_resource type="Script" uid="uid://bf60srwkccsm8" path="res://Scripts/SakugaEngine/Resources/FighterState.cs" id="s_state"]
+
+[sub_resource type="Resource" id="Resource_movex"]
+script = ExtResource("s_movex")
+metadata/_custom_type_script = "uid://bgwrlqrhqb2a4"
+
+[sub_resource type="Resource" id="Resource_movey"]
+script = ExtResource("s_movey")
+metadata/_custom_type_script = "uid://bw1835rb2hj7y"
+
+[sub_resource type="Resource" id="Resource_hold_still"]
+script = ExtResource("s_event")
+Conditions = null
+Actions = Array[Object]([SubResource("Resource_movex"), SubResource("Resource_movey")])
+metadata/_custom_type_script = "uid://c076jc3huncn2"
+
+[sub_resource type="Resource" id="Resource_play_next"]
+script = ExtResource("s_play")
+StateIndex = 1
+metadata/_custom_type_script = "uid://da4kqpf635oin"
+
+[sub_resource type="Resource" id="Resource_ended"]
+script = ExtResource("s_ended")
+metadata/_custom_type_script = "uid://bho4h38y7suxk"
+
+[sub_resource type="Resource" id="Resource_go_next"]
+script = ExtResource("s_event")
+Conditions = Array[Object]([SubResource("Resource_ended")])
+Actions = Array[Object]([SubResource("Resource_play_next")])
+metadata/_custom_type_script = "uid://c076jc3huncn2"
+
+[resource]
+script = ExtResource("s_state")
+StateName = "Spawn"
+AnimationData = ExtResource("1_anim")
+TransitionEvents = Array[Object]([SubResource("Resource_go_next")])
+OnEnterEvents = null
+OnTickEvents = Array[Object]([SubResource("Resource_hold_still")])
+OnExitEvents = null
+OnHitConfirmEvents = null
+OnHitReactionEvents = null
+metadata/_custom_type_script = "uid://bf60srwkccsm8"

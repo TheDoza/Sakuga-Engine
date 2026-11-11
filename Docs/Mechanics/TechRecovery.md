@@ -2,7 +2,7 @@
 
 **Status:** ✅ Working (tested 2026-10-12) · **Fighters:** all (universal states 13, 14, 26, 27, 70, 71; numbers per fighter) · **Rollback-safe:** Yes (runs in `Locomotion`, saved with the fighter)
 
-Modelled on BBCF. Frame 1 = the frame the fighter lands in **Hit_Down** (26).
+Modelled on BBCF. Frame 1 = the frame the fighter lands in **Hit_Down** (26), or **Hit_Down_FaceDown** (78, after a crumple, trip or spin): both run the same timeline.
 
 ## Knockdown timeline (soft knockdown)
 | Frames | What can happen |
@@ -45,7 +45,8 @@ Hold down + a button with P1 (keyboard: hold S).
 |---|---|---|
 | **2A** Test Launcher | 104 | air hit, air-techable after the untechable part |
 | **2B** Test Air Knockdown | 105 | soft knockdown: Emergency Tech, rolls, Neutral Tech |
-| **2C** Test Hard Sweep | 106 | low, hard knockdown: no tech, just gets up |
+| **1C** Test Hard Sweep | 106 | low, hard knockdown: no tech, just gets up (down-back + C) |
+| **2C** Test Launch | 111 | anti-air launcher (Hit_Launch, see HitStates.md): air-techable after hitstun, else lands in Hit_Down |
 | **2D** Test Fast Knockdown | 107 | pops up and lands right away: wakeup / meaty practice |
 
 In Training, the dummy can tech by itself (**Air Tech**, **Ground Tech**, **Tech Delay**) and reverse on wakeup: see Training.md.
