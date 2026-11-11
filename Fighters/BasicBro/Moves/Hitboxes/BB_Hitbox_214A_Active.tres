@@ -48,7 +48,12 @@ Size = Vector2i(24000, 12000)
 HitboxType = 2
 HitType = 1
 
+[sub_resource type="Resource" id="Resource_ud6p2"]
+script = ExtResource("2_he")
+Center = Vector2i(2360, 12364)
+Size = Vector2i(9762, 4487)
+
 [resource]
 script = ExtResource("1_hs")
 Pushbox = ExtResource("3_push")
-Hitboxes = [SubResource("Resource_hurt"), SubResource("Resource_strike"), SubResource("Resource_prox")]
+Hitboxes = [SubResource("Resource_hurt"), SubResource("Resource_strike"), SubResource("Resource_prox"), SubResource("Resource_ud6p2")]

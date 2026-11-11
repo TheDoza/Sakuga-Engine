@@ -6,8 +6,8 @@
 
 [sub_resource type="Resource" id="R1"]
 script = ExtResource("1_5j20d")
-Center = Vector2i(0, 5000)
-Size = Vector2i(5000, 10000)
+Center = Vector2i(0, 8108)
+Size = Vector2i(5000, 7210)
 
 [sub_resource type="Resource" id="R2"]
 script = ExtResource("1_5j20d")
@@ -57,7 +57,12 @@ AirBlockKnockback = Vector2i(-15000, 0)
 AirBlockKnockbackGravity = 230000
 AirBlockstun = 12
 
+[sub_resource type="Resource" id="Resource_i8ikc"]
+script = ExtResource("1_5j20d")
+Center = Vector2i(0, 12953)
+Size = Vector2i(4097, 10000)
+
 [resource]
 script = ExtResource("3_eoyds")
 Pushbox = ExtResource("2_i8ikc")
-Hitboxes = [SubResource("R1"), SubResource("R2"), SubResource("R3"), SubResource("Resource_5j20d")]
+Hitboxes = [SubResource("R1"), SubResource("R2"), SubResource("R3"), SubResource("Resource_5j20d"), SubResource("Resource_i8ikc")]
